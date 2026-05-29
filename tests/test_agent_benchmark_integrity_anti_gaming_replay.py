@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_benchmark_integrity_anti_gaming_trace,
+)
 import microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay as benchmark_replay
 from microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay import (
     CARD_SCHEMA_VERSION,
@@ -12,6 +15,7 @@ from microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay import (
     main,
     run,
     run_benchmark_integrity_bundle,
+    validate_public_trace,
 )
 
 
@@ -79,6 +83,80 @@ def test_agent_benchmark_integrity_replay_observes_negative_cases(
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+    # The organ now COMPUTES the integrity verdict from contamination /
+    # file-access / locked-evaluator spans instead of echoing the declared field.
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == 3
+    assert result["public_trace_integrity_pass_count"] == 2
+    assert result["public_trace_quarantine_count"] == 1
+    assert result["public_trace_finding_count"] == 0
+    assert result["public_trace_status"] == "pass"
+    for span in result["public_agent_execution_trace"]["spans"]:
+        assert span["integrity_verdict_matches_declared"] is True
+        assert (
+            span["computed_integrity_verdict"] == span["declared_integrity_verdict"]
+        )
+
+
+def test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict() -> None:
+    trace = build_public_benchmark_integrity_anti_gaming_trace(FIXTURE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["span_count"] == 3
+    assert (
+        trace["source_faithful_refactor"]["verification_mode"]
+        == "extension_of_existing_public_refactor"
+    )
+    assert trace["audit"]["coverage"]["integrity_verdict_recompute_coverage"] is True
+    assert trace["audit"]["coverage"]["locked_evaluator_coverage"] is True
+    assert trace["audit"]["coverage"]["body_in_receipt"] is False
+
+    by_replay = {span["span_id"].replace("span:", ""): span for span in trace["spans"]}
+    assert (
+        by_replay["replay_repo_issue_public_001_clean"]["computed_integrity_verdict"]
+        == "integrity_pass"
+    )
+    assert (
+        by_replay["replay_repo_issue_public_003_quarantined"][
+            "computed_integrity_verdict"
+        ]
+        == "quarantine"
+    )
+
+
+def test_agent_benchmark_integrity_verdict_mismatch_is_caught(tmp_path: Path) -> None:
+    # Flip a declared integrity verdict so it no longer matches the recomputation
+    # (the quarantined replay carries a quarantine_reason_ref, so recomputation
+    # forces quarantine); assert the new stable error code fires.
+    fixture_copy = tmp_path / "input"
+    shutil.copytree(FIXTURE_INPUT, fixture_copy)
+    obs_path = fixture_copy / "replay_observations.json"
+    observations = json.loads(obs_path.read_text(encoding="utf-8"))
+    for row in observations["replay_observations"]:
+        if row["replay_id"] == "replay_repo_issue_public_003_quarantined":
+            row["integrity_verdict"] = "integrity_pass"
+    obs_path.write_text(json.dumps(observations, sort_keys=True), encoding="utf-8")
+
+    trace = build_public_benchmark_integrity_anti_gaming_trace(fixture_copy)
+    assert trace["status"] == "blocked"
+    trace_codes = {row["error_code"] for row in trace["audit"]["findings"]}
+    assert "PUBLIC_TRACE_BENCHMARK_INTEGRITY_VERDICT_MISMATCH" in trace_codes
+
+    folded = validate_public_trace(trace)
+    folded_codes = {row["error_code"] for row in folded["findings"]}
+    assert "PUBLIC_TRACE_BENCHMARK_INTEGRITY_VERDICT_MISMATCH" in folded_codes
+    assert folded["status"] == "blocked"
+
+    result = run(
+        fixture_copy,
+        tmp_path / "receipts",
+        command="pytest",
+        acceptance_out=tmp_path / "acceptance.json",
+    )
+    assert result["status"] == "blocked"
+    assert "PUBLIC_TRACE_BENCHMARK_INTEGRITY_VERDICT_MISMATCH" in result["error_codes"]
+    assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
 
 
 def test_agent_benchmark_integrity_receipts_are_public_relative_and_body_free(

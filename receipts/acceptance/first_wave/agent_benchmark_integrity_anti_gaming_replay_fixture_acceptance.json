@@ -26,7 +26,7 @@
     "swe_bench_performance_claim_authorized": false
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "created_at": "2026-05-26T18:18:30+00:00",
+  "created_at": "2026-05-29T19:41:22+00:00",
   "error_codes": [
     "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
     "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
@@ -67,11 +67,227 @@
     "scanned_path_count": 19,
     "status": "pass"
   },
+  "public_agent_execution_trace": {
+    "audit": {
+      "coverage": {
+        "body_in_receipt": false,
+        "case_roster_coverage": true,
+        "file_access_log_coverage": true,
+        "integrity_verdict_recompute_coverage": true,
+        "locked_evaluator_coverage": true
+      },
+      "finding_count": 0,
+      "findings": []
+    },
+    "authority_ceiling": {
+      "credential_entry_authorized": false,
+      "external_network_mutation_authorized": false,
+      "hidden_reasoning_exported": false,
+      "live_account_action_authorized": false,
+      "live_browser_control_authorized": false,
+      "live_home_session_logs_read": false,
+      "provider_payload_read": false,
+      "raw_screenshot_body_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "bundle_id": "agent_benchmark_integrity_anti_gaming_replay_fixture_input",
+    "input_ref": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input",
+    "protocol_id": "agent_benchmark_integrity_public_fixture",
+    "schema_version": "public_agent_execution_trace_refactor_v0",
+    "source_faithful_refactor": {
+      "omitted_live_material": [
+        "private issue bodies",
+        "oracle patch bodies",
+        "hidden gold bodies",
+        "raw patch bodies",
+        "test answer bodies",
+        "provider payload bodies"
+      ],
+      "preserved_semantics": [
+        "observable_action_span_rows",
+        "authority_boundary_metadata",
+        "sequence_ordered_trace",
+        "audit_findings",
+        "public_summary_counts",
+        "locked_evaluator_refs",
+        "contamination_and_file_access_refs",
+        "recomputed_integrity_verdict"
+      ],
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "verification_mode": "extension_of_existing_public_refactor"
+    },
+    "source_refs": [
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json"
+    ],
+    "source_symbols": [
+      "system/lib/agent_execution_trace.py::Span",
+      "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+      "system/lib/agent_execution_trace.py::write_agent_execution_trace",
+      "codex/standards/std_agent_execution_trace.json::types.Span",
+      "codex/standards/std_agent_execution_trace.json::strict_boundary"
+    ],
+    "span_count": 3,
+    "spans": [
+      {
+        "action_kind": "benchmark_integrity_replay",
+        "agent": "microcosm_public_fixture",
+        "authority_verdict_id": "sha256:evaluator001",
+        "body_in_receipt": false,
+        "computed_integrity_verdict": "integrity_pass",
+        "contamination_check_backed": true,
+        "declared_integrity_verdict": "integrity_pass",
+        "duration_ms": 0,
+        "episode_id": "repo_issue_public_001",
+        "evaluator_locked": true,
+        "file_access_log_backed": true,
+        "has_contamination_signal": false,
+        "input_digest": "sha256:f01fdc666b85657e2c9c9cf1c83753eade47b74570cbb4477a025e66a1b9fdf3",
+        "integrity_verdict_matches_declared": true,
+        "observation_ref": "receipts/benchmark_integrity/output_replay_001.json",
+        "outcome": "integrity_pass",
+        "sequence_index": 0,
+        "session_id": "agent_benchmark_integrity_anti_gaming_replay_fixture_input",
+        "source_ref": "agent_benchmark_integrity_anti_gaming_replay_bundle",
+        "span_id": "span:replay_repo_issue_public_001_clean",
+        "state_transition_ref": "receipts/benchmark_integrity/contamination_001.json",
+        "target_refs": [
+          "locked_repo_repair_scorer_v1"
+        ],
+        "tool_name": "agent_benchmark_integrity_anti_gaming_replay",
+        "trusted_reference_backed": true,
+        "turn_index": 0
+      },
+      {
+        "action_kind": "benchmark_integrity_replay",
+        "agent": "microcosm_public_fixture",
+        "authority_verdict_id": "sha256:evaluator002",
+        "body_in_receipt": false,
+        "computed_integrity_verdict": "integrity_pass",
+        "contamination_check_backed": true,
+        "declared_integrity_verdict": "integrity_pass",
+        "duration_ms": 0,
+        "episode_id": "repo_issue_public_002",
+        "evaluator_locked": true,
+        "file_access_log_backed": true,
+        "has_contamination_signal": false,
+        "input_digest": "sha256:20367a2ec349d0165faf4125d9a7a1d6e98c083a59362036efafa283f10a3297",
+        "integrity_verdict_matches_declared": true,
+        "observation_ref": "receipts/benchmark_integrity/output_replay_002.json",
+        "outcome": "integrity_pass",
+        "sequence_index": 1,
+        "session_id": "agent_benchmark_integrity_anti_gaming_replay_fixture_input",
+        "source_ref": "agent_benchmark_integrity_anti_gaming_replay_bundle",
+        "span_id": "span:replay_repo_issue_public_002_clean",
+        "state_transition_ref": "receipts/benchmark_integrity/contamination_002.json",
+        "target_refs": [
+          "locked_regression_guard_scorer_v1"
+        ],
+        "tool_name": "agent_benchmark_integrity_anti_gaming_replay",
+        "trusted_reference_backed": true,
+        "turn_index": 1
+      },
+      {
+        "action_kind": "benchmark_integrity_replay",
+        "agent": "microcosm_public_fixture",
+        "authority_verdict_id": "sha256:evaluator003",
+        "body_in_receipt": false,
+        "computed_integrity_verdict": "quarantine",
+        "contamination_check_backed": true,
+        "declared_integrity_verdict": "quarantine",
+        "duration_ms": 0,
+        "episode_id": "repo_issue_public_003",
+        "evaluator_locked": true,
+        "file_access_log_backed": true,
+        "has_contamination_signal": false,
+        "input_digest": "sha256:7eb8bca651ed46e91ef21b146c4342eeb7c88dc0ad6ff5c46579f964253d8c93",
+        "integrity_verdict_matches_declared": true,
+        "observation_ref": "receipts/benchmark_integrity/output_replay_003.json",
+        "outcome": "quarantine",
+        "recovery_ref": "receipts/benchmark_integrity/quarantine_oracle_patch_body_ref_003.json",
+        "sequence_index": 2,
+        "session_id": "agent_benchmark_integrity_anti_gaming_replay_fixture_input",
+        "source_ref": "agent_benchmark_integrity_anti_gaming_replay_bundle",
+        "span_id": "span:replay_repo_issue_public_003_quarantined",
+        "state_transition_ref": "receipts/benchmark_integrity/contamination_003.json",
+        "target_refs": [
+          "locked_repo_repair_scorer_v1"
+        ],
+        "tool_name": "agent_benchmark_integrity_anti_gaming_replay",
+        "trusted_reference_backed": true,
+        "turn_index": 2
+      }
+    ],
+    "status": "pass",
+    "summary": {
+      "action_kind_counts": {
+        "benchmark_integrity_replay": 3
+      },
+      "finding_count": 0,
+      "integrity_pass_count": 2,
+      "outcome_counts": {
+        "integrity_pass": 2,
+        "quarantine": 1
+      },
+      "quarantine_count": 1,
+      "session_count": 1,
+      "total_span_count": 3,
+      "trace_digest": "sha256:587c2208f5aa9d488ee702e4a828b759ff28c34cfe1f52b0117fd22845fa9e78"
+    },
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sabotage_scheming_monitor_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_monitor_redteam_falsification_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::main"
+    ]
+  },
+  "public_trace_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace"
+    ],
+    "body_material_status": "public_agent_execution_trace_refactor_landed",
+    "reader_action": "Open microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace for the refactored body that recomputes each replay's integrity verdict from contamination, file-access, and locked-evaluator spans; receipts carry spans, digests, counts, and findings only.",
+    "schema_version": "agent_benchmark_integrity_public_trace_open_body_v1",
+    "status": "pass",
+    "target_symbols": [
+      "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sabotage_scheming_monitor_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_monitor_redteam_falsification_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::main"
+    ],
+    "trace_digest": "sha256:587c2208f5aa9d488ee702e4a828b759ff28c34cfe1f52b0117fd22845fa9e78"
+  },
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
-    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
-    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
   ],
   "schema_version": "agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance_v1",
   "source_module_import_count": 3,

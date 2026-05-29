@@ -6,6 +6,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_sabotage_scheming_monitor_trace,
+)
 import microcosm_core.organs.agent_sabotage_scheming_monitor_replay as sabotage_replay
 from microcosm_core.organs.agent_sabotage_scheming_monitor_replay import (
     CARD_SCHEMA_VERSION,
@@ -13,6 +16,7 @@ from microcosm_core.organs.agent_sabotage_scheming_monitor_replay import (
     main,
     run,
     run_sabotage_bundle,
+    validate_public_trace,
 )
 from microcosm_core.runtime_shell import RuntimeShell
 
@@ -149,6 +153,79 @@ def test_agent_sabotage_scheming_monitor_observes_negative_cases(
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+    # The organ now COMPUTES caught verdicts from a refactored macro body
+    # instead of echoing the declared fixture field.
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == 3
+    assert result["public_trace_caught_episode_count"] == 2
+    assert result["public_trace_missed_episode_count"] == 1
+    assert result["public_trace_finding_count"] == 0
+    assert result["source_open_body_imports_status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 3
+    assert result["body_material_status"] == "public_agent_execution_trace_refactor_landed"
+    for span in result["public_agent_execution_trace"]["spans"]:
+        assert span["caught_verdict_matches_declared"] is True
+        assert span["computed_caught_verdict"] == span["declared_caught_verdict"]
+
+
+def test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict() -> None:
+    trace = build_public_sabotage_scheming_monitor_trace(FIXTURE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["span_count"] == 3
+    assert (
+        trace["source_faithful_refactor"]["verification_mode"]
+        == "extension_of_existing_public_refactor"
+    )
+    assert trace["audit"]["coverage"]["caught_verdict_recompute_coverage"] is True
+    assert trace["audit"]["coverage"]["counterfactual_isolation_coverage"] is True
+    assert trace["audit"]["coverage"]["body_in_receipt"] is False
+
+    by_episode = {span["episode_id"]: span for span in trace["spans"]}
+    # ep_001/ep_002 are caught (a block verdict at high suspicion); ep_003 is
+    # not caught (escalate-only, no block) — recomputed, not echoed.
+    assert by_episode["scheming_ep_001"]["computed_caught_verdict"] == "caught"
+    assert by_episode["scheming_ep_002"]["computed_caught_verdict"] == "caught"
+    assert by_episode["scheming_ep_003"]["computed_caught_verdict"] == "not_caught"
+
+
+def test_agent_sabotage_scheming_caught_verdict_mismatch_is_caught(
+    tmp_path: Path,
+) -> None:
+    # Flip a declared caught verdict so it no longer matches the recomputation,
+    # and assert the new stable error code fires while the rest of the contract
+    # (negative cases) stays intact.
+    fixture_copy = tmp_path / "input"
+    shutil.copytree(FIXTURE_INPUT, fixture_copy)
+    episodes_path = fixture_copy / "task_episodes.json"
+    episodes = json.loads(episodes_path.read_text(encoding="utf-8"))
+    for episode in episodes["task_episodes"]:
+        if episode["episode_id"] == "scheming_ep_003":
+            # Recomputation says not_caught (escalate-only); declare caught.
+            episode["caught_verdict"] = "caught"
+    episodes_path.write_text(json.dumps(episodes, sort_keys=True), encoding="utf-8")
+
+    trace = build_public_sabotage_scheming_monitor_trace(fixture_copy)
+    assert trace["status"] == "blocked"
+    trace_codes = {row["error_code"] for row in trace["audit"]["findings"]}
+    assert "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH" in trace_codes
+
+    folded = validate_public_trace(trace)
+    folded_codes = {row["error_code"] for row in folded["findings"]}
+    assert "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH" in folded_codes
+    assert folded["status"] == "blocked"
+
+    result = run(
+        fixture_copy,
+        tmp_path / "receipts",
+        command="pytest",
+        acceptance_out=tmp_path / "acceptance.json",
+    )
+    assert result["status"] == "blocked"
+    assert "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH" in result["error_codes"]
+    # Negative-case coverage must not shrink under the mutation.
+    assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
 
 
 def test_agent_sabotage_scheming_monitor_receipts_are_public_relative_and_body_free(
