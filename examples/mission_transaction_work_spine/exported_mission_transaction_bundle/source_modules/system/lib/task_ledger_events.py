@@ -970,7 +970,7 @@ def _projected_state_after_candidates(
         validate_event(repo_root, event)
         for event in candidate_events
     ]
-    return build_projection([*normalized_existing, *normalized_candidates])
+    return build_projection([*normalized_existing, *normalized_candidates], repo_root=repo_root)
 
 
 def _validate_projected_state_after_candidates(

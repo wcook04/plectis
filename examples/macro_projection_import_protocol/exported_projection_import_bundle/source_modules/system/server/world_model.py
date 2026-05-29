@@ -10887,6 +10887,245 @@ def _meta_proof_constellation(repo_root: Path, *, limit: int) -> dict[str, Any]:
     }
 
 
+def _meta_principle_diagnostics(
+    *,
+    trust_strip: Mapping[str, Any],
+    command_efficiency: Mapping[str, Any],
+    work_evidence: Mapping[str, Any],
+    doctrine_health: Mapping[str, Any],
+    prompt_learning: Mapping[str, Any],
+    proof_constellation: Mapping[str, Any],
+    limit: int,
+) -> dict[str, Any]:
+    row_shape = [
+        "principle_ref",
+        "diagnostic_id",
+        "measured_surface",
+        "metric",
+        "current_score",
+        "coverage_status",
+        "drilldown",
+        "repair_route",
+    ]
+    route_coverage = (
+        doctrine_health.get("route_coverage")
+        if isinstance(doctrine_health.get("route_coverage"), Mapping)
+        else {}
+    )
+    route_summary = (
+        route_coverage.get("summary")
+        if isinstance(route_coverage.get("summary"), Mapping)
+        else {}
+    )
+    frontend_navigation = (
+        trust_strip.get("frontend_navigation")
+        if isinstance(trust_strip.get("frontend_navigation"), Mapping)
+        else {}
+    )
+    task_ledger = (
+        work_evidence.get("task_ledger")
+        if isinstance(work_evidence.get("task_ledger"), Mapping)
+        else {}
+    )
+    task_counts = task_ledger.get("counts") if isinstance(task_ledger.get("counts"), Mapping) else {}
+    active_receipts = (
+        work_evidence.get("active_receipts")
+        if isinstance(work_evidence.get("active_receipts"), list)
+        else []
+    )
+    validated_receipts = [
+        row for row in active_receipts
+        if isinstance(row, Mapping) and row.get("validation_refs")
+    ]
+    dependency_blockers = (
+        work_evidence.get("dependency_blockers")
+        if isinstance(work_evidence.get("dependency_blockers"), Mapping)
+        else {}
+    )
+    propagation = (
+        work_evidence.get("propagation")
+        if isinstance(work_evidence.get("propagation"), Mapping)
+        else {}
+    )
+    action_packet = (
+        command_efficiency.get("action_packet")
+        if isinstance(command_efficiency.get("action_packet"), Mapping)
+        else {}
+    )
+    action_rows = action_packet.get("rows") if isinstance(action_packet.get("rows"), list) else []
+    latency = (
+        command_efficiency.get("latency_speedboard")
+        if isinstance(command_efficiency.get("latency_speedboard"), Mapping)
+        else {}
+    )
+    latency_summary = latency.get("summary") if isinstance(latency.get("summary"), Mapping) else {}
+    adoption = (
+        prompt_learning.get("adoption_posture")
+        if isinstance(prompt_learning.get("adoption_posture"), Mapping)
+        else {}
+    )
+    prompt_state_counts = (
+        adoption.get("state_counts")
+        if isinstance(adoption.get("state_counts"), Mapping)
+        else {}
+    )
+    prompt_ledger = (
+        prompt_learning.get("ledger")
+        if isinstance(prompt_learning.get("ledger"), Mapping)
+        else {}
+    )
+    proof_gate = (
+        proof_constellation.get("dissemination_gate")
+        if isinstance(proof_constellation.get("dissemination_gate"), Mapping)
+        else {}
+    )
+    route_attention = route_summary.get("route_health_attention_count")
+    validation_binding_score = len(validated_receipts)
+    work_item_count = task_counts.get("work_items") or task_counts.get("total") or 0
+    type_b_projection_rows = 0
+
+    rows = [
+        {
+            "principle_ref": "axiom_candidate_integration_not_greenfield",
+            "diagnostic_id": "availability_ladder_existing_surface_binding",
+            "measured_surface": "trust_strip.frontend_navigation + doctrine_health.route_coverage",
+            "metric": "route_health_attention_count",
+            "current_score": _meta_number(route_attention),
+            "coverage_status": "covered" if route_summary else "gap",
+            "drilldown": "./repo-python kernel.py --coverage-enforcement-matrix \"principle diagnostic layer\" --context-budget 12000",
+            "repair_route": "./repo-python kernel.py --navigation-metabolism \"availability ladder principle diagnostic binding\" --context-budget 12000",
+            "source_refs": [
+                FRONTEND_NAV_GRAPH_PATH,
+                META_DIAGNOSTICS_PAPER_ROUTE_COVERAGE_PATH,
+            ],
+            "status": _meta_pressure_status(route_attention),
+            "supporting_score": 1 if frontend_navigation.get("route_ready") else 0,
+        },
+        {
+            "principle_ref": "propagation_as_closure",
+            "diagnostic_id": "propagation_debt_receipt_binding",
+            "measured_surface": "work_evidence.propagation",
+            "metric": "propagation_needed_count",
+            "current_score": _meta_number(propagation.get("count")),
+            "coverage_status": "covered" if propagation else "gap",
+            "drilldown": "/api/world-model/task-ledger/projection",
+            "repair_route": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+            "source_refs": ["state/task_ledger/views/propagation_needed.json"],
+            "status": _meta_pressure_status(propagation.get("count")),
+        },
+        {
+            "principle_ref": "pri_140",
+            "diagnostic_id": "noticed_signal_capture_binding",
+            "measured_surface": "work_evidence.task_ledger",
+            "metric": "bounded_work_item_count",
+            "current_score": _meta_number(work_item_count),
+            "coverage_status": "partial",
+            "drilldown": "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --detail compact",
+            "repair_route": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> --rebuild ...",
+            "source_refs": ["state/task_ledger/ledger.json", "state/task_ledger/views"],
+            "status": "warn" if _meta_number(dependency_blockers.get("count")) else "ok",
+        },
+        {
+            "principle_ref": "status_binding",
+            "diagnostic_id": "claims_require_verification_binding",
+            "measured_surface": "work_evidence.active_receipts.validation_refs",
+            "metric": "active_receipts_with_validation_refs",
+            "current_score": validation_binding_score,
+            "coverage_status": "covered" if validation_binding_score else "partial",
+            "drilldown": "/api/world-model/task-ledger/projection",
+            "repair_route": "./repo-python tools/meta/factory/task_ledger_apply.py execution-receipt --help",
+            "source_refs": ["state/task_ledger/views/active_wip.json"],
+            "status": "ok" if validation_binding_score else "warn",
+        },
+        {
+            "principle_ref": "compression_band_command_efficiency",
+            "diagnostic_id": "command_efficiency_replacement_route_binding",
+            "measured_surface": "command_efficiency.action_packet + command_efficiency.latency_speedboard",
+            "metric": "replacement_route_count",
+            "current_score": len(action_rows),
+            "coverage_status": "covered" if action_rows else "partial",
+            "drilldown": "./repo-python kernel.py --session-diagnostics --lens latency --last 10 --store both --json",
+            "repair_route": "./repo-python kernel.py --trace-friction-board --last 30 --write-trace-observatory-projection",
+            "source_refs": [
+                META_DIAGNOSTICS_TRACE_OBSERVATORY_PATH,
+                META_DIAGNOSTICS_LATENCY_SPEEDBOARD_PATH,
+            ],
+            "status": "ok" if action_rows else "warn",
+            "supporting_score": latency_summary.get("total_cumulative_saved_s"),
+        },
+        {
+            "principle_ref": "cap_quick_cap_c_project_axioms_principles_into_typ_e1288de3325a",
+            "diagnostic_id": "type_b_prompt_principle_projection_gap",
+            "measured_surface": "prompt_learning.adoption_posture",
+            "metric": "type_b_prompt_projection_rows",
+            "current_score": type_b_projection_rows,
+            "coverage_status": "gap",
+            "drilldown": "./repo-python kernel.py --context-pack \"Type B prompt principle projection\" --context-budget 12000",
+            "repair_route": "./repo-python kernel.py --option-surface prompt_ledger --band cluster_flag",
+            "source_refs": [
+                META_DIAGNOSTICS_PROMPT_LEDGER_PATH,
+                META_DIAGNOSTICS_PROMPT_ADOPTION_PATH,
+                "codex/standards/std_agent_entry_surface.json::type_b_to_type_a_handoff_framing_contract",
+            ],
+            "status": "warn",
+            "consumer": "future_type_b_prompt_projection",
+            "supporting_score": prompt_state_counts.get("validated_count") or prompt_ledger.get("trace_count"),
+        },
+        {
+            "principle_ref": "proof_over_claim",
+            "diagnostic_id": "public_claim_gate_binding",
+            "measured_surface": "proof_constellation.dissemination_gate",
+            "metric": "blocking_violation_count",
+            "current_score": _meta_number(proof_gate.get("blocking_violation_count")),
+            "coverage_status": "covered" if proof_gate else "gap",
+            "drilldown": META_DIAGNOSTICS_DISSEMINATION_GATE_PATH,
+            "repair_route": "./repo-python kernel.py --context-pack \"public proof gate\" --context-budget 12000",
+            "source_refs": [META_DIAGNOSTICS_DISSEMINATION_GATE_PATH],
+            "status": _meta_pressure_status(proof_gate.get("blocking_violation_count"), block_at=1),
+        },
+    ]
+    status_counts = Counter(str(row.get("coverage_status") or "unknown") for row in rows)
+    return {
+        "schema": "principle_diagnostics_projection_v0",
+        "status": "available",
+        "work_item_id": "cap_quick_principle_grounded_diagnostic_layer_mach_9cf4ea066e59",
+        "row_shape": row_shape,
+        "summary": {
+            "row_count": len(rows),
+            "covered_count": status_counts.get("covered", 0),
+            "partial_count": status_counts.get("partial", 0),
+            "gap_count": status_counts.get("gap", 0),
+            "type_b_prompt_projection_gap_count": sum(
+                1 for row in rows
+                if row.get("diagnostic_id") == "type_b_prompt_principle_projection_gap"
+                and row.get("coverage_status") == "gap"
+            ),
+        },
+        "rows": rows,
+        "acceptance_contract": {
+            "row_shape": row_shape,
+            "machine_first": True,
+            "future_frontend": "heatmap over principle_ref x diagnostic_id with drilldowns and repair routes",
+            "validation_commands": [
+                "./repo-python kernel.py --coverage-enforcement-matrix \"principle diagnostic layer\" --context-budget 12000",
+                "./repo-pytest --host-pressure-policy=warn system/server/tests/test_world_model_meta_diagnostics_console.py",
+            ],
+        },
+        "frontend_consumers": [
+            {
+                "consumer_id": "axiom_derived_frontend_system_cockpit",
+                "work_item_id": "cap_quick_axiom_derived_frontend_system_cockpit_6b8254709e07",
+                "unlock_condition": "principle_diagnostics.rows expose principle_ref, diagnostic_id, coverage_status, drilldown, and repair_route",
+            }
+        ],
+        "omission_receipt": {
+            "sample_limit": limit,
+            "omitted": ["full principle catalogue", "raw prompt trace payloads", "full task ledger events"],
+            "reason": "The Meta Diagnostics packet emits a bounded binding matrix over existing projections; source authorities stay behind their owner routes.",
+        },
+    }
+
+
 def _meta_number(value: Any, default: float = 0.0) -> float:
     if isinstance(value, bool):
         return 1.0 if value else 0.0
@@ -11726,6 +11965,15 @@ def load_meta_diagnostics_console_projection(
     external_intake = _meta_external_intake(repo_root, limit=bounded_limit)
     prompt_learning = _meta_prompt_learning(repo_root, limit=bounded_limit)
     proof_constellation = _meta_proof_constellation(repo_root, limit=bounded_limit)
+    principle_diagnostics = _meta_principle_diagnostics(
+        trust_strip=trust_strip,
+        command_efficiency=command_efficiency,
+        work_evidence=work_evidence,
+        doctrine_health=doctrine_health,
+        prompt_learning=prompt_learning,
+        proof_constellation=proof_constellation,
+        limit=bounded_limit,
+    )
 
     source_payloads = {
         META_DIAGNOSTICS_CAPABILITY_LANES_PATH: _safe_read_json(repo_root, META_DIAGNOSTICS_CAPABILITY_LANES_PATH),
@@ -11821,6 +12069,19 @@ def load_meta_diagnostics_console_projection(
             ],
         },
         {
+            "panel_id": "principle_diagnostics",
+            "title": "Principle Diagnostic Bindings",
+            "data_ref": "principle_diagnostics",
+            "recommended_visual": "principle_binding_matrix",
+            "why_useful": "Binds enforceable principles and candidate axioms to concrete diagnostic metrics, drilldowns, and repair routes.",
+            "source_refs": [
+                META_DIAGNOSTICS_PAPER_ROUTE_COVERAGE_PATH,
+                "state/task_ledger/views/active_wip.json",
+                META_DIAGNOSTICS_TRACE_OBSERVATORY_PATH,
+                META_DIAGNOSTICS_PROMPT_ADOPTION_PATH,
+            ],
+        },
+        {
             "panel_id": "external_intake",
             "title": "Annex Intake Pressure",
             "data_ref": "external_intake",
@@ -11903,6 +12164,16 @@ def load_meta_diagnostics_console_projection(
                 if isinstance((doctrine_health.get("route_coverage") or {}).get("summary"), Mapping)
                 else None
             ),
+            "principle_diagnostic_row_count": (
+                (principle_diagnostics.get("summary") or {}).get("row_count")
+                if isinstance(principle_diagnostics.get("summary"), Mapping)
+                else None
+            ),
+            "principle_diagnostic_gap_count": (
+                (principle_diagnostics.get("summary") or {}).get("gap_count")
+                if isinstance(principle_diagnostics.get("summary"), Mapping)
+                else None
+            ),
             "annex_attention_count": (
                 (external_intake.get("annex_sync") or {}).get("attention_count")
             ),
@@ -11911,7 +12182,7 @@ def load_meta_diagnostics_console_projection(
             "default_route_suggestion": "/station/meta-diagnostics",
             "endpoint": META_DIAGNOSTICS_ENDPOINT,
             "payload_class": "read_only_panel_manifest_with_drilldown_refs",
-            "recommended_layout": "trust strip, behavior timeline, work evidence lane, coverage grid, proof graph",
+            "recommended_layout": "trust strip, behavior timeline, work evidence lane, principle binding matrix, coverage grid, proof graph",
             "avoid": [
                 "rendering raw 196k-edge hologram graph as a default scene",
                 "listing all WorkItems",
@@ -11928,6 +12199,7 @@ def load_meta_diagnostics_console_projection(
         "command_efficiency": command_efficiency,
         "work_evidence": work_evidence,
         "doctrine_health": doctrine_health,
+        "principle_diagnostics": principle_diagnostics,
         "external_intake": external_intake,
         "prompt_learning": prompt_learning,
         "proof_constellation": proof_constellation,

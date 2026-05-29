@@ -9,7 +9,7 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 531008,
+      "byte_count": 531029,
       "classification": "copied_non_secret_macro_body",
       "line_count": 12423,
       "module_id": "task_ledger_events_body_import",
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "system/lib/task_ledger_events.py",
       "source_role": "Task Ledger authority event log and projection builder",
-      "source_sha256": "47eea48a8eb77ed2af6e1f7a184a72431e395a5b7b3ece478889b76488d0a193",
+      "source_sha256": "79bdef7caf9f807446fb586bbb978eb40bdc409d5034004196901887d8d9e580",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
-      "target_sha256": "47eea48a8eb77ed2af6e1f7a184a72431e395a5b7b3ece478889b76488d0a193"
+      "target_sha256": "79bdef7caf9f807446fb586bbb978eb40bdc409d5034004196901887d8d9e580"
     },
     {
       "anchor_count": 6,
