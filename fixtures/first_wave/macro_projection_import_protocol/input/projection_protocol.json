@@ -3509,18 +3509,18 @@
         "preserve_active_execution_regression_body_without_claiming_live_task_or_work_ledger_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:a518bbdba303ab40a23d2011e22a9939ff0be01a0a58eab364494eff90fae01f",
+      "body_digest": "sha256:5608589d4630672f080707c8ffe516036f11770bca65a250ecce9c9fcdf6d4a9",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:a518bbdba303ab40a23d2011e22a9939ff0be01a0a58eab364494eff90fae01f",
+        "source_body_digest": "sha256:5608589d4630672f080707c8ffe516036f11770bca65a250ecce9c9fcdf6d4a9",
         "source_line_count": 693,
         "source_ref": "system/server/tests/test_active_execution_constellation.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:a518bbdba303ab40a23d2011e22a9939ff0be01a0a58eab364494eff90fae01f",
+        "target_body_digest": "sha256:5608589d4630672f080707c8ffe516036f11770bca65a250ecce9c9fcdf6d4a9",
         "target_line_count": 693,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
         "verification_mode": "exact_source_digest_match",

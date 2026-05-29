@@ -255,7 +255,7 @@ def test_projection_carries_work_ledger_pass_awareness_cards(tmp_path: Path) -> 
     )
     assert snapshot["seed_speed_hint"]["counts"]["claim_session_heartbeat_gap_count"] == 1
     assert (
-        "session-heartbeat --session-id sess_imported_without_heartbeat"
+        "session-status --session-id sess_heartbeat --full"
         in snapshot["seed_speed_hint"]["first_action_command"]
     )
 
