@@ -99,6 +99,17 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
     assert "Reader branch: Peer developer" not in output
 
 
+def test_cli_hello_accepts_text_format_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--format", "text", "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert output.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in output
+
+
 def test_cli_first_screen_json_is_compact_by_default(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

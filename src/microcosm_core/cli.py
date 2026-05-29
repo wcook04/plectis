@@ -552,6 +552,12 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
             default="all",
             help="focus the terminal projection on one reader branch",
         )
+        parser.add_argument(
+            "--format",
+            choices=("text",),
+            default="text",
+            help="accepted for first-screen parity; hello always emits text",
+        )
         parser.add_argument("project", nargs="?", default="<project>")
         args = parser.parse_args(raw_argv[1:])
         return _emit_hello(args.project, args.reader)
