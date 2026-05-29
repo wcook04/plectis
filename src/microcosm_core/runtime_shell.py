@@ -17037,8 +17037,8 @@ class RuntimeShell:
         surface_authority_preview = [
             {
                 "surface_id": "runtime_status",
-                "command": "microcosm status",
-                "endpoint": "/status",
+                "command": "microcosm status --card <project>",
+                "endpoint": "/project/status",
             },
             {
                 "surface_id": "public_runtime_spine",
@@ -17062,8 +17062,8 @@ class RuntimeShell:
             },
             {
                 "surface_id": "runtime_reveal_import_bridge",
-                "command": "microcosm intake",
-                "endpoint": "/intake",
+                "command": "microcosm intake --card",
+                "endpoint": "/intake-card",
             },
         ]
         status = (

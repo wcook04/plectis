@@ -1616,6 +1616,21 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     assert card["surface_counts"]["organ_authority_count"] == 43
     assert card["surface_counts"]["organ_authority_preview_count"] == 8
     assert card["surface_counts"]["surface_authority_count"] >= 40
+    preview_commands = {
+        row["surface_id"]: row["command"] for row in card["surface_authority_preview"]
+    }
+    preview_endpoints = {
+        row["surface_id"]: row["endpoint"] for row in card["surface_authority_preview"]
+    }
+    assert preview_commands["runtime_status"] == "microcosm status --card <project>"
+    assert preview_endpoints["runtime_status"] == "/project/status"
+    assert (
+        preview_commands["runtime_reveal_import_bridge"]
+        == "microcosm intake --card"
+    )
+    assert preview_endpoints["runtime_reveal_import_bridge"] == "/intake-card"
+    assert "microcosm status" not in preview_commands.values()
+    assert "microcosm intake" not in preview_commands.values()
     assert card["payload_boundary"]["omits_full_surface_authority"] is True
     assert card["payload_boundary"]["omits_full_organ_authority"] is True
     assert card["payload_boundary"]["omits_full_projection_cells"] is True
