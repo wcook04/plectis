@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from microcosm_core import cli
 
 
@@ -86,6 +88,59 @@ def test_cli_observe_preserves_initialized_project_ref(
     assert payload["project_ref"] == project.as_posix()
     assert payload["state_ref"] == ".microcosm"
     assert payload["safe_to_show"]["source_files_mutated"] is False
+
+
+def test_cli_evidence_inspect_accepts_project_shorthand(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    project.mkdir()
+    (project / "README.md").write_text(
+        "# Ready Project\n\nEvidence inspect shorthand smoke.\n",
+        encoding="utf-8",
+    )
+
+    assert cli.main(["tour", "--card", project.as_posix()]) == 0
+    _payload(capsys)
+
+    ref = ".microcosm/evidence/routes.json"
+    assert cli.main(["evidence", "inspect", project.as_posix(), ref]) == 0
+    shorthand_payload = _payload(capsys)
+
+    assert shorthand_payload["status"] == "pass"
+    assert shorthand_payload["project_ref"] == project.as_posix()
+    assert shorthand_payload["evidence_ref"] == ref
+
+    assert cli.main(["evidence", "inspect", "--project", project.as_posix(), ref]) == 0
+    project_flag_payload = _payload(capsys)
+
+    assert project_flag_payload["status"] == "pass"
+    assert project_flag_payload["project_ref"] == project.as_posix()
+    assert project_flag_payload["evidence_ref"] == ref
+
+
+def test_cli_evidence_inspect_infers_current_project_for_microcosm_ref(
+    capsys, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    project.mkdir()
+    (project / "README.md").write_text(
+        "# Ready Project\n\nCurrent-directory evidence inspect smoke.\n",
+        encoding="utf-8",
+    )
+
+    assert cli.main(["tour", "--card", project.as_posix()]) == 0
+    _payload(capsys)
+
+    monkeypatch.chdir(project)
+    ref = ".microcosm/evidence/routes.json"
+    assert cli.main(["evidence", "inspect", ref]) == 0
+    payload = _payload(capsys)
+
+    assert payload["status"] == "pass"
+    assert payload["project_ref"] == "."
+    assert payload["schema_version"] == "microcosm_project_evidence_card_v1"
+    assert payload["evidence_ref"] == ref
 
 
 def test_cli_evidence_list_limit_bounds_initialized_project(

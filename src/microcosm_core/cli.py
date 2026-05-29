@@ -1436,7 +1436,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     evidence_inspect_parser.add_argument(
         "receipt_ref",
-        help="receipt or evidence ref to inspect",
+        help="receipt ref, project path when followed by a project evidence ref, or .microcosm evidence ref from the project root",
+    )
+    evidence_inspect_parser.add_argument(
+        "project_evidence_ref",
+        nargs="?",
+        help="project evidence ref for shorthand: microcosm evidence inspect <project> <ref>",
     )
 
     scan_parser = subparsers.add_parser("private-state-scan")
@@ -2112,12 +2117,33 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
         if args.evidence_command == "inspect":
-            if args.project:
-                boundary = _project_evidence_state_boundary(args.project)
+            project_arg = args.project
+            receipt_ref = args.receipt_ref
+            if args.project_evidence_ref:
+                if args.project:
+                    print(
+                        (
+                            "microcosm evidence inspect accepts either "
+                            "`--project <project> <ref>` or `<project> <ref>`, not both."
+                        ),
+                        file=sys.stderr,
+                    )
+                    return 2
+                project_arg = args.receipt_ref
+                receipt_ref = args.project_evidence_ref
+            elif (
+                not project_arg
+                and args.receipt_ref.startswith(f"{project_substrate.STATE_DIR}/")
+            ):
+                project_arg = "."
+            if project_arg:
+                boundary = _project_evidence_state_boundary(project_arg)
                 if boundary is not None:
-                    return _print_json({**boundary, "evidence_ref": args.receipt_ref})
-                return project_substrate.main(["evidence", "inspect", args.project, args.receipt_ref])
-            return runtime_shell.main(["evidence", "inspect", args.receipt_ref])
+                    return _print_json({**boundary, "evidence_ref": receipt_ref})
+                payload = project_substrate.inspect_evidence(project_arg, receipt_ref)
+                payload["project_ref"] = project_arg
+                return _print_json(payload)
+            return runtime_shell.main(["evidence", "inspect", receipt_ref])
     if args.command == "private-state-scan":
         return private_state_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "secret-exclusion-scan":
