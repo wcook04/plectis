@@ -207,6 +207,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "project/runtime status lens"
     ) in output
     assert "microcosm spine --card          read the compact runtime spine lens" in output
+    assert (
+        "microcosm run examples/runtime_shell/demo_project replay the public "
+        "runtime demo"
+    ) in output
     assert "microcosm authority --card      read the compact authority ceiling lens" in output
     assert (
         "microcosm intake --card         read the compact intake/projection bridge lens"
@@ -242,8 +246,11 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm spine --card"
     )
     assert output.index("microcosm spine --card") < output.index(
-        "microcosm authority --card"
+        "microcosm run examples/runtime_shell/demo_project"
     )
+    assert output.index(
+        "microcosm run examples/runtime_shell/demo_project"
+    ) < output.index("microcosm authority --card")
     assert output.index("microcosm authority --card") < output.index(
         "microcosm intake --card"
     )
@@ -283,6 +290,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "tour",
         "first-screen",
         "authority",
+        "run",
         "pattern-route-readiness",
         "serve",
         "evidence",
@@ -324,6 +332,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "show navigation route cleanup evidence",
         "show runtime projection intake board",
         "show public reveal walkthrough board",
+        "replay the local public runtime demo",
         "validate pattern route-readiness bundle",
     ]:
         assert help_text in output

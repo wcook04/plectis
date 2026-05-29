@@ -269,6 +269,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm first-screen <project> emit the compact JSON first-screen map
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
+  microcosm run examples/runtime_shell/demo_project replay the public runtime demo
   microcosm authority --card      read the compact authority ceiling lens
   microcosm intake --card         read the compact intake/projection bridge lens
   microcosm workingness --card    read the compact behavior/failure lens
@@ -1380,8 +1381,16 @@ def main(argv: list[str] | None = None) -> int:
         help="emit the compact first-screen authority lens",
     )
     _add_public_lens_parsers(subparsers)
-    run_parser = subparsers.add_parser("run")
-    run_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
+    run_parser = subparsers.add_parser(
+        "run",
+        help="replay the local public runtime demo",
+    )
+    run_parser.add_argument(
+        "project",
+        nargs="?",
+        default=DEFAULT_PROJECT_REL,
+        help="runtime demo project path; defaults to examples/runtime_shell/demo_project",
+    )
     serve_parser = subparsers.add_parser(
         "serve",
         help="serve the local observatory over project state",
