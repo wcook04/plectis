@@ -855,8 +855,9 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     project_state = card["front_door"]["project_state"]
     state_write_proof = card["front_door"]["state_write_proof"]
     project_body_floor = card["macro_body_import_floor"]
+    card_json = json.dumps(card, sort_keys=True)
 
-    assert len(json.dumps(card, sort_keys=True)) < 13000
+    assert len(card_json.replace(project_ref, "<project>")) < 13000
     assert card["card_command"] == f"microcosm status --card {project_ref}"
     assert card["project_ref"] == project_ref
     assert card["front_door"]["primary_command"] == (
@@ -4707,7 +4708,15 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         project_status_card["schema_version"]
         == "microcosm_runtime_status_card_v1"
     )
-    assert project_status_card["card_command"] == "microcosm status --card <project>"
+    project_status_ref = project.name
+    project_status_json = json.dumps(project_status_card, sort_keys=True)
+    assert str(project) not in project_status_json
+    assert "/Users/" not in project_status_json
+    assert "src/ai_workflow" not in project_status_json
+    assert project_status_card["card_command"] == (
+        f"microcosm status --card {project_status_ref}"
+    )
+    assert project_status_card["project_ref"] == project_status_ref
     assert project_status_card["front_door"]["project_state_status"] == "pass"
     assert (
         project_status_card["front_door"]["selected_route_id"]
@@ -4734,21 +4743,25 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     ]
     assert project_status_state_write["status"] == "pass"
     assert project_status_state_write["state_write_result_ref"] == (
-        "microcosm tour --card <project>::state_write_result"
+        f"microcosm tour --card {project_status_ref}::state_write_result"
     )
     assert project_status_state_write["observe_ref"] == (
-        "microcosm observe <project>::state_write_proof"
+        f"microcosm observe {project_status_ref}::state_write_proof"
     )
     assert project_status_state_write["status_card_writes_microcosm_state"] is False
     assert project_status_card["front_door"]["observatory"][
         "compact_endpoint"
     ] == "/project/observatory-card"
     assert project_status_card["front_door"]["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        f"microcosm serve {project_status_ref} "
+        "--host 127.0.0.1 --port 8765 --max-requests 6"
     )
     assert project_status_card["front_door"]["observatory"][
         "interactive_command"
-    ] == "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    ] == (
+        f"microcosm serve {project_status_ref} "
+        "--host 127.0.0.1 --port 8765"
+    )
     assert (
         project_observe["schema_version"]
         == "microcosm_project_observe_result_v1"
@@ -4989,10 +5002,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     state_write_proof = observatory_card["state_write_proof"]
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        "microcosm tour --card <project>::state_write_result"
+        f"microcosm tour --card {project_status_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        "microcosm tour --card <project>::front_door_status.surface_statuses.state_write"
+        f"microcosm tour --card {project_status_ref}::front_door_status."
+        "surface_statuses.state_write"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
     assert state_write_proof["status_card_writes_microcosm_state"] is False

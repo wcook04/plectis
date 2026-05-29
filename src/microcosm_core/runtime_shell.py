@@ -4273,6 +4273,14 @@ def _project_command_ref(project_path: str | Path) -> str:
     return text or "<project>"
 
 
+def _public_project_command_ref(project_path: str | Path, root: Path) -> str:
+    path = Path(project_path)
+    project_ref = _public_relative(path, root)
+    if project_ref.startswith("/") or project_ref.startswith(".."):
+        project_ref = path.name
+    return _project_command_ref(project_ref)
+
+
 def _replace_project_placeholder(value: Any, project_ref: str) -> Any:
     if isinstance(value, str):
         return value.replace("<project>", project_ref)
@@ -4289,6 +4297,8 @@ def _replace_project_placeholder(value: Any, project_ref: str) -> Any:
 def _runtime_status_card(
     status: dict[str, Any],
     project_path: str | Path | None = None,
+    *,
+    project_ref: str | Path | None = None,
 ) -> dict[str, Any]:
     front_door = (
         status.get("front_door", {})
@@ -4672,7 +4682,9 @@ def _runtime_status_card(
         card["front_door"]["source_open_body_import_floor"].update(defect_summary)
         card["macro_body_import_floor"].update(defect_summary)
     if project_path is not None:
-        project_ref = _project_command_ref(project_path)
+        project_ref = _project_command_ref(
+            project_ref if project_ref is not None else project_path
+        )
         project_overlay = _project_status_overlay(project_path)
         selected_route_id = project_overlay.get("selected_route_id")
         project_state_summary = _replace_project_placeholder(
@@ -6113,10 +6125,16 @@ class RuntimeShell:
             "evidence_count": self.evidence_count(),
         }
 
-    def status_card(self, project_path: str | Path | None = None) -> dict[str, Any]:
+    def status_card(
+        self,
+        project_path: str | Path | None = None,
+        *,
+        project_ref: str | Path | None = None,
+    ) -> dict[str, Any]:
         return _runtime_status_card(
             self._status_card_source_payload(),
             project_path=project_path,
+            project_ref=project_ref,
         )
 
     def spine(self) -> dict[str, Any]:
@@ -7058,9 +7076,7 @@ class RuntimeShell:
         intake = self.intake()
         reveal = self.reveal(persist_receipt=persist_receipt)
 
-        project_ref = _public_relative(project_path, self.root)
-        if project_ref.startswith("/") or project_ref.startswith(".."):
-            project_ref = project_path.name
+        project_ref = _public_project_command_ref(project_path, self.root)
 
         tour_path = self.runtime_receipt_dir / "public_ten_minute_tour.json"
         evidence_refs = list(
@@ -18131,7 +18147,11 @@ class RuntimeShell:
     ) -> dict[str, Any]:
         if tour_payload_mode not in {"full", "card"}:
             raise ValueError("tour_payload_mode must be 'full' or 'card'")
-        project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
+        project_path = (
+            Path(project).expanduser().resolve(strict=False)
+            if project is not None
+            else None
+        )
         status = self.status()
         tour_project = project_path if project_path is not None else DEFAULT_PROJECT_REL
         if tour_payload_mode == "card":
@@ -20677,7 +20697,16 @@ class RuntimeShell:
             raise ValueError("max_requests must be >= 1")
 
         shell = self
-        project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
+        project_path = (
+            Path(project).expanduser().resolve(strict=False)
+            if project is not None
+            else None
+        )
+        served_project_ref = (
+            _public_project_command_ref(project_path, self.root)
+            if project_path is not None
+            else None
+        )
         observatory_cache: dict[str, Any] = {}
         authority_cache_lock = threading.Lock()
         state_prime_lock = threading.Lock()
@@ -20743,7 +20772,7 @@ class RuntimeShell:
             if isinstance(card, dict):
                 return card
             ensure_project_first_screen_state()
-            card = shell.status_card(project_path)
+            card = shell.status_card(project_path, project_ref=served_project_ref)
             observatory_cache["status_card"] = card
             return card
 
@@ -21336,7 +21365,7 @@ class RuntimeShell:
                         },
                     )
                 elif path == "/project/status" and project_path is not None:
-                    self._send(200, shell.status_card(project_path))
+                    self._send(200, cached_status_card())
                 elif path == "/project/first-screen" and project_path is not None:
                     self._send(200, cached_first_screen_card())
                 elif path == "/project/first-screen-full" and project_path is not None:
