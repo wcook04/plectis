@@ -23,6 +23,7 @@ triggers:
   - "A verification pass found nothing to edit but the operator expected a durable substrate improvement"
 focus_paths:
   - kernel.py
+  - codex/standards/std_kind_atlas.json
   - system/lib/kernel/commands/embed.py
   - system/lib/navigation_trace.py
   - system/lib/semantic_routing.py
@@ -54,6 +55,7 @@ doctrine_edges:
   principles: [pri_049, pri_111, pri_003, pri_080, pri_117]
 governing_standard_ids:
   - std_navigation_contract
+  - std_kind_atlas
   - std_navigation_rosetta_grammar
   - std_semantic_naming
 composes_with: [bootstrap, navigate, paper_module_lookup, raw_seed_contextualize, local_to_general_propagation, nav_driven_wiring_repair, agent_session_diagnostics, annex_pattern_transfer]
