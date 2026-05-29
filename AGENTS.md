@@ -18,7 +18,9 @@ If this is your first touch in a standalone clone, do not start by absorbing the
 organ inventory. First prove the local entry path and the public authority
 membrane:
 
-1. Read `README.md` for the human map and install mode.
+1. Read `README.md` for the human map and install mode. In that README, use
+   `Public Repo Map` and `Component Map` before opening raw receipts or the
+   long organ inventory.
 2. From `microcosm-substrate/`, make the console command available with
    `make install`. If you cannot use `make`, run
    `python3 -m pip install -e '.[test]'` directly; if you cannot install, use

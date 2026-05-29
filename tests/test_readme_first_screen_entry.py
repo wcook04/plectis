@@ -241,6 +241,13 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         "The human first-screen text projection is `microcosm hello <project>`"
         in agents
     )
+    assert (
+        "In that README, use\n   `Public Repo Map` and `Component Map`"
+        in agents
+    )
+    assert agents.index("`Public Repo Map` and `Component Map`") < agents.index(
+        "## Accepted Public Runtime Spine"
+    )
     assert "The shared\n   state-writing behavior proof is" in agents
     assert agents.index("microcosm hello <project>") < agents.index(
         "microcosm tour --card <project>"
