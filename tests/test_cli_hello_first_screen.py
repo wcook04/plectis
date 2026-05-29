@@ -162,6 +162,31 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
 
 
+def test_cli_first_screen_accepts_card_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["first-screen", "--card", "."]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
+    assert payload["output_policy"]["full_contract_command"] == (
+        "microcosm first-screen --full ."
+    )
+    assert payload["output_policy"]["full_contract_preserved"] is True
+    assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
+
+
+def test_cli_first_screen_card_alias_preserves_text_format(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["first-screen", "--card", "--format", "text", "."]) == 0
+    output = capsys.readouterr().out
+
+    assert output.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in output
+    assert "microcosm_first_screen_compact_card_v1" not in output
+
+
 def test_cli_first_screen_full_flag_preserves_full_contract(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -173,6 +198,32 @@ def test_cli_first_screen_full_flag_preserves_full_contract(
     assert payload["reader_route_menu"]["machine_card_command"] == (
         "microcosm first-screen ."
     )
+
+
+def test_cli_first_screen_card_alias_preserves_full_contract(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["first-screen", "--card", "--full", "."]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert "video_storyboard_packet" in payload
+    assert payload["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen ."
+    )
+
+
+def test_cli_first_screen_help_documents_card_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["first-screen", "--help"])
+
+    output = capsys.readouterr().out
+
+    assert excinfo.value.code == 0
+    assert "--card" in output
+    assert "compact JSON card alias" in output
 
 
 def test_cli_first_screen_fast_path_avoids_runtime_shell_import() -> None:

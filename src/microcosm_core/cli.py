@@ -606,6 +606,11 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
             help="emit the JSON machine card or terminal projection",
         )
         parser.add_argument(
+            "--card",
+            action="store_true",
+            help="accepted as a compact JSON card alias",
+        )
+        parser.add_argument(
             "--full",
             action="store_true",
             help="emit the full first-screen contract JSON instead of the compact projection",
@@ -1414,6 +1419,11 @@ def main(argv: list[str] | None = None) -> int:
         choices=("json", "text"),
         default="json",
         help="emit the JSON machine card or terminal projection",
+    )
+    first_screen_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="accepted as a compact JSON card alias",
     )
     first_screen_parser.add_argument(
         "--full",
