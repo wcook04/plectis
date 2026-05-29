@@ -438,7 +438,7 @@ def test_cli_first_screen_text_projection_is_package_backed(
         "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
         in text
     )
-    assert "A local evidence router; doctrine prevents mistakes" in text
+    assert "A local evidence router; doctrine names boundaries" in text
     assert "Reader branch: Peer developer" in text
     assert "  First action: Run `microcosm tour --card .`." in text
     assert "  Proof: `microcosm observe .`" in text

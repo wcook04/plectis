@@ -3497,7 +3497,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         "",
         "What it is:",
-        "  A local evidence router; doctrine prevents mistakes; exit when you can choose a drilldown without the command inventory.",
+        "  A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),

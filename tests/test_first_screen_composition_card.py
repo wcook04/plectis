@@ -1454,7 +1454,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "events -> evidence -> graph."
     ) in text
     assert "A local evidence router" in text
-    assert "doctrine prevents mistakes" in text
+    assert "doctrine names boundaries" in text
     assert "exit when you can choose a drilldown" in text
     assert "without the command inventory" in text
     assert expected_public_handles in text
@@ -1587,7 +1587,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
         assert "problem map binds the gaps" in text
-        assert "doctrine prevents mistakes" in text
+        assert "doctrine names boundaries" in text
         assert "exit when you can choose a drilldown" in text
         assert "without the command inventory" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
@@ -1617,7 +1617,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
-    assert "doctrine prevents mistakes" in result.stdout
+    assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
     assert "registries and fixture manifests" in result.stdout
@@ -1651,7 +1651,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
-    assert "doctrine prevents mistakes" in result.stdout
+    assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
     assert "registries and fixture manifests" in result.stdout
