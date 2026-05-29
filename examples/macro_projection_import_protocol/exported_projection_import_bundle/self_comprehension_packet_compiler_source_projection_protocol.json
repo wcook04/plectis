@@ -1,0 +1,177 @@
+{
+  "authority_ceiling": {
+    "credential_or_account_bound_bodies_exported": false,
+    "live_macro_source_authority": false,
+    "operator_runtime_observed": false,
+    "private_data_equivalence_claim": false,
+    "private_root_equivalence_claim": false,
+    "publication_authorized": false,
+    "recipient_work_authorized": false,
+    "release_authorized": false,
+    "rendered_private_packet_authority": false,
+    "source_authority_above_macro_contracts": false,
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "bundle_id": "self_comprehension_packet_compiler_source_bundle",
+  "claim": "Import the macro compression-profile registry, loader, and tests as exact public-safe source capsules so the self-comprehension packet compiler carries real profile grammar bodies instead of metadata-only packet-compiler evidence.",
+  "copied_material": [
+    {
+      "applied_edits": [
+        "exact_copy_macro_compression_profile_source_body_into_public_bundle"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "source_body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
+        "source_line_count": 633,
+        "source_ref": "system/lib/compression_profiles.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
+        "target_line_count": 633,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 633,
+      "claim_ceiling": "public compression-profile source body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_packet_compiler_body",
+      "material_id": "profile_loader_source_body_import",
+      "provenance_refs": [
+        "codex/doctrine/compression_profiles.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_packet_compiler_body",
+      "source_ref": "system/lib/compression_profiles.py",
+      "source_refs": [
+        "system/lib/compression_profiles.py"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_compression_profile_registry_body_into_public_bundle"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "source_body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
+        "source_line_count": 723,
+        "source_ref": "codex/doctrine/compression_profiles.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
+        "target_line_count": 723,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 723,
+      "claim_ceiling": "public compression-profile registry import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_packet_compiler_body",
+      "material_id": "profile_registry_source_body_import",
+      "provenance_refs": [
+        "system/lib/compression_profiles.py",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_packet_compiler_body",
+      "source_ref": "codex/doctrine/compression_profiles.json",
+      "source_refs": [
+        "codex/doctrine/compression_profiles.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/compression_profiles.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_compression_profile_test_body_into_public_bundle"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "source_body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
+        "source_line_count": 95,
+        "source_ref": "system/server/tests/test_compression_profiles.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
+        "target_line_count": 95,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 95,
+      "claim_ceiling": "public compression-profile test body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_packet_compiler_test_body",
+      "material_id": "profile_loader_test_source_body_import",
+      "provenance_refs": [
+        "system/lib/compression_profiles.py",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_packet_compiler_body",
+      "source_ref": "system/server/tests/test_compression_profiles.py",
+      "source_refs": [
+        "system/server/tests/test_compression_profiles.py"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+      ]
+    }
+  ],
+  "material_selection": {
+    "classification": "runnable_substrate_source_body_import",
+    "why_selected": "These files expose the real macro grammar that turns source pressure into bounded packets: profile id, profile pointer, owner routes, dynamic fact rows, omission receipt, and projection-not-authority boundaries.",
+    "why_not_rendered_packet_bodies": "Rendered packets and status sidecars are projections over private substrate; the public import carries the non-secret source grammar and focused tests instead of exporting raw operator voice or private packet payloads."
+  },
+  "omission_receipts": [
+    {
+      "omission_id": "raw_operator_voice_excluded",
+      "omitted_material": "raw seed prose, raw operator voice, and any source packet field that would quote it directly",
+      "reason": "Raw operator voice is a hard public exclusion; the imported registry/loader bodies preserve source-state and omission grammar without exporting raw voice.",
+      "status": "excluded_by_public_boundary"
+    },
+    {
+      "omission_id": "rendered_private_packets_excluded",
+      "omitted_material": "dist/type_b rendered packets and status sidecars as copied body imports",
+      "reason": "Rendered packets are freshness-bound projections and can contain private-path audit payloads; the source-open capsule imports the packet compiler grammar instead.",
+      "status": "excluded_by_projection_authority_boundary"
+    },
+    {
+      "omission_id": "private_paths_excluded",
+      "omitted_material": "private filesystem paths and private-root local state",
+      "reason": "Public source capsules must not carry private path authority or local machine identity.",
+      "status": "excluded_by_public_boundary"
+    },
+    {
+      "omission_id": "provider_payloads_excluded",
+      "omitted_material": "provider request or response payload bodies, credentials, keys, account sessions, cookies, and browser profile state",
+      "reason": "The imported code and registry are local profile grammar; live provider/account-bound material is outside the public source-open boundary.",
+      "status": "excluded_by_public_boundary"
+    }
+  ],
+  "parent_protocol_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
+  "protocol_id": "self_comprehension_packet_compiler_source_projection_import",
+  "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_packet_runtime_dependency",
+  "schema_version": "macro_projection_import_protocol_v1",
+  "source_module_manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json",
+  "validation_refs": [
+    "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py",
+    "self-indexing-cognitive-substrate/tests/test_microcosm_contract.py::test_self_comprehension_packet_compiler_bridges_macro_source_capsules"
+  ]
+}

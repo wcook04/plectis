@@ -1,0 +1,723 @@
+{
+  "kind": "compression_profile_registry",
+  "schema_version": "compression_profile_registry_candidate_v1",
+  "status": "candidate",
+  "global_principles": [
+    "Compression rows are cognitive assets: creation and navigation use the same profile id.",
+    "Preserve authority, voice, reversals, evidence, next moves, and lifecycle state.",
+    "Do not copy long ancestry into every row; use proof heads, counts, and drilldown refs.",
+    "Volatile facts live as dynamic fact rows with observed_at, probe/source, and fingerprint.",
+    "Compression depth is artifact-kind-specific: stable band names do not imply fixed sentence counts.",
+    "Lower brackets win on conflict; higher brackets are re-emitted when they drift from source authority."
+  ],
+  "profiles": [
+    {
+      "profile_id": "raw_seed_voice_context_v1",
+      "artifact_kind": "raw_seed",
+      "purpose": "Voice-preserving contextual compression over raw-seed paragraphs, paragraph-bin shards, and atomized child shards.",
+      "bands": [
+        "flag",
+        "card",
+        "context",
+        "deep"
+      ],
+      "source_ladder": [
+        {
+          "bracket": "raw_paragraph",
+          "role": "voice authority; never rewritten or treated as derived",
+          "source_state": "paragraph_only"
+        },
+        {
+          "bracket": "voice_normalized_statement",
+          "role": "syntax-faithful cleanup candidate; no global inference",
+          "source_state": "paragraph_only"
+        },
+        {
+          "bracket": "atomized_shard",
+          "role": "normalized lower-bracket voice claim with parent par_* and voice anchor",
+          "source_state": "sharded"
+        },
+        {
+          "bracket": "contextual_row",
+          "role": "system-context reading over paragraph and shard evidence",
+          "source_state": "sharded_or_mixed"
+        },
+        {
+          "bracket": "routing_review",
+          "role": "controller-gated proposal surface, not compression authority",
+          "source_state": "post_context"
+        },
+        {
+          "bracket": "doctrine_projection",
+          "role": "durable principle, skill, paper module, standard, or code update after apply",
+          "source_state": "post_apply"
+        }
+      ],
+      "band_contracts": {
+        "flag": {
+          "job": "route-card or existence signal",
+          "minimum_payload": [
+            "one claim",
+            "source ids",
+            "next bracket"
+          ],
+          "forbidden": [
+            "global coverage claim",
+            "doctrine route decision"
+          ]
+        },
+        "card": {
+          "job": "bounded source card",
+          "minimum_payload": [
+            "local claim",
+            "proof head",
+            "source state",
+            "context-space refs"
+          ],
+          "forbidden": [
+            "replace atomized shards",
+            "hide missing shard coverage"
+          ]
+        },
+        "context": {
+          "job": "working-set row for a worker or navigator",
+          "minimum_payload": [
+            "paragraph/shard reading",
+            "context-space refs",
+            "dynamic facts",
+            "drilldown refs",
+            "omission receipt"
+          ],
+          "forbidden": [
+            "copy whole neighborhoods",
+            "apply doctrine"
+          ]
+        },
+        "deep": {
+          "job": "mini-packet for higher reasoning",
+          "minimum_payload": [
+            "local source excerpts or shard rows",
+            "context-space refs",
+            "all context-band fields"
+          ],
+          "forbidden": [
+            "become a source archive",
+            "duplicate ledgers"
+          ]
+        }
+      },
+      "creator_skill_id": "compression.raw_seed_contextual_compression",
+      "navigator_skill_id": "raw_seed_navigation",
+      "mandatory_preserve": [
+        "par_* authority",
+        "voice anchor",
+        "operator reversals and uncertainty",
+        "proof head",
+        "proof depth",
+        "freshness metadata",
+        "drilldown refs",
+        "next moves"
+      ],
+      "allowed_loss": [
+        "full sibling prose outside the focus window",
+        "full source-anchor ancestry",
+        "low-value local examples",
+        "distant edges already recoverable from ledgers"
+      ],
+      "forbidden_collapse": [
+        "paragraph authority into shard-only authority",
+        "voice into encyclopedia prose",
+        "volatile counts into copied prose",
+        "routing decisions into distillation packets",
+        "contradictions into a single resolved claim",
+        "shards into context-free slogans",
+        "directional gestures into overconfident implementation plans"
+      ],
+      "source_state_policy": {
+        "allowed": [
+          "paragraph_only",
+          "sharded",
+          "mixed",
+          "unknown"
+        ],
+        "rule": "Fresh unsharded raw-seed paragraphs are still authority; mark source_state rather than dropping them or pretending shard coverage exists."
+      },
+      "context_space_policy": {
+        "rule": "Before compressing a shard into a higher row, identify the context-space: the paper module, skill, standard, runtime surface, profile, or cross-section that makes the shard intelligible.",
+        "allowed_ref_kinds": [
+          "paper_module",
+          "skill",
+          "standard",
+          "runtime_surface",
+          "compression_profile",
+          "source_registry"
+        ],
+        "missing_context_behavior": "Emit a lower band or add validation_notes; do not invent system context."
+      },
+      "facet_telescope_policy": {
+        "statement": "Telescope, Russian doll, and holographic compression name the same tiered-compression behavior. For raw seed, the row and each important facet can expand through bands while raw voice remains source authority.",
+        "facets": [
+          {
+            "facet": "voice",
+            "bands": ["flag", "card", "context", "deep"],
+            "rule": "Preserve voice anchors and operator uncertainty at every band; deeper bands add context, not rewritten authority."
+          },
+          {
+            "facet": "claim",
+            "bands": ["flag", "card", "context", "deep"],
+            "rule": "A claim starts as one routable gesture and expands into contextual readings only after source_state is declared."
+          },
+          {
+            "facet": "context_space",
+            "bands": ["card", "context", "deep"],
+            "rule": "Name the paper module, skill, standard, runtime surface, or profile that makes the shard intelligible before higher compression."
+          },
+          {
+            "facet": "evidence",
+            "bands": ["card", "context", "deep"],
+            "rule": "Carry proof heads and drilldown refs at lower bands; open source excerpts only at deep band."
+          },
+          {
+            "facet": "reversal",
+            "bands": ["context", "deep"],
+            "rule": "Contradictions, old-regime statements, and reversals are preserved as structured context instead of collapsed into one resolved claim."
+          },
+          {
+            "facet": "omission",
+            "bands": ["context", "deep"],
+            "rule": "Omission receipts say which ancestry, sibling rows, or neighborhoods were left in ledgers."
+          },
+          {
+            "facet": "next_moves",
+            "bands": ["flag", "card", "context", "deep"],
+            "rule": "Each band names the safe next bracket or drilldown rather than forcing the navigator to guess."
+          }
+        ],
+        "validation_probe": [
+          "row names profile_id and band",
+          "row declares source_state",
+          "context-space is present before context or deep compression",
+          "omission receipt exists at context/deep",
+          "voice anchor remains traceable to par_* or shard id"
+        ]
+      },
+      "navigable_scopes": [
+        {
+          "scope": "raw_paragraph",
+          "rule": "One authored raw-seed paragraph or operator-voice entry."
+        },
+        {
+          "scope": "shard",
+          "rule": "One atomized claim/gesture row derived from raw voice with source_state declared."
+        },
+        {
+          "scope": "context_row",
+          "rule": "One context-space-aware compression row routed to a paper module, skill, standard, runtime surface, or profile."
+        },
+        {
+          "scope": "route_review",
+          "rule": "A bridge/controller review packet over candidate routes and omissions."
+        }
+      ],
+      "navigable_facets": [
+        {"facet": "voice", "rule": "Operator wording, uncertainty, and gesture."},
+        {"facet": "claim", "rule": "The routable proposition or pressure."},
+        {"facet": "context_space", "rule": "The surrounding system plane that makes the claim intelligible."},
+        {"facet": "evidence", "rule": "Proof heads, source ids, and drilldown refs."},
+        {"facet": "reversal", "rule": "Contradictions, old-regime statements, and later corrections."},
+        {"facet": "omission", "rule": "Known skipped ancestry, sibling rows, and neighborhoods."},
+        {"facet": "next_moves", "rule": "Safe next bracket, drilldown, or curation route."}
+      ],
+      "population_policy": {
+        "scope:raw_paragraph": {"populated_by": "authored", "source": "raw_seed.md through the sanctioned raw-seed lane"},
+        "scope:shard": {"populated_by": "compiled", "source": "raw_seed shard/index builders"},
+        "scope:context_row": {"populated_by": "compiled", "source": "profile-governed compression packet"},
+        "band:flag": {"populated_by": "compiled", "source": "raw-seed profile packet"},
+        "band:card": {"populated_by": "compiled", "source": "raw-seed profile packet"},
+        "band:context": {"populated_by": "compiled", "source": "context-space-aware profile packet"},
+        "band:deep": {"populated_by": "live_computed", "source": "source paragraph plus referenced context-space evidence"},
+        "facet:voice": {"populated_by": "authored", "source": "raw_seed.md paragraph text"},
+        "facet:omission": {"populated_by": "compiled", "source": "compression omission receipt"}
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "context",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "worker_tier_policy": {
+        "cheap_selector": "embed, cluster, rank, detect freshness, and suggest candidate context-spaces",
+        "syntax_worker": "clean speech-to-text and split candidate statements without global inference",
+        "distiller": "produce atomized shards with voice anchors and gestures_towards",
+        "contextual_compressor": "create reversible profile rows using paper/module context",
+        "controller": "route, apply, author durable doctrine, or change standards"
+      },
+      "batching_policy": {
+        "rule": "Bridge packets may carry multiple paragraphs, but packet membership is transport evidence only. Multi-source rows require a named shared context-space.",
+        "production_target": "Use embedding/cosine neighborhoods as semantic candidates, then fit them chronologically into adjustable bridge-budget bins.",
+        "adaptive_signals": [
+          "json_validity",
+          "contextual_rows_returned",
+          "omitted_bands",
+          "drilldown_completeness",
+          "operator_inspection_quality"
+        ]
+      },
+      "evidence_policy": {
+        "packet_carries": [
+          "ids",
+          "proof_head",
+          "proof_depth",
+          "freshness",
+          "drilldown_refs"
+        ],
+        "ledger_holds": [
+          "full source_anchors ancestry",
+          "long sibling lists",
+          "registry-wide counts"
+        ]
+      },
+      "drilldown_policy": {
+        "default": "Open the declared navigator skill, then the profile, then the cited par_* or shard refs.",
+        "commands": [
+          "python3 kernel.py --resolve-raw-seed-ref {family} paragraph:{par_id}",
+          "python3 kernel.py --shards --shards-paragraph {par_id}",
+          "python3 kernel.py --raw-seed-navigation-runtime {family} --raw-seed-nav-group {group_id}"
+        ]
+      },
+      "dynamic_fact_policy": {
+        "required_fields": [
+          "fact_id",
+          "value",
+          "observed_at",
+          "probe_command",
+          "source_path",
+          "fingerprint"
+        ],
+        "rule": "Never freeze live counts as prose when a refreshable fact row can carry them."
+      },
+      "validation_probe": {
+        "must": [
+          "row has profile_id and creator/navigator skill ids",
+          "row has drilldown_refs",
+          "dynamic facts include observed_at and fingerprint",
+          "source ancestry is referenced, not copied",
+          "row declares or implies a source_state",
+          "context-space is named before shard-level contextual compression"
+        ]
+      }
+    },
+    {
+      "profile_id": "compression_profile_navigation_v0",
+      "artifact_kind": "compression_profiles",
+      "purpose": "Navigation contract for reading the compression profile registry itself through profile-native bands, scopes, facets, authority, currentness, and skill edges.",
+      "bands": [
+        "profile_id",
+        "bands",
+        "band_contracts",
+        "source_ladder"
+      ],
+      "navigable_bands": [
+        "profile_id",
+        "bands",
+        "band_contracts",
+        "source_ladder"
+      ],
+      "source_ladder": [
+        {
+          "bracket": "registry_profile",
+          "role": "authored candidate profile object; source authority for profile ids, bands, contracts, and policies",
+          "source_state": "authored"
+        },
+        {
+          "bracket": "option_surface_card",
+          "role": "compiled browse/drilldown projection over one profile object",
+          "source_state": "compiled_projection"
+        },
+        {
+          "bracket": "kind_band_contract_audit_row",
+          "role": "read-only compliance/audit row that lets Atlas and navigation prioritize missing, drafted, and declared contracts",
+          "source_state": "live_computed"
+        }
+      ],
+      "band_contracts": {
+        "profile_id": {
+          "purpose": "Cheap browse identity for one compression profile row.",
+          "minimum_payload": [
+            "profile_id",
+            "artifact_kind",
+            "purpose",
+            "drilldown_command"
+          ],
+          "forbidden": [
+            "treat profile-declared bands as adapter-supported bands",
+            "copy the full profile registry"
+          ],
+          "drilldown_to": "band:bands"
+        },
+        "bands": {
+          "purpose": "Expose the profile's native density ladder and whether each band is data, adapter support, or profile contract.",
+          "minimum_payload": [
+            "bands",
+            "adapter_boundary",
+            "band_contract_count"
+          ],
+          "forbidden": [
+            "collapse profile-native bands into global flag/card/context/deep semantics"
+          ],
+          "drilldown_to": "band:band_contracts"
+        },
+        "band_contracts": {
+          "purpose": "Read each profile band's job, minimum payload, forbidden collapse, and next drilldown.",
+          "minimum_payload": [
+            "band_contracts",
+            "population_policy",
+            "edge_compression_policy"
+          ],
+          "forbidden": [
+            "claim row population without the population_policy"
+          ],
+          "drilldown_to": "source:codex/doctrine/compression_profiles.json"
+        },
+        "source_ladder": {
+          "purpose": "Expose source authority, source-state transitions, creator and navigator skills, and validation probes.",
+          "minimum_payload": [
+            "source_ladder",
+            "creator_skill_id",
+            "navigator_skill_id",
+            "validation_probe"
+          ],
+          "forbidden": [
+            "replace source authority with a generated card"
+          ],
+          "drilldown_to": "source:codex/doctrine/compression_profiles.json"
+        }
+      },
+      "telescope_facets": [
+        "mandatory_preserve",
+        "allowed_loss",
+        "forbidden_collapse",
+        "worker_tier_policy"
+      ],
+      "navigable_scopes": [
+        {
+          "scope": "profile",
+          "rule": "One profile object in codex/doctrine/compression_profiles.json."
+        },
+        {
+          "scope": "band_contract",
+          "rule": "One declared band within one profile's band_contracts object."
+        },
+        {
+          "scope": "source_ladder",
+          "rule": "One source-state or authority transition within a profile."
+        },
+        {
+          "scope": "worker_tier_policy",
+          "rule": "One worker tier or role lane that creates, refreshes, validates, or consumes the profile."
+        }
+      ],
+      "navigable_facets": [
+        {
+          "facet": "mandatory_preserve",
+          "rule": "Fields, voice anchors, authority pointers, or lifecycle state that must survive compression."
+        },
+        {
+          "facet": "allowed_loss",
+          "rule": "Content that can be omitted when a packet carries counts, proof heads, and drilldowns."
+        },
+        {
+          "facet": "forbidden_collapse",
+          "rule": "Compression failures that a row must name rather than silently perform."
+        },
+        {
+          "facet": "worker_tier_policy",
+          "rule": "Which worker or skill can select, create, refresh, validate, or navigate profile rows."
+        }
+      ],
+      "population_policy": {
+        "band:profile_id": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py compression_profiles flag adapter",
+          "source": "codex/doctrine/compression_profiles.json"
+        },
+        "band:bands": {
+          "populated_by": "authored",
+          "source": "profiles[].bands and profiles[].navigable_bands"
+        },
+        "band:band_contracts": {
+          "populated_by": "authored",
+          "source": "profiles[].band_contracts"
+        },
+        "band:source_ladder": {
+          "populated_by": "authored",
+          "source": "profiles[].source_ladder plus source_authority/currentness_policy fields"
+        },
+        "scope:profile": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py compression_profiles card adapter",
+          "source": "codex/doctrine/compression_profiles.json"
+        },
+        "facet:worker_tier_policy": {
+          "populated_by": "authored",
+          "source": "profiles[].worker_tier_policy"
+        }
+      },
+      "creator_skill_id": "profile_governed_compression",
+      "navigator_skill_id": "compression_profiles_option_surface",
+      "mandatory_preserve": [
+        "profile_id",
+        "artifact_kind",
+        "bands",
+        "band_contracts",
+        "creator_skill_id",
+        "navigator_skill_id",
+        "source_authority",
+        "currentness_policy",
+        "validation_probe"
+      ],
+      "allowed_loss": [
+        "full sibling profile bodies when a row carries counts and drilldowns",
+        "full render profile payload lists outside the selected profile",
+        "long source manifest field lists when the source profile is one drilldown away"
+      ],
+      "forbidden_collapse": [
+        "profile-declared bands into option-surface adapter support",
+        "render profile output authority into source profile authority",
+        "candidate registry status into mature std_* authority",
+        "profile ids into natural-language labels without exact ids"
+      ],
+      "source_authority": {
+        "registry": "codex/doctrine/compression_profiles.json",
+        "option_surface": "system/lib/standard_option_surface.py::build_compression_profiles_option_surface",
+        "loader": "system/lib/compression_profiles.py",
+        "navigation_audit": "system/lib/kind_band_contract_audit.py"
+      },
+      "currentness_policy": {
+        "mode": "profile_registry_parse_plus_option_surface_currentness",
+        "rule": "Rows remain projections over codex/doctrine/compression_profiles.json; the registry parses as JSON and card/flag surfaces report profile_registry_available with source mtime."
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "creator_navigator_skill_and_context_profile_edges",
+        "rule": "Expose creator_skill_id, navigator_skill_id, context_profile_id, render profile siblings, owner_routes, and source authority as first-order edges; downshift wider registry neighborhoods to counts plus card drilldowns."
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "band_contracts",
+        "second_order_band": "profile_id",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "worker_tier_policy": {
+        "selector": "Use the compression_profiles flag/card option surface to select exact profile ids.",
+        "contract_auditor": "Use kind_band_contract_audit to classify profile-declared, drafted, and missing navigation contracts.",
+        "controller": "Promote drafts only by editing the governing standard or profile source and rerunning compliance scanners.",
+        "atlas_navigator": "Use contract_status, population_policy, and evidence_refs as prioritization signals after entry has selected the lane."
+      },
+      "validation_probe": {
+        "must": [
+          "profile ids are unique",
+          "declared bands have band_contracts entries",
+          "profile-declared bands stay separate from adapter-supported flag/card bands",
+          "creator and navigator skill ids are present",
+          "kind-band contract audit reports compression_profiles as profile_declared"
+        ]
+      }
+    },
+    {
+      "profile_id": "type_b_external_grounding_v1",
+      "profile_kind": "render_profile",
+      "artifact_role": "render_profile",
+      "context_profile_id": "raw_seed_voice_context_v1",
+      "artifact_kind": "raw_seed_compressed_external_packet",
+      "audience": "cold_type_b_webapp",
+      "purpose": "Upload-safe external Type B grounding packet rendered from the raw_seed_voice_context_v1 projection model without exposing private raw voice or assigning repository commands to the receiver.",
+      "output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.md",
+      "last_green_output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.last_green.md",
+      "candidate_output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.candidate.md",
+      "operator_packet_path": "obsidian/prompt_shelf/packets/TYPE_B_SYSTEM_GROUNDING_PACKET.md",
+      "status_sidecar_path": "state/system_atlas/type_b_grounding_packet_status.json",
+      "source_model": "raw_seed_compressed_projection_v1",
+      "surface_family_id": "system_self_comprehension_packet",
+      "root_slug": "system_self_comprehension_root",
+      "authority_contract_path": "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+      "projection_not_authority": true,
+      "disclosure_posture": "public_safe_upload_packet",
+      "receiver_intent": "Ground a cold Type B web-app reasoning session in current public-safe substrate state so it can answer the operator's next task without inventing private evidence.",
+      "job_to_be_done": "Let Type B answer the operator's next task without repo access, without inventing private evidence, with source-provided A-B shuttle trace ids preserved, and with ASK_TYPE_A handles for private facts. Type B reasons; Type A verifies and mutates.",
+      "intended_decision_or_deliverable": "A Type B reply that respects the public/private boundary, cites the system thesis + current frame, preserves source-provided shuttle identity without treating tab ordinals as authority, names known failure modes from up-propagation evidence, and surfaces ASK_TYPE_A handles for any private fact a real next move would depend on.",
+      "minimum_useful_payload": [
+        "current_intent",
+        "current_live_frame",
+        "prompt_family_telos_kernel",
+        "system_thesis",
+        "type_b_authority_boundary",
+        "shuttle_trace_context_boundary",
+        "what_type_b_must_do",
+        "what_type_b_must_not_do",
+        "capability_and_surface_map",
+        "known_type_b_failure_modes_from_uppropagation",
+        "ask_type_a_register",
+        "current_bottleneck_snapshot",
+        "omission_receipt"
+      ],
+      "payload_before_provenance": true,
+      "self_description_budget_bytes_max": 1200,
+      "operator_burden_policy": "no_manual_refresh_instruction_if_type_a_or_metabolism_can_regenerate",
+      "refresh_owner": "type_a_or_always_on_metabolism",
+      "owner_routes": {
+        "entry_command": "./repo-python kernel.py --option-surface compression_profiles --band card --ids type_b_external_grounding_v1",
+        "refresh_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --render-profile type_b_external_grounding_v1",
+        "check_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --render-profile type_b_external_grounding_v1 --check",
+        "status_command": "jq '.' state/system_atlas/type_b_grounding_packet_status.json",
+        "root_drilldown_command": "./repo-python kernel.py --paper-module system_self_comprehension_root",
+        "source_projection_check_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --check"
+      },
+      "validation_prompt": "After upload, the receiver should answer in four short sentences: (1) what is this system, (2) what telos should this answer preserve, (3) what should not happen, (4) what should Type A verify next. Inability to answer = render failure.",
+      "authority_boundary": "public_safe_projection; not source authority; not permission to publish/email/open-source/grant-repo-access",
+      "raw_seed_excerpt_policy": {
+        "default": "none",
+        "max_approved_excerpts": 3,
+        "requires_paragraph_id": true,
+        "requires_disclosure_review": true
+      },
+      "command_policy": "commands_are_type_a_evidence_not_receiver_assignments",
+      "section_order": [
+        "00_READ_ME_FIRST",
+        "01_PACKET_MANIFEST",
+        "02_ACTOR_AXES_AND_AUTHORITY_BOUNDARY",
+        "03_SYSTEM_THESIS",
+        "04_CURRENT_FRAME",
+        "05_CAPABILITY_AND_SURFACE_MAP",
+        "06_CONTROL_LOOP_AND_WORKITEM_SPINE",
+        "07_DOCTRINE_AND_STANDARDS_MAP",
+        "08_TYPE_B_USEFULNESS_PACKET",
+        "09_ASK_TYPE_A_REGISTER",
+        "10_COMMANDS_AS_EVIDENCE_NOT_ASSIGNMENTS",
+        "11_OMISSION_AND_UNCERTAINTY_REGISTER",
+        "12_VIRTUAL_SOURCE_CARDS"
+      ],
+      "forbidden_output": [
+        "raw_seed_fulltext",
+        "full_obsidian_paths",
+        "operator_identity",
+        "private_home_paths",
+        "credentials",
+        "provider_or_browser_session_detail",
+        "browser_automation_provider_calls",
+        "commands_framed_as_receiver_assignments",
+        "send_ready_outreach"
+      ],
+      "redaction_transforms_inherit_from": "publication_manifest.yaml::transform",
+      "output_excludes_inherit_from": "publication_manifest.yaml::exclude",
+      "validation_probe": {
+        "must": [
+          "render does not invalidate raw_seed_voice_context_v1 contextual rows",
+          "render does not modify _row_staleness_reasons behaviour",
+          "render declares it is a profile of system_self_comprehension_root",
+          "00_READ_ME_FIRST appears in first 4000 bytes of output",
+          "01_PACKET_MANIFEST declares context_profile_id and render_profile_id",
+          "no operator identity / home path / email / obsidian path leaks to output",
+          "no browser-automation provider symbols in output",
+          "no command framed as instruction to the receiver"
+        ]
+      }
+    },
+    {
+      "profile_id": "ai_workflow_system_packet_v1",
+      "profile_kind": "render_profile",
+      "artifact_role": "render_profile",
+      "context_profile_id": "raw_seed_voice_context_v1",
+      "artifact_kind": "external_safe_system_nucleus_packet",
+      "audience": "cold_type_b_webapp_or_human_reviewer",
+      "purpose": "Standalone public-safe system packet that describes the ai_workflow substrate at high density without exposing private raw voice or requiring repo access. The wide-coverage nucleus; the Type B grounding packet is its compact primer sibling.",
+      "output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.md",
+      "last_green_output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.last_green.md",
+      "candidate_output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.candidate.md",
+      "operator_packet_path": "obsidian/prompt_shelf/packets/AI_WORKFLOW_SYSTEM_PACKET.md",
+      "status_sidecar_path": "state/system_atlas/system_packet_status.json",
+      "source_model": "raw_seed_compressed_projection_v1",
+      "surface_family_id": "system_self_comprehension_packet",
+      "root_slug": "system_self_comprehension_root",
+      "authority_contract_path": "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+      "projection_not_authority": true,
+      "target_budget_bytes": 100000,
+      "budget_range_bytes": [50000, 90000],
+      "self_description_budget_bytes_max": 2000,
+      "disclosure_posture": "public_safe_upload_packet",
+      "receiver_intent": "Give a cold Type B model or human reviewer enough public-safe system context to understand ai_workflow as a whole and reason about later operator tasks without private repo access.",
+      "job_to_be_done": "Describe the system: thesis, current frame, MAPE-K and viable-system control loops, distillation spine, surface map, doctrine inventory, WorkItem spine snapshot, prompt shelf + Type B up-propagation, navigation surfaces, provider/bridge lanes, dissemination posture, motifs, vocabulary, closure ledger, known failure modes, ASK_TYPE_A handles, omission boundary.",
+      "command_policy": "commands_are_type_a_evidence_not_receiver_assignments",
+      "raw_seed_excerpt_policy": {
+        "default": "none",
+        "max_approved_excerpts": 3,
+        "requires_paragraph_id": true,
+        "requires_disclosure_review": true
+      },
+      "payload_before_provenance": true,
+      "operator_burden_policy": "no_manual_refresh_instruction_if_type_a_or_metabolism_can_regenerate",
+      "refresh_owner": "type_a_or_always_on_metabolism",
+      "owner_routes": {
+        "entry_command": "./repo-python kernel.py --option-surface compression_profiles --band card --ids ai_workflow_system_packet_v1",
+        "refresh_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --render-profile ai_workflow_system_packet_v1",
+        "check_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --render-profile ai_workflow_system_packet_v1 --check",
+        "status_command": "jq '.' state/system_atlas/system_packet_status.json",
+        "root_drilldown_command": "./repo-python kernel.py --paper-module system_self_comprehension_root",
+        "source_projection_check_command": "./repo-python tools/meta/factory/raw_seed_pipeline.py compressed-projection --family 09 --check"
+      },
+      "authority_boundary": "public_safe_projection; not source authority; not permission to publish/email/open-source/grant-repo-access",
+      "source_manifest_fields_used": [
+        "whole_system_thesis",
+        "current_frame",
+        "coverage",
+        "control_loop_map",
+        "viable_system_map",
+        "distillation_spine",
+        "system_projection",
+        "workitem_integration",
+        "agent_entry_integration",
+        "provider_integration",
+        "provenance_graph",
+        "gap_owners",
+        "closure_ledger",
+        "metabolism_clusters",
+        "active_motifs",
+        "system_terms_in_frame",
+        "type_b_usefulness",
+        "type_a_next_action",
+        "command_compendium",
+        "operator_summary",
+        "projection_quality",
+        "omission_receipt"
+      ],
+      "auxiliary_sources": [
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/standards/standards_registry.json",
+        "state/system_atlas/system_facts_at_a_glance.json",
+        "state/task_ledger/ledger.json",
+        "state/prompt_shelf/uppropagation_digest.json",
+        "codex/doctrine/paper_modules/up_propagation_theory.md"
+      ],
+      "validation_probe": {
+        "must": [
+          "render does not invalidate raw_seed_voice_context_v1 contextual rows",
+          "render does not modify _row_staleness_reasons behaviour",
+          "render declares it is a profile of system_self_comprehension_root",
+          "root slug exists in the paper-module index",
+          "paper-module count matches codex/doctrine/paper_modules/_index.json",
+          "first ~3 KB describes what the system is, not what the packet is",
+          "section headers cover thesis, current frame, actor axes, surface map",
+          "doctrine inventory cites paper module count and standards group count",
+          "WorkItem spine snapshot present with state counts",
+          "prompt shelf up-propagation snapshot present with record/candidate/adopted counts",
+          "ASK_TYPE_A register present",
+          "omission receipt present",
+          "no operator identity / home path / email leaks to output",
+          "no browser-automation provider symbols in output",
+          "no command framed as instruction to the receiver"
+        ]
+      }
+    }
+  ]
+}
