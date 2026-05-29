@@ -46,6 +46,7 @@ where = ["src"]
 
 [tool.setuptools.data-files]
 "share/microcosm-substrate" = [
+  ".gitignore",
   "AGENTS.md",
   "ANTI_PRINCIPLES.md",
   "AXIOMS.md",

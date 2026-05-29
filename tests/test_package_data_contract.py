@@ -18,6 +18,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
     lines = set(MANIFEST.read_text(encoding="utf-8").splitlines())
 
     for required in (
+        "include .gitignore",
         "include AGENTS.md",
         "include CONTRIBUTING.md",
         "include Makefile",
@@ -53,6 +54,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     data_files = payload["tool"]["setuptools"]["data-files"]
 
     assert data_files["share/microcosm-substrate"] == [
+        ".gitignore",
         "AGENTS.md",
         "ANTI_PRINCIPLES.md",
         "AXIOMS.md",
