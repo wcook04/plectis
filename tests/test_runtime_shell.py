@@ -4543,6 +4543,9 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "readme_onboarding_route" in html
     assert "Front-door status" in html
     assert "Observatory Card" in html
+    assert 'class="body-counts"' in html
+    assert "macro pattern" in html
+    assert "public_macro_pattern_body:" not in html
     assert "JSON Drilldowns" in html
     assert "Release remains unauthorized" in html
     assert "/project/first-screen" in html

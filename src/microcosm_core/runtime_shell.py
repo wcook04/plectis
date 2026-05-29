@@ -20853,9 +20853,27 @@ class RuntimeShell:
                 return str(value)
 
             class_counts = source_floor.get("public_safe_body_material_counts_by_class")
+            class_count_html = ""
             if isinstance(class_counts, dict) and class_counts:
                 class_summary = ", ".join(
                     f"{key}: {class_counts[key]}" for key in sorted(class_counts)
+                )
+                class_count_items = []
+                for key in sorted(class_counts):
+                    label = (
+                        str(key)
+                        .removeprefix("public_")
+                        .removesuffix("_body")
+                        .replace("_", " ")
+                    )
+                    class_count_items.append(
+                        "<li>"
+                        f"<span>{html.escape(label)}</span>"
+                        f"<strong>{html.escape(str(class_counts[key]))}</strong>"
+                        "</li>"
+                    )
+                class_count_html = (
+                    '<ul class="body-counts">' + "".join(class_count_items) + "</ul>"
                 )
             else:
                 class_summary = "class counts available in /project/status"
@@ -20892,6 +20910,7 @@ class RuntimeShell:
                     "title": "Evidence floor",
                     "body": "Counts are accounting fields, not maturity scores or release claims.",
                     "proof": class_summary,
+                    "proof_html": class_count_html,
                     "endpoint": "/project/evidence",
                 },
                 {
@@ -20901,14 +20920,23 @@ class RuntimeShell:
                     "endpoint": "/authority",
                 },
             ]
+            def scale_card_html(item: dict[str, Any]) -> str:
+                proof_html = (
+                    str(item["proof_html"])
+                    if item.get("proof_html")
+                    else f"<strong>{html.escape(item['proof'])}</strong>"
+                )
+                return (
+                    "<article class=\"scale-card\">"
+                    f"<h3>{html.escape(item['title'])}</h3>"
+                    f"<p>{html.escape(item['body'])}</p>"
+                    f"{proof_html}"
+                    f"<code>{html.escape(item['endpoint'])}</code>"
+                    "</article>"
+                )
+
             scale_card_items = "\n".join(
-                "<article class=\"scale-card\">"
-                f"<h3>{html.escape(item['title'])}</h3>"
-                f"<p>{html.escape(item['body'])}</p>"
-                f"<strong>{html.escape(item['proof'])}</strong>"
-                f"<code>{html.escape(item['endpoint'])}</code>"
-                "</article>"
-                for item in scale_cards
+                scale_card_html(item) for item in scale_cards
             )
             body = f"""<!doctype html>
 <html lang="en">
@@ -20927,6 +20955,10 @@ class RuntimeShell:
     .scale-card {{ background: #ffffff; border: 1px solid #d1d5db; border-left: 4px solid #2563eb; border-radius: 8px; padding: 1rem; }}
     .scale-card h3 {{ margin: 0 0 0.5rem; }}
     .scale-card strong {{ display: block; margin: 0.65rem 0; overflow-wrap: anywhere; }}
+    .body-counts {{ display: grid; gap: 0.4rem; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin: 0.65rem 0; padding: 0; }}
+    .body-counts li {{ align-items: center; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 6px; display: flex; gap: 0.5rem; justify-content: space-between; padding: 0.4rem 0.5rem; }}
+    .body-counts span {{ color: #374151; font-size: 0.9rem; }}
+    .body-counts strong {{ margin: 0; overflow-wrap: normal; white-space: nowrap; }}
   </style>
 </head>
 <body>
