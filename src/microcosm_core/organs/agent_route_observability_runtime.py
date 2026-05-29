@@ -4048,14 +4048,24 @@ def validate_route_compliance_audit_policy(payload: object) -> dict[str, Any]:
                     subject_kind="route_compliance_policy",
                 )
             )
+    required_false_field_checks = [
+        {
+            "field": field,
+            "expected_value": False,
+            "observed_value": policy.get(field),
+            "passed": policy.get(field) is False,
+        }
+        for field in required_false_fields
+    ]
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
         "policy_id": policy.get("policy_id"),
         "projection_not_authority": policy.get("projection_not_authority") is True,
-        "required_false_fields": {
-            field: policy.get(field) is False for field in required_false_fields
-        },
+        "required_false_field_checks": required_false_field_checks,
+        "required_false_field_failures": [
+            row["field"] for row in required_false_field_checks if not row["passed"]
+        ],
         "body_redacted": policy.get("body_redacted") is True,
     }
 

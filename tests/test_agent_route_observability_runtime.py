@@ -557,6 +557,11 @@ def test_route_compliance_audit_bundle_validates_runtime_shape(
     }
     assert result["missing_negative_cases"] == []
     assert result["route_compliance_policy"]["projection_not_authority"] is True
+    assert result["route_compliance_policy"]["required_false_field_failures"] == []
+    assert all(
+        row["observed_value"] is False and row["passed"] is True
+        for row in result["route_compliance_policy"]["required_false_field_checks"]
+    )
     assert result["authority_ceiling"]["live_process_audit_authority"] is False
     assert result["authority_ceiling"]["provider_payload_read"] is False
     assert result["authority_ceiling"]["browser_hud_cockpit_state_read"] is False
@@ -610,6 +615,12 @@ def test_route_compliance_audit_bundle_receipt_is_public_safe(
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
     assert '"body":' not in text
+    for field in (
+        "release_authorized",
+        "source_mutation_authorized",
+        "provider_payload_read",
+    ):
+        assert f'"{field}": {str(True).lower()}' not in text
     assert payload["status"] == "pass"
     assert payload["input_mode"] == "exported_route_compliance_audit_bundle"
     assert payload["metadata_envelope_only"] is True
