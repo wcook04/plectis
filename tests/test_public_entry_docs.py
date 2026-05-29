@@ -168,7 +168,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
         "cd /tmp/microcosm-substrate-export/microcosm-substrate",
-        "fake-clone check proves the severed package can install",
+        "cold-clone check proves the exported package can install",
         "release_authorized=false",
         "microcosm hello .",
         "microcosm tour --card .",
@@ -870,7 +870,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
     assert "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export" in cold_start
     assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in cold_start
-    assert "fake-clone check proves the exported artifact can install" in cold_start
+    assert "cold-clone check proves the exported artifact can install" in cold_start
     assert "receipts/release/release_export_receipt.json" in cold_start
     assert "release_authorized=false" in cold_start
 

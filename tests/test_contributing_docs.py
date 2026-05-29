@@ -49,7 +49,7 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "intentionally not part of `make ci`" in text
     assert "validate it from inside the exported artifact" in text
     assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in text
-    assert "That fake-clone check proves the severed package can install" in text
+    assert "That cold-clone check proves the exported package can install" in text
     assert "It does not authorize release" in text
     assert "`make test-all`" in text
     assert "broad drift-detection lane" in text

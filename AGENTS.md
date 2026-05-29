@@ -68,7 +68,7 @@ cd /tmp/microcosm-substrate-export/microcosm-substrate
 make ci
 ```
 
-That fake-clone check proves the severed package can install, test, and smoke
+That cold-clone check proves the exported package can install, test, and smoke
 from its own root. It does not authorize release; the release receipt remains
 the authority boundary until a separate operator decision exists.
 
