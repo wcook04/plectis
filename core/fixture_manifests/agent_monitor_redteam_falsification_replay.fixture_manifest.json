@@ -76,5 +76,41 @@
   ],
   "title": "Agent monitor redteam falsification replay fixture",
   "validator": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
-  "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
+  "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
+    "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json"
+  ],
+  "source_open_body_imports": {
+    "schema_version": "microcosm_source_open_body_imports_v1",
+    "status": "pass",
+    "fixture_manifest_ref": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
+    "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
+    "body_material_count": 1,
+    "body_material_ids": [
+      "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+    ],
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+      "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/bundle_manifest.json",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+    "authority_ceiling": {
+      "monitor_product_performance_authorized": false,
+      "live_agent_traffic_authorized": false,
+      "private_reasoning_export_authorized": false,
+      "exploit_instruction_export_authorized": false,
+      "credential_material_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false
+    }
+  }
 }

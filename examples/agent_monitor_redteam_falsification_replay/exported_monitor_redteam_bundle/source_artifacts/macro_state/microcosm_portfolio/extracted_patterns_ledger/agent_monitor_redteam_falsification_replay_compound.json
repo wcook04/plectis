@@ -1,0 +1,70 @@
+{
+  "axioms_principles_likely_instantiated": [
+    "replayable_evidence_precedes_capability_claim",
+    "synthetic_fixture_boundary_before_public_projection",
+    "typed_failure_modes_beat_demo_theater",
+    "monitor_claim_requires_falsification",
+    "external_attention_signal_is_not_authority"
+  ],
+  "candidate_fixture": "Synthetic coding-agent monitoring fixture with benign and adversarial trajectories, monitor coverage label, suspicious action span, evasion attempt, monitor verdict, severity tier, false-negative probe, human escalation receipt, privacy redaction capsule, control-eval recall/precision summary, mitigation diff, and cold replay. Negative cases reject private chains of thought, real internal code, exploit instructions, credential material, live agent traffic, monitor-product performance claims, and coverage claims without adversarial probes.",
+  "candidate_leaf_name": "agent_monitor_redteam_falsification_replay",
+  "candidate_paper_module_slug": "agent_monitor_redteam_falsification_replay",
+  "current_microcosm_status": "absent",
+  "depends_on_patterns": [
+    "agent_sabotage_scheming_monitor_replay_compound",
+    "agent_sandbox_policy_escape_replay_compound",
+    "indirect_prompt_injection_information_flow_policy_replay_compound",
+    "mcp_tool_authority_replay_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "evidence_kind": [
+    "ledger",
+    "code",
+    "standard",
+    "receipt",
+    "external_research_signal"
+  ],
+  "external_attention_refs": [
+    "https://openai.com/index/how-we-monitor-internal-coding-agents-misalignment/",
+    "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "https://arxiv.org/abs/2605.17380",
+    "https://arxiv.org/abs/2605.09684"
+  ],
+  "extracted_at": "2026-05-21T17:39:20Z",
+  "extracted_by": "codex_gpt5_interpretability_eval_memory_spatial_growth_pass",
+  "failure_mode_prevented": "A public agent-safety demo claims reliable monitoring while coverage exceptions, monitor jailbreaks, adversarial distributions, false negatives, privacy redaction, human escalation, and mitigation receipts are absent or private internal traces leak into the proof surface.",
+  "feeds_patterns": [
+    "agent_sandbox_policy_escape_replay_compound",
+    "agent_route_observability_runtime",
+    "external_boundary_anti_corruption_runtime",
+    "public_reveal_walkthrough_command_evidence_gate"
+  ],
+  "macro_subdomain": "subdomain_agent_monitor_redteam_falsification_evaluation",
+  "microcosm_projection_decision": "folded_compound_candidate_with_synthetic_agent_monitor_redteam_falsification_replay_fixture",
+  "notes": "Added after external attention review of OpenAI internal coding-agent monitoring, METR frontier-risk red-teaming, ADR enterprise agent detection, MonitoringBench, governed memory, interpretability, and world-model pressure. This row is a macro-side synthetic replay contract, not private CoT export, live monitor access, safety product claim, public implementation, release, or publication claim.",
+  "novelty_band": "high",
+  "one_line": "A public-safe agent-safety fixture replays monitor coverage, suspicious action traces, adversarial monitor-evasion attempts, false-negative probes, severity labels, human escalation receipts, control-eval metrics, and cold reruns.",
+  "organ_family": "provider_evaluator_boundary",
+  "pattern_id": "agent_monitor_redteam_falsification_replay_compound",
+  "private_state_risk": "low",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_interpretability_eval_memory_spatial_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json::organ_ir[external_boundary_anti_corruption_runtime]",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_extracted_pattern_route_readiness.json"
+  ],
+  "target_existing_organs": [
+    "external_boundary_anti_corruption_runtime",
+    "agent_route_observability_runtime",
+    "proof_diagnostic_evidence_spine",
+    "mission_transaction_work_spine"
+  ],
+  "title": "Agent monitor red-team/falsification replay compound",
+  "why_load_bearing": "Agent monitoring is becoming a standard safety claim for autonomous coding and tool agents, but monitor coverage can be overstated without adversarial falsification. The impressive mechanism is a replayable red-team ledger that treats monitor exceptions, jailbreaks, false negatives, severity routing, and escalation latency as first-class evidence rather than trusting a single monitor score."
+}

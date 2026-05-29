@@ -97,5 +97,42 @@
     "agent_sabotage_scheming_monitor_replay_compound"
   ],
   "validator": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
-  "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+  "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
+    "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json"
+  ],
+  "source_open_body_imports": {
+    "schema_version": "microcosm_source_open_body_imports_v1",
+    "status": "pass",
+    "fixture_manifest_ref": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
+    "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
+    "body_material_count": 1,
+    "body_material_ids": [
+      "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import"
+    ],
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+      "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/bundle_manifest.json",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+    "authority_ceiling": {
+      "live_sabotage_authorized": false,
+      "deployment_risk_claim_authorized": false,
+      "exploit_instruction_export_authorized": false,
+      "credential_material_export_authorized": false,
+      "private_reasoning_export_authorized": false,
+      "harmful_payload_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false
+    }
+  }
 }

@@ -128,6 +128,8 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "spatial_world_model_counterfactual_simulation_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
         "standards_meta_diagnostics",
+        "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
     ):
         assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
             f"receipts/first_wave/{receipt_dir}/*.json"
@@ -307,6 +309,30 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "microcosm_portfolio/extracted_patterns_ledger": [
             "examples/prediction_oracle_reconciliation/"
             "exported_prediction_oracle_bundle/source_artifacts/macro_state/"
+            "microcosm_portfolio/extracted_patterns_ledger/*.json"
+        ],
+        "examples/agent_monitor_redteam_falsification_replay/"
+        "exported_monitor_redteam_bundle": [
+            "examples/agent_monitor_redteam_falsification_replay/"
+            "exported_monitor_redteam_bundle/*.json"
+        ],
+        "examples/agent_monitor_redteam_falsification_replay/"
+        "exported_monitor_redteam_bundle/source_artifacts/macro_state/"
+        "microcosm_portfolio/extracted_patterns_ledger": [
+            "examples/agent_monitor_redteam_falsification_replay/"
+            "exported_monitor_redteam_bundle/source_artifacts/macro_state/"
+            "microcosm_portfolio/extracted_patterns_ledger/*.json"
+        ],
+        "examples/agent_sabotage_scheming_monitor_replay/"
+        "exported_sabotage_monitor_bundle": [
+            "examples/agent_sabotage_scheming_monitor_replay/"
+            "exported_sabotage_monitor_bundle/*.json"
+        ],
+        "examples/agent_sabotage_scheming_monitor_replay/"
+        "exported_sabotage_monitor_bundle/source_artifacts/macro_state/"
+        "microcosm_portfolio/extracted_patterns_ledger": [
+            "examples/agent_sabotage_scheming_monitor_replay/"
+            "exported_sabotage_monitor_bundle/source_artifacts/macro_state/"
             "microcosm_portfolio/extracted_patterns_ledger/*.json"
         ],
         "examples/spatial_world_model_counterfactual_simulation_replay/"

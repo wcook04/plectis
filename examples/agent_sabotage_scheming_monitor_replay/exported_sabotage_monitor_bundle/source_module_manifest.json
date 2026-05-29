@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "agent_sabotage_scheming_monitor_replay_pattern_provenance_source_module_manifest",
+  "organ_id": "agent_sabotage_scheming_monitor_replay",
+  "source_run_id": "agent_sabotage_scheming_monitor_replay_compound_source_body_import_20260529a",
+  "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_safety_monitor_bundle",
+  "body_in_receipt": false,
+  "module_count": 1,
+  "anti_claim": "These copied pattern provenance bodies make the public sabotage/scheming monitor drilldown accountable to real macro ledger rows. They do not authorize live sabotage, deployment-risk claims, exploit instructions, credentials or account material, private reasoning, harmful payloads, provider calls, source mutation, release, or safety validation claims.",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private reasoning, exploit instructions, live traffic, or harmful payload bodies"
+  ],
+  "modules": [
+    {
+      "module_id": "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
+      "target_ref": "microcosm-substrate/examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_sabotage_scheming_monitor_replay_compound.json",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_sabotage_scheming_monitor_replay_compound.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 71,
+      "sha256": "sha256:e1ad34691ca598b878f8658485ce78fa4fa59b3eb0a4bd078355c415ca2cb312",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_source_modules_are_digest_verified",
+        "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ]
+}

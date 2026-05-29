@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -13,6 +14,7 @@ from microcosm_core.organs.agent_monitor_redteam_falsification_replay import (
     run,
     run_monitor_bundle,
 )
+from microcosm_core.runtime_shell import RuntimeShell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +26,11 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_monitor_redteam_falsification_replay/"
     "exported_monitor_redteam_bundle"
+)
+FIXTURE_MANIFEST = (
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/"
+    "agent_monitor_redteam_falsification_replay.fixture_manifest.json"
 )
 
 
@@ -39,6 +46,79 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def _source_target_path(target_ref: str) -> Path:
+    prefix = "microcosm-substrate/"
+    assert target_ref.startswith(prefix)
+    return MICROCOSM_ROOT / target_ref.removeprefix(prefix)
+
+
+def _sha256_ref(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_verified() -> None:
+    source_manifest = json.loads(
+        (BUNDLE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8")
+    )
+    fixture_manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
+    module = source_manifest["modules"][0]
+    target_path = _source_target_path(module["target_ref"])
+    copied_body = json.loads(target_path.read_text(encoding="utf-8"))
+
+    assert source_manifest["schema_version"] == "microcosm_source_module_manifest_v1"
+    assert source_manifest["organ_id"] == "agent_monitor_redteam_falsification_replay"
+    assert source_manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert source_manifest["body_in_receipt"] is False
+    assert source_manifest["module_count"] == 1
+    assert "do not authorize" in source_manifest["anti_claim"]
+    assert module["module_id"] == "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+    assert module["material_class"] == "public_macro_pattern_body"
+    assert module["source_to_target_relation"] == "source_faithful_json_slice"
+    assert module["body_copied"] is True
+    assert module["body_in_receipt"] is False
+    assert module["sha256"] == _sha256_ref(target_path)
+    assert copied_body["pattern_id"] == "agent_monitor_redteam_falsification_replay_compound"
+
+    copied_keys = _walk_keys(copied_body)
+    for forbidden_key in (
+        "credential_value",
+        "provider_payload",
+        "private_chain_of_thought",
+        "raw_transcript",
+        "exploit_instructions",
+        "browser_session",
+        "account_cookie",
+    ):
+        assert forbidden_key not in copied_keys
+
+    body_imports = fixture_manifest["source_open_body_imports"]
+    assert body_imports["body_material_count"] == 1
+    assert body_imports["body_in_receipt"] is False
+    assert body_imports["aggregate_floor_ref"].endswith("source_module_manifest.json")
+    assert module["module_id"] in body_imports["body_material_ids"]
+    assert body_imports["authority_ceiling"]["release_authorized"] is False
+
+
+def test_agent_monitor_redteam_falsification_replay_workingness_exposes_source_body_imports() -> None:
+    workingness = RuntimeShell(MICROCOSM_ROOT).workingness_map()
+    rows_by_id = {
+        row["thing_id"]: row for row in workingness["thing_failure_map"]
+    }
+    row = rows_by_id["agent_monitor_redteam_falsification_replay"]
+    body_imports = row["source_open_body_imports"]
+
+    assert row["runtime_mode"] == "drilldown_only"
+    assert row["workingness_state"] == "demoted_regression_drilldown"
+    assert row["observed_workingness"]["counts_as_real_substrate_progress"] is False
+    assert body_imports["body_material_count"] == 1
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert body_imports["body_text_exported_in_receipts"] is False
+    assert (
+        "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+        in body_imports["body_material_ids"]
+    )
 
 
 def test_agent_monitor_redteam_replay_observes_negative_cases(

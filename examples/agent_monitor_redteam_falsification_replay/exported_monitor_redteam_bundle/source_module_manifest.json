@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "agent_monitor_redteam_falsification_replay_pattern_provenance_source_module_manifest",
+  "organ_id": "agent_monitor_redteam_falsification_replay",
+  "source_run_id": "agent_monitor_redteam_falsification_replay_compound_source_body_import_20260529a",
+  "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_safety_monitor_bundle",
+  "body_in_receipt": false,
+  "module_count": 1,
+  "anti_claim": "These copied pattern provenance bodies make the public monitor-redteam drilldown accountable to real macro ledger rows. They do not authorize monitor product performance, live agent traffic, private reasoning, exploit instructions, credentials, provider calls, source mutation, release, or safety validation claims.",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private reasoning, exploit instructions, live traffic, or harmful payload bodies"
+  ],
+  "modules": [
+    {
+      "module_id": "agent_monitor_redteam_extracted_pattern_ledger_row_body_import",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
+      "target_ref": "microcosm-substrate/examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_monitor_redteam_falsification_replay_compound.json",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_monitor_redteam_falsification_replay_compound.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 70,
+      "sha256": "sha256:89792add1e2f03a09c40f64d19c1ac0a54d62c053aabe11ecad0a9846a54cf33",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_verified",
+        "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ]
+}

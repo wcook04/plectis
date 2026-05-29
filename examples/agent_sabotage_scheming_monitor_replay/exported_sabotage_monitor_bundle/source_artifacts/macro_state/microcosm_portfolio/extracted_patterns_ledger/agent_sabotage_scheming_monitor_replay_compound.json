@@ -1,0 +1,71 @@
+{
+  "axioms_principles_likely_instantiated": [
+    "hidden_objective_risk_requires_control_plane_simulation_not_vibes",
+    "monitoring_quality_is_measured_per_step_not_by_final_answer",
+    "sabotage_eval_requires_main_task_side_task_and_detection_receipts",
+    "anti_scheming_specs_are_public_control_inputs_not_private_reasoning_exports",
+    "red_team_success_without_safety_boundary_is_not_public_authority"
+  ],
+  "candidate_fixture": "Synthetic agent-sabotage monitor fixture with a normal user task, hidden side objective, tool-call/action log, monitor suspicion score per step, attack-opportunity labels, plan/subtlety/innocuous-framing annotations, anti-scheming spec capsule, caught/not-caught verdict, main-task success verdict, side-task success verdict, counterfactual benign replay, and cold replay. Negative cases reject live sabotage, real credentials/accounts, exploit instructions, private chain-of-thought export, raw harmful payloads, monitor-only final grading, and scare-story deployment claims.",
+  "candidate_leaf_name": "agent_sabotage_scheming_monitor_replay",
+  "candidate_paper_module_slug": "agent_sabotage_scheming_monitor_replay",
+  "current_microcosm_status": "absent",
+  "depends_on_patterns": [
+    "agent_sandbox_policy_escape_replay_compound",
+    "agent_benchmark_integrity_anti_gaming_replay_compound",
+    "proof_derived_governed_mutation_authorization_compound",
+    "mcp_tool_authority_replay_compound",
+    "agent_trace_to_route_repair_observability_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "evidence_kind": [
+    "ledger",
+    "code",
+    "standard",
+    "test",
+    "receipt",
+    "external_research_signal"
+  ],
+  "external_attention_refs": [
+    "https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/",
+    "https://www.anthropic.com/research/shade-arena-sabotage-monitoring",
+    "https://alignment.anthropic.com/2025/strengthening-red-teams/"
+  ],
+  "extracted_at": "2026-05-21T16:52:00Z",
+  "extracted_by": "codex_gpt5_embodied_world_safety_social_growth_pass",
+  "failure_mode_prevented": "A public AI-safety demo describes scheming or sabotage risk without a self-contained environment, hidden-objective setup, per-step monitor evidence, main/side task split, anti-scheming spec boundary, benign counterfactual, and replayable detection receipt.",
+  "feeds_patterns": [
+    "agent_sandbox_policy_escape_replay_compound",
+    "agent_benchmark_integrity_anti_gaming_replay_compound",
+    "proof_derived_governed_mutation_authorization_compound",
+    "mcp_tool_authority_replay_compound",
+    "public_reveal_walkthrough_command_evidence_gate"
+  ],
+  "macro_subdomain": "subdomain_agentic_scheming_sabotage_monitoring_evaluation",
+  "microcosm_projection_decision": "folded_compound_candidate_with_synthetic_agent_sabotage_scheming_monitor_replay_fixture",
+  "notes": "Added after external attention review of OpenAI/Apollo scheming work, Anthropic SHADE-Arena, and modular red-team control evaluations. This is a safe synthetic monitoring fixture, not a live sabotage harness, exploit guide, private reasoning export, or deployment-risk claim.",
+  "novelty_band": "high",
+  "one_line": "A public-safe scheming/sabotage fixture replays hidden-objective simulations, tool logs, monitor suspicion scores, attack-opportunity labels, anti-scheming spec boundaries, main/side task verdicts, benign counterfactuals, and cold reruns.",
+  "organ_family": "provider_evaluator_boundary",
+  "pattern_id": "agent_sabotage_scheming_monitor_replay_compound",
+  "private_state_risk": "low",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_embodied_world_safety_social_growth_v1",
+    "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json::organ_ir[external_boundary_anti_corruption_runtime]",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_extracted_pattern_route_readiness.json"
+  ],
+  "target_existing_organs": [
+    "external_boundary_anti_corruption_runtime",
+    "agent_route_observability_runtime",
+    "proof_diagnostic_evidence_spine"
+  ],
+  "title": "Agent sabotage scheming-monitor replay compound",
+  "why_load_bearing": "Scheming, sabotage, and monitoring are among the most attention-grabbing safety topics in agentic AI, but a public system should not dramatize risk. The hard mechanism is a replayable control-plane fixture: hidden-objective setup, stepwise monitor scores, main/side task verdicts, benign counterfactuals, and anti-scheming spec boundaries without exporting private reasoning or live exploit material."
+}
