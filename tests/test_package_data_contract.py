@@ -162,6 +162,40 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
             f"receipts/first_wave/{receipt_dir}/*.json"
         ]
 
+    pattern_binding_example_data = {
+        "examples/pattern_binding_contract/exported_route_readiness_bundle": [
+            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.json",
+            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.jsonl",
+            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.md",
+        ],
+        "examples/pattern_binding_contract/exported_substrate_bundle": [
+            "examples/pattern_binding_contract/exported_substrate_bundle/*.json",
+            "examples/pattern_binding_contract/exported_substrate_bundle/*.jsonl",
+        ],
+        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+        "macro_standard/codex/standards": [
+            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+            "macro_standard/codex/standards/*.json"
+        ],
+        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+        "macro_state/microcosm_portfolio": [
+            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+            "macro_state/microcosm_portfolio/*.jsonl"
+        ],
+        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+        "macro_state/microcosm_portfolio/reconstruction": [
+            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+            "macro_state/microcosm_portfolio/reconstruction/*.json"
+        ],
+        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+        "macro_tool/tools/meta/factory": [
+            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
+            "macro_tool/tools/meta/factory/*.py"
+        ],
+    }
+    for rel, patterns in pattern_binding_example_data.items():
+        assert data_files[f"share/microcosm-substrate/{rel}"] == patterns
+
     proof_loop_example_data = {
         "examples/corpus_readiness_mathlib_absence_gate/"
         "exported_corpus_readiness_bundle": [

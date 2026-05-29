@@ -89,6 +89,10 @@ def _bundle_public_root(input_dir: str | Path) -> Path:
     for candidate in (input_path, *input_path.parents):
         if (candidate / "src/microcosm_core").is_dir() and (candidate / "examples").is_dir():
             return candidate
+        if (candidate / "core/private_state_forbidden_classes.json").is_file() and (
+            candidate / "examples"
+        ).is_dir():
+            return candidate
     return input_path.parent
 
 

@@ -237,6 +237,29 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert "body_redacted" not in receipt
 
 
+def test_pattern_binding_substrate_bundle_accepts_installed_share_root(tmp_path: Path) -> None:
+    public_root = tmp_path / "share/microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/pattern_binding_contract",
+        public_root / "examples/pattern_binding_contract",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/macro_projection_import_protocol",
+        public_root / "examples/macro_projection_import_protocol",
+    )
+    input_dir = public_root / "examples/pattern_binding_contract/exported_substrate_bundle"
+
+    result = validate_substrate_bundle(input_dir, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["real_pattern_ledger_consumed"] is True
+    assert result["real_pattern_substrate_bindings_consumed"] is True
+    assert result["real_pattern_route_readiness_consumed"] is True
+    assert result["public_runtime_refs"][0].startswith("examples/")
+    assert str(public_root) not in json.dumps(result, sort_keys=True)
+
+
 def test_pattern_binding_substrate_bundle_card_reuses_fresh_receipt(
     tmp_path: Path,
     monkeypatch: Any,
@@ -342,6 +365,25 @@ def test_route_readiness_bundle_validator_rejects_row_level_leaf_authority(tmp_p
     assert "matched_excerpt" not in json.dumps(result, sort_keys=True)
     assert "body" not in _walk_keys(result)
     assert "private_state_scan" not in result
+
+
+def test_route_readiness_bundle_validator_accepts_installed_share_root(tmp_path: Path) -> None:
+    public_root = tmp_path / "share/microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/pattern_binding_contract",
+        public_root / "examples/pattern_binding_contract",
+    )
+    input_dir = public_root / "examples/pattern_binding_contract/exported_route_readiness_bundle"
+
+    result = validate_route_readiness_bundle(input_dir, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["public_runtime_refs"][0].startswith(
+        "examples/pattern_binding_contract/exported_route_readiness_bundle/"
+    )
+    assert str(public_root) not in json.dumps(result, sort_keys=True)
 
 
 def test_cold_clone_receipts_use_public_relative_paths(tmp_path: Path) -> None:
