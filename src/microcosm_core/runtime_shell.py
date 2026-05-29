@@ -17655,11 +17655,7 @@ class RuntimeShell:
             "command": runtime_command,
             "status": status,
             "what_happened": summaries,
-            "next_actions": [
-                "microcosm route list",
-                "microcosm evidence list",
-                "microcosm serve",
-            ],
+            "next_actions": self._runtime_demo_next_actions(project_ref),
             "events": event_rows,
             "evidence_refs": evidence_refs,
             "trace_ref": _public_relative(run_root / "demo_project_trace.json", self.root),
@@ -17678,6 +17674,18 @@ class RuntimeShell:
         write_json_atomic(run_root / "demo_project_trace.json", trace)
         write_json_atomic(run_root / "demo_project_result.json", result)
         return result
+
+    @staticmethod
+    def _runtime_demo_next_actions(project_ref: str) -> list[str]:
+        return [
+            f"microcosm status --card {project_ref}",
+            f"microcosm observe {project_ref}",
+            "microcosm evidence list",
+            (
+                f"microcosm serve {project_ref} --host 127.0.0.1 "
+                "--port 8765 --max-requests 6"
+            ),
+        ]
 
     def run_demo_card(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
         project_path = Path(project)
@@ -17714,7 +17722,7 @@ class RuntimeShell:
             "result_ref": result_ref,
             "evidence_ref_samples": evidence_refs[:5],
             "evidence_ref_count": len(evidence_refs),
-            "next_actions": result.get("next_actions", []),
+            "next_actions": self._runtime_demo_next_actions(project_ref),
             "authority_ceiling": result.get("authority_ceiling", {}),
             "anti_claim": result.get("anti_claim"),
             "body_in_receipt": False,

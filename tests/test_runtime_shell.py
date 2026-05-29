@@ -4343,7 +4343,7 @@ def test_runtime_shell_run_demo_card_is_compact(
                 "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/result.json",
             ],
             "trace_ref": "receipts/runtime_shell/demo_project/demo_project_trace.json",
-            "next_actions": ["microcosm evidence list"],
+            "next_actions": ["microcosm route list", "microcosm serve"],
             "authority_ceiling": {"release_authorized": False},
             "anti_claim": "public runtime demo only",
         }
@@ -4364,6 +4364,17 @@ def test_runtime_shell_run_demo_card_is_compact(
         "receipts/runtime_shell/demo_project/demo_project_result.json"
     )
     assert card["evidence_ref_count"] == 2
+    assert card["next_actions"] == [
+        "microcosm status --card examples/runtime_shell/demo_project",
+        "microcosm observe examples/runtime_shell/demo_project",
+        "microcosm evidence list",
+        (
+            "microcosm serve examples/runtime_shell/demo_project "
+            "--host 127.0.0.1 --port 8765 --max-requests 6"
+        ),
+    ]
+    assert "microcosm route list" not in card["next_actions"]
+    assert "microcosm serve" not in card["next_actions"]
     assert card["body_in_receipt"] is False
     assert card["output_economy"] == {
         "full_payload_drilldown": "microcosm run examples/runtime_shell/demo_project",
@@ -4388,6 +4399,15 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     assert result["status"] == "pass"
     assert len(result["events"]) == 43
     assert [event["status"] for event in result["events"]] == ["pass"] * 43
+    assert result["next_actions"] == [
+        "microcosm status --card examples/runtime_shell/demo_project",
+        "microcosm observe examples/runtime_shell/demo_project",
+        "microcosm evidence list",
+        (
+            "microcosm serve examples/runtime_shell/demo_project "
+            "--host 127.0.0.1 --port 8765 --max-requests 6"
+        ),
+    ]
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
