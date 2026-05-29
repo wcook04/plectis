@@ -62,6 +62,7 @@ from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnec
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from system.server.session import SessionManager
 from system.server.graph import compile_physics_graph, compile_mission_view
@@ -304,8 +305,10 @@ _STATION_LAUNCHER_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _STATION_LAUNCHER_CACHE_LOCK = threading.Lock()
 _STATION_LAUNCHER_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
 _STATION_LAUNCHER_AUX_CACHE_TTL_S = 30.0
+_STATION_LAUNCHER_OPERATIONS_PREWARM_WAIT_S = 0.75
 _STATION_LAUNCHER_OPERATIONS_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK = threading.Lock()
+_STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
 _ROOT_NAVIGATOR_HANDOFF_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _ROOT_NAVIGATOR_HANDOFF_CACHE_LOCK = threading.Lock()
 _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
@@ -841,23 +844,7 @@ async def lifespan(app: FastAPI):
         # tacking it onto the end, so the browser sees a hot cache as soon as
         # possible after backend startup rather than after every other surface
         # has been built.
-        def _prewarm_operations_catalog() -> None:
-            try:
-                _ops_payload = world_model_loader.list_launchable_operations(REPO_ROOT)
-                if isinstance(_ops_payload, dict):
-                    _store_station_cache(
-                        _STATION_LAUNCHER_OPERATIONS_CACHE,
-                        _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK,
-                        _ops_payload,
-                    )
-            except Exception as exc:
-                logger.warning("prewarm operations catalog failed: %s", exc)
-
-        threading.Thread(
-            target=_prewarm_operations_catalog,
-            name="operations-catalog-prewarm",
-            daemon=True,
-        ).start()
+        _start_operations_catalog_refresh(thread_name="operations-catalog-prewarm")
 
         def _run_sequential_prewarm() -> None:
             for name, key, builder in _hot_prewarms:
@@ -919,6 +906,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(GZipMiddleware, minimum_size=2048, compresslevel=5)
 
 static_dir = REPO_ROOT / "system" / "server" / "static"
 if not static_dir.exists(): static_dir.mkdir(parents=True, exist_ok=True)
@@ -4383,6 +4371,119 @@ def _warming_station_launcher_payload() -> Dict[str, Any]:
     }
 
 
+def _warming_operations_catalog_payload(reason: str) -> Dict[str, Any]:
+    generated = datetime.now(timezone.utc).isoformat()
+    detail = f"operations catalog {reason}; background refresh is in flight"
+    return {
+        "schema": "ops_launcher_snapshot_v1",
+        "generated_at": generated,
+        "operations": [],
+        "operation_groups": [],
+        "navigation_freshness": {
+            "schema": "navigation_freshness_v1",
+            "generated_at": generated,
+            "available": False,
+            "refresh_operation_id": "navigator_refresh",
+            "route_refresh_operation_id": "semantic_route_refresh",
+            "stale_source_count": 0,
+            "stale_or_missing_row_count": 0,
+            "has_estimates": False,
+            "top_source_kind": None,
+            "queue": [],
+        },
+        "raw_seed_pipeline": {
+            "available": False,
+            "next_actions": [],
+            "warnings": [detail],
+            "source_paths": {},
+        },
+        "quick_actions": [],
+        "alerts": [
+            {
+                "id": "operations_catalog:warming",
+                "tone": "info",
+                "label": "Operations catalog warming",
+                "detail": detail,
+                "operation_id": None,
+                "parameters": {},
+                "command": None,
+            }
+        ],
+        "errors": [],
+        "diagnostics": {
+            "cache": {"status": "warming", "reason": reason},
+            "notes": [
+                "Served a schema-clean warming operations payload instead of blocking the UI on catalog composition."
+            ],
+        },
+    }
+
+
+def _operations_catalog_background_refresh(event: threading.Event) -> None:
+    try:
+        payload = world_model_loader.list_launchable_operations(REPO_ROOT)
+        if isinstance(payload, dict):
+            _store_station_cache(
+                _STATION_LAUNCHER_OPERATIONS_CACHE,
+                _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK,
+                payload,
+            )
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("operations catalog refresh failed: %s", exc)
+    finally:
+        with _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK:
+            _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT.pop(_station_cache_key(), None)
+        event.set()
+
+
+def _start_operations_catalog_refresh(*, thread_name: str = "operations-catalog-refresh") -> threading.Event:
+    cache_key = _station_cache_key()
+    with _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK:
+        event = _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT.get(cache_key)
+        if event is not None:
+            return event
+        event = threading.Event()
+        _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT[cache_key] = event
+    threading.Thread(
+        target=_operations_catalog_background_refresh,
+        args=(event,),
+        name=thread_name,
+        daemon=True,
+    ).start()
+    return event
+
+
+def _operations_catalog_payload() -> Dict[str, Any]:
+    cache_key = _station_cache_key()
+    now = time.monotonic()
+    with _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK:
+        cached = _STATION_LAUNCHER_OPERATIONS_CACHE.get(cache_key)
+        if cached:
+            payload = copy.deepcopy(cached[1])
+            if now - cached[0] <= _STATION_LAUNCHER_AUX_CACHE_TTL_S:
+                return payload
+            event = _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT.get(cache_key)
+            if event is None:
+                event = threading.Event()
+                _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT[cache_key] = event
+                threading.Thread(
+                    target=_operations_catalog_background_refresh,
+                    args=(event,),
+                    name="operations-catalog-refresh",
+                    daemon=True,
+                ).start()
+            return payload
+
+    event = _start_operations_catalog_refresh()
+    event.wait(timeout=_STATION_LAUNCHER_OPERATIONS_PREWARM_WAIT_S)
+    with _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK:
+        cached = _STATION_LAUNCHER_OPERATIONS_CACHE.get(cache_key)
+        if cached:
+            return copy.deepcopy(cached[1])
+        still_in_flight = cache_key in _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT
+    return _warming_operations_catalog_payload("miss" if still_in_flight else "unavailable")
+
+
 def _start_root_navigator_handoff_refresh(cache_key: str, *, thread_name: str) -> None:
     with _ROOT_NAVIGATOR_HANDOFF_CACHE_LOCK:
         if cache_key in _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT:
@@ -7428,21 +7529,7 @@ def world_model_operations():
     from fastapi.responses import JSONResponse
 
     try:
-        cached = _peek_station_cache(
-            _STATION_LAUNCHER_OPERATIONS_CACHE,
-            _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK,
-            ttl_s=_STATION_LAUNCHER_AUX_CACHE_TTL_S,
-        )
-        if cached is not None:
-            return cached
-        payload = world_model_loader.list_launchable_operations(REPO_ROOT)
-        if isinstance(payload, dict):
-            _store_station_cache(
-                _STATION_LAUNCHER_OPERATIONS_CACHE,
-                _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK,
-                payload,
-            )
-        return payload
+        return _operations_catalog_payload()
     except Exception as exc:
         logger.exception("list launchable operations failed: %s", exc)
         return JSONResponse(

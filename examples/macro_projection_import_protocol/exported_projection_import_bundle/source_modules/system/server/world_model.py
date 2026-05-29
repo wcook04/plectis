@@ -135,7 +135,6 @@ logger = logging.getLogger("server.world_model")
 
 _READONLY_SNAPSHOT_CACHE_TTL_S = 10.0
 _OPERATIONS_LENS_CACHE_TTL_S = 45.0
-_CODE_MAP_PACKET_CACHE_TTL_S = 60.0
 _BLAST_RADIUS_PACKET_CACHE_TTL_S = 60.0
 _CODE_MAP_PACKET_WAIT_TIMEOUT_S = 90.0
 _OPERATIONS_LENS_COLD_WAIT_S = 0.75
@@ -144,6 +143,15 @@ _OPERATIONS_LENS_CACHE_REL = "state/world_model/operations_lens_snapshot.json"
 _OPERATIONS_LENS_MEMORY_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _OPERATIONS_LENS_CACHE_LOCK = Lock()
 _OPERATIONS_LENS_REFRESH_IN_FLIGHT: dict[str, Event] = {}
+_CODE_MAP_CACHE_NAME = "code_map_packet"
+_CODE_MAP_LAST_GOOD_SCHEMA = "code_map_last_good_packet_v1"
+_CODE_MAP_FIRST_PAINT_SCHEMA = "code_map_first_paint_contract_v1"
+_CODE_MAP_FRESHNESS_SCHEMA = "code_map_freshness_v1"
+_CODE_MAP_SERVING_TRACE_SCHEMA = "code_map_serving_trace_v1"
+_CODE_MAP_BUILD_DIAGNOSTICS_SCHEMA = "code_map_build_diagnostics_v1"
+_CODE_MAP_LAST_GOOD_CACHE_REL = "state/world_model/code_map_packet_last_good.json"
+_CODE_MAP_LAST_GOOD_MEMORY_CACHE: dict[tuple[str, str, int, bool], tuple[float, str, Dict[str, Any], str | None]] = {}
+_CODE_MAP_LAST_GOOD_LOCK = Lock()
 _ATTENTION_SNAPSHOT_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _ATTENTION_SNAPSHOT_CACHE_LOCK = Lock()
 _REACTIONS_SNAPSHOT_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
@@ -17551,6 +17559,502 @@ def _stat_fingerprint_for_paths(repo_root: Path, rel_paths: Iterable[Path]) -> s
     return digest.hexdigest()[:16]
 
 
+def _code_map_packet_cache_key(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+    source_stat_fingerprint: str,
+) -> tuple[str, str, str, int, str, bool]:
+    return (
+        CODE_MAP_PACKET_CACHE_VERSION,
+        str(repo_root.resolve()),
+        focus or "",
+        int(max_files),
+        source_stat_fingerprint,
+        True,
+    )
+
+
+def _code_map_last_good_key(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+) -> tuple[str, str, int, bool]:
+    return (
+        str(repo_root.resolve()),
+        focus or "",
+        int(max_files),
+        True,
+    )
+
+
+def _code_map_last_good_path(repo_root: Path) -> Path:
+    return repo_root / _CODE_MAP_LAST_GOOD_CACHE_REL
+
+
+def _code_map_cache_age_ms(packet: Mapping[str, Any]) -> int | None:
+    age = _age_seconds(packet.get("generated_at"))
+    return None if age is None else age * 1000
+
+
+def _code_map_list_count(value: Any) -> int:
+    return len(value) if isinstance(value, list) else 0
+
+
+def _code_map_has_files(packet: Mapping[str, Any]) -> bool:
+    files = packet.get("files")
+    if isinstance(files, list) and files:
+        return True
+    stats = packet.get("stats")
+    if isinstance(stats, Mapping):
+        try:
+            return int(stats.get("file_count") or 0) > 0
+        except (TypeError, ValueError):
+            return False
+    return False
+
+
+def _code_map_elapsed_ms(start: float) -> int:
+    return int(round((time.perf_counter() - start) * 1000))
+
+
+def _code_map_cache_budget_status(
+    *,
+    requested_max_files: int | None,
+    served_max_files: int | None,
+) -> str:
+    if requested_max_files is None or served_max_files is None:
+        return "unknown"
+    if served_max_files <= 0:
+        return "none"
+    if served_max_files == requested_max_files:
+        return "exact"
+    if served_max_files < requested_max_files:
+        return "lower_budget_partial"
+    return "higher_budget_overfill"
+
+
+def _code_map_serving_trace(
+    *,
+    requested_max_files: int,
+    served_max_files: int | None,
+    focus: str | None,
+    state: str,
+    served_from: str,
+    refresh_in_flight: bool,
+    degraded_reason: str | None,
+    phase_timings_ms: Mapping[str, int],
+    cache_source_stat_fingerprint: str | None,
+    current_source_stat_fingerprint: str,
+    last_good_stored_at: str | None,
+    total_started_at: float,
+) -> Dict[str, Any]:
+    return {
+        "schema": _CODE_MAP_SERVING_TRACE_SCHEMA,
+        "state": state,
+        "served_from": served_from,
+        "focus_path": focus,
+        "requested_max_files": int(requested_max_files),
+        "served_max_files": served_max_files,
+        "cache_budget_status": _code_map_cache_budget_status(
+            requested_max_files=requested_max_files,
+            served_max_files=served_max_files,
+        ),
+        "refresh_in_flight": refresh_in_flight,
+        "degraded_reason": degraded_reason,
+        "cache_source_stat_fingerprint": cache_source_stat_fingerprint,
+        "current_source_stat_fingerprint": current_source_stat_fingerprint,
+        "last_good_stored_at": last_good_stored_at,
+        "phase_timings_ms": dict(phase_timings_ms),
+        "total_ms": _code_map_elapsed_ms(total_started_at),
+        "diagnostic_boundary": {
+            "server_serialization_ms": "not_measured_in_loader",
+            "gzip_or_transfer_ms": "measure_at_http_transport",
+            "frontend_hydration_ms": "measure_in_station_render_or_browser",
+        },
+    }
+
+
+def _code_map_first_paint_contract(
+    packet: Mapping[str, Any],
+    *,
+    state: str,
+    focus: str | None,
+    degraded_reason: str | None,
+) -> Dict[str, Any]:
+    files = packet.get("files") if isinstance(packet.get("files"), list) else []
+    connections = packet.get("connections") if isinstance(packet.get("connections"), list) else []
+    file_count = _code_map_list_count(files)
+    edge_count = _code_map_list_count(connections)
+    focus_present = True
+    if focus:
+        focus_present = any(str((row or {}).get("path") or "") == focus for row in files)
+    render_ready = state in {"ready", "stale_ready", "partial_ready"} and (file_count > 0 or _code_map_has_files(packet))
+    return {
+        "schema": _CODE_MAP_FIRST_PAINT_SCHEMA,
+        "state": state,
+        "render_ready": render_ready,
+        "degraded_reason": degraded_reason,
+        "bands": {
+            "atlas": file_count > 0,
+            "graph": file_count > 0,
+            "focus": bool(focus_present),
+            "blast_radius": False,
+        },
+        "counts": {
+            "files": file_count,
+            "connections": edge_count,
+        },
+        "separate_packets": {
+            "blast_radius": "/api/blast-radius",
+        },
+    }
+
+
+def _code_map_source_paths_payload() -> Dict[str, Any]:
+    return {
+        "graph": str(HOLOGRAM_GRAPH_PATH),
+        "quality": str(HOLOGRAM_QUALITY_PATH),
+        "symbols": str(HOLOGRAM_SYMBOLS_PATH),
+        "ui_index": str(HOLOGRAM_UI_INDEX_PATH),
+        "scope_index": str(PYTHON_SCOPE_INDEX_PATH),
+        "paper_modules": str(PAPER_MODULE_INDEX_PATH),
+        "route_coverage": str(PAPER_MODULE_ROUTE_COVERAGE_PATH),
+        "annex_distillation": str(ANNEX_DISTILLATION_INDEX_PATH),
+        "frontend_navigation": str(FRONTEND_NAVIGATION_GRAPH_PATH),
+        "source_fingerprint": None,
+    }
+
+
+def _code_map_empty_packet(
+    *,
+    focus: str | None,
+    state: str,
+    degraded_reason: str,
+    current_source_stat_fingerprint: str,
+    requested_max_files: int,
+    phase_timings_ms: Mapping[str, int] | None = None,
+    total_started_at: float | None = None,
+) -> Dict[str, Any]:
+    generated_at = datetime.now(timezone.utc).isoformat()
+    packet: Dict[str, Any] = {
+        "kind": "kernel.code_map",
+        "schema_version": "code_map_packet_v1",
+        "render_contract_version": "code_map_render_contract_v1",
+        "generated_at": generated_at,
+        "source": _code_map_source_paths_payload(),
+        "focus_path": focus,
+        "stats": {
+            "file_count": 0,
+            "symbol_count": 0,
+            "edge_count": 0,
+            "paper_module_count": 0,
+            "route_target_count": 0,
+            "annex_pattern_count": 0,
+            "security_finding_count": 0,
+        },
+        "files": [],
+        "connections": [],
+        "issues": [],
+        "patterns": [],
+        "security": [],
+        "omission_receipt": {
+            "omitted_files": 0,
+            "omitted_edges": 0,
+            "omitted_overlays": 0,
+            "reason": degraded_reason,
+        },
+        "known_limits": [degraded_reason],
+        "estimated_packet_weight": {
+            "schema": "code_map_estimated_packet_weight_v1",
+            "source_file_count": 0,
+            "selected_file_count": 0,
+            "returned_file_count": 0,
+            "source_edge_count": 0,
+            "selected_edge_count": 0,
+            "returned_edge_count": 0,
+            "omitted_file_count": 0,
+            "omitted_edge_count": 0,
+            "omitted_overlay_count": 0,
+        },
+        "graph_presentation": {
+            "schema": "code_map_graph_presentation_v1",
+            "render_contract_version": "code_map_render_contract_v1",
+            "node_role_counts": {},
+            "node_salience_counts": {},
+            "edge_role_counts": {},
+            "edge_density_counts": {},
+            "grammar": {
+                "node_role_field": "files[].presentation.node_role",
+                "edge_role_field": "connections[].presentation.edge_role",
+                "density_field": "presentation.density_band",
+                "labels": [
+                    "files[].presentation.primary_label",
+                    "files[].presentation.secondary_label",
+                    "files[].presentation.metadata_labels",
+                ],
+            },
+        },
+        "camera_target": {
+            "schema": "code_map_camera_target_v1",
+            "mode": "focus" if focus else "overview",
+            "target_type": "file" if focus else "packet",
+            "target_id": f"file:{focus}" if focus else "packet:code_map_overview",
+            "target_path": focus,
+            "target_paths": [focus] if focus else [],
+            "recommended_fit": {
+                "scope": "selected_neighborhood" if focus else "salient_overview",
+                "padding": 0.18 if focus else 0.12,
+            },
+        },
+    }
+    return _annotate_code_map_packet(
+        packet,
+        state=state,
+        focus=focus,
+        served_from="warming_shell" if state == "refreshing" else "failed_shell",
+        cache_source_stat_fingerprint=None,
+        current_source_stat_fingerprint=current_source_stat_fingerprint,
+        refresh_in_flight=state == "refreshing",
+        degraded_reason=degraded_reason,
+        last_good_stored_at=None,
+        requested_max_files=requested_max_files,
+        served_max_files=0,
+        serving_trace=_code_map_serving_trace(
+            requested_max_files=requested_max_files,
+            served_max_files=0,
+            focus=focus,
+            state=state,
+            served_from="warming_shell" if state == "refreshing" else "failed_shell",
+            refresh_in_flight=state == "refreshing",
+            degraded_reason=degraded_reason,
+            phase_timings_ms=phase_timings_ms or {},
+            cache_source_stat_fingerprint=None,
+            current_source_stat_fingerprint=current_source_stat_fingerprint,
+            last_good_stored_at=None,
+            total_started_at=total_started_at or time.perf_counter(),
+        ),
+    )
+
+
+def _annotate_code_map_packet(
+    packet: Mapping[str, Any],
+    *,
+    state: str,
+    focus: str | None,
+    served_from: str,
+    cache_source_stat_fingerprint: str | None,
+    current_source_stat_fingerprint: str,
+    refresh_in_flight: bool,
+    degraded_reason: str | None,
+    last_good_stored_at: str | None,
+    requested_max_files: int | None = None,
+    served_max_files: int | None = None,
+    serving_trace: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
+    row = copy.deepcopy(dict(packet))
+    source = dict(row.get("source") or {})
+    source["cache_source_stat_fingerprint"] = cache_source_stat_fingerprint
+    source["current_source_stat_fingerprint"] = current_source_stat_fingerprint
+    row["source"] = source
+
+    first_paint = _code_map_first_paint_contract(
+        row,
+        state=state,
+        focus=focus,
+        degraded_reason=degraded_reason,
+    )
+    freshness = {
+        "schema": _CODE_MAP_FRESHNESS_SCHEMA,
+        "generated_at": row.get("generated_at"),
+        "age_ms": _code_map_cache_age_ms(row),
+        "served_from": served_from,
+        "refresh_in_flight": refresh_in_flight,
+        "cache_source_stat_fingerprint": cache_source_stat_fingerprint,
+        "current_source_stat_fingerprint": current_source_stat_fingerprint,
+        "last_good_stored_at": last_good_stored_at,
+        "requested_max_files": requested_max_files,
+        "served_max_files": served_max_files,
+        "cache_budget_status": _code_map_cache_budget_status(
+            requested_max_files=requested_max_files,
+            served_max_files=served_max_files,
+        ),
+    }
+    projection_state = dict(row.get("projection_state") or {})
+    projection_state.setdefault("schema", "code_map_projection_state_v1")
+    projection_state.setdefault("render_contract_version", "code_map_render_contract_v1")
+    projection_state.update(
+        {
+            "state": state,
+            "render_ready": bool(first_paint.get("render_ready")),
+            "focus_path": focus,
+            "served_from": served_from,
+            "refresh_in_flight": refresh_in_flight,
+            "degraded_reason": degraded_reason,
+            "current_source_stat_fingerprint": current_source_stat_fingerprint,
+            "cache_source_stat_fingerprint": cache_source_stat_fingerprint,
+            "freshness": freshness,
+            "first_paint_contract": first_paint,
+            "requested_max_files": requested_max_files,
+            "served_max_files": served_max_files,
+            "cache_budget_status": _code_map_cache_budget_status(
+                requested_max_files=requested_max_files,
+                served_max_files=served_max_files,
+            ),
+        }
+    )
+    row["projection_state"] = projection_state
+    row["freshness"] = freshness
+    row["first_paint_contract"] = first_paint
+    if serving_trace is not None:
+        row["serving_trace"] = copy.deepcopy(dict(serving_trace))
+    return row
+
+
+def _store_code_map_last_good(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+    cache_source_stat_fingerprint: str,
+    packet: Mapping[str, Any],
+) -> None:
+    if not isinstance(packet, Mapping) or packet.get("schema_version") != "code_map_packet_v1":
+        return
+    stored_at = datetime.now(timezone.utc).isoformat()
+    packet_copy = copy.deepcopy(dict(packet))
+    key = _code_map_last_good_key(repo_root, focus=focus, max_files=max_files)
+    with _CODE_MAP_LAST_GOOD_LOCK:
+        _CODE_MAP_LAST_GOOD_MEMORY_CACHE[key] = (
+            time.monotonic(),
+            cache_source_stat_fingerprint,
+            packet_copy,
+            stored_at,
+        )
+
+    if focus:
+        return
+
+    path = _code_map_last_good_path(repo_root)
+    try:
+        if path.exists():
+            existing = json.loads(path.read_text(encoding="utf-8"))
+            existing_packet = existing.get("packet") if isinstance(existing, Mapping) else None
+            existing_max_files = int(existing.get("max_files") or 0) if isinstance(existing, Mapping) else 0
+            if (
+                isinstance(existing, Mapping)
+                and existing.get("schema") == _CODE_MAP_LAST_GOOD_SCHEMA
+                and existing.get("cache_version") == CODE_MAP_PACKET_CACHE_VERSION
+                and existing.get("focus") is None
+                and isinstance(existing_packet, Mapping)
+                and existing_packet.get("schema_version") == "code_map_packet_v1"
+                and existing_max_files > int(max_files)
+            ):
+                return
+    except Exception as exc:  # noqa: BLE001 - stale/corrupt last-good should not block a fresh write.
+        logger.warning("code map last-good cache preservation check failed: %s", exc)
+
+    envelope = {
+        "schema": _CODE_MAP_LAST_GOOD_SCHEMA,
+        "stored_at": stored_at,
+        "cache_version": CODE_MAP_PACKET_CACHE_VERSION,
+        "repo_root": str(repo_root.resolve()),
+        "focus": None,
+        "max_files": int(max_files),
+        "cache_source_stat_fingerprint": cache_source_stat_fingerprint,
+        "packet": packet_copy,
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp_path = path.with_name(f"{path.name}.tmp")
+        tmp_path.write_text(json.dumps(envelope, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        os.replace(tmp_path, path)
+    except Exception as exc:  # noqa: BLE001 - persistent packet cache must never fail the endpoint.
+        logger.warning("code map last-good cache write failed: %s", exc)
+
+
+def _read_code_map_last_good(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+    allow_budget_mismatch: bool = False,
+) -> Dict[str, Any] | None:
+    key = _code_map_last_good_key(repo_root, focus=focus, max_files=max_files)
+    with _CODE_MAP_LAST_GOOD_LOCK:
+        cached = _CODE_MAP_LAST_GOOD_MEMORY_CACHE.get(key)
+        if cached is not None:
+            _, source_stat_fingerprint, packet, stored_at = cached
+            return {
+                "packet": copy.deepcopy(packet),
+                "cache_source_stat_fingerprint": source_stat_fingerprint,
+                "stored_at": stored_at,
+                "served_from": "last_good_memory",
+                "stored_max_files": int(max_files),
+                "budget_mismatch": False,
+            }
+
+    if focus:
+        return None
+
+    path = _code_map_last_good_path(repo_root)
+    if not path.exists():
+        return None
+    try:
+        envelope = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001 - cache corruption should degrade to warming shell.
+        logger.warning("code map last-good cache read failed: %s", exc)
+        return None
+    if not isinstance(envelope, Mapping) or envelope.get("schema") != _CODE_MAP_LAST_GOOD_SCHEMA:
+        return None
+    if envelope.get("cache_version") != CODE_MAP_PACKET_CACHE_VERSION:
+        return None
+    stored_max_files = int(envelope.get("max_files") or 0)
+    budget_mismatch = stored_max_files != int(max_files)
+    if envelope.get("focus") is not None:
+        return None
+    if budget_mismatch and (not allow_budget_mismatch or stored_max_files <= 0 or stored_max_files > int(max_files)):
+        return None
+    packet = envelope.get("packet")
+    if not isinstance(packet, Mapping) or packet.get("schema_version") != "code_map_packet_v1":
+        return None
+    return {
+        "packet": copy.deepcopy(dict(packet)),
+        "cache_source_stat_fingerprint": str(envelope.get("cache_source_stat_fingerprint") or ""),
+        "stored_at": str(envelope.get("stored_at") or ""),
+        "served_from": "last_good_disk",
+        "stored_max_files": stored_max_files,
+        "budget_mismatch": budget_mismatch,
+    }
+
+
+def _schedule_code_map_refresh(
+    repo_root: Path,
+    *,
+    cache_key: tuple[str, str, str, int, str, bool],
+    focus: str | None,
+    max_files: int,
+    source_stat_fingerprint: str,
+) -> str | None:
+    try:
+        swr_prewarm(
+            _CODE_MAP_CACHE_NAME,
+            cache_key,
+            lambda: _build_and_store_code_map_snapshot_uncached(
+                repo_root,
+                focus=focus,
+                max_files=max_files,
+                source_stat_fingerprint=source_stat_fingerprint,
+            ),
+        )
+    except Exception as exc:  # noqa: BLE001 - return a failed/no-files packet instead of 5xx.
+        logger.warning("code map background refresh scheduling failed: %s", exc)
+        return _excerpt(str(exc), limit=180) or type(exc).__name__
+    return None
+
+
 def load_code_map_snapshot(
     repo_root: Path,
     *,
@@ -17559,32 +18063,236 @@ def load_code_map_snapshot(
 ) -> Dict[str, Any]:
     """
     [ACTION]
-    - Teleology: Endpoint-side wrapper over `system.lib.code_architecture_projection.build_code_map_packet`. Owns input normalization + budget clamping only; never reads hologram artifacts, never builds overlays, never invents schema.
-    - Mechanism: Normalize `focus` via `_normalize_projection_path`, clamp `max_files` into `[1, CODE_MAP_MAX_FILES_CAP]`, delegate to `build_code_map_packet`.
-    - Reads: Whatever the shared library reads.
-    - Guarantee: Returns the same `code_map_packet_v1` dict the kernel `--code-map` command emits.
-    - Fails: Raises ValueError on bad path syntax (NUL/absolute/traversal); all other absences degrade gracefully through the packet's `omission_receipt`.
+    - Teleology: Endpoint-side wrapper over `system.lib.code_architecture_projection.build_code_map_packet` that preserves first-paint latency for `/station/codemap`.
+    - Mechanism: Normalize `focus`, clamp `max_files`, serve exact process cache / last-good packets immediately, and schedule a single background refresh when the current fingerprint is cold or stale.
+    - Reads: Cheap stat fingerprints plus the optional materialized last-good packet; background builders read whatever the shared library reads.
+    - Guarantee: Returns a schema-shaped `code_map_packet_v1` with `projection_state`, `freshness`, and `first_paint_contract` fields describing ready/stale/partial/refreshing/failed state.
+    - Fails: Raises ValueError on bad path syntax (NUL/absolute/traversal); cache/build absences degrade through an honest packet state instead of blocking the request.
     """
+    total_started_at = time.perf_counter()
+    phase_timings_ms: dict[str, int] = {}
+
+    stage_started_at = time.perf_counter()
     normalized_focus = _normalize_projection_path(focus)
     clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
-    key = (
-        CODE_MAP_PACKET_CACHE_VERSION,
-        str(repo_root.resolve()),
-        normalized_focus or "",
-        clamped_max_files,
-        _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS),
-        True,
+    phase_timings_ms["normalize_and_clamp"] = _code_map_elapsed_ms(stage_started_at)
+
+    stage_started_at = time.perf_counter()
+    source_stat_fingerprint = _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS)
+    phase_timings_ms["source_stat_fingerprint"] = _code_map_elapsed_ms(stage_started_at)
+    key = _code_map_packet_cache_key(
+        repo_root,
+        focus=normalized_focus,
+        max_files=clamped_max_files,
+        source_stat_fingerprint=source_stat_fingerprint,
     )
-    return swr_get(
-        "code_map_packet",
-        key,
-        lambda: _build_code_map_snapshot_uncached(
-            repo_root,
+
+    def _trace(
+        *,
+        state: str,
+        served_from: str,
+        served_max_files: int | None,
+        refresh_in_flight: bool,
+        degraded_reason: str | None,
+        cache_source_stat_fingerprint: str | None,
+        last_good_stored_at: str | None,
+    ) -> Dict[str, Any]:
+        return _code_map_serving_trace(
+            requested_max_files=clamped_max_files,
+            served_max_files=served_max_files,
             focus=normalized_focus,
+            state=state,
+            served_from=served_from,
+            refresh_in_flight=refresh_in_flight,
+            degraded_reason=degraded_reason,
+            phase_timings_ms=phase_timings_ms,
+            cache_source_stat_fingerprint=cache_source_stat_fingerprint,
+            current_source_stat_fingerprint=source_stat_fingerprint,
+            last_good_stored_at=last_good_stored_at,
+            total_started_at=total_started_at,
+        )
+
+    def _annotated(
+        packet: Mapping[str, Any],
+        *,
+        state: str,
+        served_from: str,
+        served_max_files: int | None,
+        cache_source_stat_fingerprint: str | None,
+        refresh_in_flight: bool,
+        degraded_reason: str | None,
+        last_good_stored_at: str | None,
+    ) -> Dict[str, Any]:
+        return _annotate_code_map_packet(
+            packet,
+            state=state,
+            focus=normalized_focus,
+            served_from=served_from,
+            cache_source_stat_fingerprint=cache_source_stat_fingerprint,
+            current_source_stat_fingerprint=source_stat_fingerprint,
+            refresh_in_flight=refresh_in_flight,
+            degraded_reason=degraded_reason,
+            last_good_stored_at=last_good_stored_at,
+            requested_max_files=clamped_max_files,
+            served_max_files=served_max_files,
+            serving_trace=_trace(
+                state=state,
+                served_from=served_from,
+                served_max_files=served_max_files,
+                refresh_in_flight=refresh_in_flight,
+                degraded_reason=degraded_reason,
+                cache_source_stat_fingerprint=cache_source_stat_fingerprint,
+                last_good_stored_at=last_good_stored_at,
+            ),
+        )
+
+    stage_started_at = time.perf_counter()
+    cached = swr_peek(_CODE_MAP_CACHE_NAME, key)
+    phase_timings_ms["process_cache_peek"] = _code_map_elapsed_ms(stage_started_at)
+    if isinstance(cached, Mapping):
+        return _annotated(
+            cached,
+            state="ready",
+            served_from="process_cache",
+            served_max_files=clamped_max_files,
+            cache_source_stat_fingerprint=source_stat_fingerprint,
+            refresh_in_flight=False,
+            degraded_reason=None,
+            last_good_stored_at=None,
+        )
+
+    stage_started_at = time.perf_counter()
+    last_good = _read_code_map_last_good(
+        repo_root,
+        focus=normalized_focus,
+        max_files=clamped_max_files,
+    )
+    phase_timings_ms["last_good_exact_read"] = _code_map_elapsed_ms(stage_started_at)
+    if last_good and last_good.get("cache_source_stat_fingerprint") == source_stat_fingerprint:
+        return _annotated(
+            last_good["packet"],
+            state="ready",
+            served_from=str(last_good.get("served_from") or "last_good"),
+            served_max_files=int(last_good.get("stored_max_files") or clamped_max_files),
+            cache_source_stat_fingerprint=source_stat_fingerprint,
+            refresh_in_flight=False,
+            degraded_reason=None,
+            last_good_stored_at=str(last_good.get("stored_at") or ""),
+        )
+
+    stage_started_at = time.perf_counter()
+    refresh_error = _schedule_code_map_refresh(
+        repo_root,
+        cache_key=key,
+        focus=normalized_focus,
+        max_files=clamped_max_files,
+        source_stat_fingerprint=source_stat_fingerprint,
+    )
+    phase_timings_ms["refresh_schedule"] = _code_map_elapsed_ms(stage_started_at)
+    if last_good is not None:
+        return _annotated(
+            last_good["packet"],
+            state="stale_ready",
+            served_from=str(last_good.get("served_from") or "last_good"),
+            served_max_files=int(last_good.get("stored_max_files") or clamped_max_files),
+            cache_source_stat_fingerprint=str(last_good.get("cache_source_stat_fingerprint") or ""),
+            refresh_in_flight=refresh_error is None,
+            degraded_reason="source_stat_fingerprint_changed",
+            last_good_stored_at=str(last_good.get("stored_at") or ""),
+        )
+
+    stage_started_at = time.perf_counter()
+    warmed = _read_code_map_last_good(
+        repo_root,
+        focus=normalized_focus,
+        max_files=clamped_max_files,
+    )
+    phase_timings_ms["last_good_post_schedule_read"] = _code_map_elapsed_ms(stage_started_at)
+    if warmed is not None:
+        warmed_state = (
+            "ready"
+            if warmed.get("cache_source_stat_fingerprint") == source_stat_fingerprint
+            else "stale_ready"
+        )
+        return _annotated(
+            warmed["packet"],
+            state=warmed_state,
+            served_from=str(warmed.get("served_from") or "last_good"),
+            served_max_files=int(warmed.get("stored_max_files") or clamped_max_files),
+            cache_source_stat_fingerprint=str(warmed.get("cache_source_stat_fingerprint") or ""),
+            refresh_in_flight=refresh_error is None and warmed_state != "ready",
+            degraded_reason=None if warmed_state == "ready" else "source_stat_fingerprint_changed",
+            last_good_stored_at=str(warmed.get("stored_at") or ""),
+        )
+
+    stage_started_at = time.perf_counter()
+    budget_last_good = _read_code_map_last_good(
+        repo_root,
+        focus=None,
+        max_files=clamped_max_files,
+        allow_budget_mismatch=True,
+    )
+    phase_timings_ms["last_good_budget_fallback_read"] = _code_map_elapsed_ms(stage_started_at)
+    if (
+        not normalized_focus
+        and budget_last_good is not None
+        and bool(budget_last_good.get("budget_mismatch"))
+    ):
+        stored_max_files = int(budget_last_good.get("stored_max_files") or 0)
+        return _annotated(
+            budget_last_good["packet"],
+            state="partial_ready",
+            served_from=str(budget_last_good.get("served_from") or "last_good"),
+            served_max_files=stored_max_files,
+            cache_source_stat_fingerprint=str(budget_last_good.get("cache_source_stat_fingerprint") or ""),
+            refresh_in_flight=refresh_error is None,
+            degraded_reason=f"global_last_good_budget_{stored_max_files}_below_requested_{clamped_max_files}",
+            last_good_stored_at=str(budget_last_good.get("stored_at") or ""),
+        )
+
+    if normalized_focus:
+        stage_started_at = time.perf_counter()
+        global_last_good = _read_code_map_last_good(
+            repo_root,
+            focus=None,
             max_files=clamped_max_files,
-        ),
-        ttl_s=_CODE_MAP_PACKET_CACHE_TTL_S,
-        wait_timeout_s=_CODE_MAP_PACKET_WAIT_TIMEOUT_S,
+            allow_budget_mismatch=True,
+        )
+        phase_timings_ms["global_last_good_focus_fallback_read"] = _code_map_elapsed_ms(stage_started_at)
+        if global_last_good is not None:
+            stored_max_files = int(global_last_good.get("stored_max_files") or 0)
+            reason = "focus_last_good_unavailable_served_global_packet"
+            if global_last_good.get("budget_mismatch"):
+                reason = f"{reason};global_last_good_budget_{stored_max_files}_below_requested_{clamped_max_files}"
+            return _annotated(
+                global_last_good["packet"],
+                state="partial_ready",
+                served_from=str(global_last_good.get("served_from") or "last_good"),
+                served_max_files=stored_max_files,
+                cache_source_stat_fingerprint=str(global_last_good.get("cache_source_stat_fingerprint") or ""),
+                refresh_in_flight=refresh_error is None,
+                degraded_reason=reason,
+                last_good_stored_at=str(global_last_good.get("stored_at") or ""),
+            )
+
+    if refresh_error is not None:
+        return _code_map_empty_packet(
+            focus=normalized_focus,
+            state="failed",
+            degraded_reason=f"code_map_refresh_schedule_failed: {refresh_error}",
+            current_source_stat_fingerprint=source_stat_fingerprint,
+            requested_max_files=clamped_max_files,
+            phase_timings_ms=phase_timings_ms,
+            total_started_at=total_started_at,
+        )
+    return _code_map_empty_packet(
+        focus=normalized_focus,
+        state="refreshing",
+        degraded_reason="code_map_cache_cold_refresh_in_flight",
+        current_source_stat_fingerprint=source_stat_fingerprint,
+        requested_max_files=clamped_max_files,
+        phase_timings_ms=phase_timings_ms,
+        total_started_at=total_started_at,
     )
 
 
@@ -17603,24 +18311,61 @@ def _build_code_map_snapshot_uncached(
     )
 
 
+def _build_and_store_code_map_snapshot_uncached(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+    source_stat_fingerprint: str,
+) -> Dict[str, Any]:
+    build_started_at = time.perf_counter()
+    packet = _build_code_map_snapshot_uncached(repo_root, focus=focus, max_files=max_files)
+    build_ms = _code_map_elapsed_ms(build_started_at)
+    packet = copy.deepcopy(dict(packet))
+    diagnostics = dict(packet.get("build_diagnostics") or {})
+    diagnostics.update(
+        {
+            "schema": _CODE_MAP_BUILD_DIAGNOSTICS_SCHEMA,
+            "build_ms": build_ms,
+            "focus_path": focus,
+            "max_files": int(max_files),
+            "cache_source_stat_fingerprint": source_stat_fingerprint,
+            "built_at": datetime.now(timezone.utc).isoformat(),
+            "builder": "system.lib.code_architecture_projection.build_code_map_packet",
+        }
+    )
+    packet["build_diagnostics"] = diagnostics
+    store_started_at = time.perf_counter()
+    _store_code_map_last_good(
+        repo_root,
+        focus=focus,
+        max_files=max_files,
+        cache_source_stat_fingerprint=source_stat_fingerprint,
+        packet=packet,
+    )
+    diagnostics["store_last_good_ms"] = _code_map_elapsed_ms(store_started_at)
+    packet["build_diagnostics"] = diagnostics
+    return packet
+
+
 def prewarm_code_map_snapshot(repo_root: Path, *, max_files: int = CODE_MAP_DEFAULT_MAX_FILES) -> None:
     """Start a background warm of the global CodeMap packet."""
     clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
-    key = (
-        CODE_MAP_PACKET_CACHE_VERSION,
-        str(repo_root.resolve()),
-        "",
-        clamped_max_files,
-        _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS),
-        True,
+    source_stat_fingerprint = _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS)
+    key = _code_map_packet_cache_key(
+        repo_root,
+        focus=None,
+        max_files=clamped_max_files,
+        source_stat_fingerprint=source_stat_fingerprint,
     )
     swr_prewarm(
-        "code_map_packet",
+        _CODE_MAP_CACHE_NAME,
         key,
-        lambda: _build_code_map_snapshot_uncached(
+        lambda: _build_and_store_code_map_snapshot_uncached(
             repo_root,
             focus=None,
             max_files=clamped_max_files,
+            source_stat_fingerprint=source_stat_fingerprint,
         ),
     )
 
