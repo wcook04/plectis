@@ -62,9 +62,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 12765,
+      "byte_count": 16657,
       "copy_mode": "exact_file_copy",
-      "line_count": 110,
+      "line_count": 132,
       "material_class": "public_macro_skill_body",
       "module_id": "local_to_general_propagation_skill_body",
       "required_anchors": [
@@ -75,9 +75,9 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "source_sha256": "5212dffa2506122c0af49fd33c653374008c6aaa0e94a761655644b54cd50832",
+      "source_sha256": "e4bfd8718f9fe329c92f2cc52f468aa5c4ce06d2b2fa5ed5c9719a1c31025bf7",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "target_sha256": "5212dffa2506122c0af49fd33c653374008c6aaa0e94a761655644b54cd50832"
+      "target_sha256": "e4bfd8718f9fe329c92f2cc52f468aa5c4ce06d2b2fa5ed5c9719a1c31025bf7"
     },
     {
       "body_copied": true,
@@ -121,9 +121,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 33479,
+      "byte_count": 34014,
       "copy_mode": "exact_file_copy",
-      "line_count": 356,
+      "line_count": 358,
       "material_class": "public_macro_skill_body",
       "module_id": "task_ledger_skill_body",
       "required_anchors": [
@@ -133,16 +133,16 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/task_ledger/task_ledger.md",
-      "source_sha256": "252aa6f6468f642b38c877f8a7bc20c6ab5ac5a027f64d9a5c5cfadcc05f363f",
+      "source_sha256": "11bdb9a60779c33a2779dfed25da2cd6b6b4dc1d0ef38ca24c143202d0b4ecf9",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md",
-      "target_sha256": "252aa6f6468f642b38c877f8a7bc20c6ab5ac5a027f64d9a5c5cfadcc05f363f"
+      "target_sha256": "11bdb9a60779c33a2779dfed25da2cd6b6b4dc1d0ef38ca24c143202d0b4ecf9"
     },
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 113940,
+      "byte_count": 116138,
       "copy_mode": "exact_file_copy",
-      "line_count": 1603,
+      "line_count": 1629,
       "material_class": "public_macro_standard_body",
       "module_id": "task_ledger_standard_body",
       "required_anchors": [
@@ -152,9 +152,9 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/standards/std_task_ledger.json",
-      "source_sha256": "33039cb2abdd4ce591b0c9594fd4b631d6faebc4eb0ad763f90c3a0f586a3ee5",
+      "source_sha256": "bf30a6d1c96742d30d3395bbff228c295473cf763ee755cb94730b226cc69df2",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/standards/std_task_ledger.json",
-      "target_sha256": "33039cb2abdd4ce591b0c9594fd4b631d6faebc4eb0ad763f90c3a0f586a3ee5"
+      "target_sha256": "bf30a6d1c96742d30d3395bbff228c295473cf763ee755cb94730b226cc69df2"
     }
   ],
   "organ_id": "voice_to_doctrine_self_improvement_loop",

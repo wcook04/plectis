@@ -215,6 +215,8 @@ Capture discipline:
 - Keep exact paths, ordering, owner, and method provisional until current disk proves them. Use `candidate_surfaces`, `type_a_discovery_required`, and `unresolved_surface_questions` when needed.
 - Do not rank, shape, merge, claim, or plan from a quick capture unless the current slice already owns that work.
 - Prefer "investigate/close X surfaced by Y; candidate surfaces include Z; verify ownership/generated-vs-source/duplicates before acting; satisfied when proof P exists."
+- Treat the CLI interface as part of the receipt. `quick-capture` takes `--title` plus text fields such as `--statement`, `--note`, or `--problem`; it does not take a positional title. If uncertain, run `./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --help` before mutating.
+- Do not cite a `cap_id` until the command exits successfully and the returned id is visible through Task Ledger readback or a rebuilt projection. A failed append, blocked rebuild, shell error, or intended title is not a capture receipt.
 
 Residual Closure Protocol: a named residual cannot evaporate into prose. Before yielding, any unresolved issue, drift, bug-like finding, validation failure, missing affordance, suspicious invariant, or follow-up that the agent noticed or mentioned must close through exactly one receipt: fixed now, quick-captured, linked to an existing WorkItem, or explicitly no-op/not-actionable with reason. The `quick-capture` event enters `capture_inbox` / `capture_triage`; promotion, execution commitment, rank, and signoff happen later through explicit organizer events.
 

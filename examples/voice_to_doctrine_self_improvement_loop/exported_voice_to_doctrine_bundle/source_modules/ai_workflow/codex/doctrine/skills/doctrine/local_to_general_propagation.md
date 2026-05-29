@@ -77,6 +77,28 @@ Field names are not receipts. A null closeout that says `stewardship_checked=yes
 
 If the local lesson is a failure, repeated workaround, route miss, stale projection, or agent confusion, do not jump straight from symptom to doctrine. Open `codex/doctrine/mechanisms/mech_034_failure_class_propagation_packet.json` and packetize: local case, failure class, evidence refs, sibling surfaces checked, owner surface, mutation or capture lane, overgeneralization guard, currentness boundary, validation receipt, stop condition, and outcome. The valid outcomes are owner mutation, up-propagation intake, Task Ledger capture, PEER candidate, already-propagated proof, or residual-free `nothing_to_refine` with explicit stewardship/next-best-lane evidence.
 
+### Receipt-Truth Failure Class
+
+When a local case includes a claimed command result, commit, capture id, test pass, generated artifact, or source path that was not actually produced by its owning surface, classify the packet as `receipt_truthfulness_failure`, not as a tooling quirk. Typical subclasses are `command_interface_assumption`, `unverified_mutation_receipt`, `validation_state_misreport`, and `unproven_path_reference`. Do not encode the exact failed command as the law; encode the receipt boundary that would have prevented the false closeout.
+
+Before a closeout may cite a durable result, the packet must prove all relevant truth states:
+
+- Command interface proof: the agent used the owner command surface, help output, command card, or row card for the actual interface instead of guessing flags or positional arguments.
+- Mutation receipt proof: the mutating command exited successfully and the durable id/path/hash/commit is visible through the owner readback surface. A nonzero command, rejected append, queued operation, dry-run, or blocked gate is not a receipt.
+- Validation state proof: tests and checks are reported as `passed`, `failed`, `blocked`, or `not_run`. A host-pressure gate, admission queue, skip, timeout, or missing dependency must be named as blocked/not-run with its retry command; it cannot be summarized as green.
+- Path/source proof: every source file, standard, builder, or artifact named in an edit or test must exist or be selected through a generated option surface before it is used as evidence.
+- Currentness proof: if the evidence came from an attachment, old transcript, stale cache, or generated projection, the packet records which live surface revalidated it or why it remains historical-only.
+
+Task Ledger capture is fallback transport for an unresolved false-receipt residual; it does not turn a failed command, imagined path, or blocked validation into landed work. The correct owner edit is usually the narrowest skill, standard, test, command card, or validator that makes the receipt boundary harder to miss next time.
+
+### Existing-Surface Miss + Claim-Blocked Frontier
+
+When the local case says an artifact, paper module, skill, route, standard, or owner surface exists but an operator phrase or docs-route query failed to spend it, classify the packet as `existing_surface_resolver_miss`, not `missing_artifact`. Check semantic siblings, generated projections, standards, skills, paper modules, WorkItems, prompt-ledger surfaces, and route aliases before authoring a parallel artifact. If the owner exists, patch the smallest reversible route hint, alias, skill trigger, bootstrap affordance, evaluator fixture, or projection update that makes the phrase resolve next time; if no owner exists after the availability ladder, capture the phrase, nearest false positives, expected owner family, and re-entry condition.
+
+When the same local case also includes an active Work Ledger/path-claim block, classify that part as `claim_blocked_frontier`, not as a terminal no-op. If the claim is current-session owned, retry through the owner-session lane; if another live session owns it, do not bypass it, split the patch, land only unclaimed same-capability hunks, and bind the claimed hunk to the owner lane or a deferred WorkItem with exact claim/path/re-entry evidence; if the claim is expired or orphaned, refresh/sweep/reconcile before retry. Task Ledger capture is fallback transport, not the refinement product.
+
+Replay specimen shape: a route phrase fails even though the owner surface exists, and one target path is blocked by a live claim while same-capability sibling hunks remain safe. A valid generalizer result patches the resolver/trigger rule and preserves the claim frontier: unclaimed hunks can land, generated-state capture stays separate from source landing, and any claimed hunk carries an exact re-entry condition.
+
 ## Mechanism / WorkItem Boundary Lessons
 
 When the local lesson says mechanisms are describing work, asks whether mechanisms and WorkItems should merge, or needs WorkItems clustered by mechanism pressure, treat it as cross-authority routing before doctrine mutation.

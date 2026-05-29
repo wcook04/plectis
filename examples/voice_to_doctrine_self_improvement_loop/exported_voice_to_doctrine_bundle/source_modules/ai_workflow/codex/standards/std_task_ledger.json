@@ -300,6 +300,7 @@
         }
       ],
       "one_line_hygiene_rule": "A one-line hygiene edit is valid only when the agent states why it is the highest-yield legal move under the current claim state; ease, proximity, or desire to avoid a no-op is not sufficient.",
+      "claim_blocked_frontier_rule": "When a Work Ledger/path claim blocks one target in a multi-path patch, the generalizer must classify the frontier before downshifting: same-session claims route through the owner session, other active claims require split-and-spend of unclaimed same-capability hunks plus deferred claimed-hunk evidence, expired/orphaned claims route through refresh/sweep/reconcile, and total blockage requires a residual with exact claim/path/re-entry condition before switching lanes.",
       "required_receipt_fields": [
         "primary_target",
         "blocker_classification",
@@ -542,7 +543,32 @@
       "partial_instruction_residual_rule": "When a broad operator instruction contains more deliverables than the current runtime slice executes, the agent must bind the executed slice to the active mission/WorkItem and route each remaining durable deliverable to an existing matching cap_*/WorkItem, a new quick-capture, a blocker/retirement disposition, or an explicit no-residual/no-op verdict before final response. Native TODOs and prose summaries are scratch only.",
       "spawn_task_rule": "spawn_task/native chips may carry work only when they also create or point to a cap_*/WorkItem id; otherwise they are audit evidence for possible adapter leakage, not authority.",
       "self_detected_error_capture_rule": "Self-detected errors are a tripwire trigger class equivalent to flag-without-capture. Any self-noticed mistake, false claim, fabricated id/path/fact, broken edit, wrong-tool detour, hallucinated CLI flag, or bad routing decision must be quick-captured BEFORE the operator-facing acknowledgment or correction, and the cap_id cited inline. Tripwire phrases include 'I was wrong', 'my mistake', 'I made an error', 'I broke', 'I fabricated', 'I made up', 'false claim', 'bad edit path', 'I miscounted', 'I misread', 'wrong file', 'wrong command'. The capture title names the failure class; --note carries one or two sentences of failure mode plus minimal recoverable context (quick on-the-fly register, not a postmortem). Tag with self_error plus the affected subsystem. Mistake-without-capture is a hard protocol violation, not a soft preference. Operator anchor: 2026-05-04 'if you ever make a mistake just add it to the todo as a failure mode with a bit of context, just a quick on the fly one'.",
-      "observed_failure_capture_invariant": "If an agent observes a failing test, command error, failed validation, substrate drift, contradiction, or self-error and does not fix it in the same turn, it must create or reference a durable WorkItem/capture before final response. Reporting the issue in prose is not a substitute for a WorkItem. The legal closeout states are: fixed and validated, captured as a new cap_*/WorkItem, or explicitly linked to an existing capture that names the original failure."
+      "observed_failure_capture_invariant": "If an agent observes a failing test, command error, failed validation, substrate drift, contradiction, or self-error and does not fix it in the same turn, it must create or reference a durable WorkItem/capture before final response. Reporting the issue in prose is not a substitute for a WorkItem. The legal closeout states are: fixed and validated, captured as a new cap_*/WorkItem, or explicitly linked to an existing capture that names the original failure.",
+      "quick_capture_receipt_rule": "A quick-capture is a receipt only after the command exits zero and the returned subject_id/cap_id is visible through Task Ledger readback or projection rebuild. `quick-capture` takes `--title` and text fields such as `--statement`, `--note`, or `--problem`; a positional title or nonzero command is a failed capture attempt. Do not cite a cap_id, shape a WorkItem, or claim capture completed from an intended command, stderr, or remembered interface."
+    },
+    "receipt_truthfulness_contract": {
+      "policy_id": "receipt_truthfulness_contract",
+      "rule": "Closeout prose may cite only owner-surface receipts, not intentions. Command interface, mutation receipt, validation state, and path/source existence are independent truth gates.",
+      "valid_validation_states": [
+        "passed",
+        "failed",
+        "blocked",
+        "not_run"
+      ],
+      "required_receipt_checks": [
+        "command_interface_checked_against_owner_help_card_or_standard",
+        "mutating_command_exit_status_zero_or_blocker_named",
+        "durable_id_path_hash_or_commit_read_back_from_owner_surface",
+        "validation_state_reported_as_passed_failed_blocked_or_not_run",
+        "blocked_validation_includes_gate_reason_and_retry_command",
+        "referenced_paths_or_standards_exist_or_are_selected_by_option_surface"
+      ],
+      "invalid_exit_patterns": [
+        "claiming a blocked or queued validation as green",
+        "claiming a capture id from a failed quick-capture invocation",
+        "claiming a scoped commit from a nonzero scoped_commit command",
+        "editing tests against an imagined source path or standard"
+      ]
     },
     "propagation_actuation_floor": {
       "policy_id": "propagation_actuation_floor",
