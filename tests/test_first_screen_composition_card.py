@@ -467,6 +467,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert first_contact_surfaces["status"]["body_import_floor_ref"] == (
         "microcosm status --card <project>::front_door.source_open_body_import_floor"
     )
+    assert first_contact_surfaces["status"]["workingness_command"] == (
+        "microcosm workingness --card"
+    )
     assert first_contact_surface_refs["safe_to_show"] == {
         "project_local_state_refs_visible": True,
         "receipt_refs_visible": True,

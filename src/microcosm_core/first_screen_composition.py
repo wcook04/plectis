@@ -935,7 +935,7 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
                     "microcosm status --card <project>::front_door."
                     "source_open_body_import_floor"
                 ),
-                "workingness_command": "microcosm workingness",
+                "workingness_command": "microcosm workingness --card",
             },
         },
         "safe_to_show": {
