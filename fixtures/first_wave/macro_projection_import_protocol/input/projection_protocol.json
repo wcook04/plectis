@@ -398,6 +398,7 @@
         "source_to_target_relation": "exact_copy",
         "target_body_digest": "sha256:2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
         "target_line_count": 652,
+        "target_ref": "src/microcosm_core/macro_tools/agent_session_attribution.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },

@@ -2129,6 +2129,21 @@ def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protoco
     assert validation["public_safe_body_import_status"] == "pass"
     assert validation["body_in_receipt"] is False
 
+    clean_protocol_only_result = refresh_exact_copy_source_modules(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        source_root=source_root,
+        material_ids=["agent_session_attribution_body_import"],
+        write=False,
+        command="pytest",
+    )
+
+    assert clean_protocol_only_result["status"] == "pass"
+    assert clean_protocol_only_result["defect_count"] == 0
+    assert clean_protocol_only_result["pending_update_count"] == 0
+    assert clean_protocol_only_result["matched_material_ids"] == [
+        "agent_session_attribution_body_import"
+    ]
+
 
 def test_refresh_exact_copy_source_modules_accepts_source_import_class_rows(
     tmp_path: Path,

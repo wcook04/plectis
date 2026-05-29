@@ -3289,6 +3289,15 @@ def refresh_exact_copy_source_modules(
             material_id = str(row.get("material_id") or "")
             if protocol_material_ids and material_id not in protocol_material_ids:
                 continue
+            verification = row.get("body_import_verification")
+            if (
+                material_id
+                and isinstance(verification, dict)
+                and verification.get("verification_mode")
+                == "exact_source_digest_match"
+                and verification.get("source_to_target_relation") == "exact_copy"
+            ):
+                matched_material_ids.add(material_id)
             update = _update_protocol_exact_copy_row(
                 row,
                 protocol_path=protocol_path,

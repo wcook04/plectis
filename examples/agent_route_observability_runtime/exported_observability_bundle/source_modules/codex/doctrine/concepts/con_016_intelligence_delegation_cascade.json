@@ -29,49 +29,94 @@
     {
       "target": "pri_003",
       "relation": "refines",
-      "gloss": "Bridge-reasons-kernel-mutates is one tier of the cascade; the full cascade has multiple reasoning tiers above the bridge."
+      "gloss": "Bridge-reasons-kernel-mutates is one tier of the cascade; the full cascade has multiple reasoning tiers above the bridge.",
+      "forward_gloss": "Bridge-reasons-kernel-mutates is one tier of the cascade; the full cascade has multiple reasoning tiers above the bridge.",
+      "reverse_gloss": "[auto-stub] pri_003 is refined_by by Type A/B Actor Axes and Delegation Cascade: Bridge-reasons-kernel-mutates is one tier of the cascade; the full cascade has multiple reasoning tiers above the bridge.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "pri_006",
       "relation": "refines",
-      "gloss": "Wake-agents-only-at-real-gates is delegation scheduling — the top tier decides when lower tiers need to activate."
+      "gloss": "Wake-agents-only-at-real-gates is delegation scheduling — the top tier decides when lower tiers need to activate.",
+      "forward_gloss": "Wake-agents-only-at-real-gates is delegation scheduling — the top tier decides when lower tiers need to activate.",
+      "reverse_gloss": "[auto-stub] pri_006 is refined_by by Type A/B Actor Axes and Delegation Cascade: Wake-agents-only-at-real-gates is delegation scheduling — the top tier decides when lower tiers need to activate.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "pri_004",
       "relation": "implements",
-      "gloss": "Intent is the substrate that flows down the cascade: human intent → opus realization → orchestrator plan → bridge prompt → typed receipt."
+      "gloss": "Intent is the substrate that flows down the cascade: human intent → opus realization → orchestrator plan → bridge prompt → typed receipt.",
+      "forward_gloss": "Intent is the substrate that flows down the cascade: human intent → opus realization → orchestrator plan → bridge prompt → typed receipt.",
+      "reverse_gloss": "[auto-stub] pri_004 is implemented_by by Type A/B Actor Axes and Delegation Cascade: Intent is the substrate that flows down the cascade: human intent → opus realization → orchestrator plan → bridge prompt → typed receipt.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "pri_001",
       "relation": "implements",
-      "gloss": "JSON contracts are the protocol between cascade tiers — each tier's output is the next tier's input contract."
+      "gloss": "JSON contracts are the protocol between cascade tiers — each tier's output is the next tier's input contract.",
+      "forward_gloss": "JSON contracts are the protocol between cascade tiers — each tier's output is the next tier's input contract.",
+      "reverse_gloss": "[auto-stub] pri_001 is implemented_by by Type A/B Actor Axes and Delegation Cascade: JSON contracts are the protocol between cascade tiers — each tier's output is the next tier's input contract.",
+      "reverse_gloss_status": "stub"
     }
   ],
   "mechanism_edges": [
     {
       "target": "mech_003",
       "relation": "instantiated_by",
-      "gloss": "Bridge dispatch is the bottom of the cascade: cheap bulk reasoning on pre-scoped prompts."
+      "gloss": "Bridge dispatch is the bottom of the cascade: cheap bulk reasoning on pre-scoped prompts.",
+      "forward_gloss": "Bridge dispatch is the bottom of the cascade: cheap bulk reasoning on pre-scoped prompts.",
+      "reverse_gloss": "[auto-stub] Bridge Dispatch Orchestration is instantiates by Type A/B Actor Axes and Delegation Cascade: Bridge dispatch is the bottom of the cascade: cheap bulk reasoning on pre-scoped prompts.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "mech_009",
       "relation": "instantiated_by",
-      "gloss": "Observe group wave dispatch structures work for the bridge tier."
+      "gloss": "Observe group wave dispatch structures work for the bridge tier.",
+      "forward_gloss": "Observe group wave dispatch structures work for the bridge tier.",
+      "reverse_gloss": "[auto-stub] Observe Group Wave Dispatch is instantiates by Type A/B Actor Axes and Delegation Cascade: Observe group wave dispatch structures work for the bridge tier.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "mech_001",
       "relation": "instantiated_by",
-      "gloss": "The observe-apply loop is the mid-tier orchestration engine."
+      "gloss": "The observe-apply loop is the mid-tier orchestration engine.",
+      "forward_gloss": "The observe-apply loop is the mid-tier orchestration engine.",
+      "reverse_gloss": "[auto-stub] Observe-Apply Loop is instantiates by Type A/B Actor Axes and Delegation Cascade: The observe-apply loop is the mid-tier orchestration engine.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "mech_014",
       "relation": "instantiated_by",
-      "gloss": "Campaign runner automates the mechanical advancement tier."
+      "gloss": "Campaign runner automates the mechanical advancement tier.",
+      "forward_gloss": "Campaign runner automates the mechanical advancement tier.",
+      "reverse_gloss": "[auto-stub] Campaign Runner DAG is instantiates by Type A/B Actor Axes and Delegation Cascade: Campaign runner automates the mechanical advancement tier.",
+      "reverse_gloss_status": "stub"
     },
     {
       "target": "mech_011",
       "relation": "instantiated_by",
-      "gloss": "Signal watcher decides when to escalate from mechanical tier to agent tier."
+      "gloss": "Signal watcher decides when to escalate from mechanical tier to agent tier.",
+      "forward_gloss": "Signal watcher decides when to escalate from mechanical tier to agent tier.",
+      "reverse_gloss": "[auto-stub] Pipeline Signal Watcher is instantiates by Type A/B Actor Axes and Delegation Cascade: Signal watcher decides when to escalate from mechanical tier to agent tier.",
+      "reverse_gloss_status": "stub"
+    },
+    {
+      "target": "mech_016",
+      "relation": "implemented_by",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of mech_016's implements edge: The self-improvement loop IS the delegation cascade applied to doctrine: tier 1 designs the probes, tier 3 (bridge) executes them.",
+      "reverse_gloss": "The self-improvement loop IS the delegation cascade applied to doctrine: tier 1 designs the probes, tier 3 (bridge) executes them.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:26.171804+00:00"
+    },
+    {
+      "target": "mech_035",
+      "relation": "actor_axes_used_by",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of mech_035's uses_actor_axes edge: The loop separates Type A execution from optional Type B authoring or synthesis.",
+      "reverse_gloss": "The loop separates Type A execution from optional Type B authoring or synthesis.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:26.234927+00:00"
     }
   ],
   "evidence": [
@@ -147,7 +192,11 @@
     "statement": "Type A and Type B describe actor substrate and authority, not intelligence level. Type A actors operate inside substrate-native harnesses with live discovery, tool, validation, filesystem, test, patch, git, apply-lane, state, or mutation affordances. Type B actors operate through operator, bridge, API, NIM, provider, web, HUD, or injected-context surfaces and produce decisions, research, transformations, critiques, or candidate outputs for Type A or the operator to apply. The operator can serve as Type B transport by carrying a Type A-prepared ask into ChatGPT Web / operator Chrome HUD and pasting the response back; that does not give the Type B actor live private-substrate authority. Low, middle, and high class tiers apply independently inside both Type A and Type B. Surface, delegation role, lane, context mode, and thinking budget are independent axes; doctrine that collapses them into one ladder is legacy or wrong.",
     "axes": {
       "substrate_type": {
-        "values": ["type_a", "type_b", "mechanical"],
+        "values": [
+          "type_a",
+          "type_b",
+          "mechanical"
+        ],
         "definitions": {
           "type_a": "Substrate-native actor or harness with live discovery, tool, validation, filesystem, test, patch, git, apply-lane, state, or mutation affordances.",
           "type_b": "Inference/cognition actor operating through operator, bridge, API, NIM, provider, web, or injected-context surfaces without direct private-substrate authority unless mediated by Type A.",
@@ -155,8 +204,15 @@
         }
       },
       "class_tier": {
-        "values": ["low", "middle", "high"],
-        "resolution_modes": ["per_invocation", "not_applicable_for_mechanical"],
+        "values": [
+          "low",
+          "middle",
+          "high"
+        ],
+        "resolution_modes": [
+          "per_invocation",
+          "not_applicable_for_mechanical"
+        ],
         "definitions": {
           "low": "Weak, unreliable, narrow, buggy, low-reasoning, brittle, schema-bound, or low-observability within its substrate type. Examples: half-wired Codex testing ground (low-class Type A); schema-bound 7B transform call (low-class Type B).",
           "middle": "Useful bounded capability with moderate reasoning, reliability, or harness quality. Examples: Sonnet/Haiku subagent inside Claude Code with tools (middle-class Type A); Kimi K2 thinking on a tightly-scoped routing decision (middle-class Type B).",
@@ -166,28 +222,107 @@
         }
       },
       "surface": {
-        "values": ["claude_code", "codex", "github_harness", "testing_ground", "claude_agent_tool", "codex_subagent", "chatgpt_web", "operator_chrome_hud", "bridge_runtime", "nvidia_nim", "openrouter_api", "provider_api", "lab_oracle", "evolve", "metabolism_scheduler", "mechanical_kernel"],
+        "values": [
+          "claude_code",
+          "codex",
+          "github_harness",
+          "testing_ground",
+          "claude_agent_tool",
+          "codex_subagent",
+          "chatgpt_web",
+          "operator_chrome_hud",
+          "bridge_runtime",
+          "nvidia_nim",
+          "openrouter_api",
+          "provider_api",
+          "lab_oracle",
+          "evolve",
+          "metabolism_scheduler",
+          "mechanical_kernel"
+        ],
         "note": "Invocation/interface surface. Open enum — extend the values list when a new surface lands. Multiple surfaces may apply to one actor; encode as an array."
       },
       "authority": {
-        "values": ["decide", "research", "critique", "transform", "classify", "inspect_private_substrate", "context_discovery", "patch", "patch_if_allowed", "maybe_patch", "test", "test_if_allowed", "maybe_test", "commit", "apply", "candidate_only", "receipt_only", "uppropagate", "bounded_reasoning", "structured_output", "apply_validated_transition"],
+        "values": [
+          "decide",
+          "research",
+          "critique",
+          "transform",
+          "classify",
+          "inspect_private_substrate",
+          "context_discovery",
+          "patch",
+          "patch_if_allowed",
+          "maybe_patch",
+          "test",
+          "test_if_allowed",
+          "maybe_test",
+          "commit",
+          "apply",
+          "candidate_only",
+          "receipt_only",
+          "uppropagate",
+          "bounded_reasoning",
+          "structured_output",
+          "apply_validated_transition"
+        ],
         "note": "What the actor may do. Open enum — extend when a new authority surface emerges. Conditional authorities (`patch_if_allowed`, `maybe_patch`, etc.) are first-class and indicate that the authority depends on harness configuration or runtime allowlist."
       },
       "context_mode": {
-        "values": ["live_substrate", "operator_hud", "injected_context", "provider_payload", "shard_payload", "public_web", "generated_state", "mechanical_state"],
+        "values": [
+          "live_substrate",
+          "operator_hud",
+          "injected_context",
+          "provider_payload",
+          "shard_payload",
+          "public_web",
+          "generated_state",
+          "mechanical_state"
+        ],
         "note": "How evidence reaches the actor. Multiple modes may apply; encode as an array."
       },
       "lane": {
-        "values": ["operator_decision", "substrate_execution", "research", "provider_metabolism", "seed_shard_processing", "mission_evolution", "validation", "routing", "uppropagation", "integration", "testing_ground", "deterministic_execution"],
+        "values": [
+          "operator_decision",
+          "substrate_execution",
+          "research",
+          "provider_metabolism",
+          "seed_shard_processing",
+          "mission_evolution",
+          "validation",
+          "routing",
+          "uppropagation",
+          "integration",
+          "testing_ground",
+          "deterministic_execution"
+        ],
         "note": "Purpose lane. Open enum — extend when a new repo lane lands. Multiple lanes may apply; encode as an array."
       },
       "thinking_budget": {
-        "values": ["low", "medium", "high", "extra_high", "unknown"],
-        "resolution_modes": ["model_and_request_dependent"],
+        "values": [
+          "low",
+          "medium",
+          "high",
+          "extra_high",
+          "unknown"
+        ],
+        "resolution_modes": [
+          "model_and_request_dependent"
+        ],
         "note": "Inference-depth setting or effective reasoning budget. When budget is determined at invocation time (e.g. by request thinking parameter), use resolution mode `model_and_request_dependent` and optionally pair with an array of plausible values."
       },
       "delegation_role": {
-        "values": ["operator", "controller", "orchestrator", "delegated_substrate_actor", "bridge_actor", "provider_actor", "metabolism_actor", "mechanical_executor", "operator_visible_cognitive_actor"],
+        "values": [
+          "operator",
+          "controller",
+          "orchestrator",
+          "delegated_substrate_actor",
+          "bridge_actor",
+          "provider_actor",
+          "metabolism_actor",
+          "mechanical_executor",
+          "operator_visible_cognitive_actor"
+        ],
         "note": "Topology role. Independent from substrate_type — a delegated substrate actor (subagent with tools) is Type A; a delegated bridge actor is Type B. `operator_visible_cognitive_actor` is the operator-Chrome/HUD high-class Type B role."
       }
     },
@@ -198,9 +333,22 @@
         "substrate_type": "type_b",
         "class_tier": "high",
         "surface": "operator_chrome_hud",
-        "authority": ["decide", "research", "critique", "uppropagate"],
-        "context_mode": ["operator_hud", "injected_context", "public_web"],
-        "lane": ["operator_decision", "research", "uppropagation"],
+        "authority": [
+          "decide",
+          "research",
+          "critique",
+          "uppropagate"
+        ],
+        "context_mode": [
+          "operator_hud",
+          "injected_context",
+          "public_web"
+        ],
+        "lane": [
+          "operator_decision",
+          "research",
+          "uppropagation"
+        ],
         "thinking_budget": "high",
         "delegation_role": "operator_visible_cognitive_actor",
         "constraint": "Cannot claim private repo state beyond what Type A pasted or what tools expose. Anchor: axiom_candidate_high_class_type_b_as_prefrontal_cortex."
@@ -209,12 +357,32 @@
         "example": "NVIDIA NIM or OpenRouter model invoked for bounded transform via type_a_worker_harness",
         "substrate_type": "type_b",
         "class_tier": "per_invocation",
-        "surface": ["nvidia_nim", "openrouter_api", "provider_api"],
-        "authority": ["transform", "classify", "candidate_only", "receipt_only"],
-        "context_mode": ["provider_payload", "injected_context"],
-        "lane": ["provider_metabolism", "seed_shard_processing", "routing"],
+        "surface": [
+          "nvidia_nim",
+          "openrouter_api",
+          "provider_api"
+        ],
+        "authority": [
+          "transform",
+          "classify",
+          "candidate_only",
+          "receipt_only"
+        ],
+        "context_mode": [
+          "provider_payload",
+          "injected_context"
+        ],
+        "lane": [
+          "provider_metabolism",
+          "seed_shard_processing",
+          "routing"
+        ],
         "thinking_budget_resolution": "model_and_request_dependent",
-        "thinking_budget_plausible": ["low", "medium", "high"],
+        "thinking_budget_plausible": [
+          "low",
+          "medium",
+          "high"
+        ],
         "delegation_role": "provider_actor",
         "constraint": "Provider surface is Type B, but class tier depends on model quality, prompt, context envelope, schema, and task. Do not globally label NIM/OpenRouter as low-class."
       },
@@ -222,21 +390,52 @@
         "example": "Opus or GPT-5.5-high inside Claude Code/Codex with full repo tools",
         "substrate_type": "type_a",
         "class_tier": "high",
-        "surface": ["claude_code", "codex"],
-        "authority": ["inspect_private_substrate", "patch", "test", "apply", "commit"],
+        "surface": [
+          "claude_code",
+          "codex"
+        ],
+        "authority": [
+          "inspect_private_substrate",
+          "patch",
+          "test",
+          "apply",
+          "commit"
+        ],
         "context_mode": "live_substrate",
-        "lane": ["substrate_execution", "validation", "integration"],
-        "thinking_budget": ["high", "extra_high"],
-        "delegation_role": ["controller", "orchestrator"]
+        "lane": [
+          "substrate_execution",
+          "validation",
+          "integration"
+        ],
+        "thinking_budget": [
+          "high",
+          "extra_high"
+        ],
+        "delegation_role": [
+          "controller",
+          "orchestrator"
+        ]
       },
       {
         "example": "Sonnet/Haiku/GPT-5.4-mini subagent spawned via Claude Agent tool with repo tools",
         "substrate_type": "type_a",
         "class_tier": "middle",
-        "surface": ["claude_agent_tool", "codex_subagent"],
-        "authority": ["inspect_private_substrate", "context_discovery", "patch_if_allowed", "test_if_allowed"],
+        "surface": [
+          "claude_agent_tool",
+          "codex_subagent"
+        ],
+        "authority": [
+          "inspect_private_substrate",
+          "context_discovery",
+          "patch_if_allowed",
+          "test_if_allowed"
+        ],
         "context_mode": "live_substrate",
-        "lane": ["substrate_execution", "research", "validation"],
+        "lane": [
+          "substrate_execution",
+          "research",
+          "validation"
+        ],
         "delegation_role": "delegated_substrate_actor",
         "correction": "Delegated does not mean Type B. A subagent with file_access + tools + browsing is a delegated Type A substrate actor, not type_b_worker."
       },
@@ -244,10 +443,20 @@
         "example": "GitHub harness, Codex testing ground, or apply lane with broken hooks / flaky validators / weak receipts",
         "substrate_type": "type_a",
         "class_tier": "low",
-        "surface": ["github_harness", "testing_ground"],
-        "authority": ["inspect_private_substrate", "maybe_patch", "maybe_test"],
+        "surface": [
+          "github_harness",
+          "testing_ground"
+        ],
+        "authority": [
+          "inspect_private_substrate",
+          "maybe_patch",
+          "maybe_test"
+        ],
         "context_mode": "live_substrate",
-        "lane": ["substrate_execution", "testing_ground"],
+        "lane": [
+          "substrate_execution",
+          "testing_ground"
+        ],
         "constraint": "Still Type A because it has substrate authority. The fix is capability-lift inside Type A (better hooks, receipts, tests, replay, validation), not reclassification as Type B."
       },
       {
@@ -255,7 +464,9 @@
         "substrate_type": "mechanical",
         "class_tier": "not_applicable",
         "surface": "mechanical_kernel",
-        "authority": ["apply_validated_transition"],
+        "authority": [
+          "apply_validated_transition"
+        ],
         "context_mode": "mechanical_state",
         "lane": "deterministic_execution",
         "note": "Not Type A or Type B unless an AI actor is making decisions inside the harness."
@@ -278,10 +489,22 @@
     ],
     "classification": {
       "substrate_type": "type_b",
-      "surface": ["chatgpt_web", "operator_chrome_hud", "bridge_runtime"],
-      "context_mode": ["operator_hud", "injected_context"],
+      "surface": [
+        "chatgpt_web",
+        "operator_chrome_hud",
+        "bridge_runtime"
+      ],
+      "context_mode": [
+        "operator_hud",
+        "injected_context"
+      ],
       "delegation_role": "operator_visible_cognitive_actor",
-      "authority": ["decide", "research", "critique", "candidate_only"]
+      "authority": [
+        "decide",
+        "research",
+        "critique",
+        "candidate_only"
+      ]
     }
   },
   "legacy_surface_compatibility": {
@@ -293,9 +516,17 @@
         "canonical_default_axes": {
           "substrate_type": "type_a",
           "delegation_role": "delegated_substrate_actor",
-          "surface": ["claude_agent_tool", "codex_subagent"],
+          "surface": [
+            "claude_agent_tool",
+            "codex_subagent"
+          ],
           "context_mode": "live_substrate",
-          "authority": ["inspect_private_substrate", "context_discovery", "patch_if_allowed", "test_if_allowed"]
+          "authority": [
+            "inspect_private_substrate",
+            "context_discovery",
+            "patch_if_allowed",
+            "test_if_allowed"
+          ]
         },
         "caveat": "If a future subagent surface receives only injected context and no substrate authority, classify by actual authority instead of by this default."
       },
@@ -306,17 +537,34 @@
           "delegation_role": "bridge_actor",
           "surface": "bridge_runtime",
           "context_mode": "injected_context",
-          "authority": ["bounded_reasoning", "structured_output", "candidate_only"]
+          "authority": [
+            "bounded_reasoning",
+            "structured_output",
+            "candidate_only"
+          ]
         }
       },
       "controller": {
         "legacy_meaning": "Top-of-cascade IDE session.",
         "canonical_default_axes": {
           "substrate_type": "type_a",
-          "delegation_role": ["controller", "orchestrator"],
-          "surface": ["claude_code", "codex"],
+          "delegation_role": [
+            "controller",
+            "orchestrator"
+          ],
+          "surface": [
+            "claude_code",
+            "codex"
+          ],
           "context_mode": "live_substrate",
-          "authority": ["inspect_private_substrate", "patch", "test", "apply", "commit", "decide"]
+          "authority": [
+            "inspect_private_substrate",
+            "patch",
+            "test",
+            "apply",
+            "commit",
+            "decide"
+          ]
         }
       }
     }
@@ -340,7 +588,14 @@
         "output_contract": "Meta-realizations, synth_seed.json, doctrine entries, observe plan designs, delegation structures, groundwork docs for lower tiers",
         "cost": "highest tokens, limited capacity — use for architecture, delegation design, groundwork authoring. NOT for bulk work.",
         "protocol_role": "type_a_controller",
-        "capabilities": ["tools", "file_access", "state", "browsing", "spawns_subagents", "dispatches_bridge"]
+        "capabilities": [
+          "tools",
+          "file_access",
+          "state",
+          "browsing",
+          "spawns_subagents",
+          "dispatches_bridge"
+        ]
       },
       {
         "tier": 2,
@@ -349,7 +604,13 @@
         "output_contract": "Observe plans, apply ops, code changes, phase scaffolds",
         "cost": "moderate — use for structured execution of well-scoped tasks",
         "protocol_role": "type_a_controller",
-        "capabilities": ["tools", "file_access", "state", "browsing", "dispatches_bridge"]
+        "capabilities": [
+          "tools",
+          "file_access",
+          "state",
+          "browsing",
+          "dispatches_bridge"
+        ]
       },
       {
         "tier": 3,
@@ -359,8 +620,18 @@
         "cost": "cheap tokens — use for mechanical-but-intelligent work where context discovery or iteration is needed",
         "protocol_role": "type_b_worker",
         "worker_surface": "subagent",
-        "capabilities": ["tools", "file_access", "browsing", "context_discovery", "dispatches_bridge"],
-        "limitations": ["separate context window", "no recursive subagent spawning", "scoped to delegated task"],
+        "capabilities": [
+          "tools",
+          "file_access",
+          "browsing",
+          "context_discovery",
+          "dispatches_bridge"
+        ],
+        "limitations": [
+          "separate context window",
+          "no recursive subagent spawning",
+          "scoped to delegated task"
+        ],
         "when_over_bridge": "Task needs context discovery (browsing files to decide what to inject), iteration (try-then-refine), or tool access (running tests, kernel commands). Bridge cannot do these.",
         "when_bridge_instead": "Context is already known and injectable, task is pure bounded reasoning, or cost must be zero."
       },
@@ -372,8 +643,17 @@
         "cost": "near-zero marginal — unlimited reasoning if prompts are well-typed",
         "protocol_role": "type_b_worker",
         "worker_surface": "bridge",
-        "capabilities": ["bounded_reasoning", "structured_output"],
-        "limitations": ["no tools", "no file access", "no state between calls", "sees only injected prompt body", "one-shot"],
+        "capabilities": [
+          "bounded_reasoning",
+          "structured_output"
+        ],
+        "limitations": [
+          "no tools",
+          "no file access",
+          "no state between calls",
+          "sees only injected prompt body",
+          "one-shot"
+        ],
         "when_over_subagent": "Context is pre-known, task decomposes into independent bounded slices, parallelism matters, cost must be zero."
       },
       {
@@ -420,5 +700,43 @@
     "body": "",
     "cross_refs": [],
     "evolution_notes": ""
-  }
+  },
+  "concept_edges": [
+    {
+      "target": "con_026",
+      "relation": "refined_by",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of con_026's refines edge: Intelligence delegation cascade becomes concrete as the probe / reducer / synthesis / barrier / continuation chain.",
+      "reverse_gloss": "Intelligence delegation cascade becomes concrete as the probe / reducer / synthesis / barrier / continuation chain.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:25.434040+00:00"
+    },
+    {
+      "target": "con_036",
+      "relation": "supports",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of con_036's depends_on edge: con_016 intelligence_delegation_cascade::actor_axes names the axes (substrate_type, class_tier, surface, delegation_role, authority, context_mode, lane, thinking_budget) that an entry packet must select on. entry_point cannot exist without these axes.",
+      "reverse_gloss": "con_016 intelligence_delegation_cascade::actor_axes names the axes (substrate_type, class_tier, surface, delegation_role, authority, context_mode, lane, thinking_budget) that an entry packet must select on. entry_point cannot exist without these axes.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:25.658985+00:00"
+    },
+    {
+      "target": "con_037",
+      "relation": "variation_axis_of",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of con_037's varies_by edge: Probe shape varies by actor axes: substrate_type (Type A/B), class_tier, surface (Codex/Claude/Cursor/ChatGPT), context_mode, lane. The same entry surface may probe well for one actor and fail for another.",
+      "reverse_gloss": "Probe shape varies by actor axes: substrate_type (Type A/B), class_tier, surface (Codex/Claude/Cursor/ChatGPT), context_mode, lane. The same entry surface may probe well for one actor and fail for another.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:25.676636+00:00"
+    },
+    {
+      "target": "con_039",
+      "relation": "actor_axis_used_by",
+      "forward_gloss": "Type A/B Actor Axes and Delegation Cascade is the back-edge of con_039's uses_actor_axis edge: Type A/B is substrate authority, not intelligence. Type A receives and mutates; Type B may help author the seed as advisory synthesis.",
+      "reverse_gloss": "Type A/B is substrate authority, not intelligence. Type A receives and mutates; Type B may help author the seed as advisory synthesis.",
+      "reverse_gloss_status": "stub",
+      "back_mirror_origin": true,
+      "back_mirror_added_at": "2026-05-29T20:55:25.685559+00:00"
+    }
+  ]
 }
