@@ -2773,6 +2773,30 @@ def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
     return {class_id: count for class_id, count in counts.items() if count}
 
 
+def _authority_count_scope() -> dict[str, str]:
+    return {
+        "evidence_class_counts": (
+            "adapter_backed_organ_rows_by_evidence_class; organ-level "
+            "classification, not copied source-body material files"
+        ),
+        "organ_evidence_class_count": (
+            "distinct evidence class ids present across adapter-backed organ rows"
+        ),
+        "real_substrate_progress_count": (
+            "adapter-backed organ rows whose truth-accounting bucket counts as real "
+            "substrate progress; not maturity, release, or product-completeness score"
+        ),
+        "copied_non_secret_macro_body_material_count": (
+            "public-safe body-material rows imported through source-module manifests "
+            "and macro projection import protocol"
+        ),
+        "public_safe_body_material_count": (
+            "same body-material floor exposed by the macro body import floor; counted "
+            "by material row, not by organ evidence class"
+        ),
+    }
+
+
 def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
     counts = {count_key: 0 for count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.values()}
     bucket_counts: dict[str, int] = {}
@@ -17135,6 +17159,7 @@ class RuntimeShell:
                 "safe_local_exception_count": len(safe_local_exceptions),
             },
             "truth_accounting": truth_accounting,
+            "count_scope": _authority_count_scope(),
             "evidence_class_registry": spine.get("evidence_class_registry"),
             "evidence_class_counts": evidence_class_counts,
             "evidence_refs": evidence_refs,
@@ -17330,6 +17355,7 @@ class RuntimeShell:
                 "full_payload_ref": "microcosm authority",
             },
             "evidence_class_registry": _evidence_registry_summary(evidence_registry),
+            "count_scope": _authority_count_scope(),
             "evidence_class_counts": evidence_class_counts,
             "surface_authority_preview": surface_authority_preview,
             "organ_authority_preview": organ_authority_preview,

@@ -1666,6 +1666,15 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     )
     assert card["surface_counts"]["organ_authority_preview_count"] == 8
     assert card["surface_counts"]["surface_authority_count"] >= 40
+    assert card["count_scope"]["evidence_class_counts"].startswith(
+        "adapter_backed_organ_rows_by_evidence_class"
+    )
+    assert "not copied source-body material files" in card["count_scope"][
+        "evidence_class_counts"
+    ]
+    assert "material row, not by organ evidence class" in card["count_scope"][
+        "public_safe_body_material_count"
+    ]
     preview_commands = {
         row["surface_id"]: row["command"] for row in card["surface_authority_preview"]
     }
@@ -1983,6 +1992,12 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         _accepted_organ_count()
     )
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
+    assert authority["count_scope"]["evidence_class_counts"].startswith(
+        "adapter_backed_organ_rows_by_evidence_class"
+    )
+    assert "material row, not by organ evidence class" in authority["count_scope"][
+        "public_safe_body_material_count"
+    ]
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 16,
         "algorithmic_projection": 23,

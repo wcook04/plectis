@@ -1700,6 +1700,15 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] >= 411
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
+    assert payload["count_scope"]["evidence_class_counts"].startswith(
+        "adapter_backed_organ_rows_by_evidence_class"
+    )
+    assert "not copied source-body material files" in payload["count_scope"][
+        "evidence_class_counts"
+    ]
+    assert "material row, not by organ evidence class" in payload["count_scope"][
+        "public_safe_body_material_count"
+    ]
     assert payload["evidence_class_counts"] == {
         "semantic_validator": 16,
         "algorithmic_projection": 23,
