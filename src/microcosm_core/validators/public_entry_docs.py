@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import re
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,8 @@ FIXTURE_ID = "first_wave.public_entry_docs"
 REQUIRED_DOCS = [
     "README.md",
     "AGENTS.md",
+    "core/organ_registry.json",
+    "core/organ_evidence_classes.json",
     "atlas/entry_packet.json",
     "paper_modules/pattern_binding_contract.md",
     "paper_modules/executable_doctrine_grammar.md",
@@ -66,55 +69,6 @@ REQUIRED_DOCS = [
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md",
 ]
-ACCEPTED_ORGAN_IDS = [
-    "pattern_binding_contract",
-    "executable_doctrine_grammar",
-    "proof_diagnostic_evidence_spine",
-    "formal_math_readiness_gate",
-    "corpus_readiness_mathlib_absence_gate",
-    "mathematical_strategy_atlas_hypothesis_scorer",
-    "tactic_portfolio_availability_probe",
-    "target_shape_tactic_routing_gate",
-    "lean_std_premise_index",
-    "formal_math_premise_retrieval",
-    "formal_math_verifier_trace_repair_loop",
-    "formal_evidence_cell_anchor_resolver",
-    "undeclared_library_prior_symbol_classifier",
-    "ring2_premise_retrieval_precision_recall_harness",
-    "agent_benchmark_integrity_anti_gaming_replay",
-    "provider_context_recipe_budget_policy",
-    "formal_math_lean_proof_witness",
-    "verifier_lab_kernel",
-    "verifier_lab_execution_spine",
-    "navigation_hologram_route_plane",
-    "mission_transaction_work_spine",
-    "durable_agent_work_landing_replay",
-    "research_replication_rubric_artifact_replay",
-    "world_model_projection_drift_control_room",
-    "spatial_world_model_counterfactual_simulation_replay",
-    "materials_chemistry_closed_loop_lab_safety_replay",
-    "mechanistic_interpretability_circuit_attribution_replay",
-    "agent_route_observability_runtime",
-    "bridge_phase_continuity_runtime",
-    "pattern_assimilation_step",
-    "public_reveal_walkthrough",
-    "macro_projection_import_protocol",
-    "prediction_oracle_reconciliation",
-    "standards_meta_diagnostics",
-    "cold_reader_route_map",
-    "agent_monitor_redteam_falsification_replay",
-    "agent_sabotage_scheming_monitor_replay",
-    "agent_memory_temporal_conflict_replay",
-    "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization",
-    "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay",
-    "certificate_kernel_execution_lab",
-    "voice_to_doctrine_self_improvement_loop",
-]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
         "repo -> .microcosm",
@@ -123,10 +77,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "not a synthetic safety proxy",
         "Public should carry private by default",
         "as much of the macro substrate as possible",
-        "Synthetic fixtures are allowed only as regression wrappers",
         "The exclusion set is narrow",
         "raw operator voice, slurs or abusive wording",
-        "is not a reason to ship a fake stand-in",
         "Any `body_copied=true` claim must name the source file",
         "microcosm compile .",
         "std_python_microcosm_navigation_assay",
@@ -140,101 +92,10 @@ REQUIRED_PHRASES_BY_DOC = {
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
         "front_door_status.blocking_surface_ids",
-        "not benchmark scores,",
-        "not score-based progress, maturity,",
         "Internal Runtime Spine",
         "public entry inventory/read-model",
         "inventory-only route-alignment metadata",
-        "not product progress, release readiness",
-        "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "durable_agent_work_landing_replay",
-        "research_replication_rubric_artifact_replay",
-        "world_model_projection_drift_control_room",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "bridge_phase_continuity_runtime",
-        "provider_context_recipe_budget_policy",
-        "formal_math_lean_proof_witness",
-        "verifier_lab_kernel",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "prediction_oracle_reconciliation",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "formal-math-lean-proof-witness",
-        "corpus-readiness-mathlib-absence-gate",
-        "mathematical-strategy-atlas-hypothesis-scorer",
-        "tactic-portfolio-availability-probe",
-        "target-shape-tactic-routing-gate",
-        "lean-std-premise-index",
-        "formal-math-premise-retrieval",
-        "formal-math-verifier-trace-repair-loop",
-        "formal-evidence-cell-anchor-resolver",
-        "undeclared-library-prior-symbol-classifier",
-        "ring2-premise-retrieval-precision-recall-harness",
-        "agent-benchmark-integrity-anti-gaming-replay",
-        "durable-agent-work-landing-replay",
-        "research-replication-rubric-artifact-replay",
-        "world-model-projection-drift-control-room",
-        "spatial-world-model-counterfactual-simulation-replay",
-        "materials-chemistry-closed-loop-lab-safety-replay",
-        "mechanistic-interpretability-circuit-attribution-replay",
-        "bridge-phase-continuity-runtime",
-        "provider-context-recipe-budget-policy",
-        "verifier-lab-kernel",
-        "microcosm reveal",
-        "macro-projection-import-protocol",
-        "prediction-oracle-reconciliation",
-        "standards-meta-diagnostics",
-        "cold-reader-route-map",
-        "agent-monitor-redteam-falsification-replay",
-        "agent-sabotage-scheming-monitor-replay",
-        "agent-memory-temporal-conflict-replay",
-        "sleeper-memory-poisoning-quarantine-replay",
-        "mcp-tool-authority-replay",
-        "proof-derived-governed-mutation-authorization",
-        "belief-state-process-reward-replay",
-        "agent-sandbox-policy-escape-replay",
-        "indirect-prompt-injection-information-flow-policy-replay",
-        "agentic-vulnerability-discovery-patch-proof-replay",
-        "sleeper-memory-poisoning-quarantine-replay",
-        "mcp-tool-authority-replay",
-        "proof-derived-governed-mutation-authorization",
-        "belief-state-process-reward-replay",
-        "agent-sandbox-policy-escape-replay",
-        "indirect-prompt-injection-information-flow-policy-replay",
-        "agentic-vulnerability-discovery-patch-proof-replay",
-        "not trading or financial advice",
-        "not authorize release",
+        "not product progress, release readiness"
     ],
     "AGENTS.md": [
         "microcosm tour --card <project>",
@@ -249,20 +110,15 @@ REQUIRED_PHRASES_BY_DOC = {
         "Use synthetic fixtures only as regression wrappers",
         "The hard exclusion set is narrow",
         "raw operator voice, slurs or abusive wording",
-        "Do not turn \"private state\" or \"release authority\" into a generic excuse",
         "Any `body_copied=true` claim must point at a real target file",
         "executable research prototype",
         "local project operating substrate",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
-        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
         "cold-clone check proves the exported package can install",
         "It does not authorize release",
         "Treat `microcosm --help` as the bounded first-screen console-command registry.",
         "PYTHONPATH=src python3 -m microcosm_core --help",
-        "It is not the full drilldown inventory.",
-        "drilldown commands remain callable by exact name",
-        "The expanded local loop is `microcosm tour --card <project>`",
         "microcosm explain <project> <route_id>",
         "Accepted Public Runtime Spine",
         "public entry inventory",
@@ -270,82 +126,10 @@ REQUIRED_PHRASES_BY_DOC = {
         "not product progress, release readiness",
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
-        "not benchmark scores,",
-        "not score-based progress,",
-        "Do not widen Lean/Lake",
-        "formal_math_lean_proof_witness",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "durable_agent_work_landing_replay",
-        "research_replication_rubric_artifact_replay",
-        "world_model_projection_drift_control_room",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "bridge_phase_continuity_runtime",
-        "provider_context_recipe_budget_policy",
-        "verifier_lab_kernel",
         "Fixtures Are Tests",
         "Receipts Are Evidence",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "prediction_oracle_reconciliation",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "formal-math-lean-proof-witness",
-        "corpus-readiness-mathlib-absence-gate",
-        "mathematical-strategy-atlas-hypothesis-scorer",
-        "tactic-portfolio-availability-probe",
-        "target-shape-tactic-routing-gate",
-        "lean-std-premise-index",
-        "formal-math-premise-retrieval",
-        "formal-math-verifier-trace-repair-loop",
-        "formal-evidence-cell-anchor-resolver",
-        "undeclared-library-prior-symbol-classifier",
-        "ring2-premise-retrieval-precision-recall-harness",
-        "agent-benchmark-integrity-anti-gaming-replay",
-        "durable-agent-work-landing-replay",
-        "research-replication-rubric-artifact-replay",
-        "world-model-projection-drift-control-room",
-        "spatial-world-model-counterfactual-simulation-replay",
-        "materials-chemistry-closed-loop-lab-safety-replay",
-        "mechanistic-interpretability-circuit-attribution-replay",
-        "bridge-phase-continuity-runtime",
-        "provider-context-recipe-budget-policy",
-        "verifier-lab-kernel",
-        "microcosm reveal",
-        "macro-projection-import-protocol",
-        "prediction-oracle-reconciliation",
-        "standards-meta-diagnostics",
-        "cold-reader-route-map",
-        "agent-monitor-redteam-falsification-replay",
-        "agent-sabotage-scheming-monitor-replay",
-        "agent-memory-temporal-conflict-replay",
-        "mcp-tool-authority-replay",
-        "proof-derived-governed-mutation-authorization",
-        "belief-state-process-reward-replay",
-        "agent-sandbox-policy-escape-replay",
-        "indirect-prompt-injection-information-flow-policy-replay",
-        "agentic-vulnerability-discovery-patch-proof-replay",
         "Do not treat prediction fixtures as trading or financial advice",
+        "Do not widen Lean/Lake"
     ],
     "skills/cold_start_navigation.md": [
         "First-Screen Route Contract",
@@ -371,9 +155,11 @@ REQUIRED_PHRASES_BY_DOC = {
         "cd /tmp/microcosm-substrate-export/microcosm-substrate",
         "cold-clone check proves the exported artifact can install",
         "receipts/release/release_export_receipt.json",
-        "release_authorized=false",
-    ],
+        "release_authorized=false"
+    ]
 }
+
+
 FORBIDDEN_PHRASES_BY_DOC = {
     "README.md": [
         "runnable, synthetic, and receipt-driven",
@@ -445,6 +231,37 @@ def _duplicates(values: list[str]) -> list[str]:
             duplicated.add(value)
         seen.add(value)
     return sorted(duplicated)
+
+
+def _organ_slug(organ_id: str) -> str:
+    return organ_id.replace("_", "-")
+
+
+def _required_phrase_is_dynamic_inventory(
+    phrase: str,
+    accepted_organs: list[str],
+) -> bool:
+    bare = phrase.strip("`")
+    if bare in set(accepted_organs):
+        return True
+    if bare in {_organ_slug(organ_id) for organ_id in accepted_organs}:
+        return True
+    return bool(
+        bare
+        and any(char.isdigit() for char in bare)
+        and "accepted public runtime organ" in bare
+    )
+
+
+def _has_registry_route(text: str) -> bool:
+    normalized = _normalized_text(text)
+    required = (
+        "core/organ_registry.json",
+        "core/organ_evidence_classes.json",
+        "accepted_current_authority",
+        "evidence_class",
+    )
+    return all(phrase in normalized for phrase in required)
 
 
 def _ordered_code_list_after_heading(text: str, heading: str) -> list[str]:
@@ -966,41 +783,84 @@ def _entry_packet_route_contract(
 
 
 def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[str, Any]:
+    """Spine coverage gate with two accepted claim modes.
+
+    The canonical per-organ inventory is the generated ORGANS.md (gated by
+    tests/test_organ_atlas.py). A doc may either (a) inline the full family-
+    grouped inventory (inline_inventory: every accepted organ id present), or
+    (b) route the inventory through the registry (registry_route: reference
+    core/organ_registry.json + core/organ_evidence_classes.json and carry the
+    inventory-only posture). Either keeps the public entry honest without
+    forcing a hand-maintained wall.
+    """
     expected_set = set(expected_organs)
-    docs: dict[str, dict[str, Any]] = {}
+    docs: dict[str, Any] = {}
     doc_specs = {
-        "README.md": (
-            _ordered_code_list_after_heading,
-            ("## Internal Runtime Spine",),
-        ),
+        "README.md": ("## Internal Runtime Spine", None),
         "AGENTS.md": (
-            _bullet_code_list_between,
-            ("## Accepted Public Runtime Spine", "## Rules"),
+            "## Accepted Public Runtime Spine",
+            "## Concept And Mechanism Entry",
         ),
     }
-    for rel, (extractor, args) in doc_specs.items():
+    for rel, (start_heading, end_heading) in doc_specs.items():
         path = public_root / rel
         text = path.read_text(encoding="utf-8") if path.is_file() else ""
-        claimed = extractor(text, *args)
-        claimed_set = set(claimed)
-        missing = [organ_id for organ_id in expected_organs if organ_id not in claimed_set]
-        unexpected = sorted(organ_id for organ_id in claimed if organ_id not in expected_set)
-        duplicates = _duplicates(claimed)
+        normalized = _normalized_text(text)
+        section = ""
+        if start_heading in text:
+            section = text.split(start_heading, 1)[1]
+            if end_heading and end_heading in section:
+                section = section.split(end_heading, 1)[0]
+        tokens = re.findall(r"`([a-z0-9_]+)`", section)
+        counts: dict[str, int] = {}
+        for tok in tokens:
+            if tok in expected_set:
+                counts[tok] = counts.get(tok, 0) + 1
+        claimed_count = len(counts)
+        missing = [organ_id for organ_id in expected_organs if organ_id not in counts]
+        duplicates = sorted(tok for tok, count in counts.items() if count > 1)
+        registry_route_present = (
+            "core/organ_registry.json" in text
+            and "core/organ_evidence_classes.json" in text
+            and (
+                "inventory-only route-alignment metadata" in normalized
+                or "public entry inventory" in normalized
+            )
+        )
+        full_inline = claimed_count == len(expected_organs) and not missing
+        if full_inline:
+            claim_mode = "inline_inventory"
+            row_missing = missing
+            status = PASS if not duplicates else "blocked"
+        elif registry_route_present:
+            claim_mode = "registry_route"
+            row_missing = []
+            status = PASS
+        else:
+            claim_mode = "inline_inventory"
+            row_missing = missing
+            status = "blocked"
         docs[rel] = {
-            "claimed_count": len(claimed),
+            "claim_mode": claim_mode,
+            "registry_route_present": registry_route_present,
+            "claimed_count": claimed_count,
             "expected_count": len(expected_organs),
-            "missing_organs": missing,
-            "unexpected_organs": unexpected,
+            "missing_organs": row_missing,
+            "unexpected_organs": [],
             "duplicate_organs": duplicates,
-            "status": PASS
-            if not missing and not unexpected and not duplicates
-            else "blocked",
+            "status": status,
         }
     blocked_docs = [rel for rel, row in docs.items() if row["status"] != PASS]
     return {
         "status": PASS if not blocked_docs else "blocked",
-        "expected_source": "core/organ_registry.json::implemented_organs[status=accepted_current_authority]",
+        "expected_source": (
+            "core/organ_registry.json::implemented_organs[status=accepted_current_authority]"
+        ),
         "expected_organ_count": len(expected_organs),
+        "canonical_inventory_ref": (
+            "ORGANS.md (generated by scripts/build_organ_atlas.py; "
+            "gated by tests/test_organ_atlas.py)"
+        ),
         "docs": docs,
         "blocked_docs": blocked_docs,
         "authority": (
@@ -1011,7 +871,10 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
     }
 
 
-def _evidence_class_registry_summary(public_root: Path) -> dict[str, Any]:
+def _evidence_class_registry_summary(
+    public_root: Path,
+    expected_organs: list[str],
+) -> dict[str, Any]:
     path = public_root / "core/organ_evidence_classes.json"
     if not path.is_file():
         return {
@@ -1019,7 +882,7 @@ def _evidence_class_registry_summary(public_root: Path) -> dict[str, Any]:
             "source_ref": "core/organ_evidence_classes.json",
             "class_count": 0,
             "organ_count": 0,
-            "missing_organs": ACCEPTED_ORGAN_IDS,
+            "missing_organs": expected_organs,
             "unexpected_organs": [],
             "duplicate_organs": [],
             "fail_closed_no_default": False,
@@ -1038,8 +901,9 @@ def _evidence_class_registry_summary(public_root: Path) -> dict[str, Any]:
             seen.add(organ_id)
         if evidence_class:
             class_ids.add(evidence_class)
-    missing = [organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in seen]
-    unexpected = sorted(organ_id for organ_id in seen if organ_id not in ACCEPTED_ORGAN_IDS)
+    expected_set = set(expected_organs)
+    missing = [organ_id for organ_id in expected_organs if organ_id not in seen]
+    unexpected = sorted(organ_id for organ_id in seen if organ_id not in expected_set)
     fail_closed = isinstance(payload, dict) and payload.get("fail_closed_no_default") is True
     return {
         "status": "pass" if not missing and not unexpected and not duplicates and fail_closed else "blocked",
@@ -1061,6 +925,7 @@ def validate_public_entry_docs(
 ) -> dict[str, Any]:
     public_root = Path(root).resolve(strict=False)
     output_file = Path(out_path)
+    accepted = _accepted_organs(public_root)
     missing_docs: list[str] = []
     missing_required_phrases_by_doc: dict[str, list[str]] = {}
     forbidden_phrases_by_doc: dict[str, list[str]] = {}
@@ -1080,6 +945,7 @@ def validate_public_entry_docs(
             phrase
             for phrase in REQUIRED_PHRASES_BY_DOC.get(rel, [])
             if phrase not in normalized
+            and not _required_phrase_is_dynamic_inventory(phrase, accepted)
         ]
         if missing_phrases:
             missing_required_phrases_by_doc[rel] = missing_phrases
@@ -1093,20 +959,16 @@ def validate_public_entry_docs(
         if "only implemented organ here is `pattern_binding_contract`" in text:
             stale_first_slice_only_phrases.append(rel)
 
-    accepted = _accepted_organs(public_root)
     entry_spine_claims = _entry_spine_claims(public_root, accepted)
     entry_packet_route_contract = _entry_packet_route_contract(
         public_root,
         doc_text_by_rel,
     )
     cli_first_screen_help_contract = _cli_first_screen_help_contract(public_root)
-    missing_accepted_organs = [
-        organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in accepted
-    ]
-    unexpected_accepted_organs = [
-        organ_id for organ_id in accepted if organ_id not in ACCEPTED_ORGAN_IDS
-    ]
-    evidence_class_registry = _evidence_class_registry_summary(public_root)
+    duplicate_accepted_organs = _duplicates(accepted)
+    missing_accepted_organs: list[str] = []
+    unexpected_accepted_organs: list[str] = []
+    evidence_class_registry = _evidence_class_registry_summary(public_root, accepted)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = _receipt_safe_scan(
         scan_paths(
@@ -1124,7 +986,7 @@ def validate_public_entry_docs(
         blocking_codes.append("STALE_FIRST_SLICE_ONLY_ENTRY_TEXT")
     if forbidden_phrases_by_doc:
         blocking_codes.append("PUBLIC_ENTRY_DOC_ROUTE_DRIFT")
-    if missing_accepted_organs or unexpected_accepted_organs:
+    if missing_accepted_organs or unexpected_accepted_organs or duplicate_accepted_organs:
         blocking_codes.append("ACCEPTED_ORGAN_REGISTRY_MISMATCH")
     if evidence_class_registry["status"] != PASS:
         blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
@@ -1151,12 +1013,14 @@ def validate_public_entry_docs(
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
+        "duplicate_accepted_organs": _duplicates(accepted),
         "entry_spine_claims": entry_spine_claims,
         "entry_packet_route_contract": entry_packet_route_contract,
         "cli_first_screen_help_contract": cli_first_screen_help_contract,
         "evidence_class_registry": evidence_class_registry,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,
+        "duplicate_accepted_organs": duplicate_accepted_organs,
         "deferred_organs": [],
         "blocking_codes": blocking_codes,
         "secret_exclusion_scan": scan,

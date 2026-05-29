@@ -1,0 +1,118 @@
+{
+  "schema_version": "microcosm_organ_families_v1",
+  "registry_id": "microcosm_organ_families",
+  "source_ref": "core/organ_registry.json::implemented_organs",
+  "authority_boundary": "Navigation grouping over the accepted public runtime organ registry. Families are a reader-facing view that buckets organs by what they help you do; they are not a second taxonomy above the architecture kernel, organ registry, standards, or evidence classes.",
+  "anti_claim": "Family labels, blurbs, and per-family counts are navigation metadata only. They do not encode evidence strength, score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority. Evidence strength stays in core/organ_evidence_classes.json; current-authority status stays in core/organ_registry.json.",
+  "authority_ceiling": {
+    "family_authority": "reader_navigation_grouping_only",
+    "reader_action": "Use families to find the cluster of organs relevant to your question, then open the per-organ card in ORGANS.md and the organ's paper module / receipt for evidence. Do not read family membership or family size as maturity, completeness, or release signal.",
+    "coverage_rule": "Every accepted_current_authority organ in core/organ_registry.json maps to exactly one family; every organ_id listed here must exist in the registry. scripts/build_organ_atlas.py fails closed on any gap, extra, or duplicate."
+  },
+  "interaction_model": {
+    "summary": "Most organs are standalone replay or validation specimens. They do not call each other; they bind to one shared spine: the architecture kernel primitives (project -> catalog -> pattern -> standard -> route -> work -> event -> evidence -> explanation -> assimilation), the evidence-class registry, and the authority ceiling. A small number are explicitly wired (for example the entry/reveal and import/intake organs feed or consume other named surfaces); each card states standalone vs wired.",
+    "shared_spine_refs": [
+      "core/architecture_kernel.json",
+      "core/organ_evidence_classes.json",
+      "core/authority_boundary.json"
+    ]
+  },
+  "families": [
+    {
+      "family_id": "entry_and_reveal",
+      "label": "Entry & Reveal",
+      "blurb": "How a cold human or agent first meets Microcosm and what the short guided path actually proves.",
+      "organ_ids": [
+        "cold_reader_route_map",
+        "public_reveal_walkthrough"
+      ]
+    },
+    {
+      "family_id": "architecture_and_navigation",
+      "label": "Architecture & Navigation",
+      "blurb": "The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.",
+      "organ_ids": [
+        "pattern_binding_contract",
+        "pattern_assimilation_step",
+        "executable_doctrine_grammar",
+        "navigation_hologram_route_plane",
+        "standards_meta_diagnostics",
+        "voice_to_doctrine_self_improvement_loop"
+      ]
+    },
+    {
+      "family_id": "formal_math_and_proof",
+      "label": "Formal Math & Proof",
+      "blurb": "The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.",
+      "organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_evidence_cell_anchor_resolver",
+        "undeclared_library_prior_symbol_classifier",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
+        "certificate_kernel_execution_lab",
+        "proof_derived_governed_mutation_authorization"
+      ]
+    },
+    {
+      "family_id": "agent_reliability_and_safety",
+      "label": "Agent Reliability & Safety Replays",
+      "blurb": "Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.",
+      "organ_ids": [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
+        "agent_memory_temporal_conflict_replay",
+        "sleeper_memory_poisoning_quarantine_replay",
+        "mcp_tool_authority_replay",
+        "belief_state_process_reward_replay",
+        "agent_sandbox_policy_escape_replay",
+        "indirect_prompt_injection_information_flow_policy_replay",
+        "agentic_vulnerability_discovery_patch_proof_replay",
+        "agent_route_observability_runtime",
+        "provider_context_recipe_budget_policy"
+      ]
+    },
+    {
+      "family_id": "research_and_science_replays",
+      "label": "Research & Science Replays",
+      "blurb": "Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.",
+      "organ_ids": [
+        "research_replication_rubric_artifact_replay",
+        "spatial_world_model_counterfactual_simulation_replay",
+        "materials_chemistry_closed_loop_lab_safety_replay",
+        "mechanistic_interpretability_circuit_attribution_replay",
+        "prediction_oracle_reconciliation"
+      ]
+    },
+    {
+      "family_id": "import_projection_and_drift",
+      "label": "Import, Projection & Drift",
+      "blurb": "The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.",
+      "organ_ids": [
+        "macro_projection_import_protocol",
+        "world_model_projection_drift_control_room"
+      ]
+    },
+    {
+      "family_id": "work_landing_and_continuity",
+      "label": "Work, Landing & Continuity",
+      "blurb": "How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.",
+      "organ_ids": [
+        "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "bridge_phase_continuity_runtime"
+      ]
+    }
+  ]
+}

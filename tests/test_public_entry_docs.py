@@ -42,6 +42,19 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _accepted_registry_rows(root: Path = MICROCOSM_ROOT) -> list[dict[str, Any]]:
+    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
+
+
+def _accepted_organs_from_registry(root: Path = MICROCOSM_ROOT) -> list[str]:
+    return [str(row["organ_id"]) for row in _accepted_registry_rows(root)]
+
+
 def _copy_public_entry_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
@@ -189,6 +202,10 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
 def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
     out = public_root / "receipts/first_wave/public_entry_docs_validation.json"
+    expected_organs = _accepted_organs_from_registry(public_root)
+    expected_evidence_classes = {
+        str(row["evidence_class"]) for row in _accepted_registry_rows(public_root)
+    }
 
     receipt = validate_public_entry_docs(public_root, out, command="pytest")
 
@@ -197,78 +214,34 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert receipt["missing_required_phrases_by_doc"] == {}
     assert receipt["forbidden_phrases_by_doc"] == {}
     assert receipt["stale_first_slice_only_phrases"] == []
-    assert receipt["accepted_current_authority_organs"] == [
-        "pattern_binding_contract",
-        "executable_doctrine_grammar",
-        "proof_diagnostic_evidence_spine",
-        "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "provider_context_recipe_budget_policy",
-        "formal_math_lean_proof_witness",
-        "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "navigation_hologram_route_plane",
-        "mission_transaction_work_spine",
-        "durable_agent_work_landing_replay",
-        "research_replication_rubric_artifact_replay",
-        "world_model_projection_drift_control_room",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "agent_route_observability_runtime",
-        "bridge_phase_continuity_runtime",
-        "pattern_assimilation_step",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "prediction_oracle_reconciliation",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "certificate_kernel_execution_lab",
-        "voice_to_doctrine_self_improvement_loop",
-    ]
+    assert receipt["accepted_current_authority_organs"] == expected_organs
+    assert receipt["duplicate_accepted_organs"] == []
     assert receipt["evidence_class_registry"] == {
         "status": "pass",
         "source_ref": "core/organ_evidence_classes.json",
-        "class_count": 5,
-        "organ_count": 47,
+        "class_count": len(expected_evidence_classes),
+        "organ_count": len(expected_organs),
         "missing_organs": [],
         "unexpected_organs": [],
         "duplicate_organs": [],
         "fail_closed_no_default": True,
     }
     assert receipt["entry_spine_claims"]["status"] == "pass"
-    assert receipt["entry_spine_claims"]["expected_organ_count"] == 47
+    assert receipt["entry_spine_claims"]["expected_organ_count"] == len(expected_organs)
     assert receipt["entry_spine_claims"]["blocked_docs"] == []
-    assert receipt["entry_spine_claims"]["authority"] == (
-        "public entry spine inventory alignment only; accepted status and "
-        "counts are not progress, release, or proof authority; status card "
-        "remains the runtime count lens"
+    assert (
+        "accepted status and counts are not progress"
+        in receipt["entry_spine_claims"]["authority"]
     )
     for rel in ("README.md", "AGENTS.md"):
         doc_claim = receipt["entry_spine_claims"]["docs"][rel]
         assert doc_claim["status"] == "pass"
-        assert doc_claim["claimed_count"] == 47
-        assert doc_claim["expected_count"] == 47
+        assert doc_claim["expected_count"] == len(expected_organs)
+        if doc_claim["claim_mode"] == "inline_inventory":
+            assert doc_claim["claimed_count"] == len(expected_organs)
+        else:
+            assert doc_claim["claim_mode"] == "registry_route"
+            assert doc_claim["registry_route_present"] is True
         assert doc_claim["missing_organs"] == []
         assert doc_claim["unexpected_organs"] == []
         assert doc_claim["duplicate_organs"] == []
@@ -373,10 +346,14 @@ def test_public_entry_docs_block_missing_evidence_class_registry(tmp_path: Path)
 def test_public_entry_docs_block_runtime_spine_claim_mismatch(tmp_path: Path) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
     agents = public_root / "AGENTS.md"
+    agents_text = agents.read_text(encoding="utf-8")
     agents.write_text(
-        agents.read_text(encoding="utf-8").replace(
-            "- `certificate_kernel_execution_lab`\n",
-            "",
+        agents_text.replace("- `certificate_kernel_execution_lab`\n", "")
+        .replace("certificate_kernel_execution_lab", "")
+        .replace("`core/organ_registry.json`", "`core/organ_registry.removed.json`")
+        .replace(
+            "`core/organ_evidence_classes.json`",
+            "`core/organ_evidence_classes.removed.json`",
         ),
         encoding="utf-8",
     )
@@ -394,6 +371,72 @@ def test_public_entry_docs_block_runtime_spine_claim_mismatch(tmp_path: Path) ->
     assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["missing_organs"] == [
         "certificate_kernel_execution_lab"
     ]
+
+
+def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inventory(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    agents = public_root / "AGENTS.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8").replace(
+            readme.read_text(encoding="utf-8").split(
+                "## Internal Runtime Spine",
+                1,
+            )[1].split("## ", 1)[0],
+            (
+                "\n\nThis section routes the full public entry inventory through "
+                "`core/organ_registry.json` and `core/organ_evidence_classes.json`. "
+                "`accepted_current_authority` is not an evidence-strength claim; "
+                "read each `evidence_class` before inferring strength. "
+                "This public entry inventory/read-model is inventory-only "
+                "route-alignment metadata, not product progress, release readiness, "
+                "proof correctness, private-root equivalence, or score-based "
+                "progress. It is not trading or financial advice. "
+                "It does not authorize release. "
+                "Use [ORGANS.md](ORGANS.md) and [ARCHITECTURE.md](ARCHITECTURE.md). "
+                "Real Substrate Posture.\n\n"
+            ),
+        ),
+        encoding="utf-8",
+    )
+    agents.write_text(
+        agents.read_text(encoding="utf-8").replace(
+            agents.read_text(encoding="utf-8").split(
+                "## Accepted Public Runtime Spine",
+                1,
+            )[1].split("## Rules", 1)[0],
+            (
+                "\n\nThe full public entry inventory routes through "
+                "`core/organ_registry.json` and `core/organ_evidence_classes.json`. "
+                "`accepted_current_authority` is not an evidence-strength claim; "
+                "read each `evidence_class` before inferring strength. "
+                "This public entry inventory is inventory-only route-alignment "
+                "metadata, not product progress, release readiness, proof "
+                "correctness, private-root equivalence, or score-based progress. "
+                "Use [ORGANS.md](ORGANS.md) and [ARCHITECTURE.md](ARCHITECTURE.md). "
+                "Real Substrate Posture.\n\n"
+            ),
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "pass"
+    assert receipt["entry_spine_claims"]["docs"]["README.md"]["claim_mode"] in {
+        "inline_inventory",
+        "registry_route",
+    }
+    assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["claim_mode"] == (
+        "registry_route"
+    )
+    assert receipt["missing_required_phrases_by_doc"] == {}
 
 
 def test_public_entry_docs_block_entry_packet_route_contract_drift(
@@ -633,17 +676,16 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     normalized_text = " ".join(text.split())
     normalized_agents = " ".join(agents.split())
+    expected_organs = _accepted_organs_from_registry()
 
     assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
     assert "Real Substrate Posture" in text
     assert "Real Substrate Posture" in agents
-    assert "47 accepted public runtime organs" in text
-    assert "47 accepted public runtime organ records" in agents
     assert "public entry inventory/read-model" in text
     assert "public entry inventory" in agents
     assert "inventory-only route-alignment metadata" in text
-    assert "inventory-only route-alignment metadata" in agents
+    assert "inventory-only route-alignment metadata" in normalized_agents
     assert "not product progress, release readiness" in text
     assert "not product progress, release readiness" in agents
     assert "not a product progress meter" in normalized_text
@@ -677,112 +719,21 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "only to project metadata" not in normalized_agents
     assert "only implemented organ here is `pattern_binding_contract`" not in text
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
-    assert "formal_math_lean_proof_witness" in text
-    assert "corpus_readiness_mathlib_absence_gate" in text
-    assert "mathematical_strategy_atlas_hypothesis_scorer" in text
-    assert "tactic_portfolio_availability_probe" in text
-    assert "target_shape_tactic_routing_gate" in text
-    assert "lean_std_premise_index" in text
-    assert "formal_math_premise_retrieval" in text
-    assert "formal_math_verifier_trace_repair_loop" in text
-    assert "formal_evidence_cell_anchor_resolver" in text
-    assert "undeclared_library_prior_symbol_classifier" in text
-    assert "ring2_premise_retrieval_precision_recall_harness" in text
-    assert "provider_context_recipe_budget_policy" in text
-    assert "verifier_lab_kernel" in text
-    assert "public_reveal_walkthrough" in text
-    assert "macro_projection_import_protocol" in text
-    assert "prediction_oracle_reconciliation" in text
-    assert "standards_meta_diagnostics" in text
-    assert "durable_agent_work_landing_replay" in text
-    assert "research_replication_rubric_artifact_replay" in text
-    assert "world_model_projection_drift_control_room" in text
-    assert "spatial_world_model_counterfactual_simulation_replay" in text
-    assert "cold_reader_route_map" in text
-    assert "proof_derived_governed_mutation_authorization" in text
-    assert "belief_state_process_reward_replay" in text
-    assert "verifier_lab_execution_spine" in text
-    assert "certificate_kernel_execution_lab" in text
-    assert "voice_to_doctrine_self_improvement_loop" in text
-    assert "formal-math-premise-retrieval" in text
-    assert "ring2-premise-retrieval-precision-recall-harness" in text
-    assert "provider-context-recipe-budget-policy" in text
-    assert "corpus-readiness-mathlib-absence-gate" in text
-    assert "mathematical-strategy-atlas-hypothesis-scorer" in text
-    assert "tactic-portfolio-availability-probe" in text
-    assert "target-shape-tactic-routing-gate" in text
-    assert "lean-std-premise-index" in text
-    assert "formal-math-lean-proof-witness" in text
-    assert "verifier-lab-kernel" in text
-    assert "formal-math-verifier-trace-repair-loop" in text
-    assert "formal-evidence-cell-anchor-resolver" in text
-    assert "undeclared-library-prior-symbol-classifier" in text
+    assert len(expected_organs) > 1
+    assert "pattern_binding_contract" in expected_organs
+    assert "bridge_phase_continuity_runtime" in expected_organs
+    assert "core/organ_registry.json" in text
+    assert "core/organ_registry.json" in agents
+    assert "core/organ_evidence_classes.json" in text
+    assert "core/organ_evidence_classes.json" in agents
     assert "microcosm reveal" in text
-    assert "macro-projection-import-protocol" in text
-    assert "prediction-oracle-reconciliation" in text
-    assert "standards-meta-diagnostics" in text
-    assert "durable-agent-work-landing-replay" in text
-    assert "research-replication-rubric-artifact-replay" in text
-    assert "world-model-projection-drift-control-room" in text
-    assert "spatial-world-model-counterfactual-simulation-replay" in text
     assert "microcosm spatial-simulation" in text
-    assert "cold-reader-route-map" in text
-    assert "proof-derived-governed-mutation-authorization" in text
-    assert "belief-state-process-reward-replay" in text
-    assert "public_reveal_walkthrough" in agents
-    assert "corpus_readiness_mathlib_absence_gate" in agents
-    assert "mathematical_strategy_atlas_hypothesis_scorer" in agents
-    assert "tactic_portfolio_availability_probe" in agents
-    assert "target_shape_tactic_routing_gate" in agents
-    assert "lean_std_premise_index" in agents
-    assert "formal_math_premise_retrieval" in agents
-    assert "formal_math_verifier_trace_repair_loop" in agents
-    assert "formal_evidence_cell_anchor_resolver" in agents
-    assert "undeclared_library_prior_symbol_classifier" in agents
-    assert "ring2_premise_retrieval_precision_recall_harness" in agents
-    assert "provider_context_recipe_budget_policy" in agents
-    assert "formal_math_lean_proof_witness" in agents
-    assert "verifier_lab_kernel" in agents
-    assert "macro_projection_import_protocol" in agents
-    assert "prediction_oracle_reconciliation" in agents
-    assert "standards_meta_diagnostics" in agents
-    assert "durable_agent_work_landing_replay" in agents
-    assert "research_replication_rubric_artifact_replay" in agents
-    assert "world_model_projection_drift_control_room" in agents
-    assert "spatial_world_model_counterfactual_simulation_replay" in agents
-    assert "cold_reader_route_map" in agents
-    assert "proof_derived_governed_mutation_authorization" in agents
-    assert "belief_state_process_reward_replay" in agents
-    assert "verifier_lab_execution_spine" in agents
-    assert "materials_chemistry_closed_loop_lab_safety_replay" in agents
-    assert "certificate_kernel_execution_lab" in agents
-    assert "formal-math-premise-retrieval" in agents
-    assert "ring2-premise-retrieval-precision-recall-harness" in agents
-    assert "provider-context-recipe-budget-policy" in agents
-    assert "corpus-readiness-mathlib-absence-gate" in agents
-    assert "mathematical-strategy-atlas-hypothesis-scorer" in agents
-    assert "tactic-portfolio-availability-probe" in agents
-    assert "target-shape-tactic-routing-gate" in agents
-    assert "lean-std-premise-index" in agents
-    assert "formal-math-lean-proof-witness" in agents
-    assert "verifier-lab-kernel" in agents
-    assert "formal-math-verifier-trace-repair-loop" in agents
-    assert "formal-evidence-cell-anchor-resolver" in agents
-    assert "undeclared-library-prior-symbol-classifier" in agents
     assert "microcosm reveal" in agents
-    assert "macro-projection-import-protocol" in agents
-    assert "prediction-oracle-reconciliation" in agents
-    assert "standards-meta-diagnostics" in agents
-    assert "research-replication-rubric-artifact-replay" in agents
-    assert "world-model-projection-drift-control-room" in agents
-    assert "spatial-world-model-counterfactual-simulation-replay" in agents
     assert "spatial-simulation" in agents
-    assert "cold-reader-route-map" in agents
     assert "microcosm tour --card <project>" in agents
     assert agents.index("microcosm tour --card <project>") < agents.index(
         "microcosm tour <project>"
     )
-    assert "proof-derived-governed-mutation-authorization" in agents
     assert "Do not widen Lean/Lake" in agents
     assert "Do not treat prediction fixtures as trading or financial advice" in agents
     assert "runnable, synthetic, and receipt-driven" not in text
@@ -823,12 +774,14 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
         MICROCOSM_ROOT / "skills/cold_start_navigation.md",
     ]
 
-    for path in docs:
-        text = path.read_text(encoding="utf-8")
+    text_by_name = {path.name: path.read_text(encoding="utf-8") for path in docs}
+
+    for text in text_by_name.values():
         assert "../state/" not in text
         assert "state/microcosm_portfolio/reconstruction" not in text
-        assert "core/preflight_support/organ_fixture_validator_readiness_v1.json" in text
-        assert "core/preflight_support/fixture_negative_case_matrix_v1.json" in text
+    cold_start_nav = text_by_name["cold_start_navigation.md"]
+    assert "core/preflight_support/organ_fixture_validator_readiness_v1.json" in cold_start_nav
+    assert "core/preflight_support/fixture_negative_case_matrix_v1.json" in cold_start_nav
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )

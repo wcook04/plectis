@@ -117,63 +117,71 @@ imported macro body.
 
 ## Accepted Public Runtime Spine
 
-This list is the public entry inventory over `core/organ_registry.json` and
+This is the public entry inventory over `core/organ_registry.json` and
 `core/organ_evidence_classes.json`: 47 accepted public runtime organ records
-with receipt-index status. The runtime status card is the count lens for the 43
-product-spine adapter-backed organs and 4 drilldown-only regression surfaces.
-Those counts are inventory-only route-alignment metadata:
-`accepted_current_authority`, organ counts, adapter-backed counts, and
-drilldown-only surface counts are not product progress, release readiness,
-product completeness, proof authority, private-root equivalence, or
-whole-system correctness.
+with receipt-index status. Those counts are inventory-only route-alignment metadata:
+`accepted_current_authority`, organ counts, and adapter-backed counts are not product progress, release readiness, product completeness, proof
+authority,
+private-root equivalence, or whole-system correctness. These rows do not authorize release, and the prediction and market organs are
+evidence boundaries, not trading or financial advice.
 
-- `pattern_binding_contract`
-- `executable_doctrine_grammar`
-- `proof_diagnostic_evidence_spine`
-- `formal_math_readiness_gate`
-- `corpus_readiness_mathlib_absence_gate`
-- `mathematical_strategy_atlas_hypothesis_scorer`
-- `tactic_portfolio_availability_probe`
-- `target_shape_tactic_routing_gate`
-- `lean_std_premise_index`
-- `formal_math_premise_retrieval`
-- `formal_math_verifier_trace_repair_loop`
-- `formal_evidence_cell_anchor_resolver`
-- `undeclared_library_prior_symbol_classifier`
-- `ring2_premise_retrieval_precision_recall_harness`
-- `agent_benchmark_integrity_anti_gaming_replay`
-- `provider_context_recipe_budget_policy`
-- `formal_math_lean_proof_witness`
-- `verifier_lab_kernel`
-- `verifier_lab_execution_spine`
-- `navigation_hologram_route_plane`
-- `mission_transaction_work_spine`
-- `durable_agent_work_landing_replay`
-- `research_replication_rubric_artifact_replay`
-- `world_model_projection_drift_control_room`
-- `spatial_world_model_counterfactual_simulation_replay`
-- `materials_chemistry_closed_loop_lab_safety_replay`
-- `mechanistic_interpretability_circuit_attribution_replay`
-- `agent_route_observability_runtime`
-- `bridge_phase_continuity_runtime`
-- `pattern_assimilation_step`
-- `public_reveal_walkthrough`
-- `macro_projection_import_protocol`
-- `voice_to_doctrine_self_improvement_loop`
-- `prediction_oracle_reconciliation`
-- `standards_meta_diagnostics`
-- `cold_reader_route_map`
-- `agent_monitor_redteam_falsification_replay`
-- `agent_sabotage_scheming_monitor_replay`
-- `agent_memory_temporal_conflict_replay`
-- `sleeper_memory_poisoning_quarantine_replay`
-- `mcp_tool_authority_replay`
-- `proof_derived_governed_mutation_authorization`
-- `belief_state_process_reward_replay`
-- `agent_sandbox_policy_escape_replay`
-- `indirect_prompt_injection_information_flow_policy_replay`
-- `agentic_vulnerability_discovery_patch_proof_replay`
-- `certificate_kernel_execution_lab`
+Do not read organs from this index alone. The generated atlas is the contract:
+
+- **[ORGANS.md](ORGANS.md)** — the comprehension card for every organ: what it
+  makes visible (plain language), what an agent runs it for, its first command,
+  its evidence class, and what it does **not** authorize.
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** — the system at a glance: the local
+  runtime loop, the claim/evidence loop, the kernel primitives, and how the
+  seven families sit on one shared spine.
+
+The atlas is regenerated from substrate with
+`PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
+`tests/test_organ_atlas.py`; do not hand-edit `ORGANS.md`/`ARCHITECTURE.md`.
+Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation` are
+documented per organ in [ORGANS.md](ORGANS.md). The 47 organs cluster into seven
+families:
+
+### Entry & Reveal (2)
+
+How a cold human or agent first meets Microcosm and what the short guided path actually proves.
+
+`cold_reader_route_map`, `public_reveal_walkthrough`
+
+### Architecture & Navigation (6)
+
+The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
+
+`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`
+
+### Formal Math & Proof (17)
+
+The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.
+
+`proof_diagnostic_evidence_spine`, `formal_math_readiness_gate`, `corpus_readiness_mathlib_absence_gate`, `mathematical_strategy_atlas_hypothesis_scorer`, `tactic_portfolio_availability_probe`, `target_shape_tactic_routing_gate`, `lean_std_premise_index`, `formal_math_premise_retrieval`, `formal_math_verifier_trace_repair_loop`, `formal_evidence_cell_anchor_resolver`, `undeclared_library_prior_symbol_classifier`, `ring2_premise_retrieval_precision_recall_harness`, `formal_math_lean_proof_witness`, `verifier_lab_kernel`, `verifier_lab_execution_spine`, `certificate_kernel_execution_lab`, `proof_derived_governed_mutation_authorization`
+
+### Agent Reliability & Safety Replays (12)
+
+Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.
+
+`agent_benchmark_integrity_anti_gaming_replay`, `agent_monitor_redteam_falsification_replay`, `agent_sabotage_scheming_monitor_replay`, `agent_memory_temporal_conflict_replay`, `sleeper_memory_poisoning_quarantine_replay`, `mcp_tool_authority_replay`, `belief_state_process_reward_replay`, `agent_sandbox_policy_escape_replay`, `indirect_prompt_injection_information_flow_policy_replay`, `agentic_vulnerability_discovery_patch_proof_replay`, `agent_route_observability_runtime`, `provider_context_recipe_budget_policy`
+
+### Research & Science Replays (5)
+
+Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.
+
+`research_replication_rubric_artifact_replay`, `spatial_world_model_counterfactual_simulation_replay`, `materials_chemistry_closed_loop_lab_safety_replay`, `mechanistic_interpretability_circuit_attribution_replay`, `prediction_oracle_reconciliation`
+
+### Import, Projection & Drift (2)
+
+The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.
+
+`macro_projection_import_protocol`, `world_model_projection_drift_control_room`
+
+### Work, Landing & Continuity (3)
+
+How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.
+
+`mission_transaction_work_spine`, `durable_agent_work_landing_replay`, `bridge_phase_continuity_runtime`
 
 ## Concept And Mechanism Entry
 
