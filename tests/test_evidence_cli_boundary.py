@@ -63,3 +63,34 @@ def test_cli_evidence_list_preserves_initialized_project_success(
     assert payload["status"] == "pass"
     assert payload["evidence_count"] == 1
     assert payload["evidence"][0]["evidence_ref"] == ".microcosm/evidence/routes.json"
+
+
+def test_cli_evidence_list_limit_bounds_initialized_project(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    evidence_dir = project / ".microcosm" / "evidence"
+    evidence_dir.mkdir(parents=True)
+    for name in ("routes", "patterns", "index"):
+        (evidence_dir / f"{name}.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": f"microcosm_project_{name}_v1",
+                    "status": "pass",
+                    "project_id": "ready-project",
+                    "created_at": "2026-05-28T00:00:00+00:00",
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    assert cli.main(["evidence", "list", project.as_posix(), "--limit", "2"]) == 0
+    payload = _payload(capsys)
+
+    assert payload["status"] == "pass"
+    assert payload["evidence_count"] == 3
+    assert payload["returned_evidence_count"] == 2
+    assert payload["limit"] == 2
+    assert payload["truncated"] is True
+    assert len(payload["evidence"]) == 2

@@ -2495,7 +2495,9 @@ def explain_route(
     return explanation
 
 
-def list_evidence(project_path: str | Path) -> dict[str, Any]:
+def list_evidence(
+    project_path: str | Path, *, limit: int | None = None
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     rows: list[dict[str, Any]] = []
     for path in sorted(_evidence_dir(project).glob("*.json")):
@@ -2514,10 +2516,14 @@ def list_evidence(project_path: str | Path) -> dict[str, Any]:
                 ),
             }
         )
+    returned_rows = rows if limit is None else rows[: max(limit, 0)]
     return {
         **_base_payload("microcosm_project_evidence_list_v1", project),
         "evidence_count": len(rows),
-        "evidence": rows,
+        "returned_evidence_count": len(returned_rows),
+        "limit": limit,
+        "truncated": len(returned_rows) < len(rows),
+        "evidence": returned_rows,
     }
 
 

@@ -91,15 +91,29 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
-def list_runtime_evidence(root: str | Path) -> dict[str, Any]:
+def _bounded_rows(
+    rows: list[dict[str, Any]], limit: int | None
+) -> list[dict[str, Any]]:
+    if limit is None:
+        return rows
+    return rows[: max(limit, 0)]
+
+
+def list_runtime_evidence(
+    root: str | Path, *, limit: int | None = None
+) -> dict[str, Any]:
     root_path = Path(root).expanduser().resolve(strict=False)
     receipts = sorted((root_path / "receipts").rglob("*.json"))
     evidence = [compact_receipt_summary(path, root_path) for path in receipts]
+    returned_evidence = _bounded_rows(evidence, limit)
     return {
         "schema_version": SCHEMA_VERSION,
         "status": PASS,
         "evidence_list_mode": INDEX_MODE,
         "receipt_count": len(evidence),
+        "returned_receipt_count": len(returned_evidence),
+        "limit": limit,
+        "truncated": len(returned_evidence) < len(evidence),
         "compact_rows": True,
         "full_contract_drilldown_command": "microcosm evidence inspect <receipt_ref>",
         "full_contract_drilldown": {
@@ -107,5 +121,5 @@ def list_runtime_evidence(root: str | Path) -> dict[str, Any]:
             "row_key": "receipt_ref",
             "field": "evidence_contract",
         },
-        "evidence": evidence,
+        "evidence": returned_evidence,
     }

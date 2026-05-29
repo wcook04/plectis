@@ -1411,11 +1411,33 @@ def main(argv: list[str] | None = None) -> int:
         help="list or inspect evidence after behavior is visible",
     )
     evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command")
-    evidence_list_parser = evidence_subparsers.add_parser("list")
-    evidence_list_parser.add_argument("project", nargs="?")
-    evidence_inspect_parser = evidence_subparsers.add_parser("inspect")
-    evidence_inspect_parser.add_argument("--project")
-    evidence_inspect_parser.add_argument("receipt_ref")
+    evidence_list_parser = evidence_subparsers.add_parser(
+        "list",
+        help="list compact evidence refs; omit project for runtime receipts",
+    )
+    evidence_list_parser.add_argument(
+        "project",
+        nargs="?",
+        help="project path with .microcosm state; omit for runtime receipts",
+    )
+    evidence_list_parser.add_argument(
+        "--limit",
+        type=int,
+        default=25,
+        help="maximum rows to print; use 0 for the full list",
+    )
+    evidence_inspect_parser = evidence_subparsers.add_parser(
+        "inspect",
+        help="inspect one runtime receipt or project evidence ref",
+    )
+    evidence_inspect_parser.add_argument(
+        "--project",
+        help="project path for .microcosm evidence refs",
+    )
+    evidence_inspect_parser.add_argument(
+        "receipt_ref",
+        help="receipt or evidence ref to inspect",
+    )
 
     scan_parser = subparsers.add_parser("private-state-scan")
     scan_parser.add_argument("--root", required=True)
@@ -2072,13 +2094,22 @@ def main(argv: list[str] | None = None) -> int:
         return project_substrate.main(["observe", args.project])
     if args.command == "evidence":
         if args.evidence_command == "list":
+            evidence_limit = None if args.limit == 0 else args.limit
             if args.project:
                 boundary = _project_evidence_state_boundary(args.project)
                 if boundary is not None:
                     return _print_json(boundary)
-                return project_substrate.main(["evidence", "list", args.project])
+                return _print_json(
+                    project_substrate.list_evidence(
+                        args.project,
+                        limit=evidence_limit,
+                    )
+                )
             return _print_json(
-                runtime_evidence_index.list_runtime_evidence(MICROCOSM_ROOT)
+                runtime_evidence_index.list_runtime_evidence(
+                    MICROCOSM_ROOT,
+                    limit=evidence_limit,
+                )
             )
         if args.evidence_command == "inspect":
             if args.project:

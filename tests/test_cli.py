@@ -423,6 +423,37 @@ def test_cli_root_evidence_list_uses_compact_rows(
     }
 
 
+def test_cli_root_evidence_list_can_be_bounded(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    receipt_dir = public_root / "receipts/runtime_shell/demo"
+    receipt_dir.mkdir(parents=True)
+    for index in range(3):
+        (receipt_dir / f"result_{index}.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "demo_receipt_v1",
+                    "status": "pass",
+                    "organ_id": f"demo_organ_{index}",
+                }
+            ),
+            encoding="utf-8",
+        )
+    monkeypatch.setattr(cli, "MICROCOSM_ROOT", public_root)
+
+    assert cli.main(["evidence", "list", "--limit", "2"]) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["receipt_count"] == 3
+    assert payload["returned_receipt_count"] == 2
+    assert payload["limit"] == 2
+    assert payload["truncated"] is True
+    assert len(payload["evidence"]) == 2
+
+
 def test_cli_first_screen_text_projection_is_package_backed(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
