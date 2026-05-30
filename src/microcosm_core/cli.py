@@ -2150,8 +2150,19 @@ def main(argv: list[str] | None = None) -> int:
                 payload = _compact_project_status_card_for_cli(payload)
             return _print_json(payload, exit_code=_status_card_exit_code(payload))
         if args.project:
-            command_args.append(runtime_project or args.project)
-        return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
+            project_public_root = _public_root_for_project(args.project)
+            shell = (
+                runtime_shell.RuntimeShell(root=project_public_root)
+                if project_public_root is not None
+                else runtime_shell.RuntimeShell()
+            )
+            return _print_json(
+                shell.status(
+                    runtime_project or args.project,
+                    project_ref="<project>",
+                )
+            )
+        return runtime_shell.main(command_args, root=None)
     if args.command == "proof-lab":
         if args.card:
             command = _proof_lab_card_command(args.input, args.out)

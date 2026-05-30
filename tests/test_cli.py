@@ -931,6 +931,70 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert body_floor["body_text_exported_in_receipts"] is False
 
 
+def test_cli_full_status_preserves_project_route_overlay(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    project_substrate.compile_project(project)
+
+    assert cli.main(["status", str(project)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["project_ref"] == "<project>"
+    assert payload["front_door"]["project_ref"] == "<project>"
+    assert payload["front_door"]["project_state_status"] == "pass"
+    assert payload["front_door"]["selected_route_id"] == "readme_onboarding_route"
+    assert payload["front_door"]["route_explanation_command"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert payload["front_door"]["route_selection_proof"]["status"] == "pass"
+    assert payload["front_door"]["observatory"]["status"] == "actionable"
+    assert (
+        payload["front_door"]["observatory"]["validation_status"]
+        == "not_evaluated_in_status_card"
+    )
+    assert (
+        payload["front_door"]["available_project_route_id_count"]
+        >= len(payload["front_door"]["available_project_route_ids"])
+    )
+    assert "readme_onboarding_route" in payload["front_door"][
+        "available_project_route_ids"
+    ]
+    assert payload["front_door_status"]["surface_statuses"]["project_state"] == (
+        "pass"
+    )
+    assert payload["front_door_status"]["surface_statuses"]["observatory"] == (
+        "actionable"
+    )
+    assert "observatory" in payload["front_door_status"]["actionable_surface_ids"]
+    assert payload["status_card"]["front_door"]["selected_route_id"] == (
+        "readme_onboarding_route"
+    )
+    assert payload["status_card"]["front_door"]["observatory"]["status"] == (
+        "actionable"
+    )
+    assert payload["status_card"]["front_door"]["project_state_status"] == "pass"
+    assert payload["project_front_door_status"]["selected_route_id"] == (
+        "readme_onboarding_route"
+    )
+    minimal_steps = {
+        row["step_id"]: row for row in payload["front_door"]["minimal_command_path"]
+    }
+    assert minimal_steps["inspect_project_observe"]["selected_route_id"] == (
+        "readme_onboarding_route"
+    )
+    assert minimal_steps["inspect_route_causal_chain"]["selected_route_id"] == (
+        "readme_onboarding_route"
+    )
+    assert minimal_steps["inspect_route_causal_chain"]["command"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert minimal_steps["drill_receipts_only_after_behavior"][
+        "evidence_ref_count"
+    ] >= 1
+
+
 def test_cli_status_card_before_tour_exposes_project_recovery(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],

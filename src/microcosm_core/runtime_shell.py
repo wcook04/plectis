@@ -4979,7 +4979,7 @@ def _runtime_status_card(
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
     route_proof_status = route_selection_proof.get("status")
     observatory_status = (
-        PASS
+        "actionable"
         if command and route_proof_status == PASS
         else "actionable"
         if command and not raw_selected_route_id
@@ -5009,6 +5009,11 @@ def _runtime_status_card(
         "status_card_ref": card["card_command"],
         "related_endpoint_count": 9,
         "model_field_count": 13,
+        "validation_status": (
+            "not_evaluated_in_status_card"
+            if observatory_status == "actionable"
+            else observatory_status
+        ),
         "source_files_mutated": False,
         "provider_calls_authorized": False,
         "release_authorized": False,
@@ -5953,7 +5958,12 @@ class RuntimeShell:
             self.workingness_map(persist_receipt=False)
         )
 
-    def status(self) -> dict[str, Any]:
+    def status(
+        self,
+        project_path: str | Path | None = None,
+        *,
+        project_ref: str | Path | None = None,
+    ) -> dict[str, Any]:
         organs = self.organs()
         adapter_backed_rows = [
             row for row in organs if row.get("runtime_mode") == "adapter_backed"
@@ -6257,9 +6267,64 @@ class RuntimeShell:
                 "open evidence only when drilldown is needed",
             ],
         }
-        payload["status_card"] = _runtime_status_card(
-            self._status_card_source_payload()
+        status_card = _runtime_status_card(
+            self._status_card_source_payload(),
+            project_path=project_path,
+            project_ref=project_ref,
         )
+        payload["status_card"] = status_card
+        if project_path is not None:
+            public_project_ref = _project_command_ref(
+                project_ref if project_ref is not None else project_path
+            )
+            project_overlay = _replace_project_placeholder(
+                _project_status_overlay(project_path),
+                public_project_ref,
+            )
+            payload["project_ref"] = public_project_ref
+            payload["project_front_door_status"] = project_overlay
+            if status_card.get("status") == "blocked":
+                payload["status"] = "blocked"
+            status_front_door = status_card.get("front_door")
+            if isinstance(status_front_door, dict):
+                payload["front_door"].update(status_front_door)
+                minimal_steps = payload["front_door"].get("minimal_command_path")
+                if isinstance(minimal_steps, list):
+                    route_explanation = project_overlay.get("route_explanation")
+                    if not isinstance(route_explanation, dict):
+                        route_explanation = {}
+                    for row in minimal_steps:
+                        if not isinstance(row, dict):
+                            continue
+                        step_id = row.get("step_id")
+                        if step_id == "inspect_project_observe":
+                            row["selected_route_id"] = project_overlay.get(
+                                "selected_route_id"
+                            )
+                        elif step_id == "inspect_route_causal_chain":
+                            row["command"] = project_overlay.get(
+                                "route_explanation_command",
+                                row.get("command"),
+                            )
+                            row["selected_route_id"] = project_overlay.get(
+                                "selected_route_id"
+                            )
+                            row["available_project_route_ids"] = project_overlay.get(
+                                "available_project_route_ids",
+                                [],
+                            )
+                        elif step_id == "drill_receipts_only_after_behavior":
+                            row["evidence_ref_count"] = route_explanation.get(
+                                "evidence_ref_count",
+                                row.get("evidence_ref_count"),
+                            )
+            status_front_door_status = status_card.get("front_door_status")
+            if isinstance(status_front_door_status, dict):
+                payload["front_door_status"] = status_front_door_status
+            payload["source_files_mutated"] = status_card.get(
+                "source_files_mutated",
+                False,
+            )
         return payload
 
     def _status_card_source_payload(self) -> dict[str, Any]:
@@ -21786,12 +21851,7 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     if args.command == "status":
         if args.card:
             return _print_json(shell.status_card(args.project))
-        payload = shell.status()
-        if args.project:
-            payload["project_front_door_status"] = _project_status_overlay(
-                args.project
-            )
-        return _print_json(payload)
+        return _print_json(shell.status(args.project))
     if args.command == "spine":
         if args.card:
             return _print_json(shell.spine_card())
