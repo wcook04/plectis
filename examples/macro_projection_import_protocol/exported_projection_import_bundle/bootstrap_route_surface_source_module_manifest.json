@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 186218,
+      "byte_count": 190969,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 3677,
+      "line_count": 3807,
       "material_class": "public_macro_receipt_body",
       "module_id": "bootstrap_agent_bootstrap_live_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/agent_bootstrap_live.json",
       "source_role": "Generated Codex bootstrap control-plane sidecar carrying situation routes, instruction discovery, actor packets, live bindings, and agent operating packet strips.",
-      "source_sha256": "3c6236fd2ffdeae0f01b47565bae67095041b4254e8ea4aba471aba49a52c53d",
+      "source_sha256": "f62899bae89582a377c3405c0fbe87e61d5b4d90ea90f1e763f7a7f3bf7bdf91",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
-      "target_sha256": "3c6236fd2ffdeae0f01b47565bae67095041b4254e8ea4aba471aba49a52c53d"
+      "target_sha256": "f62899bae89582a377c3405c0fbe87e61d5b4d90ea90f1e763f7a7f3bf7bdf91"
     },
     {
       "anchor_count": 5,
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/doctrine/routing_hologram.json",
       "source_role": "Generated routing hologram sidecar carrying situation rows, entry protocol, mode rows, delegation rows, and section caps.",
-      "source_sha256": "cdebc81f736c584cdf1a371e1f54b0c61f8673c349bb9afaf7dcb2fe757b5223",
+      "source_sha256": "fc726ae46c47b77a845a7267b351351a41055fe839b0726ab660505123f31cea",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
-      "target_sha256": "cdebc81f736c584cdf1a371e1f54b0c61f8673c349bb9afaf7dcb2fe757b5223"
+      "target_sha256": "fc726ae46c47b77a845a7267b351351a41055fe839b0726ab660505123f31cea"
     },
     {
       "anchor_count": 5,
