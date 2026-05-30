@@ -43,6 +43,7 @@ from microcosm_core.organs.macro_projection_import_protocol import (
     validate_projection_protocol,
 )
 from microcosm_core.runtime_shell import PRODUCT_PATH_DEMOTED_ORGAN_IDS
+from microcosm_core.secret_exclusion_scan import public_relative_path
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -1828,14 +1829,23 @@ def test_macro_projection_run_routes_exported_bundle_without_traceback(
         "fixture_action": "run",
         "exported_bundle_action": "run-projection-bundle",
     }
-    assert result["receipt_paths"] == [
-        str(
-            tmp_path
-            / "macro_projection_run_compat"
-            / "exported_projection_import_bundle_validation_result.json"
+    expected_receipt_path = public_relative_path(
+        tmp_path
+        / "macro_projection_run_compat"
+        / "exported_projection_import_bundle_validation_result.json",
+        display_root=MICROCOSM_ROOT,
+    )
+    assert result["receipt_paths"] == [expected_receipt_path]
+    receipt_path = Path(expected_receipt_path)
+    if not receipt_path.is_absolute():
+        public_root_candidate = MICROCOSM_ROOT / receipt_path
+        repo_root_candidate = MICROCOSM_ROOT.parent / receipt_path
+        receipt_path = (
+            public_root_candidate
+            if public_root_candidate.is_file()
+            else repo_root_candidate
         )
-    ]
-    receipt = json.loads(Path(result["receipt_paths"][0]).read_text(encoding="utf-8"))
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert receipt["compatibility_route"] == result["compatibility_route"]
     assert receipt["receipt_paths"] == result["receipt_paths"]
 
