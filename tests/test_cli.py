@@ -1851,7 +1851,7 @@ def test_cli_authority_smoke(
         "public_safe_body_material_count"
     ]
     assert payload["evidence_class_counts"] == {
-        "semantic_validator": 16,
+        "semantic_validator": 17,
         "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
         "verified_macro_body_import": 1,
