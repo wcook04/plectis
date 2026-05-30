@@ -225,3 +225,23 @@ def test_project_evidence_list_only_reads_returned_limit(
         "evidence/result_0.json",
         "evidence/result_1.json",
     ]
+
+
+def test_project_evidence_limited_path_selection_preserves_count_and_order(
+    tmp_path: Path,
+) -> None:
+    evidence_dir = tmp_path / ".microcosm" / "evidence"
+    rows = [
+        evidence_dir / "routes_z.json",
+        evidence_dir / "routes_b.json",
+        evidence_dir / "routes_a.json",
+        evidence_dir / "routes_c.json",
+    ]
+
+    count, selected = project_substrate._bounded_sorted_paths(iter(rows), 2)
+
+    assert count == 4
+    assert [path.name for path in selected] == [
+        "routes_a.json",
+        "routes_b.json",
+    ]

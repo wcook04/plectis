@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import ast
+from bisect import insort
+from collections.abc import Iterable
 import hashlib
 import json
 import os
@@ -2514,15 +2516,34 @@ def explain_route(
     return explanation
 
 
+def _bounded_sorted_paths(
+    rows: Iterable[Path], limit: int | None
+) -> tuple[int, list[Path]]:
+    if limit is None:
+        sorted_rows = sorted(rows)
+        return len(sorted_rows), sorted_rows
+    row_limit = max(limit, 0)
+    if row_limit == 0:
+        return sum(1 for _ in rows), []
+    selected: list[Path] = []
+    count = 0
+    for row in rows:
+        count += 1
+        if len(selected) < row_limit:
+            insort(selected, row)
+        elif row < selected[-1]:
+            selected.pop()
+            insort(selected, row)
+    return count, selected
+
+
 def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
-    evidence_paths = sorted(_evidence_dir(project).glob("*.json"))
-    returned_paths = (
-        evidence_paths
-        if limit is None
-        else evidence_paths[: max(limit, 0)]
+    evidence_count, returned_paths = _bounded_sorted_paths(
+        _evidence_dir(project).glob("*.json"),
+        limit,
     )
     rows: list[dict[str, Any]] = []
     for path in returned_paths:
@@ -2544,10 +2565,10 @@ def list_evidence(
     return {
         **_base_payload("microcosm_project_evidence_list_v1", project),
         "project_ref": _project_arg_ref(project_path, project),
-        "evidence_count": len(evidence_paths),
+        "evidence_count": evidence_count,
         "returned_evidence_count": len(rows),
         "limit": limit,
-        "truncated": len(rows) < len(evidence_paths),
+        "truncated": len(rows) < evidence_count,
         "evidence": rows,
     }
 
