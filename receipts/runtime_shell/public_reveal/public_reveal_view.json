@@ -12,7 +12,7 @@
     "whole_system_correctness_claim": false
   },
   "command_count": 8,
-  "created_at": "2026-05-28T16:12:33+00:00",
+  "created_at": "2026-05-30T04:08:12+00:00",
   "evidence_ref": "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
   "evidence_ref_count": 11,
   "evidence_strength_policy": {
@@ -20,10 +20,10 @@
     "evidence_class_counts": {
       "algorithmic_projection": 23,
       "external_subprocess_witness": 3,
-      "semantic_validator": 16,
+      "semantic_validator": 17,
       "verified_macro_body_import": 1
     },
-    "next_command": "microcosm authority",
+    "next_command": "microcosm authority --card",
     "source_ref": "core/organ_evidence_classes.json",
     "unclassified_organs_block_authority_projection": true
   },
@@ -31,7 +31,7 @@
   "reveal_board": {
     "body_in_receipt": false,
     "evidence_is_drilldown": true,
-    "first_command": "microcosm compile /tmp/microcosm-scratch",
+    "first_command": "python -m pip install -e '.[test]'",
     "headline": "Microcosm turns a repo into a local operating substrate.",
     "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
     "private_data_equivalence_claim": false,
@@ -95,8 +95,8 @@
       {
         "body_in_receipt": false,
         "commands": [
-          "microcosm run examples/runtime_shell/demo_project",
-          "microcosm intake"
+          "microcosm run --card examples/runtime_shell/demo_project",
+          "microcosm intake --card"
         ],
         "evidence_refs": [
           "core/organ_registry.json",
@@ -116,7 +116,7 @@
         "body_in_receipt": false,
         "commands": [
           "microcosm evidence list",
-          "microcosm status"
+          "microcosm authority --card"
         ],
         "evidence_refs": [
           "core/private_state_forbidden_classes.json",

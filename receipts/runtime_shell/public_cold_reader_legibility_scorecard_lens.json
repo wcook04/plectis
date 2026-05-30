@@ -24,7 +24,7 @@
     ],
     "drilldown_after": [
       "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "microcosm serve <project>",
+      "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
       "microcosm evidence inspect <receipt>"
     ],
     "reader_rule": "Run hello for the human first-screen card, then compact cards for behavior, status, authority, and workingness before opening full route maps or receipt drilldowns.",
@@ -81,7 +81,7 @@
     },
     {
       "checkpoint_id": "observatory_not_decorative",
-      "command": "microcosm serve <project>",
+      "command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
       "endpoint": "/",
       "evidence_ref": "receipts/runtime_shell/wave039_observatory_legibility.json",
       "expected_signal": "HTML shows causal chain, route, work, events, evidence, and JSON drilldowns",
@@ -101,7 +101,7 @@
     }
   ],
   "command": "microcosm legibility-scorecard",
-  "created_at": "2026-05-28T13:52:23+00:00",
+  "created_at": "2026-05-30T04:08:12+00:00",
   "endpoint": "/legibility-scorecard",
   "evidence_refs": [
     "receipts/runtime_shell/public_ten_minute_tour.json",
@@ -236,13 +236,13 @@
     "microcosm workingness --card",
     "microcosm legibility-scorecard",
     "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-    "microcosm serve <project>"
+    "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
   ],
   "required_endpoints": [
     "/tour",
     "/project/status",
     "/authority-card",
-    "/workingness",
+    "/workingness-card",
     "/legibility-scorecard",
     "/proof-lab",
     "/project/observatory-card",

@@ -57,7 +57,8 @@
     "agentic_vulnerability_discovery_patch_proof_replay",
     "materials_chemistry_closed_loop_lab_safety_replay",
     "certificate_kernel_execution_lab",
-    "voice_to_doctrine_self_improvement_loop"
+    "voice_to_doctrine_self_improvement_loop",
+    "cognitive_operator_registry"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
   "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
@@ -373,7 +374,10 @@
       "status": "pass"
     },
     {
-      "build_dependencies": [],
+      "build_dependencies": [
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
       "missing_dependencies": [],
       "organ_id": "bridge_phase_continuity_runtime",
       "status": "pass"
@@ -579,6 +583,12 @@
       "missing_dependencies": [],
       "organ_id": "voice_to_doctrine_self_improvement_loop",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [],
+      "missing_dependencies": [],
+      "organ_id": "cognitive_operator_registry",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -634,7 +644,7 @@
     },
     {
       "fixture_id": "fixture::mathematical_strategy_atlas_hypothesis_scorer::first_wave_contract_v1",
-      "fixture_input_count": 8,
+      "fixture_input_count": 10,
       "fixture_manifest": "core/fixture_manifests/mathematical_strategy_atlas_hypothesis_scorer.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
       "macro_fixture_input_ref_count": 8,
@@ -734,7 +744,7 @@
     },
     {
       "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
-      "fixture_input_count": 11,
+      "fixture_input_count": 17,
       "fixture_manifest": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
       "macro_fixture_input_ref_count": 8,
@@ -853,11 +863,11 @@
       "status": "pass"
     },
     {
-      "fixture_id": null,
-      "fixture_input_count": 0,
+      "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+      "fixture_input_count": 7,
       "fixture_manifest": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
-      "input_source": "macro_readiness_fixture_inputs",
-      "macro_fixture_input_ref_count": 0,
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
       "missing_fixture_inputs": [],
       "organ_id": "bridge_phase_continuity_runtime",
       "status": "pass"
@@ -1051,6 +1061,16 @@
       "missing_fixture_inputs": [],
       "organ_id": "voice_to_doctrine_self_improvement_loop",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::cognitive_operator_registry::first_wave_contract_v1",
+      "fixture_input_count": 10,
+      "fixture_manifest": "core/fixture_manifests/cognitive_operator_registry.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 10,
+      "missing_fixture_inputs": [],
+      "organ_id": "cognitive_operator_registry",
+      "status": "pass"
     }
   ],
   "negative_matrix_case_count": 25,
@@ -1066,14 +1086,14 @@
       "fixtures/first_wave/<organ_id>/input"
     ],
     "coverage_counts": {
-      "acceptance_plan_organ_count": 47,
-      "accepted_organ_count": 47,
+      "acceptance_plan_organ_count": 48,
+      "accepted_organ_count": 48,
       "demoted_drilldown_organ_count": 4,
-      "evidence_class_row_count": 47,
-      "fixture_check_count": 47,
-      "organ_authority_row_count": 43,
-      "public_authority_expected_organ_count": 43,
-      "runtime_step_count": 47,
+      "evidence_class_row_count": 48,
+      "fixture_check_count": 48,
+      "organ_authority_row_count": 44,
+      "public_authority_expected_organ_count": 44,
+      "runtime_step_count": 48,
       "surface_authority_row_count": 45
     },
     "defect_count": 0,
@@ -1118,6 +1138,7 @@
             "public_reveal_walkthrough",
             "macro_projection_import_protocol",
             "prediction_oracle_reconciliation",
+            "cognitive_operator_registry",
             "standards_meta_diagnostics",
             "cold_reader_route_map",
             "agent_monitor_redteam_falsification_replay",
@@ -1181,7 +1202,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "stale_organ_ids": [],
           "status": "pass",
@@ -1236,7 +1258,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "owner_surface": "core/acceptance/first_wave_acceptance.json",
           "required_for_organ_ids": [
@@ -1286,7 +1309,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "stale_organ_ids": [],
           "status": "pass",
@@ -1341,7 +1365,8 @@
             "indirect_prompt_injection_information_flow_policy_replay",
             "agentic_vulnerability_discovery_patch_proof_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "owner_surface": "core/organ_evidence_classes.json",
           "required_for_organ_ids": [
@@ -1391,7 +1416,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "stale_organ_ids": [],
           "status": "pass",
@@ -1442,7 +1468,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "owner_surface": "RuntimeShell.authority().organ_authority",
           "receipt_ref": "receipts/runtime_shell/public_authority_map.json",
@@ -1489,7 +1516,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "stale_organ_ids": [],
           "status": "pass",
@@ -1570,7 +1598,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "owner_surface": "core/fixture_manifests/*.fixture_manifest.json",
           "required_for_organ_ids": [
@@ -1620,7 +1649,8 @@
             "agentic_vulnerability_discovery_patch_proof_replay",
             "materials_chemistry_closed_loop_lab_safety_replay",
             "certificate_kernel_execution_lab",
-            "voice_to_doctrine_self_improvement_loop"
+            "voice_to_doctrine_self_improvement_loop",
+            "cognitive_operator_registry"
           ],
           "stale_organ_ids": [],
           "status": "pass",
@@ -1640,7 +1670,7 @@
         "non-consumer notes, demos, and incidental receipts are excluded from the organ lifecycle contract unless listed in checked_surfaces"
       ],
       "next_reentry_condition": "rerun dependency preflight after accepted organ, evidence-class, runtime-step, public authority, or fixture-manifest changes",
-      "organ_count": 47,
+      "organ_count": 48,
       "proof_authority": false,
       "public_authority_boundary": "consumer-contract convergence only; not release, source, proof, or provider-call authority",
       "release_authority": false,
@@ -1671,10 +1701,20 @@
     "status": "pass"
   },
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 3,
     "status": "pass"
   },
@@ -1725,6 +1765,7 @@
       "public_reveal_walkthrough",
       "macro_projection_import_protocol",
       "prediction_oracle_reconciliation",
+      "cognitive_operator_registry",
       "standards_meta_diagnostics",
       "cold_reader_route_map",
       "agent_monitor_redteam_falsification_replay",
@@ -1787,7 +1828,8 @@
       "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay",
       "certificate_kernel_execution_lab",
-      "voice_to_doctrine_self_improvement_loop"
+      "voice_to_doctrine_self_improvement_loop",
+      "cognitive_operator_registry"
     ],
     "runtime_step_without_accepted_organ": [],
     "status": "pass"

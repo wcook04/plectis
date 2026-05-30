@@ -62,11 +62,18 @@
     "microcosm serve <project>",
     "microcosm evidence inspect <receipt>"
   ],
+  "count_scope": {
+    "copied_non_secret_macro_body_material_count": "public-safe body-material rows imported through source-module manifests and macro projection import protocol",
+    "evidence_class_counts": "adapter_backed_organ_rows_by_evidence_class; organ-level classification, not copied source-body material files",
+    "organ_evidence_class_count": "distinct evidence class ids present across adapter-backed organ rows",
+    "public_safe_body_material_count": "same body-material floor exposed by the macro body import floor; counted by material row, not by organ evidence class",
+    "real_substrate_progress_count": "adapter-backed organ rows whose truth-accounting bucket counts as real substrate progress; not maturity, release, or product-completeness score"
+  },
   "endpoint": "/authority",
   "evidence_class_counts": {
     "algorithmic_projection": 23,
     "external_subprocess_witness": 3,
-    "semantic_validator": 16,
+    "semantic_validator": 17,
     "verified_macro_body_import": 1
   },
   "evidence_class_registry": {
@@ -75,7 +82,7 @@
     "explicit_coverage": true,
     "extra_organs": [],
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 47,
+    "organ_evidence_class_count": 48,
     "real_substrate_progress_buckets": [
       "copied_non_secret_macro_body",
       "real_import_validation",
@@ -121,7 +128,7 @@
     "alias_endpoints": [
       "/verifier-lab-kernel"
     ],
-    "anti_claim": {},
+    "anti_claim": "Verifier lab kernel composes source-available public component receipts for bounded Lean/Lake execution, tactic routing, verifier trace repair, provider-hypothesis quarantine, CP2 action candidates, bounded Evolve candidates, and structured public runtime receipts. It does not import macro proof bodies, count oracle or provider output as forward proof success, expose proof bodies, mutate source, claim benchmark solve rate, or authorize release.",
     "anti_claims": {
       "credential_equivalent_live_access_exported": false,
       "proof_bodies_or_provider_payloads_exported": false,
@@ -145,8 +152,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1779959250490061814,
-      "receipt_mtime_ns": 1779976324710842598,
+      "latest_input_mtime_ns": 1780044064648439708,
+      "receipt_mtime_ns": 1780109700284315312,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -154,8 +161,8 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 34550,
-    "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "cached_receipt_bytes": 35066,
+    "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
     "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -173,6 +180,7 @@
       "target_shape_route_case_count": 5,
       "verifier_trace_attempt_count": 5
     },
+    "current_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "endpoint": "/proof-lab",
     "evidence_class": "semantic_validator",
     "lean_compiled_declaration_count": 8,
@@ -318,7 +326,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cb8a162c7bf56619a15134562571225139fb4520d4a61c9c7e8089a480b3be0b",
+        "body_digest": "sha256:ad72022bdd8056d0f24297d7a56cb93547ebcf59bd9dce688ca7403b5e0318d4",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -333,7 +341,10 @@
         "target_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
-          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+          "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
+          "microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
+          "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict"
         ],
         "verification_mode": "verified_light_edit_recipe"
       },
@@ -452,7 +463,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1a9756fed526fc4e37890cb093846a62f8549881ceb50b9c2a474c43ab988204",
+        "body_digest": "sha256:d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -473,7 +484,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
+        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -799,7 +810,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "body_digest": "sha256:efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -841,7 +852,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "body_digest": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -904,7 +915,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:8cd120d3a39280a608aaa4cc46bf86b096bc080748117823a37ba19ca74f5554",
+        "body_digest": "sha256:06181ae8d0e98ca5fca590efa2d9ed96dc7b67246b2d09e8dae71dd63c639f24",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -925,7 +936,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
+        "body_digest": "sha256:258b32e7d11f3b3cd0dcfefebc440662f562417021be588b7a7327a37570b66c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -988,7 +999,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:907ad358c4cad10c2fe74473ddf3c2dbb7227a26f3a054c4c4c36816f755e43e",
+        "body_digest": "sha256:45425bb801908f9018e8ddde9533e2229e9f5bb775888ea7afe7d31834862d42",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1030,7 +1041,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1565f4b24d353e9fafd45eaf02b7ccb19c95fae12c84963969984b057107419c",
+        "body_digest": "sha256:2980a9e798c78931c5ca48a2f966398bcc888b9162ce3484c16a6e63aacb8e02",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1051,7 +1062,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:fdcb8d5d6585c008afcbc94968aa1e4d3bc97e3e8e2486328172abc74ba78671",
+        "body_digest": "sha256:d45b7c77b5bf39cc3797c57457e22867e0c2a290ed3116c83f528e47aa148aa9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1160,7 +1171,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:8e9afa6067f36c8db6baac63da75a73ac95928bf41d9a8ed1cfb2e3e62c27652",
+        "body_digest": "sha256:a39853e39fd45aa3e992f4de9f057529a985b1e80c16c7f2ef4b2bff46bad732",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1179,7 +1190,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:88555d4a74ee1504d1428814f4ee9a76c438b54f04208913bf909ac54b368cf9",
+        "body_digest": "sha256:2d51918ff66aa58e9f328322214e12b4acf418f69ecbce4031468e6c4d4384de",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1217,7 +1228,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a78784fa7052a398c642c5acb988ce1eb14e2193255f471409e57c3c29ea780b",
+        "body_digest": "sha256:bce87209d898836b6104036c9ac5b87702a279a019963da0c1cda522c9fb46a9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1225,7 +1236,7 @@
         "source_refs": [
           "tools/agent_trace_structurer/parser.test.mjs"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
@@ -1234,7 +1245,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_trace_structurer_parser_source_module_runs_node_fixture_tests",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
@@ -1258,7 +1269,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1a9756fed526fc4e37890cb093846a62f8549881ceb50b9c2a474c43ab988204",
+        "body_digest": "sha256:d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1279,7 +1290,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
+        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1594,7 +1605,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:664f70026892f8a60c3f08bfbc8fb40662c51a443cbe2d9207a98826953c5ad7",
+        "body_digest": "sha256:3c6236fd2ffdeae0f01b47565bae67095041b4254e8ea4aba471aba49a52c53d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1615,7 +1626,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:be39817364c2f18a5b09fb9d5994bff6c70cb4eb393e75c4f1242710654564ce",
+        "body_digest": "sha256:cdebc81f736c584cdf1a371e1f54b0c61f8673c349bb9afaf7dcb2fe757b5223",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1678,7 +1689,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:83761816d883e3380edeec1221ba20483a88e474bb502b950294cecf273fedeb",
+        "body_digest": "sha256:791db9fb5f63350016974cece2f5206fc1eeda3636de161bb7dda70841d27553",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1741,7 +1752,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a518bbdba303ab40a23d2011e22a9939ff0be01a0a58eab364494eff90fae01f",
+        "body_digest": "sha256:5608589d4630672f080707c8ffe516036f11770bca65a250ecce9c9fcdf6d4a9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1762,7 +1773,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "body_digest": "sha256:88cf1f48c50c00e0deafc1eb688183f3b9a0ae2d2a5bb2a0cbb88c3c7d3f5f45",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1783,7 +1794,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c3daec58e6cdaa9ce2ef75e4389ece2e3b1be0b0385c9fc0ff4223b2e3100fe7",
+        "body_digest": "sha256:3cc058fa287d05f847cd715013643337b25593b6a6e4e250250bec6dff397087",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1804,7 +1815,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7c2a45c3ec2b156e6420150b29e526785e35780dfc5f886fd7777868693b82bb",
+        "body_digest": "sha256:912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2728,7 +2739,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2749,7 +2760,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1337f67b985a2f9da8787d2f71681e4aaa27ddeddb509f7ba62b60792a4d430e",
+        "body_digest": "sha256:15554aaef995730c692a7cf0b04a73b0a6539fdb5cdf8c474241ca4980bac49e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2812,7 +2823,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ecb1138277a33e5174b3337ab3dddbef67924b686924a359ec2da12943957cfa",
+        "body_digest": "sha256:d062f9b435740c1ce032e60fe27527f58b2ab422607a2b405c515c46ad6e04e3",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2821,7 +2832,7 @@
           "system/server/tests/test_agent_observability.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
@@ -2830,7 +2841,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_sources_compile_and_preserve_payload_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:db78bdeca879e50328a439ce5d84d3bd642c6f8ab67667212014ee282f0bde45",
@@ -2938,7 +2949,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3fa4370e2fc2b53a8ca239429eff390ae51dac485399fac54589265182e99e11",
+        "body_digest": "sha256:63dd4e066550397712ef67020d7a7fcf9c42a80aa40067cf3b3d1e92a948078e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2947,7 +2958,7 @@
           "system/server/tests/test_agent_session_attribution.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_session_attribution.py",
@@ -2956,7 +2967,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
@@ -3001,7 +3012,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+        "body_digest": "sha256:1361d8118168c83d0ae4f60a6a8814469770f25a6e101df69ebb1973bd90b31a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3010,7 +3021,7 @@
           "system/server/tests/test_agent_mission_status.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
@@ -3019,10 +3030,10 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:06b108d4f13dd866534c1b9717fa874ae35eaec28e73f0e2a9395c1f4b0e4e9f",
+        "body_digest": "sha256:aa7eeac9c7df3fdd999e21201cd0f59c17c24b7fd42aa73e2ad27e4bbe75061a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3031,7 +3042,7 @@
           "tools/meta/observability/operator_handoff_linkage.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
@@ -3040,7 +3051,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:70e163e19e73c5e69dbe48d790f3f85dd6826d30696acd082d9ddcd89dbdeef2",
@@ -3064,7 +3075,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6713a43c723cc72c50a43f427674cf5c2d8062ba9641c4f8efefdca50e6081c2",
+        "body_digest": "sha256:ed3f2736c5d4fc0969a20be898bb497ced35339808a09a7739f6dfbee18e7678",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3073,7 +3084,7 @@
           "system/server/tests/test_operator_handoff_linkage.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
@@ -3082,7 +3093,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
@@ -3315,7 +3326,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:34cd98c97608997beb404036218fdb466c6e044859a3cfebe9ed9457bd231d78",
+        "body_digest": "sha256:d8004347dd03381219211e11ede91d10ad72b36a297224add78fde582f625dd8",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3438,7 +3449,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "body_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3446,7 +3457,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
@@ -3455,10 +3466,10 @@
           "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
           "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "body_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3466,7 +3477,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
@@ -3475,7 +3486,7 @@
           "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
           "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -3498,7 +3509,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "body_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3506,7 +3517,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
@@ -3515,7 +3526,7 @@
           "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
           "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
@@ -3538,7 +3549,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "body_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3546,7 +3557,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
@@ -3555,10 +3566,10 @@
           "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
           "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+        "body_digest": "sha256:38a1ce15461bca6b6811934ac8fcf4e0e82280bd7435a4f241280c5cadcbd074",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3566,7 +3577,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
@@ -3575,10 +3586,10 @@
           "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
           "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b",
+        "body_digest": "sha256:9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -3586,7 +3597,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
@@ -3595,7 +3606,7 @@
           "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
           "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
@@ -3678,7 +3689,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6b1a3bfd54d8a1721aaf5eaa2afdc8fbbeac0a30c5262bd3f559c1927314ca6d",
+        "body_digest": "sha256:4ec4a2852a5a304e4dd91c7bfa473ba1ad1a8ba8cba6fd5fb5a47cd9048887f1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3720,7 +3731,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7bb0aeb7edf738313f87b614de1399e9e99b6dfc5823372f0c46d818618faf5d",
+        "body_digest": "sha256:46033b432195144ee2d29c9e3306e36a55b09079bf8b0aac22785e19c5038e92",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3741,7 +3752,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:bef3ce9432f97cd0646447720dcfa29d03042ce2a2e7aff0b44e0c75de7c18d8",
+        "body_digest": "sha256:2e977c52a2f85f833e843e68507fc28239acefdca40ffc6def3f3a864cd7abae",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4214,7 +4225,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "body_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -4222,7 +4233,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
@@ -4230,10 +4241,10 @@
           "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "body_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -4241,7 +4252,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
@@ -4249,7 +4260,7 @@
           "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -4366,7 +4377,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "body_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -4374,7 +4385,7 @@
         "source_refs": [
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
@@ -4382,7 +4393,7 @@
           "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:cc77dbe393baea06e9896319584dd9953814b15ecd9c515dc1deca8a6149f1e6",
@@ -4509,7 +4520,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:34db45127ac9f9f53a9eae427a8ec1befc488fb6fa3e08441dc04cb8b24a5f62",
+        "body_digest": "sha256:c7c0cfcd116fbaa6938944c3f056bf5491e0fd0641b24e6ba3a380430b2f1d59",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4593,7 +4604,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab",
+        "body_digest": "sha256:a8daa00daa45b48fe12f3a5f9425d9c24af97ec5ee3485891649448173e4f771",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4614,7 +4625,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f168afab63d7e67805b3fe038e6131a6cbcaa8ddfcb62f6291e3a289a9145b2e",
+        "body_digest": "sha256:2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4635,7 +4646,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7955b43ab842a37d6d65a47b83fa49883b79cd446e79084b5f10a33f085b89ec",
+        "body_digest": "sha256:86df1ed24a1ff8ddc245e3486bf2cf2eb2dc50aec12fe42ab9ac0d9ce68c9a78",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4904,7 +4915,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e3e1419ea0960ff2ccbda56427b9648182c8c1c1dff21343809fdee96c1e9598",
+        "body_digest": "sha256:3e35d4d13fba7f573afe0d615554e0bf06c15f18b854366ac961fe4c8b4b9b3f",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4913,7 +4924,7 @@
           "system/server/tests/test_raw_seed_attempt_recovery.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
@@ -4922,7 +4933,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
@@ -5154,6 +5165,177 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:f74bb564cadcd39f358fecb35a533d824397e29e0d86676403fc826aeb19ec73",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "station_surface_registry_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/navigation/surfaces.ts",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/navigation/surfaces.ts",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:eba4e1ba85347c6737df2e7ade42e750e97c9a19fb1a3832059359d04811b0af",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "station_top_bar_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/components/cockpit/StationTopBar.tsx",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/components/cockpit/StationTopBar.tsx",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:b248325a157e3f7eb7320e430c73b130aa44420f73bfbec334730d5aef595ea7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "workstream_board_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:93e5b3f180b2ae751c6ed9be0ba7c1f09271aaf1ddf255d0bf1d8338ea20db7f",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "attention_queue_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/components/cockpit/AttentionQueue.tsx",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/components/cockpit/AttentionQueue.tsx",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:9820d7b664c0821f246140ca7f05bd6ebdc88288586ea342c381a1c76fbf5329",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "session_inspector_panel_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/components/cockpit/SessionInspectorPanel.tsx",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/components/cockpit/SessionInspectorPanel.tsx",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:ed9b3bd4d4b0919c26b786b4bac4babd8c7324e70643a356ae15c40a94a70666",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_frontend_body",
+        "material_id": "raw_trace_drawer_source_body_import",
+        "source_refs": [
+          "system/server/ui/src/components/cockpit/RawTraceDrawer.tsx",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/frontend_cockpit_hud/exported_frontend_cockpit_source_bundle/source_modules/system/server/ui/src/components/cockpit/RawTraceDrawer.tsx",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_packet_compiler_body",
+        "material_id": "profile_loader_source_body_import",
+        "source_refs": [
+          "system/lib/compression_profiles.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/compression_profiles.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_packet_compiler_body",
+        "material_id": "profile_registry_source_body_import",
+        "source_refs": [
+          "codex/doctrine/compression_profiles.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/compression_profiles.json",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_packet_compiler_test_body",
+        "material_id": "profile_loader_test_source_body_import",
+        "source_refs": [
+          "system/server/tests/test_compression_profiles.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_compression_profiles.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:f23773f9bc0d6304c10ed9a5c332f077f50e8c03684db7156b48b6c00707eb43",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -5163,7 +5345,7 @@
           "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_353::agent_benchmark_integrity_anti_gaming_replay_compound",
           "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_benchmark_integrity_anti_gaming_replay_compound.json",
@@ -5171,7 +5353,7 @@
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
@@ -5183,7 +5365,7 @@
           "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
           "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
@@ -5191,7 +5373,7 @@
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:178c8b1feff6a5a6301ee9d3e65942a1af5061e45bfcd6298ac7545f153fae64",
@@ -5203,7 +5385,7 @@
           "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound",
           "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
@@ -5211,10 +5393,10 @@
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
           "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5243,7 +5425,7 @@
           "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_337",
           "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json",
@@ -5251,7 +5433,7 @@
           "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
           "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:bf4378c4c60cd33a6175033be479c3dbd2be2f85789b604d204b027403956e8f",
@@ -5263,7 +5445,7 @@
           "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
           "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.json",
@@ -5271,7 +5453,27 @@
           "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
           "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
+      },
+      {
+        "body_digest": "sha256:89792add1e2f03a09c40f64d19c1ac0a54d62c053aabe11ecad0a9846a54cf33",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_pattern_body",
+        "material_id": "agent_monitor_redteam_extracted_pattern_ledger_row_body_import",
+        "source_refs": [
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
+          "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "source_faithful_json_slice",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_monitor_redteam_falsification_replay_compound.json",
+        "validation_refs": [
+          "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_verified",
+          "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
@@ -5337,7 +5539,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5421,7 +5623,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5523,7 +5725,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+        "body_digest": "sha256:9ebe5544a03e40db1a3f0bc5bf19fbda87f59bcdc54ba2e425333b0020e5b5fb",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -5543,7 +5745,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5563,7 +5765,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "body_digest": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5583,7 +5785,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+        "body_digest": "sha256:912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5643,7 +5845,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5663,7 +5865,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "body_digest": "sha256:88cf1f48c50c00e0deafc1eb688183f3b9a0ae2d2a5bb2a0cbb88c3c7d3f5f45",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5743,6 +5945,26 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:e1ad34691ca598b878f8658485ce78fa4fa59b3eb0a4bd078355c415ca2cb312",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_pattern_body",
+        "material_id": "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import",
+        "source_refs": [
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
+          "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "source_faithful_json_slice",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_sabotage_scheming_monitor_replay_compound.json",
+        "validation_refs": [
+          "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_source_modules_are_digest_verified",
+          "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "verified_light_edit_recipe"
+      },
+      {
         "body_digest": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -5783,7 +6005,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5863,7 +6085,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5943,7 +6165,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6136,6 +6358,46 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:e174c3f23e5fb81100d8a450b2bffec3a4d29ef7e0e321f087785f16abf6388d",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "cognitive_operator_registry_macro_registry_body_import",
+        "source_refs": [
+          "codex/doctrine/cognitive_operators.json",
+          "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:518e50222334ab7b35bd7eed0a4d8f1dda2b3a498b9f44fbf7cd4237b314fe21",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "cognitive_operator_registry_macro_validator_body_import",
+        "source_refs": [
+          "system/lib/cognitive_operator_registry.py",
+          "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:6b799e8c09962aab43af22b5853ead439c048ec12c5f35f3f80543eae29c8212",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -6199,7 +6461,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1c18d87f6ba2b5765e0172e036f2557ca164c3863bd3b22555023bac2654a43b",
+        "body_digest": "sha256:ee5acc9cded2063254d95fedac19e5a64ac950c1db1e64025165d1ba6aa1807a",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -6220,7 +6482,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
+        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6255,13 +6517,13 @@
         "target_digest_matches": true,
         "target_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
         "validation_refs": [
-          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
           "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6270,15 +6532,15 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
           "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "validation_refs": [
-          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
           "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
@@ -6295,13 +6557,13 @@
         "target_digest_matches": true,
         "target_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
         "validation_refs": [
-          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
           "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6310,15 +6572,15 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
           "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "validation_refs": [
-          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
           "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:ea7a572e7ba2d9a0f6730958b22f4d0d3efe73886587b5b4eabea78072d425ec",
@@ -6341,7 +6603,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "body_digest": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6455,12 +6717,12 @@
           "system/lib/paper_modules.py",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/lib/paper_modules.py",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
@@ -6472,12 +6734,12 @@
           "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
@@ -6489,12 +6751,12 @@
           "system/server/tests/test_paper_module_formal_evidence_cells.py",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:f34e20fd6f2a95af3c75dc58c6d12f705603f86f5ff0957907972b9ab068d0cb",
@@ -6506,12 +6768,12 @@
           "state/formal_math_research_operations/formal_evidence_cell_registry.json",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:8c42706f8dd58ab76a2f63d49ed18aae496b082362c22c725dce7b080b00f1fe",
@@ -6523,15 +6785,15 @@
           "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:e62cd49e11152cb8ddad20fb262b338a5d91f767a08faf17ff77e578438b1d22",
+        "body_digest": "sha256:8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -6540,12 +6802,12 @@
           "codex/standards/std_paper_module.json",
           "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/codex/standards/std_paper_module.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
@@ -6630,13 +6892,13 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6645,15 +6907,15 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
           "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
@@ -6670,7 +6932,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6690,7 +6952,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6710,7 +6972,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6730,7 +6992,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6750,7 +7012,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6770,7 +7032,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6790,7 +7052,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6810,7 +7072,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6830,7 +7092,7 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
@@ -6850,13 +7112,13 @@
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -6865,15 +7127,15 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
           "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "validation_refs": [
-          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+          "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
           "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
@@ -6916,7 +7178,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7183,7 +7445,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7449,7 +7711,7 @@
           "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_226_232_328",
           "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/prediction_oracle_reconciliation_rows.json",
@@ -7457,7 +7719,7 @@
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:dca64f3d93cb7cd70f381ca31b4cfca65323a8084f7ad71ec86ebabf4b321df2",
@@ -7469,7 +7731,7 @@
           "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json::organ_fixture_specs.prediction_oracle_reconciliation_suborgan",
           "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.prediction_oracle_reconciliation_suborgan.json",
@@ -7477,7 +7739,7 @@
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:c8c312696ff52080c3cf773747f279c735ff9bd0547ec8ebffa04ac266f6383f",
@@ -7569,7 +7831,7 @@
           "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json::post_dag_delta_routing.live_ledger_rows_226_232_prediction_oracle_reconciliation",
           "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_route_decision_matrix.prediction_oracle_reconciliation_suborgan.json",
@@ -7577,7 +7839,7 @@
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
           "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:64f76e0527c099fe225c28b60b5b242e5ec1858d07e3c874bd746e055307f242",
@@ -7729,7 +7991,7 @@
           "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_350::research_replication_rubric_artifact_replay_compound",
           "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json",
@@ -7737,7 +7999,7 @@
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
@@ -7749,7 +8011,7 @@
           "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
           "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
@@ -7757,7 +8019,7 @@
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
@@ -7769,7 +8031,7 @@
           "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:research_replication_rubric_artifact_replay_compound",
           "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_json_slice",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
@@ -7777,7 +8039,7 @@
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
           "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
@@ -7860,7 +8122,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7960,7 +8222,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+        "body_digest": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -7969,7 +8231,7 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
           "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
@@ -7977,10 +8239,10 @@
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+        "body_digest": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -7989,7 +8251,7 @@
           "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
           "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
@@ -7997,7 +8259,7 @@
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
           "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
         ],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
@@ -8229,12 +8491,12 @@
           "tools/meta/factory/reduce_prover_provider_receipts.py",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
@@ -8246,12 +8508,12 @@
           "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624",
@@ -8263,12 +8525,12 @@
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_path_normalized_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.public_normalized.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20",
@@ -8280,12 +8542,12 @@
           "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_path_normalized_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.public_normalized.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
@@ -8297,12 +8559,12 @@
           "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
@@ -8314,12 +8576,12 @@
           "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
           "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
         ],
-        "source_to_target_relation": "exact_copy",
+        "source_to_target_relation": "source_faithful_public_safe_exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
         "validation_refs": [],
-        "verification_mode": "exact_source_digest_match"
+        "verification_mode": "verified_light_edit_recipe"
       },
       {
         "body_digest": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
@@ -8442,7 +8704,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:bb5ff4737c45a8625c46af242f055ec58820fd9ddff6719a3cc02140f2eec41b",
+        "body_digest": "sha256:8379200b453ae6cf238a61aa486a3bedae548ec6d75d6a07578990970a9ab4a9",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8502,7 +8764,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6c9a8a255e7f1c112db9ed7d7e11f4d0cc95d1e185c0633713ad7739724ea592",
+        "body_digest": "sha256:e1c358192504697316e544a84b39c324b1000a6978df32a97bf5414866e1a0d8",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8522,7 +8784,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ba3f05f00588e41df697161a9b5672d1d55c7fe48adaccbe6a7376ee68d2a390",
+        "body_digest": "sha256:98fd122c184ce9b7dbe42a8a819441313e641b1551fbb191058a105b8b0b8770",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8562,7 +8824,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:fb1c3a0322f2271d63a6e920af446af1588d0ae3d89adabc74722938ca7675bb",
+        "body_digest": "sha256:24d202998e8b185f7c4a96e914a4ce031d27e5ad56b6591314e89b987da60a5f",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8582,7 +8844,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:547a95bf7b22eaf46d5898d4986653469781688d50f31c62b48b20c3334f4134",
+        "body_digest": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8623,14 +8885,15 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 412,
+    "copied_non_secret_macro_body_material_count": 425,
     "defect_count": 0,
     "defects": [],
-    "direct_source_module_manifest_count": 36,
-    "direct_source_module_manifest_material_count": 177,
+    "direct_source_module_manifest_count": 39,
+    "direct_source_module_manifest_material_count": 181,
     "direct_source_module_manifest_refs": [
       "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+      "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
@@ -8638,10 +8901,12 @@
       "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json",
+      "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
       "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
       "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json",
       "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
       "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
       "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json",
       "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
       "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
@@ -8899,6 +9164,8 @@
         "period_noncollapse_strike_runner_body_import",
         "period_noncollapse_lakefile_body_import",
         "period_noncollapse_toolchain_body_import",
+        "cognitive_operator_registry_macro_registry_body_import",
+        "cognitive_operator_registry_macro_validator_body_import",
         "kernel_entry_packet_command_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
         "workitem_runtime_entrypoint_source_body_import",
@@ -8985,7 +9252,7 @@
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
       "status": "pass"
     },
-    "non_lean_tool_body_material_count": 299,
+    "non_lean_tool_body_material_count": 301,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -8993,12 +9260,15 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 412,
+    "public_safe_body_material_count": 425,
     "public_safe_body_material_counts_by_class": {
-      "public_macro_pattern_body": 36,
+      "public_macro_frontend_body": 6,
+      "public_macro_packet_compiler_body": 2,
+      "public_macro_packet_compiler_test_body": 1,
+      "public_macro_pattern_body": 38,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 63,
-      "public_macro_tool_body": 299,
+      "public_macro_tool_body": 301,
       "public_standard_body": 6
     },
     "route_readiness": {
@@ -9032,6 +9302,24 @@
         "src/microcosm_core/organs/formal_math_lean_proof_witness.py"
       ],
       "latest_verified_source_module_families": [
+        {
+          "body_text_in_receipt": false,
+          "family_id": "exported_sleeper_memory_poisoning_bundle",
+          "manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+          "material_ids": [
+            "agent_execution_trace_runtime_body_import"
+          ],
+          "module_count": 1,
+          "source_refs": [
+            "system/lib/agent_execution_trace.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
+            "tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
         {
           "body_text_in_receipt": false,
           "family_id": "exported_standards_meta_diagnostics_bundle",
@@ -9086,23 +9374,6 @@
             "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
             "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
           ],
-          "verification_mode": "exact_source_digest_match"
-        },
-        {
-          "body_text_in_receipt": false,
-          "family_id": "exported_symbol_classifier_bundle",
-          "manifest_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
-          "material_ids": [
-            "provider_receipt_reducer_source_body_import",
-            "provider_batch_context_calibration_report_builder_source_body_import"
-          ],
-          "module_count": 2,
-          "source_refs": [
-            "tools/meta/factory/reduce_prover_provider_receipts.py",
-            "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
-          ],
-          "status": "pass",
-          "validation_refs": [],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -9164,7 +9435,7 @@
           "verification_mode": "exact_source_digest_match"
         }
       ],
-      "reader_use": "Use this as a compact first-screen proof of which exact source-open macro modules are in the bundle; drill into the manifest refs for hashes, anchors, and copied source bodies.",
+      "reader_use": "Use this as a compact first-screen proof of which source-open macro modules are in the bundle; drill into the manifest refs for hashes, anchors, and copied or light-edited public bodies.",
       "schema_version": "microcosm_macro_source_body_import_lens_v1",
       "source_module_family_spotlight_count": 1,
       "source_module_family_spotlights": [
@@ -9962,13 +10233,20 @@
             "system/lib/agent_observability.py",
             "system/server/tests/test_agent_observability.py"
           ],
+          "source_to_target_relations": [
+            "exact_copy",
+            "public_light_edit_private_path_redaction"
+          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_agent_observability_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_agent_observability_sources_compile_and_preserve_payload_boundary_contract",
             "tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_mode": "exact_source_digest_match"
+          "verification_modes": [
+            "exact_source_digest_match",
+            "verified_light_edit_recipe"
+          ]
         },
         {
           "body_text_in_receipt": false,
@@ -9991,13 +10269,20 @@
             "system/server/tests/test_agent_observability_animation_coverage.py",
             "system/server/tests/test_agent_session_attribution.py"
           ],
+          "source_to_target_relations": [
+            "exact_copy",
+            "public_light_edit_private_path_redaction"
+          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
             "tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_mode": "exact_source_digest_match"
+          "verification_modes": [
+            "exact_source_digest_match",
+            "verified_light_edit_recipe"
+          ]
         },
         {
           "body_text_in_receipt": false,
@@ -10031,13 +10316,20 @@
             "system/lib/agent_mission_status.py",
             "system/server/tests/test_agent_mission_status.py"
           ],
+          "source_to_target_relations": [
+            "exact_copy",
+            "public_light_edit_private_path_redaction"
+          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
             "tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_mode": "exact_source_digest_match"
+          "verification_modes": [
+            "exact_source_digest_match",
+            "verified_light_edit_recipe"
+          ]
         },
         {
           "body_text_in_receipt": false,
@@ -10054,13 +10346,20 @@
             "tools/meta/observability/prompt_shelf_fingerprints.py",
             "system/server/tests/test_operator_handoff_linkage.py"
           ],
+          "source_to_target_relations": [
+            "public_light_edit_private_path_redaction",
+            "exact_copy"
+          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
             "tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_mode": "exact_source_digest_match"
+          "verification_modes": [
+            "verified_light_edit_recipe",
+            "exact_source_digest_match"
+          ]
         },
         {
           "body_text_in_receipt": false,
@@ -10536,13 +10835,20 @@
             "system/lib/raw_seed_attempt_recovery.py",
             "system/server/tests/test_raw_seed_attempt_recovery.py"
           ],
+          "source_to_target_relations": [
+            "exact_copy",
+            "public_light_edit_private_path_redaction"
+          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
             "tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_mode": "exact_source_digest_match"
+          "verification_modes": [
+            "exact_source_digest_match",
+            "verified_light_edit_recipe"
+          ]
         },
         {
           "body_text_in_receipt": false,
@@ -10680,6 +10986,54 @@
           "validation_refs": [
             "tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
             "tests/test_macro_projection_import_protocol.py::test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
+          "family_id": "frontend_cockpit",
+          "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json",
+          "material_ids": [
+            "station_surface_registry_source_body_import",
+            "station_top_bar_source_body_import",
+            "workstream_board_source_body_import",
+            "attention_queue_source_body_import",
+            "session_inspector_panel_source_body_import",
+            "raw_trace_drawer_source_body_import"
+          ],
+          "module_count": 6,
+          "source_refs": [
+            "system/server/ui/src/navigation/surfaces.ts",
+            "system/server/ui/src/components/cockpit/StationTopBar.tsx",
+            "system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+            "system/server/ui/src/components/cockpit/AttentionQueue.tsx",
+            "system/server/ui/src/components/cockpit/SessionInspectorPanel.tsx",
+            "system/server/ui/src/components/cockpit/RawTraceDrawer.tsx"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
+          "family_id": "compression_profiles",
+          "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json",
+          "material_ids": [
+            "profile_loader_source_body_import",
+            "profile_registry_source_body_import",
+            "profile_loader_test_source_body_import"
+          ],
+          "module_count": 3,
+          "source_refs": [
+            "system/lib/compression_profiles.py",
+            "codex/doctrine/compression_profiles.json",
+            "system/server/tests/test_compression_profiles.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
           ],
           "verification_mode": "exact_source_digest_match"
         },
@@ -10927,6 +11281,26 @@
         },
         {
           "body_text_in_receipt": false,
+          "family_id": "exported_cognitive_operator_registry_bundle",
+          "manifest_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+          "material_ids": [
+            "cognitive_operator_registry_macro_registry_body_import",
+            "cognitive_operator_registry_macro_validator_body_import"
+          ],
+          "module_count": 2,
+          "source_refs": [
+            "codex/doctrine/cognitive_operators.json",
+            "system/lib/cognitive_operator_registry.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports",
+            "tests/test_cognitive_operator_registry.py::test_cognitive_operator_registry_bundle_validates_runtime_shape"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
           "family_id": "exported_cold_reader_route_map_bundle",
           "manifest_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json",
           "material_ids": [
@@ -10957,7 +11331,7 @@
           ],
           "status": "pass",
           "validation_refs": [
-            "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+            "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
             "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
           ],
           "verification_mode": "exact_source_digest_match"
@@ -11005,25 +11379,6 @@
         },
         {
           "body_text_in_receipt": false,
-          "family_id": "exported_evidence_cell_anchor_bundle",
-          "manifest_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
-          "material_ids": [
-            "paper_module_formal_evidence_auditor_source_body_import",
-            "formal_evidence_cell_registry_builder_source_body_import",
-            "paper_module_formal_evidence_cells_test_source_body_import"
-          ],
-          "module_count": 3,
-          "source_refs": [
-            "system/lib/paper_modules.py",
-            "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
-            "system/server/tests/test_paper_module_formal_evidence_cells.py"
-          ],
-          "status": "pass",
-          "validation_refs": [],
-          "verification_mode": "exact_source_digest_match"
-        },
-        {
-          "body_text_in_receipt": false,
           "family_id": "exported_formal_math_readiness_bundle",
           "manifest_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
           "material_ids": [
@@ -11053,7 +11408,7 @@
           ],
           "status": "pass",
           "validation_refs": [
-            "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+            "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
             "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
           ],
           "verification_mode": "exact_source_digest_match"
@@ -11304,23 +11659,6 @@
         },
         {
           "body_text_in_receipt": false,
-          "family_id": "exported_symbol_classifier_bundle",
-          "manifest_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
-          "material_ids": [
-            "provider_receipt_reducer_source_body_import",
-            "provider_batch_context_calibration_report_builder_source_body_import"
-          ],
-          "module_count": 2,
-          "source_refs": [
-            "tools/meta/factory/reduce_prover_provider_receipts.py",
-            "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
-          ],
-          "status": "pass",
-          "validation_refs": [],
-          "verification_mode": "exact_source_digest_match"
-        },
-        {
-          "body_text_in_receipt": false,
           "family_id": "exported_verifier_lab_execution_spine_bundle",
           "manifest_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
           "material_ids": [
@@ -11378,7 +11716,7 @@
           "verification_mode": "exact_source_digest_match"
         }
       ],
-      "verified_source_module_family_count": 98
+      "verified_source_module_family_count": 99
     },
     "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
     "status": "pass",
@@ -11998,7 +12336,7 @@
       "authority_ref": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
       "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
-      "classification_basis": "derived fake-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
+      "classification_basis": "derived synthetic-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
       "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
@@ -12401,6 +12739,29 @@
       "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
       "ordinal": 43,
       "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
+      "verdict_source": "validator_computation"
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+      "evidence_class": "semantic_validator",
+      "evidence_strength_disclosed": true,
+      "evidence_strength_rank": 5,
+      "generated_receipt_count": 4,
+      "input_mode": "exported_cognitive_operator_registry_bundle",
+      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+      "ordinal": 44,
+      "organ_id": "cognitive_operator_registry",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
       "release_authorized": false,
@@ -13704,14 +14065,14 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 1,
-    "copied_non_secret_macro_body_material_count": 412,
+    "copied_non_secret_macro_body_material_count": 425,
     "hard_boundary_count": 6,
     "mixed_public_safe_macro_import_assay_status": "pass",
     "non_progress_organ_count": 0,
-    "organ_authority_count": 43,
+    "organ_authority_count": 44,
     "organ_evidence_class_count": 4,
     "projection_cell_count": 78,
-    "real_substrate_progress_count": 43,
+    "real_substrate_progress_count": 44,
     "regression_negative_fixture_count": 0,
     "safe_local_exception_count": 3,
     "surface_authority_count": 45
@@ -13725,9 +14086,9 @@
     "legacy_adapter_or_synthetic_placeholder_count": 0,
     "non_progress_organ_count": 0,
     "non_progress_organs": [],
-    "real_import_validation_count": 16,
+    "real_import_validation_count": 17,
     "real_runtime_receipt_count": 3,
-    "real_substrate_progress_count": 43,
+    "real_substrate_progress_count": 44,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -13771,7 +14132,8 @@
       "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay",
       "certificate_kernel_execution_lab",
-      "voice_to_doctrine_self_improvement_loop"
+      "voice_to_doctrine_self_improvement_loop",
+      "cognitive_operator_registry"
     ],
     "regression_negative_fixture_count": 0,
     "scaffold_or_debt_count": 0,
@@ -13780,7 +14142,7 @@
     "source_faithful_refactor_count": 23,
     "truth_accounting_bucket_counts": {
       "copied_non_secret_macro_body": 1,
-      "real_import_validation": 16,
+      "real_import_validation": 17,
       "real_runtime_receipt": 3,
       "source_faithful_refactor": 23
     }
