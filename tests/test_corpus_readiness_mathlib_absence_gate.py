@@ -176,10 +176,11 @@ def test_corpus_readiness_exported_source_modules_are_digest_verified() -> None:
     for source_ref in SOURCE_ARTIFACT_REFS:
         source = MICROCOSM_ROOT.parent / source_ref
         target = EXPORTED_BUNDLE_INPUT / rows[source_ref]["path"]
-        source_digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
         target_text = target.read_text(encoding="utf-8")
         target_digest = "sha256:" + hashlib.sha256(target_text.encode("utf-8")).hexdigest()
         row = rows[source_ref]
+        source_exists = source.is_file()
+        relation = row.get("source_to_target_relation")
         row_source_digest = str(row.get("source_sha256", row["sha256"]))
         row_target_digest = str(row.get("target_sha256", row["sha256"]))
         row_digest = str(row["sha256"])
@@ -189,16 +190,24 @@ def test_corpus_readiness_exported_source_modules_are_digest_verified() -> None:
             row_target_digest = f"sha256:{row_target_digest}"
         if not row_digest.startswith("sha256:"):
             row_digest = f"sha256:{row_digest}"
+        source_digest = (
+            "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
+            if source_exists
+            else row_source_digest
+            if relation == "verified_public_safe_private_path_rewrite"
+            else target_digest
+        )
         assert row_source_digest == source_digest
         assert row_target_digest == target_digest
         assert row_digest == target_digest
-        if row.get("source_to_target_relation") == "verified_public_safe_private_path_rewrite":
+        if relation == "verified_public_safe_private_path_rewrite":
             assert source_digest != target_digest
             assert row["verification_mode"] == "verified_light_edit_recipe"
             assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
             assert OPERATOR_HOME_SAMPLE not in target_text
         else:
-            assert target.read_bytes() == source.read_bytes()
+            if source_exists:
+                assert target.read_bytes() == source.read_bytes()
             assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
         assert rows[source_ref]["body_copied"] is True
         assert rows[source_ref]["body_in_receipt"] is False

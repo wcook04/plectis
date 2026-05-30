@@ -930,6 +930,18 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _exported_bundle_receipt_ref(
+    receipt_path: Path,
+    *,
+    target: Path,
+    public_root: Path,
+) -> str:
+    try:
+        return receipt_path.relative_to(public_root).as_posix()
+    except ValueError:
+        return receipt_path.relative_to(target.parent).as_posix()
+
+
 def write_receipts(
     out_dir: str | Path,
     result: dict[str, Any],
@@ -1068,10 +1080,11 @@ def run_strategy_bundle(
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
-    receipt_ref = _display(receipt_path, public_root=public_root)
-    if Path(receipt_ref).is_absolute() and "receipts" in receipt_path.parts:
-        receipts_index = len(receipt_path.parts) - 1 - list(reversed(receipt_path.parts)).index("receipts")
-        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
+    receipt_ref = _exported_bundle_receipt_ref(
+        receipt_path,
+        target=target,
+        public_root=public_root,
+    )
     receipt = _common_receipt(
         result,
         schema_version="mathematical_strategy_atlas_exported_bundle_receipt_v1",

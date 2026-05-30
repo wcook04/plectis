@@ -2303,6 +2303,71 @@ def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
     assert row["sha256_match"] is True
 
 
+def test_refresh_exact_copy_source_modules_accepts_sealed_manifest_target_copy(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path / "macro-root"
+    source_root.mkdir()
+    source_ref = "state/runs/unavailable/sealed_runtime_receipt.json"
+
+    manifest_path = (
+        public_root / "examples/sealed_runtime/exported_bundle/source_module_manifest.json"
+    )
+    target_ref = "source_modules/state/runs/unavailable/sealed_runtime_receipt.json"
+    target = manifest_path.parent / target_ref
+    target.parent.mkdir(parents=True, exist_ok=True)
+    body = '{"kind": "sealed_public_runtime_receipt"}\n'
+    target.write_text(body, encoding="utf-8")
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "sealed_runtime_source_manifest_v1",
+                "modules": [
+                    {
+                        "module_id": "sealed_runtime_receipt_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": "exact_copy",
+                        "source_import_class": "copied_non_secret_macro_body",
+                        "required_anchors": ["sealed_public_runtime_receipt"],
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "sha256": digest,
+                        "source_sha256": f"sha256:{digest}",
+                        "target_sha256": f"sha256:{digest}",
+                        "sha256_match": True,
+                        "line_count": body.count("\n"),
+                        "byte_count": len(body.encode("utf-8")),
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["defect_count"] == 0
+    assert result["target_copy_count"] == 0
+    assert result["manifest_row_update_count"] == 0
+    assert result["pending_update_count"] == 0
+    assert target.read_text(encoding="utf-8") == body
+
+
 def test_refresh_exact_copy_source_modules_resolves_microcosm_local_sources(
     tmp_path: Path,
 ) -> None:

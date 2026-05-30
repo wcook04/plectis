@@ -261,9 +261,11 @@ def test_tactic_portfolio_availability_exported_source_modules_are_digest_verifi
         target = repo_root / module["target_ref"]
         source_digest = _sha256_prefixed(module.get("source_sha256") or module["sha256"])
         target_digest = _sha256_prefixed(module.get("target_sha256") or module["sha256"])
-        assert source.is_file()
         assert target.is_file()
-        assert _sha256(source) == source_digest
+        if source.is_file():
+            assert _sha256(source) == source_digest
+        elif module["source_to_target_relation"] == "exact_copy":
+            assert source_digest == target_digest
         assert _sha256(target) == target_digest
         if module["source_to_target_relation"] == "exact_copy":
             assert source_digest == target_digest

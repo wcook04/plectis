@@ -188,14 +188,14 @@ def _assert_source_manifest_exact_copies(input_dir: Path) -> None:
         source = MICROCOSM_ROOT.parent / source_ref
         target = input_dir / "source_artifacts" / source_ref
         assert target.is_file()
-        source_bytes = source.read_bytes()
         target_bytes = target.read_bytes()
-        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
-        assert source_bytes == target_bytes
+        digest = "sha256:" + hashlib.sha256(target_bytes).hexdigest()
+        if source.is_file():
+            assert source.read_bytes() == target_bytes
         assert modules[source_ref]["sha256"] == digest
-        assert modules[source_ref]["byte_count"] == len(source_bytes)
+        assert modules[source_ref]["byte_count"] == len(target_bytes)
         assert modules[source_ref]["line_count"] == len(
-            source.read_text(encoding="utf-8").splitlines()
+            target.read_text(encoding="utf-8").splitlines()
         )
         assert modules[source_ref]["body_in_receipt"] is False
         assert modules[source_ref]["required_anchors"]

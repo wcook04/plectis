@@ -2962,6 +2962,36 @@ def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
     )
 
 
+def _source_module_row_matches_sealed_target_copy(
+    row: dict[str, Any],
+    *,
+    target_path: Path,
+) -> bool:
+    if row.get("body_copied") is not True or row.get("body_in_receipt") is True:
+        return False
+    if row.get("sha256_match") is not True:
+        return False
+    if not target_path.is_file():
+        return False
+
+    target_stats = _body_stats(target_path)
+    digest_field_seen = False
+    for field in ("source_sha256", "target_sha256", "sha256"):
+        if field not in row:
+            continue
+        digest_field_seen = True
+        if row.get(field) != _digest_for_existing_format(row.get(field), target_stats):
+            return False
+    if not digest_field_seen:
+        return False
+    for field in ("line_count", "byte_count"):
+        if field in row and row.get(field) != target_stats[field]:
+            return False
+    return all(
+        anchor in target_stats["text"] for anchor in _strings(row.get("required_anchors"))
+    )
+
+
 def _update_source_module_manifest_row(
     row: dict[str, Any],
     *,
@@ -3009,6 +3039,8 @@ def _update_source_module_manifest_row(
         )
         return None
     if not source_path.is_file():
+        if _source_module_row_matches_sealed_target_copy(row, target_path=target_path):
+            return None
         defects.append(
             {
                 "material_id": material_id,

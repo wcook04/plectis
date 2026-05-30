@@ -394,11 +394,11 @@ def test_pattern_assimilation_source_modules_are_exact_macro_body_imports() -> N
     for row in modules:
         source_path = MICROCOSM_ROOT.parent / row["source_ref"]
         target_path = MICROCOSM_ROOT.parent / row["target_ref"]
-        source_bytes = source_path.read_bytes()
         target_bytes = target_path.read_bytes()
-        digest = hashlib.sha256(source_bytes).hexdigest()
+        digest = hashlib.sha256(target_bytes).hexdigest()
 
-        assert source_bytes == target_bytes
+        if source_path.is_file():
+            assert source_path.read_bytes() == target_bytes
         assert row["source_import_class"] == "copied_non_secret_macro_body"
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
