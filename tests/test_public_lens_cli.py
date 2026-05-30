@@ -330,7 +330,7 @@ def test_cli_projection_import_map_smoke(capsys: pytest.CaptureFixture[str]) -> 
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm projection-import-map"
     assert payload["endpoint"] == "/projection-import-map"
-    assert payload["map_summary"]["row_count"] == 7
+    assert payload["map_summary"]["row_count"] == 8
     assert payload["map_summary"]["stage_count"] == 6
     assert payload["map_summary"]["private_body_export_count"] == 0
     assert payload["authority_ceiling"]["automated_import_guarantee"] is False

@@ -12741,6 +12741,42 @@ class RuntimeShell:
                 "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::frontend_cockpit",
                 "projection_status": PASS,
             },
+            {
+                "map_row_id": "self_comprehension_packet_compiler_source_modules_to_import_floor",
+                "source_pattern_id": "self_comprehension_packet_compiler_source_modules_import",
+                "source_authority": (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/"
+                    "self_comprehension_packet_compiler_source_projection_protocol.json"
+                ),
+                "public_surface": "microcosm authority && microcosm status",
+                "endpoint": "/authority",
+                "public_ref": (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/"
+                    "compression_profiles_source_module_manifest.json"
+                ),
+                "copied": [
+                    "3 exact macro compression-profile source bodies (1,451 lines)",
+                    "source/target sha256 digest parity per module",
+                    "child projection protocol bound to the macro import spine via parent_protocol_ref",
+                ],
+                "cleaned": [
+                    "rendered private packet payloads",
+                    "private root paths rewritten to relative source refs",
+                ],
+                "omitted": [
+                    "provider payload bodies",
+                    "raw operator voice",
+                    "rendered private packets and operator-state content",
+                ],
+                "validation_refs": [
+                    "tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports",
+                    "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens",
+                ],
+                "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::compression_profiles",
+                "projection_status": PASS,
+            },
         ]
         authority_ceiling = {
             "synthetic_public_projection_read_model_only": True,

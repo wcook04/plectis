@@ -3711,9 +3711,9 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     assert lens["command"] == "microcosm projection-import-map"
     assert lens["endpoint"] == "/projection-import-map"
     assert lens["lens_id"] == "public_projection_import_map_lens"
-    assert lens["map_summary"]["row_count"] == 7
+    assert lens["map_summary"]["row_count"] == 8
     assert lens["map_summary"]["stage_count"] == 6
-    assert lens["map_summary"]["validation_ref_count"] == 14
+    assert lens["map_summary"]["validation_ref_count"] == 16
     assert lens["map_summary"]["private_body_export_count"] == 0
     assert lens["map_summary"]["provider_payload_export_count"] == 0
     assert lens["map_summary"]["automated_import_guarantee"] is False
@@ -3724,6 +3724,7 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
         "agent_reliability_replay_gauntlet",
         "formal_math_verifier_trace_repair_loop_compound",
         "frontend_cockpit_hud_source_modules_import",
+        "self_comprehension_packet_compiler_source_modules_import",
     }
     assert all(row["cleaned"] for row in lens["import_rows"])
     assert all(row["omitted"] for row in lens["import_rows"])
@@ -5211,7 +5212,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert route_cleanup["authority_ceiling"]["route_deletion_authorized"] is False
     assert route_cleanup["authority_ceiling"]["generated_region_hand_edit_authorized"] is False
     assert projection_import_map["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
-    assert projection_import_map["map_summary"]["row_count"] == 7
+    assert projection_import_map["map_summary"]["row_count"] == 8
     assert projection_import_map["authority_ceiling"]["automated_import_guarantee"] is False
     assert import_projector["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
     assert import_projector["projector_summary"]["row_count"] == 9

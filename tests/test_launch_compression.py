@@ -182,7 +182,7 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["route_cleanup_summary"]["validation_ref_count"] == 8
     assert receipt["route_cleanup_summary"]["route_deletion_authorized"] is False
     assert receipt["route_cleanup_summary"]["generated_region_hand_edit_authorized"] is False
-    assert receipt["projection_import_map_summary"]["row_count"] == 7
+    assert receipt["projection_import_map_summary"]["row_count"] == 8
     assert receipt["projection_import_map_summary"]["stage_count"] == 6
     assert receipt["projection_import_map_summary"]["automated_import_guarantee"] is False
     assert receipt["import_projector_summary"]["row_count"] == 9
