@@ -4181,18 +4181,18 @@
         "preserve_agent_operating_packet_source_without_claiming_live_doctrine_or_raw_seed_authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:791db9fb5f63350016974cece2f5206fc1eeda3636de161bb7dda70841d27553",
+      "body_digest": "sha256:ce96d11b2a61ffc4909fc8025a27da34b56d31d9eab699bb1552d9a5e0aed8c0",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:791db9fb5f63350016974cece2f5206fc1eeda3636de161bb7dda70841d27553",
+        "source_body_digest": "sha256:ce96d11b2a61ffc4909fc8025a27da34b56d31d9eab699bb1552d9a5e0aed8c0",
         "source_line_count": 4633,
         "source_ref": "codex/doctrine/agent_operating_packet.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:791db9fb5f63350016974cece2f5206fc1eeda3636de161bb7dda70841d27553",
+        "target_body_digest": "sha256:ce96d11b2a61ffc4909fc8025a27da34b56d31d9eab699bb1552d9a5e0aed8c0",
         "target_line_count": 4633,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
         "verification_mode": "exact_source_digest_match",
@@ -12060,25 +12060,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
+      "body_digest": "sha256:a5f10bf41612934581c6d641c24f60c162b36d6ca4ef32b86d5d96da6f63d0e8",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
-        "source_line_count": 4889,
+        "source_body_digest": "sha256:a5f10bf41612934581c6d641c24f60c162b36d6ca4ef32b86d5d96da6f63d0e8",
+        "source_line_count": 4907,
         "source_ref": "system/server/tests/test_work_ledger_core.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
-        "target_line_count": 4889,
+        "target_body_digest": "sha256:a5f10bf41612934581c6d641c24f60c162b36d6ca4ef32b86d5d96da6f63d0e8",
+        "target_line_count": 4907,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 4889,
+      "body_line_count": 4907,
       "claim_ceiling": "public shared-worktree git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",

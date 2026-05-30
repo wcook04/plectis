@@ -1866,6 +1866,18 @@ def test_cohort_overview_separates_orphaned_active_sessions_from_live_pressure()
     assert overview["actors"]["codex"]["active_sessions"] == 2
     assert overview["actors"]["codex"]["effective_active_sessions"] == 1
     assert overview["actors"]["codex"]["orphaned_active_sessions"] == 1
+    orphan_card = next(
+        card for card in overview["monitor_cards"] if card["card_id"] == "orphaned_sessions"
+    )
+    visibility_sweep = (
+        "./repo-python tools/meta/factory/work_ledger.py "
+        "session-sweep --dry-run --orphan-after-hours 4"
+    )
+    assert orphan_card["drilldown"] == visibility_sweep
+    orphan_repair = next(
+        row for row in overview["repair_rows"] if row["row_id"] == "orphaned_session_sweep"
+    )
+    assert orphan_repair["safe_next_command"] == visibility_sweep
 
 
 def test_cohort_overview_does_not_compact_ended_history_for_live_pressure(
@@ -4887,3 +4899,9 @@ def test_cohort_overview_awareness_cards_demote_unknown_and_orphaned_passes() ->
         row["failure_class"] for row in cards["sess_orphan"]["repair_rows"]
     }
     assert "orphaned_active_session" in orphaned_classes
+    orphan_repair = next(
+        row
+        for row in cards["sess_orphan"]["repair_rows"]
+        if row["failure_class"] == "orphaned_active_session"
+    )
+    assert "--orphan-after-hours 4" in orphan_repair["safe_next_command"]
