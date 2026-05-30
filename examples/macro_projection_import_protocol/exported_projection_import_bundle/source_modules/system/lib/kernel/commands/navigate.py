@@ -15453,6 +15453,7 @@ _COMMAND_PROFILE_SUPPORTED_SURFACES = [
     "session-diagnostics",
     "latency-seed-digest",
     "latency-speedboard",
+    "coverage-enforcement-matrix",
     "generated-state-drainer",
     "actor-receipt",
 ]
@@ -15492,6 +15493,7 @@ def _infer_command_profile_surface(
     pulse: bool,
     phase_token: str | None,
     context_pack_query: str | None,
+    coverage_matrix_query: str | None,
 ) -> str:
     surface = str(requested_surface or "auto").strip().lower().replace("_", "-")
     if surface not in {"", "auto"}:
@@ -15508,6 +15510,8 @@ def _infer_command_profile_surface(
         return "phase"
     if context_pack_query is not None:
         return "context-pack"
+    if coverage_matrix_query is not None:
+        return "coverage-enforcement-matrix"
     return "navigation-metabolism"
 
 
@@ -15522,6 +15526,7 @@ def cmd_command_profile(
     pulse: bool = False,
     phase_token: str | None = None,
     context_pack_query: str | None = None,
+    coverage_matrix_query: str | None = None,
 ) -> int:
     """
     [ACTION]
@@ -15539,6 +15544,7 @@ def cmd_command_profile(
         pulse=pulse,
         phase_token=phase_token,
         context_pack_query=context_pack_query,
+        coverage_matrix_query=coverage_matrix_query,
     )
     phases: list[dict[str, Any]] = []
     started = perf_counter()
@@ -16090,6 +16096,64 @@ def cmd_command_profile(
             "privacy_boundary": "speedboard summaries emit timing/count/path metadata only; no raw stdout or stderr bodies",
         }
         surface = "latency-speedboard"
+    elif surface in {
+        "coverage-enforcement-matrix",
+        "coverage_enforcement_matrix",
+        "navigation-coverage-matrix",
+        "navigation_coverage_matrix",
+    }:
+        import_started = perf_counter()
+        from system.lib.navigation_coverage_matrix import build_coverage_enforcement_matrix
+        phases.append(
+            {
+                "phase": "coverage_enforcement_matrix_module_import",
+                "ms": round((perf_counter() - import_started) * 1000, 3),
+            }
+        )
+
+        coverage_started = perf_counter()
+        payload = build_coverage_enforcement_matrix(
+            state.REPO_ROOT,
+            query=coverage_matrix_query or "coverage-first navigation enforcement",
+            context_budget=context_budget,
+        )
+        phases.append(
+            {
+                "phase": "coverage_enforcement_matrix_build",
+                "ms": round((perf_counter() - coverage_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(payload),
+                "kind_atlas_projection_profile": (
+                    payload.get("strategy", {}).get("kind_atlas_projection_profile")
+                    if isinstance(payload, Mapping)
+                    else None
+                ),
+                "kind_atlas_fast_path": (
+                    payload.get("strategy", {}).get("kind_atlas_fast_path")
+                    if isinstance(payload, Mapping)
+                    else None
+                ),
+            }
+        )
+        strategy = payload.get("strategy") if isinstance(payload, Mapping) else {}
+        stage_timings = (
+            strategy.get("stage_timings_ms") if isinstance(strategy, Mapping) else None
+        )
+        if isinstance(stage_timings, Mapping):
+            for stage_name, stage_ms in stage_timings.items():
+                phases.append(
+                    {
+                        "phase": f"coverage_matrix.{stage_name}",
+                        "ms": round(float(stage_ms or 0), 3),
+                    }
+                )
+        phases.append(
+            {
+                "phase": "coverage_enforcement_matrix_output_shape",
+                "ms": 0.0,
+                **_command_profile_output_shape(payload),
+            }
+        )
+        surface = "coverage-enforcement-matrix"
     elif surface == "generated-state-drainer":
         from system.lib.generated_state_drainer import build_generated_projection_settlement_fast_plan
 

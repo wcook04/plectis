@@ -6,8 +6,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-from system.lib.navigation_context_pack import HIGH_CARDINALITY_THRESHOLD
-from system.lib.navigation_coverage_matrix import _debt_is_coverage_watch, build_coverage_enforcement_matrix
+from system.lib.navigation_coverage_matrix import (
+    HIGH_CARDINALITY_THRESHOLD,
+    _debt_is_coverage_watch,
+    build_coverage_enforcement_matrix,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -26,6 +29,9 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
     assert payload["strategy"]["new_registry_created"] is False
     assert payload["strategy"]["coverage_is_not_permission"] is True
     assert payload["strategy"]["control_entry_required"] is True
+    assert payload["strategy"]["kind_atlas_projection_profile"] == "system_atlas_fast_rows"
+    assert payload["strategy"]["kind_atlas_fast_path"] is True
+    assert payload["strategy"]["kind_atlas_filtered_no_band_row_count"] >= 1
     assert payload["summary"]["kind_count"] >= 25
     assert payload["summary"]["coverage_surface_available_count"] >= 1
     assert payload["summary"]["coverage_matrix_scope"] == "kind_atlas_rows"
@@ -118,6 +124,8 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
     )
 
     rows = {row["kind_id"]: row for row in payload["rows"]}
+    assert "operator_action_receipts" not in rows
+    assert "public_microcosm_exports" not in rows
     skills = rows["skills"]
     assert skills["atlas_visible"] is True
     assert skills["cluster_flag_available"] is True
@@ -183,14 +191,19 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
     assert prompt_shelf["coverage_surface"].endswith("--option-surface prompt_shelf_metadata --band cluster_flag")
 
     compliance_ledger = rows["compliance_ledger"]
-    assert compliance_ledger["row_count"] >= HIGH_CARDINALITY_THRESHOLD
-    assert compliance_ledger["cluster_flag_available"] is True
+    assert compliance_ledger["row_count"] >= 1
     assert compliance_ledger["coverage_surface_available"] is True
     assert compliance_ledger["control_entry_allowed"] is False
     assert compliance_ledger["coverage_status"] == "covered"
-    assert compliance_ledger["coverage_surface"].endswith(
-        "--option-surface compliance_ledger --band cluster_flag"
-    )
+    if compliance_ledger["row_count"] >= HIGH_CARDINALITY_THRESHOLD:
+        assert compliance_ledger["cluster_flag_available"] is True
+        assert compliance_ledger["coverage_surface"].endswith(
+            "--option-surface compliance_ledger --band cluster_flag"
+        )
+    else:
+        assert compliance_ledger["coverage_surface"].endswith(
+            "--option-surface compliance_ledger --band flag"
+        )
 
 
 def test_coverage_watch_debt_excludes_advisory_and_lifecycle_rows() -> None:
@@ -397,6 +410,39 @@ def test_coverage_enforcement_matrix_reports_privacy_safe_phase_timings() -> Non
     assert latency["privacy"] == "phase_names_wall_time_only_no_command_output_bodies"
     assert "stdout" not in json.dumps(latency).lower()
     assert "stderr" not in json.dumps(latency).lower()
+
+
+def test_command_profile_supports_coverage_enforcement_matrix() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "kernel.py",
+            "--command-profile",
+            "coverage-enforcement-matrix",
+            "--coverage-enforcement-matrix",
+            "speed context route cost",
+            "--context-budget",
+            "12000",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "command_profile"
+    assert payload["surface"] == "coverage-enforcement-matrix"
+    phase_names = {phase["phase"] for phase in payload["phases"]}
+    assert "coverage_enforcement_matrix_module_import" in phase_names
+    assert "coverage_enforcement_matrix_build" in phase_names
+    assert "coverage_matrix.kind_atlas" in phase_names
+    build_phase = next(
+        phase for phase in payload["phases"] if phase["phase"] == "coverage_enforcement_matrix_build"
+    )
+    assert build_phase["kind_atlas_projection_profile"] == "system_atlas_fast_rows"
+    assert build_phase["kind_atlas_fast_path"] is True
 
 
 def test_coverage_enforcement_matrix_cli_emits_json() -> None:

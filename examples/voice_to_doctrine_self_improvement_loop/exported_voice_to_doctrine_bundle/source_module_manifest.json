@@ -62,9 +62,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 22511,
+      "byte_count": 24776,
       "copy_mode": "exact_file_copy",
-      "line_count": 170,
+      "line_count": 188,
       "material_class": "public_macro_skill_body",
       "module_id": "local_to_general_propagation_skill_body",
       "required_anchors": [
@@ -75,16 +75,16 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "source_sha256": "5ef419f1cca3113be25a00e6e7d19a75d6544bf699ec87924c8cb5d945918c76",
+      "source_sha256": "970793c5f11b6828b91d4cc73ff942e1965ed598adefa0c442fea511d39b9dd7",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "target_sha256": "5ef419f1cca3113be25a00e6e7d19a75d6544bf699ec87924c8cb5d945918c76"
+      "target_sha256": "970793c5f11b6828b91d4cc73ff942e1965ed598adefa0c442fea511d39b9dd7"
     },
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 32583,
+      "byte_count": 33130,
       "copy_mode": "exact_file_copy",
-      "line_count": 178,
+      "line_count": 179,
       "material_class": "public_macro_skill_body",
       "module_id": "local_to_general_propagation_plane_home_decision_table_body",
       "required_anchors": [
@@ -94,9 +94,9 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
-      "source_sha256": "87ca8cba02d2a3804aaf80a2f12fb6b7991ffc11479885874e06f9dbf3252054",
+      "source_sha256": "9ac3ef7dc6ad47f4230451af6ce50d94b4465adcad101f294290c684067da411",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
-      "target_sha256": "87ca8cba02d2a3804aaf80a2f12fb6b7991ffc11479885874e06f9dbf3252054"
+      "target_sha256": "9ac3ef7dc6ad47f4230451af6ce50d94b4465adcad101f294290c684067da411"
     },
     {
       "body_copied": true,

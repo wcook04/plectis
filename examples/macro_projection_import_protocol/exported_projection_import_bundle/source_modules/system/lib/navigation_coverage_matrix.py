@@ -17,7 +17,6 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from system.lib.kind_atlas import build_kind_atlas
-from system.lib.navigation_context_pack import HIGH_CARDINALITY_THRESHOLD
 from system.lib.navigation_metabolism_ledger import build_navigation_metabolism_ledger
 from system.lib.navigation_surface_contracts import ATLAS_PROJECTION, CONTROL_ENTRY, DRILLDOWN, ENTRY_REPLACEMENT
 
@@ -25,6 +24,7 @@ from system.lib.navigation_surface_contracts import ATLAS_PROJECTION, CONTROL_EN
 DEFAULT_QUERY = "coverage-first navigation enforcement"
 STANDARD_TYPE_PLANE = Path("codex/standards/std_standard_type_plane.json")
 SLOW_PHASE_WARN_MS = 2500
+HIGH_CARDINALITY_THRESHOLD = 80
 
 _PROCESS_KIND_MAP: dict[str, tuple[str, ...]] = {
     "keyword_search_before_cluster_surface": ("skills",),
@@ -853,7 +853,7 @@ def build_coverage_enforcement_matrix(
     task_query = str(query or DEFAULT_QUERY)
 
     stage_started = time.perf_counter()
-    atlas = build_kind_atlas(root, band="flag")
+    atlas = build_kind_atlas(root, band="flag", fast=True)
     stage_timings_ms["kind_atlas"] = _elapsed_ms(stage_started)
 
     stage_started = time.perf_counter()
@@ -906,7 +906,12 @@ def build_coverage_enforcement_matrix(
     high_cardinality_clustered_count = 0
     matrix_kind_ids: set[str] = set()
 
-    for atlas_row in atlas.get("rows") or []:
+    atlas_rows = [
+        row
+        for row in atlas.get("rows") or []
+        if isinstance(row, Mapping) and any(str(item).strip() for item in row.get("bands") or [])
+    ]
+    for atlas_row in atlas_rows:
         if not isinstance(atlas_row, Mapping):
             continue
         kind_id = str(atlas_row.get("kind_id") or "")
@@ -1097,6 +1102,22 @@ def build_coverage_enforcement_matrix(
             "coverage_before_invocation": True,
             "coverage_is_not_permission": True,
             "control_entry_required": True,
+            "kind_atlas_projection_profile": atlas.get("projection_profile")
+            if isinstance(atlas, Mapping)
+            else None,
+            "kind_atlas_fast_path": (
+                (atlas.get("summary") or {}).get("fast_path")
+                if isinstance(atlas.get("summary"), Mapping)
+                else None
+            )
+            if isinstance(atlas, Mapping)
+            else None,
+            "kind_atlas_filtered_no_band_row_count": max(
+                0,
+                len(atlas.get("rows") or []) - len(atlas_rows),
+            )
+            if isinstance(atlas, Mapping)
+            else 0,
             "source_surfaces_reused": [
                 "system/lib/kind_atlas.py",
                 "system/lib/navigation_metabolism_ledger.py",

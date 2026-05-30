@@ -14,6 +14,8 @@ triggers:
   - "An operator gives a pasted trace capsule, old transcript, or prior-agent trace and asks for generalized system refinement"
   - "A runtime prerequisite, readiness probe, or background launcher blocker needs a generalized receipt boundary"
   - "A trace shows repeated detection or classification while actuator, validator, or generated-builder closure remains unproven"
+  - "A trace asks for better Playwright, computer use, frontend control, click/drag modeling, or agent-native actuator integration"
+  - "An actuator or UI-control tool should generalize from screenshots into receipt-grade perception and state-change proof"
   - "Mechanism/WorkItem boundary confusion appears: should mechanisms merge with WorkItems, mechanisms describe work, or mechanism pressure should cluster WorkItems"
 focus_paths:
   - codex/doctrine/skills/doctrine/local_to_general_propagation.md
@@ -69,6 +71,22 @@ If the trace shows repeated detection, throttling, classification, or advisory g
 For validator or authority-gate trace snippets, green happy-path output is not enough when the trace suggests a loosened gate, partial coverage, generated/source mismatch, or positive-overclaim risk. Require at least one negative or adversarial receipt proving forbidden cases fail, distinguish affirmative overclaim prose from negated ceiling language, and land generated artifacts with their builder/source authority or capture the pairing gap.
 
 If the trace says work was "already fixed", "already green", or "ready to commit", the generalized move is not to redo the whole embedded task. Revalidate live state, then choose the narrow action that closes the present intent: commit the coherent owned slice, capture the residual with exact evidence, or refine the propagation/validator/actuator rule that would make the trace shape easier for the next agent to consume.
+
+### Agent-Native Control / Perception Traces
+
+When a trace asks for "better Playwright", computer use, browser/frontend control, or modeling what was clicked, dragged, typed, scrolled, or selected, do not generalize into a generic transport wrapper. The transport layer (Playwright, CDP, OS accessibility, screenshot capture, or model-assisted computer use) is only the actuator. The reusable rule is the domain-native action/perception receipt.
+
+Extract and route these fields before mutating:
+
+1. transport and existing domain contracts: which local registry, ready selector, DOM/ARIA contract, accessibility tree, viewport, or state model owns truth above the transport;
+2. action vocabulary: click, drag, type, press, scroll, select, upload, navigate, hover, wait, and any domain-specific action;
+3. target reference strategy: prefer stable affordance ids, role/name, data attributes, semantic object ids, and geometry frames before raw coordinates or raw selectors;
+4. perception receipt: readiness, visual/nonblank status, DOM or accessibility snapshot, console/network errors, environment/disk state, performance counters, artifacts, and typed `pass|warn|fail`;
+5. before/after state proof: state fingerprint, target geometry, action result, and evidence that the action changed or did not change the intended state;
+6. live core versus scripted wrapper: if the operator asks for interactive/background/parallel control and reproducible flows, default to a persistent live core plus a thin scripted wrapper unless the choice is irreversible, unsafe, or outside current authority;
+7. benchmark boundary: performance claims belong in per-run receipts, not fixed prose percentages from one warm/cold sample.
+
+Screenshot existence is never sufficient control proof. A screenshot can be an artifact inside the receipt, but the action is only usable by future agents when the receipt says what was targeted, why it was safe to act, what happened, what failed or warned, and which next action is supported.
 
 ## Mission Propagation Verbs
 
