@@ -1,6 +1,6 @@
 {
   "accepted_status_is_not_evidence_strength": true,
-  "adapter_backed_organ_count": 43,
+  "adapter_backed_organ_count": 44,
   "anti_claim": "The workingness map is an organ-by-organ failure envelope over public standards, commands, evidence classes, and receipt refs. It is not a maturity board, activation score, release signal, provider evaluation, or whole-system correctness claim.",
   "authority_ceiling": {
     "hosted_public_authorized": false,
@@ -34,30 +34,30 @@
     "future_work_targets_are_concrete_substrate_targets": true,
     "not_a_scorecard": true
   },
-  "mapped_organ_count": 47,
+  "mapped_organ_count": 48,
   "missing_failure_modes_count": 0,
   "missing_standard_count": 0,
   "not_a_scorecard": true,
   "projection_not_authority": true,
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
-  "rows_with_failure_modes": 47,
+  "rows_with_failure_modes": 48,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 45,
+  "rows_with_source_body_imports": 48,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 457,
+  "source_open_body_material_count": 462,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
-    "adapter_backed_organ_count": 43,
+    "adapter_backed_organ_count": 44,
     "demoted_drilldown_count": 4,
-    "mapped_organ_count": 47,
+    "mapped_organ_count": 48,
     "missing_failure_modes_count": 0,
     "missing_standard_count": 0,
-    "rows_with_failure_modes": 47,
+    "rows_with_failure_modes": 48,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 45,
-    "source_open_body_material_count": 457,
-    "thing_count": 47
+    "rows_with_source_body_imports": 48,
+    "source_open_body_material_count": 462,
+    "thing_count": 48
   },
   "thing_failure_map": [
     {
@@ -2374,7 +2374,7 @@
             "ring2_precision_recall_graph_variant_comparison_body_import",
             "ring2_precision_recall_problem_source_manifest_body_import"
           ],
-          "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+          "body_material_status": "digest_verified_public_safe_ring2_precision_recall_source_artifacts_with_provenance",
           "body_text_exported_in_receipts": false,
           "body_text_exported_in_workingness": false,
           "fixture_manifest_ref": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
@@ -2415,7 +2415,7 @@
           "ring2_precision_recall_graph_variant_comparison_body_import",
           "ring2_precision_recall_problem_source_manifest_body_import"
         ],
-        "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+        "body_material_status": "digest_verified_public_safe_ring2_precision_recall_source_artifacts_with_provenance",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_workingness": false,
         "fixture_manifest_ref": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
@@ -4638,7 +4638,7 @@
       ],
       "needs_to_work": {
         "anti_purpose": "A bridge-runtime health claim, provider/UI uptime claim, or work-landing story inferred from synthetic heartbeat or continuation metadata.",
-        "authority_boundary": "public_fake_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
+        "authority_boundary": "public_synthetic_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
         "authority_ceiling": {
           "browser_hud_authority": false,
           "live_bridge_transport_authority": false,
@@ -4648,13 +4648,13 @@
           "provider_authority": false,
           "release_authority": false,
           "source_mutation_authority": false,
-          "standard_authority": "public_fake_transport_bridge_continuity_runtime_schema_and_failure_envelope",
+          "standard_authority": "public_synthetic_transport_bridge_continuity_runtime_schema_and_failure_envelope",
           "status": "pass",
           "work_landing_authority": false
         },
         "generated_receipt_count": 5,
         "missing_requirement_ids": [],
-        "ontology": "A public fake-transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
+        "ontology": "A public synthetic transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
         "receipt_expectation_count": 2,
         "required_field_count": 13,
         "required_substrate": {
@@ -4675,7 +4675,7 @@
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived fake-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
+        "classification_basis": "derived synthetic-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
         "counts_as_real_substrate_progress": true,
         "current_authority_receipt": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
         "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
@@ -6220,7 +6220,37 @@
           "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+          "authority_ceiling": {
+            "credential_material_export_authorized": false,
+            "exploit_instruction_export_authorized": false,
+            "live_agent_traffic_authorized": false,
+            "monitor_product_performance_authorized": false,
+            "private_reasoning_export_authorized": false,
+            "provider_calls_authorized": false,
+            "release_authorized": false
+          },
+          "body_material_count": 1,
+          "body_material_ids": [
+            "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+            "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/bundle_manifest.json",
+            "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "regression_negative_fixture",
         "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
         "verdict_source": "fixture_supplied_fields"
@@ -6228,7 +6258,37 @@
       "ordinal": 35,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+        "authority_ceiling": {
+          "credential_material_export_authorized": false,
+          "exploit_instruction_export_authorized": false,
+          "live_agent_traffic_authorized": false,
+          "monitor_product_performance_authorized": false,
+          "private_reasoning_export_authorized": false,
+          "provider_calls_authorized": false,
+          "release_authorized": false
+        },
+        "body_material_count": 1,
+        "body_material_ids": [
+          "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",
+          "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/bundle_manifest.json",
+          "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json",
         "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
@@ -6319,7 +6379,38 @@
           "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+          "authority_ceiling": {
+            "credential_material_export_authorized": false,
+            "deployment_risk_claim_authorized": false,
+            "exploit_instruction_export_authorized": false,
+            "harmful_payload_export_authorized": false,
+            "live_sabotage_authorized": false,
+            "private_reasoning_export_authorized": false,
+            "provider_calls_authorized": false,
+            "release_authorized": false
+          },
+          "body_material_count": 1,
+          "body_material_ids": [
+            "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+            "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/bundle_manifest.json",
+            "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "regression_negative_fixture",
         "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
         "verdict_source": "fixture_supplied_fields"
@@ -6327,7 +6418,38 @@
       "ordinal": 36,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+        "authority_ceiling": {
+          "credential_material_export_authorized": false,
+          "deployment_risk_claim_authorized": false,
+          "exploit_instruction_export_authorized": false,
+          "harmful_payload_export_authorized": false,
+          "live_sabotage_authorized": false,
+          "private_reasoning_export_authorized": false,
+          "provider_calls_authorized": false,
+          "release_authorized": false
+        },
+        "body_material_count": 1,
+        "body_material_ids": [
+          "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
+          "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/bundle_manifest.json",
+          "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
         "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
@@ -8199,6 +8321,156 @@
       ],
       "status": "accepted_current_authority",
       "thing_id": "voice_to_doctrine_self_improvement_loop",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "validates declared public contract only",
+        "evidence_strength_claim": "semantic_validator",
+        "evidence_truth_bucket": "real_import_validation",
+        "gap_class": "contract_validated_but_scope_bound",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "contract_validated_but_scope_bound",
+      "failure_mode_count": 8,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "operator row admitted without a role, purpose, or public runtime reference",
+        "dogfood receipt accepted without validator refs or observed negative-case coverage",
+        "cognitive operator registry treated as live operator execution authority",
+        "registry projection used to authorize source mutation, release, provider calls, or account/session access",
+        "private operator thread body, raw voice body, provider payload body, prompt shelf body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through public receipts",
+        "source module manifest missing, target body digest stale, or declared anchor absent",
+        "receipt embeds copied macro body text instead of carrying public refs, hashes, counts, and verdicts",
+        "synthetic fixture row counted as operator coverage without the source-open macro registry, standard, and validator body imports"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "A prose-only operator glossary, action router, or automation surface that lacks runnable validation, dogfood receipts, negative cases, source-module manifests, and public/private boundaries.",
+        "authority_boundary": "public_cognitive_operator_registry_projection_with_copied_non_secret_macro_body_floor",
+        "authority_ceiling": {
+          "cognitive_operator_registry_mutation_authority": false,
+          "live_operator_execution_authorized": false,
+          "private_data_equivalence_claim": false,
+          "provider_calls_authorized": false,
+          "release_authority": false,
+          "source_mutation_authority": false,
+          "standards_registry_authority": false,
+          "status": "pass",
+          "whole_system_correctness_claim": false
+        },
+        "generated_receipt_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "A public cognitive-operator registry organ that validates operator ids, roles, runtime refs, dogfood receipts, negative cases, secret-exclusion policy, and copied non-secret macro registry/standard/validator bodies.",
+        "receipt_expectation_count": 4,
+        "required_field_count": 8,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_cognitive_operator_registry.json",
+        "standard_status": "accepted_public_runtime_standard",
+        "teleology": "Show how the macro system names reusable cognitive operations without leaking private operator material or pretending a registry card can execute, mutate, or release work.",
+        "validation_rule_count": 5
+      },
+      "observed_workingness": {
+        "claim_ceiling": "validates declared public contract only",
+        "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+        "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+        "evidence_class": "semantic_validator",
+        "evidence_strength_rank": 5,
+        "generated_receipts": [
+          "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+          "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+          "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+          "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+        ],
+        "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "credential_or_account_bound_payload_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "whole_system_correctness_claim": false
+          },
+          "body_material_count": 3,
+          "body_material_ids": [
+            "cognitive_operator_registry_macro_registry_body_import",
+            "cognitive_operator_registry_macro_standard_body_import",
+            "cognitive_operator_registry_macro_validator_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/cognitive_operator_registry.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open the source module manifest and source_modules directory for copied macro cognitive-operator registry, standard, and projection-tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
+        "truth_accounting_bucket": "real_import_validation",
+        "validator_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry",
+        "verdict_source": "validator_computation"
+      },
+      "ordinal": 48,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "credential_or_account_bound_payload_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "whole_system_correctness_claim": false
+        },
+        "body_material_count": 3,
+        "body_material_ids": [
+          "cognitive_operator_registry_macro_registry_body_import",
+          "cognitive_operator_registry_macro_standard_body_import",
+          "cognitive_operator_registry_macro_validator_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/cognitive_operator_registry.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open the source module manifest and source_modules directory for copied macro cognitive-operator registry, standard, and projection-tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
+      "source_refs": [
+        "standards/std_microcosm_cognitive_operator_registry.json",
+        "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+        "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "cognitive_operator_registry",
       "thing_kind": "organ",
       "workingness_state": "evidence_backed_runtime_spine"
     }

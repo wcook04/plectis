@@ -13,10 +13,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 81,
+  "first_wave_required_standard_count": 82,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 93,
+  "standard_count": 94,
   "standards": [
     {
       "first_wave_required": true,
@@ -1404,7 +1404,21 @@
       ],
       "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
       "wave": "w1_voice_to_doctrine_self_improvement_loop"
+    },
+    {
+      "first_wave_required": true,
+      "standard_id": "std_microcosm_cognitive_operator_registry",
+      "kind_id": "cognitive_operator_registry",
+      "kind_name": "Cognitive operator registry",
+      "path": "standards/std_microcosm_cognitive_operator_registry.json",
+      "receipt_id": "receipt.microcosm.cognitive_operator_registry",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "cognitive_operator_registry"
+      ],
+      "validator_id": "validator.microcosm.organs.cognitive_operator_registry",
+      "wave": "w1_cognitive_operator_registry"
     }
   ],
-  "status": "current_public_standard_registry_indirect_prompt_injection_information_flow_policy_replay_bound"
+  "status": "current_public_standard_registry_cognitive_operator_registry_bound"
 }

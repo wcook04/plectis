@@ -158,6 +158,7 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "agentic_vulnerability_discovery_patch_proof_replay": "algorithmic_projection",
     "certificate_kernel_execution_lab": "external_subprocess_witness",
     "voice_to_doctrine_self_improvement_loop": "semantic_validator",
+    "cognitive_operator_registry": "semantic_validator",
 }
 WORK_LANDING_CONTROL_BODY_MATERIAL_IDS = [
     "work_landing_status_body_import",
@@ -265,7 +266,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
     assert status["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
     assert status["truth_accounting"]["source_faithful_refactor_count"] == 23
-    assert status["truth_accounting"]["real_import_validation_count"] == 16
+    assert status["truth_accounting"]["real_import_validation_count"] == 17
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
@@ -1306,7 +1307,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["surface_counts"]["public_safe_body_material_count"] >= 37
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
-    assert spine["surface_counts"]["real_import_validation_count"] == 16
+    assert spine["surface_counts"]["real_import_validation_count"] == 17
     assert spine["surface_counts"]["regression_negative_fixture_count"] == 0
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
     assert spine["surface_counts"]["secret_exclusion_count"] == 0
@@ -1417,7 +1418,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         EXPECTED_ORGAN_EVIDENCE_CLASSES
     )
     assert spine["evidence_class_counts"] == {
-        "semantic_validator": 16,
+        "semantic_validator": 17,
         "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
         "verified_macro_body_import": 1,
@@ -1949,6 +1950,29 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
         for target in materials["future_work_targets"]
     )
 
+    cognitive_registry = rows_by_id["cognitive_operator_registry"]
+    assert cognitive_registry["workingness_state"] == "evidence_backed_runtime_spine"
+    assert cognitive_registry["needs_to_work"]["standard_ref"] == (
+        "standards/std_microcosm_cognitive_operator_registry.json"
+    )
+    assert cognitive_registry["needs_to_work"]["standard_status"] == (
+        "accepted_public_runtime_standard"
+    )
+    assert {
+        "owning_standard_present",
+        "known_failure_modes_present",
+        "public_private_boundary_declared",
+    }.isdisjoint(cognitive_registry["needs_to_work"]["missing_requirement_ids"])
+    assert (
+        "cognitive operator registry treated as live operator execution authority"
+        in cognitive_registry["known_failure_modes"]
+    )
+    assert cognitive_registry["failure_mode_count"] >= 8
+    assert all(
+        target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
+        for target in cognitive_registry["future_work_targets"]
+    )
+
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
     assert monitor["workingness_state"] == "demoted_regression_drilldown"
     assert monitor["observed_workingness"]["evidence_class"] == "fixture_echo_smoke"
@@ -2079,7 +2103,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "public_safe_body_material_count"
     ]
     assert authority["evidence_class_counts"] == {
-        "semantic_validator": 16,
+        "semantic_validator": 17,
         "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
         "verified_macro_body_import": 1,
@@ -4779,22 +4803,22 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         "exported_target_shape_tactic_routing_bundle",
         "exported_lean_std_premise_index_bundle",
         "exported_premise_retrieval_bundle",
-            "exported_verifier_trace_repair_bundle",
-            "exported_evidence_cell_anchor_bundle",
-            "exported_symbol_classifier_bundle",
-            "exported_ring2_precision_recall_bundle",
-            "exported_work_landing_replay_bundle",
-            "exported_research_replication_bundle",
-            "exported_projection_drift_control_bundle",
-            "exported_spatial_world_model_simulation_bundle",
-            "exported_materials_lab_safety_bundle",
-            "exported_circuit_attribution_bundle",
-            "exported_provider_context_budget_bundle",
-            "exported_lean_proof_witness_bundle",
-            "exported_verifier_lab_kernel_bundle",
-            "exported_verifier_lab_execution_spine_bundle",
-            "exported_certificate_kernel_execution_lab_bundle",
-            "exported_voice_to_doctrine_bundle",
+        "exported_verifier_trace_repair_bundle",
+        "exported_evidence_cell_anchor_bundle",
+        "exported_symbol_classifier_bundle",
+        "exported_ring2_precision_recall_bundle",
+        "exported_work_landing_replay_bundle",
+        "exported_research_replication_bundle",
+        "exported_projection_drift_control_bundle",
+        "exported_spatial_world_model_simulation_bundle",
+        "exported_materials_lab_safety_bundle",
+        "exported_circuit_attribution_bundle",
+        "exported_provider_context_budget_bundle",
+        "exported_lean_proof_witness_bundle",
+        "exported_verifier_lab_kernel_bundle",
+        "exported_verifier_lab_execution_spine_bundle",
+        "exported_certificate_kernel_execution_lab_bundle",
+        "exported_voice_to_doctrine_bundle",
         "exported_route_plane_bundle",
         "exported_mission_transaction_bundle",
         "exported_observability_bundle",
@@ -4803,17 +4827,18 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         "synthetic_bridge_continuity_fixture",
         "exported_projection_import_bundle",
         "exported_prediction_oracle_bundle",
-                "exported_standards_meta_diagnostics_bundle",
-                "exported_cold_reader_route_map_bundle",
-                "exported_memory_temporal_conflict_bundle",
-            "exported_sleeper_memory_poisoning_bundle",
-            "exported_mcp_tool_authority_bundle",
-            "exported_governed_mutation_authorization_bundle",
-            "exported_belief_state_process_reward_bundle",
-            "exported_sandbox_policy_escape_bundle",
-            "exported_prompt_injection_flow_bundle",
-            "exported_patch_proof_bundle",
-        }
+        "exported_cognitive_operator_registry_bundle",
+        "exported_standards_meta_diagnostics_bundle",
+        "exported_cold_reader_route_map_bundle",
+        "exported_memory_temporal_conflict_bundle",
+        "exported_sleeper_memory_poisoning_bundle",
+        "exported_mcp_tool_authority_bundle",
+        "exported_governed_mutation_authorization_bundle",
+        "exported_belief_state_process_reward_bundle",
+        "exported_sandbox_policy_escape_bundle",
+        "exported_prompt_injection_flow_bundle",
+        "exported_patch_proof_bundle",
+    }
     for ref in result["evidence_refs"]:
         assert ref.startswith("receipts/runtime_shell/demo_project/organs/")
         assert (public_root / ref).is_file()
@@ -5562,7 +5587,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
         is True
     )
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
-        "semantic_validator": 16,
+        "semantic_validator": 17,
         "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
         "verified_macro_body_import": 1,

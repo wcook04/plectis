@@ -1,0 +1,129 @@
+{
+  "anti_claim": "Cognitive operator registry rows validate a public operator taxonomy and dogfood receipt shape only; they do not authorize live operator execution, source mutation, release, provider calls, private-data equivalence, account/session export, or whole-system correctness.",
+  "authority_boundary": "public_cognitive_operator_registry_projection_with_copied_non_secret_macro_body_floor",
+  "authority_ceiling": {
+    "cognitive_operator_registry_mutation_authority": false,
+    "live_operator_execution_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standards_registry_authority": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "live operator thread bodies",
+      "raw operator voice bodies",
+      "provider payload bodies",
+      "prompt shelf bodies",
+      "account/session state and cookies",
+      "browser/HUD live-access state",
+      "credential values",
+      "recipient-send state"
+    ],
+    "public_inputs": "public operator ids, role classifications, source refs, validator refs, dogfood receipt metadata, negative-case ids, and copied non-secret macro source-module bodies with hashes and anchors",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 3,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "missing_operator_role",
+      "missing_public_runtime_ref",
+      "mutation_authority_overclaim",
+      "private_source_leakage"
+    ],
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "cognitive_operator_registry_result.json",
+    "cognitive_operator_registry_board.json",
+    "cognitive_operator_registry_validation_receipt.json",
+    "cognitive_operator_registry_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
+    ],
+    "used_by_organs": [
+      "cognitive_operator_registry"
+    ]
+  },
+  "required_fields": [
+    "operator_id",
+    "operator_role",
+    "public_runtime_refs",
+    "dogfood_receipt_refs",
+    "validator_refs",
+    "source_module_manifest_ref",
+    "negative_case_ids",
+    "authority_ceiling"
+  ],
+  "schema_version": "std_microcosm_cognitive_operator_registry_v1",
+  "source_refs": [
+    "src/microcosm_core/organs/cognitive_operator_registry.py",
+    "tests/test_cognitive_operator_registry.py",
+    "fixtures/first_wave/cognitive_operator_registry/input",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+    "paper_modules/cognitive_operator_registry.md"
+  ],
+  "standard_id": "std_microcosm_cognitive_operator_registry",
+  "standard_payload": {
+    "anti_purpose": "A prose-only operator glossary, action router, or automation surface that lacks runnable validation, dogfood receipts, negative cases, source-module manifests, and public/private boundaries.",
+    "compression_bands": [
+      "operator_id",
+      "operator_role",
+      "dogfood_receipt",
+      "source_module_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "operator row admitted without a role, purpose, or public runtime reference",
+      "dogfood receipt accepted without validator refs or observed negative-case coverage",
+      "cognitive operator registry treated as live operator execution authority",
+      "registry projection used to authorize source mutation, release, provider calls, or account/session access",
+      "private operator thread body, raw voice body, provider payload body, prompt shelf body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through public receipts",
+      "source module manifest missing, target body digest stale, or declared anchor absent",
+      "receipt embeds copied macro body text instead of carrying public refs, hashes, counts, and verdicts",
+      "synthetic fixture row counted as operator coverage without the source-open macro registry, standard, and validator body imports"
+    ],
+    "ontology": "A public cognitive-operator registry organ that validates operator ids, roles, runtime refs, dogfood receipts, negative cases, secret-exclusion policy, and copied non-secret macro registry/standard/validator bodies.",
+    "teleology": "Show how the macro system names reusable cognitive operations without leaking private operator material or pretending a registry card can execute, mutate, or release work."
+  },
+  "status": "accepted_public_runtime_standard",
+  "validation_rules": [
+    "Every operator row must carry an id, role, purpose, and public runtime reference.",
+    "Every dogfood receipt must cite validator refs and observed negative-case coverage.",
+    "Exported runtime bundle must include source_module_manifest.json and copied non-secret macro body modules whose target hashes and anchors validate.",
+    "Private operator bodies, raw voice bodies, provider payload bodies, account/session state, live browser/HUD access, credential material, release authority, provider-call authority, source-mutation authority, and whole-system correctness claims are rejected.",
+    "Receipts must carry refs, hashes, counts, verdicts, and omission boundaries without embedding copied macro body text."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry --acceptance-out receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.cognitive_operator_registry",
+    "runtime_bundle_command": "python -m microcosm_core.organs.cognitive_operator_registry run-registry-bundle --input examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle --out receipts/runtime_shell/demo_project/organs/cognitive_operator_registry"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/cognitive_operator_registry.py",
+    "tests/test_cognitive_operator_registry.py"
+  ]
+}
