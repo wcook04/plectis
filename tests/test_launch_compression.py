@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from microcosm_core import cli
+from microcosm_core.validators import launch_compression
 from microcosm_core.validators.launch_compression import validate_launch_compression
 
 
@@ -25,6 +26,35 @@ def _scratch_project(tmp_path: Path) -> Path:
         encoding="utf-8",
     )
     return project
+
+
+def test_launch_compression_private_hit_scan_streams_nested_payloads(
+    tmp_path: Path,
+) -> None:
+    assert launch_compression._jsonable_has_private_hits(
+        {"nested": [{"public": True}, {"path": "/Users/example/project"}]}
+    )
+    assert launch_compression._jsonable_has_private_hits(
+        {"Library/Application Support/Google/" + "Chrome": "profile"}
+    )
+    assert not launch_compression._jsonable_has_private_hits(
+        {"nested": [{"public": True}, {"path": "fixtures/demo_project"}]}
+    )
+
+    state = tmp_path / ".microcosm"
+    state.mkdir()
+    (state / "catalog.json").write_text(
+        '{"state": "public", "path": "/Users/example/project"}',
+        encoding="utf-8",
+    )
+    (state / "notes.txt").write_text(
+        "/Users/example/project",
+        encoding="utf-8",
+    )
+
+    assert launch_compression._state_files_have_private_hits(
+        [state / "catalog.json", state / "notes.txt"]
+    )
 
 
 def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> None:
@@ -137,7 +167,7 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["route_cleanup_summary"]["validation_ref_count"] == 8
     assert receipt["route_cleanup_summary"]["route_deletion_authorized"] is False
     assert receipt["route_cleanup_summary"]["generated_region_hand_edit_authorized"] is False
-    assert receipt["projection_import_map_summary"]["row_count"] == 6
+    assert receipt["projection_import_map_summary"]["row_count"] == 7
     assert receipt["projection_import_map_summary"]["stage_count"] == 6
     assert receipt["projection_import_map_summary"]["automated_import_guarantee"] is False
     assert receipt["import_projector_summary"]["row_count"] == 9

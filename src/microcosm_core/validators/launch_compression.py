@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import os
 from pathlib import Path
 from typing import Any
@@ -49,6 +48,31 @@ def _private_hits(text: str) -> list[str]:
         ]
         if needle in text
     ]
+
+
+def _has_private_hits(text: str) -> bool:
+    return bool(_private_hits(text))
+
+
+def _jsonable_has_private_hits(value: Any) -> bool:
+    if isinstance(value, str):
+        return _has_private_hits(value)
+    if isinstance(value, dict):
+        return any(
+            _jsonable_has_private_hits(str(key)) or _jsonable_has_private_hits(item)
+            for key, item in value.items()
+        )
+    if isinstance(value, (list, tuple)):
+        return any(_jsonable_has_private_hits(item) for item in value)
+    return False
+
+
+def _state_files_have_private_hits(paths: list[Path]) -> bool:
+    return any(
+        _has_private_hits(path.read_text(encoding="utf-8"))
+        for path in paths
+        if path.suffix in {".json", ".jsonl"}
+    )
 
 
 def _walk_state_files(project: Path) -> list[Path]:
@@ -107,11 +131,38 @@ def validate_launch_compression(
         else:
             os.environ["MICROCOSM_RUNTIME_RECEIPT_WRITES"] = prior_receipt_write_gate
     state_files = _walk_state_files(project_path)
-    state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
     first_screen_lower = readme_first_screen.lower()
     readme_lower = readme_text.lower()
     launch_intro_lower = _without_fenced_code_blocks(launch_intro).lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
+    private_hit_payloads = (
+        compiled,
+        tour,
+        trace_lens,
+        repair_loop,
+        evidence_cells,
+        proof_loop_depth,
+        landing_replay,
+        view_quality,
+        projection_safety,
+        projection_drift,
+        route_cleanup,
+        projection_import_map,
+        import_projector,
+        option_surface,
+        stripping_guard,
+        standards_control,
+        hook_coverage,
+        replay_gauntlet,
+        benchmark_lab,
+        legibility_scorecard,
+    )
+    private_paths_absent = not (
+        _has_private_hits(readme_first_screen)
+        or _has_private_hits(observatory_html)
+        or any(_jsonable_has_private_hits(payload) for payload in private_hit_payloads)
+        or _state_files_have_private_hits(state_files)
+    )
 
     assertions = {
         "one_line_identity_present": "repo -> .microcosm" in readme_first_screen
@@ -465,31 +516,7 @@ def validate_launch_compression(
         and str(compiled.get("selected_route_id") or "") in observatory_html,
         "evidence_marked_drilldown": "Evidence is drilldown" in observatory_html,
         "release_ceiling_visible": "Release remains unauthorized" in observatory_html,
-        "private_paths_absent": not (
-            _private_hits(readme_first_screen)
-            or _private_hits(json.dumps(compiled, sort_keys=True))
-            or _private_hits(json.dumps(tour, sort_keys=True))
-            or _private_hits(json.dumps(trace_lens, sort_keys=True))
-            or _private_hits(json.dumps(repair_loop, sort_keys=True))
-            or _private_hits(json.dumps(evidence_cells, sort_keys=True))
-            or _private_hits(json.dumps(proof_loop_depth, sort_keys=True))
-            or _private_hits(json.dumps(landing_replay, sort_keys=True))
-            or _private_hits(json.dumps(view_quality, sort_keys=True))
-            or _private_hits(json.dumps(projection_safety, sort_keys=True))
-            or _private_hits(json.dumps(projection_drift, sort_keys=True))
-            or _private_hits(json.dumps(route_cleanup, sort_keys=True))
-            or _private_hits(json.dumps(projection_import_map, sort_keys=True))
-            or _private_hits(json.dumps(import_projector, sort_keys=True))
-            or _private_hits(json.dumps(option_surface, sort_keys=True))
-            or _private_hits(json.dumps(stripping_guard, sort_keys=True))
-            or _private_hits(json.dumps(standards_control, sort_keys=True))
-            or _private_hits(json.dumps(hook_coverage, sort_keys=True))
-            or _private_hits(json.dumps(replay_gauntlet, sort_keys=True))
-            or _private_hits(json.dumps(benchmark_lab, sort_keys=True))
-            or _private_hits(json.dumps(legibility_scorecard, sort_keys=True))
-            or _private_hits(observatory_html)
-            or _private_hits(state_text)
-        ),
+        "private_paths_absent": private_paths_absent,
     }
     blocking_codes = [
         f"LAUNCH_COMPRESSION_{key.upper()}_FAILED"

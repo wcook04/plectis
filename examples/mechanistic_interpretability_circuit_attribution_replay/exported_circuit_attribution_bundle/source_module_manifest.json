@@ -185,9 +185,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 224689,
+      "byte_count": 225921,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5158,
+      "line_count": 5185,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_tool_body_import",
       "required_anchors": [
@@ -201,9 +201,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro trace-capsule and agent execution trace body that turns observable agent work into span-ledger, audit, navigation-cache, and process-pattern artifacts without hidden reasoning bodies.",
-      "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_sha256": "cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a"
+      "target_sha256": "cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3"
     },
     {
       "anchor_count": 5,
