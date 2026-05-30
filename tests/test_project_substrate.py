@@ -65,6 +65,28 @@ def test_project_index_skips_file_that_disappears_during_walk(
     )
 
 
+def test_event_id_allocation_counts_existing_lines_without_decoding_history(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    event_path = project / ".microcosm/events.jsonl"
+    event_path.parent.mkdir()
+    event_path.write_text(
+        '{"event_id":"evt_0001","span":"seed"}\n'
+        '{"malformed"\n'
+        "\n",
+        encoding="utf-8",
+    )
+
+    event = project_substrate._event(project, "project.fast_append", "pass")
+    project_substrate._append_event(project, event)
+
+    assert event["event_id"] == "evt_0003"
+    assert event_path.read_text(encoding="utf-8").splitlines()[-1].startswith(
+        '{"created_at":'
+    )
+
+
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
     tmp_path: Path,
 ) -> None:

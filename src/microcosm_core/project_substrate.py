@@ -171,6 +171,17 @@ def _append_event(project: Path, event: dict[str, Any]) -> None:
         fh.write(json.dumps(event, ensure_ascii=True, sort_keys=True) + "\n")
 
 
+def _next_event_number(project: Path) -> int:
+    event_path = _state_dir(project) / EVENT_STREAM
+    if not event_path.is_file():
+        return 1
+    try:
+        with event_path.open("r", encoding="utf-8") as fh:
+            return sum(1 for line in fh if line.strip()) + 1
+    except FileNotFoundError:
+        return 1
+
+
 def _sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -215,9 +226,8 @@ def _project_arg_ref(project_path: str | Path, project: Path) -> str:
 
 
 def _event(project: Path, span: str, status: str, **fields: Any) -> dict[str, Any]:
-    rows = _read_jsonl(_state_dir(project) / EVENT_STREAM)
     event = {
-        "event_id": f"evt_{len(rows) + 1:04d}",
+        "event_id": f"evt_{_next_event_number(project):04d}",
         "created_at": utc_now(),
         "span": span,
         "status": status,
