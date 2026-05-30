@@ -3211,6 +3211,10 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
             dirty_scan_status=dirty_scan_status,
             bankruptcy_authorized=bool(getattr(args, "bankruptcy_authorized", False)),
             orphan_sweep_after=orphan_after,
+            limit=int(
+                getattr(args, "dirty_path_limit", 0)
+                or work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
+            ),
         )
         dirty_tree_pressure["sweep_dry_run"] = bool(args.dry_run)
     duplicate_claim_dedupe = None
@@ -4272,6 +4276,15 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Repo-relative dirty path fixture for pressure classification. "
             "Repeatable; when omitted, git status --porcelain=v1 -z --untracked-files=all is read."
+        ),
+    )
+    session_sweep.add_argument(
+        "--dirty-path-limit",
+        type=int,
+        default=work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT,
+        help=(
+            "Preview row limit for dirty-tree pressure path classes. Use a high "
+            "value only for machine consumers that need a full path manifest."
         ),
     )
     session_sweep.add_argument(

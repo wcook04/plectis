@@ -2362,8 +2362,12 @@ def _receipt_commit_hash(receipt: Mapping[str, Any]) -> str:
 
 
 VALIDATED_UNCOMMITTED_CLOSEOUT_STATES = {
+    "live_state_archived_validated",
     "validated_uncommitted_git_metadata_blocked",
 }
+DEFAULT_VALIDATED_UNCOMMITTED_CLOSEOUT_STATE = (
+    "validated_uncommitted_git_metadata_blocked"
+)
 
 
 def _receipt_closeout_state(receipt: Mapping[str, Any]) -> str:
@@ -2426,6 +2430,11 @@ def _receipt_missing_fields_repair_hint(receipt: Mapping[str, Any]) -> dict[str,
     if not any(commitless_signals):
         return {}
     allowed_states = sorted(VALIDATED_UNCOMMITTED_CLOSEOUT_STATES)
+    suggested_state = (
+        DEFAULT_VALIDATED_UNCOMMITTED_CLOSEOUT_STATE
+        if DEFAULT_VALIDATED_UNCOMMITTED_CLOSEOUT_STATE in VALIDATED_UNCOMMITTED_CLOSEOUT_STATES
+        else (allowed_states[0] if allowed_states else None)
+    )
     return {
         "receipt_landing_mode": "git_commit_required",
         "diagnostic_hint": (
@@ -2439,7 +2448,7 @@ def _receipt_missing_fields_repair_hint(receipt: Mapping[str, Any]) -> dict[str,
             "validation_refs",
             "no_commit_reason",
         ],
-        "suggested_closeout_state": allowed_states[0] if allowed_states else None,
+        "suggested_closeout_state": suggested_state,
     }
 
 

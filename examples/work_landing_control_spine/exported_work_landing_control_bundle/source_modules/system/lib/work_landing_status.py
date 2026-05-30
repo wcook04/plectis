@@ -48,6 +48,12 @@ CLOSEOUT_LANDING_ATTEMPT_ALIASES = {
     "landing_closeout",
     "closeout",
 }
+LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID = "land_scoped_commit_attempt"
+LAND_SCOPED_COMMIT_ATTEMPT_ALIASES = {
+    LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID,
+    "land_scoped_commit",
+    "commit_and_closeout",
+}
 RECEIPT_INTAKE_READY_OUTCOMES = {
     "receipt_ready_to_record",
     "receipt_blocked_claim_collision",
@@ -57,6 +63,7 @@ RECEIPT_INTAKE_READY_OUTCOMES = {
 ORDERED_CONTROLLER_ACTION_IDS = [
     "verify_scoped_commit_landed",
     "ensure_work_ledger_progress_event",
+    LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID,
     RECORD_SCOPED_COMMIT_LANDING_ACTION_ID,
     RECEIPT_INTAKE_ACTION_ID,
     "drain_task_ledger_intake_if_exclusive",
@@ -1044,9 +1051,9 @@ def _controller_gap_rows(
         },
         {
             "id": "landing_queue",
-            "status": "missing_serial_commit_controller",
-            "owner_plane": "none_yet",
-            "evidence": "scoped_commit exists but no WorkItem landing queue owns commit+receipt+projection as one transition",
+            "status": "available_serial_landing_controller",
+            "owner_plane": "work_landing_controller",
+            "evidence": "work_landing.py reconcile --apply --only land_scoped_commit --commit-hash <hash>",
         },
         {
             "id": "receipt_intake",
@@ -1056,9 +1063,9 @@ def _controller_gap_rows(
         },
         {
             "id": "projection_rebuild",
-            "status": "agent_or_drainer_manual",
-            "owner_plane": "task_ledger_apply_rebuild_and_work_ledger_project",
-            "evidence": "no single landing controller serializes all projections after commit",
+            "status": "serialized_by_closeout_bundle",
+            "owner_plane": "work_landing_controller_and_task_ledger_intake",
+            "evidence": "land_scoped_commit runs exact receipt drain and closeout after commit evidence is recorded",
         },
     ]
     if shared_index.get("shared_index_normal_commit_blocked"):
@@ -2442,6 +2449,34 @@ def _receipt_apply_state(status: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _receipt_scalar(receipt: Mapping[str, Any], key: str) -> str:
+    value = receipt.get(key)
+    if value in (None, ""):
+        value = _mapping(receipt.get("execution")).get(key)
+    return str(value or "").strip()
+
+
+def _matching_same_execution_alias(
+    receipt: Mapping[str, Any],
+    alias_receipts: Iterable[Any],
+) -> dict[str, Any] | None:
+    commit_hash = _receipt_scalar(receipt, "commit_hash")
+    session_id = _receipt_scalar(receipt, "work_ledger_session_id")
+    read_receipt_id = _receipt_scalar(receipt, "read_receipt_id")
+    if not (commit_hash and session_id and read_receipt_id):
+        return None
+    for alias in alias_receipts:
+        if not isinstance(alias, Mapping):
+            continue
+        if (
+            _receipt_scalar(alias, "commit_hash") == commit_hash
+            and _receipt_scalar(alias, "work_ledger_session_id") == session_id
+            and _receipt_scalar(alias, "read_receipt_id") == read_receipt_id
+        ):
+            return dict(alias)
+    return None
+
+
 def _closeout_apply_state(
     repo_root: Path,
     status: Mapping[str, Any],
@@ -2673,9 +2708,28 @@ def _ordered_controller_actions(
     receipt_state = _receipt_apply_state(status)
     receipt_ready = receipt_state.get("apply_status") == "ready"
     commit_state = _commit_landing_apply_state(repo_root, status, commit_hash=commit_hash)
-    commit_ready = commit_state.get("apply_status") == "ready"
+    commit_status = str(commit_state.get("apply_status") or "")
+    commit_ready = commit_status == "ready"
     closeout_state = _closeout_apply_state(repo_root, status, commit_hash=commit_hash)
-    closeout_ready = closeout_state.get("apply_status") == "ready"
+    closeout_status = str(closeout_state.get("apply_status") or "")
+    closeout_ready = closeout_status == "ready"
+    if commit_status == "ready":
+        land_apply_status = "ready"
+        land_blocked_by: list[str] = []
+    elif commit_status == "already_done" and closeout_status in {"ready", "already_done"}:
+        land_apply_status = closeout_status
+        land_blocked_by = _strings(closeout_state.get("blocked_by"))
+    elif commit_status == "already_done":
+        land_apply_status = closeout_status or "blocked"
+        land_blocked_by = _strings(closeout_state.get("blocked_by"))
+    else:
+        land_apply_status = commit_status or "blocked"
+        land_blocked_by = _strings(commit_state.get("blocked_by"))
+    land_idempotency_key = (
+        f"{commit_state.get('subject_id')}:work_landing_serial_land:{commit_state.get('td_id')}:{commit_state.get('commit_hash')}"
+        if commit_state.get("subject_id") and commit_state.get("td_id") and commit_state.get("commit_hash")
+        else None
+    )
     return [
         _controller_action_row(
             action_id="verify_scoped_commit_landed",
@@ -2692,6 +2746,33 @@ def _ordered_controller_actions(
             command_or_function="tools/meta/factory/work_ledger.py progress",
             apply_status="unsupported",
             blocked_by=["work_ledger_progress_apply_not_enabled_in_this_slice"],
+        ),
+        _controller_action_row(
+            action_id=LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID,
+            owner_plane="work_landing_controller",
+            preconditions=[
+                "attempt_binding_present",
+                "commit_hash_present",
+                "commit_exists",
+                "commit_paths_within_owned_paths",
+                "session_work_item_path_and_td_claims_active",
+                "receipt_recordable_or_already_recorded",
+                "work_ledger_td_thread_closeable",
+            ],
+            command_or_function="work_landing.py reconcile --apply --only land_scoped_commit --commit-hash <commit_hash>",
+            apply_supported=True,
+            apply_status=land_apply_status,
+            blocked_by=land_blocked_by,
+            would_mutate=land_apply_status == "ready",
+            idempotency_key=land_idempotency_key,
+            evidence_if_already_done=(
+                {
+                    "commit_landing": _mapping(commit_state.get("evidence_if_already_done")),
+                    "closeout": _mapping(closeout_state.get("evidence_if_already_done")),
+                }
+                if land_apply_status == "already_done"
+                else {}
+            ),
         ),
         _controller_action_row(
             action_id=RECORD_SCOPED_COMMIT_LANDING_ACTION_ID,
@@ -2929,6 +3010,23 @@ def _apply_receipt_intake(
             "mutated": False,
             "idempotency_key": request.get("idempotency_key"),
             "receipt_reconcile": receipt_reconcile,
+        }
+    alias_receipt = _matching_same_execution_alias(
+        receipt,
+        receipt_reconcile.get("alias_receipts") or [],
+    )
+    if alias_receipt:
+        return {
+            "ok": True,
+            "status": "already_done",
+            "mutated": False,
+            "idempotency_key": request.get("idempotency_key"),
+            "receipt_reconcile": {
+                **dict(receipt_reconcile),
+                "status": "receipt_already_recorded",
+                "alias_status": "same_execution_alias_already_recorded",
+                "existing_receipt": alias_receipt,
+            },
         }
     if not receipt_reconcile.get("ok", True):
         return {
@@ -3201,6 +3299,9 @@ def _apply_closeout_landing_attempt(
             mutated_steps.append("receipt_intake")
         receipt_request_id = str(receipt_result.get("request_id") or receipt_request_id).strip()
         receipt_idempotency_key = str(receipt_result.get("idempotency_key") or receipt_idempotency_key).strip()
+        if str(receipt_result.get("status") or "") == "already_done":
+            receipt_status = "already_done"
+            receipt_satisfied = True
 
     if receipt_status in {"ready", "already_queued"} and not receipt_deferred_until_close:
         step_started = time.perf_counter()
@@ -3239,8 +3340,16 @@ def _apply_closeout_landing_attempt(
     transaction_id = str(refreshed_state.get("transaction_id") or "").strip()
     latest_receipt = _mapping(_mapping(status.get("convergence")).get("receipt_state")).get("latest_execution_receipt")
     latest_receipt = _mapping(latest_receipt)
-    receipt_event_id = str(latest_receipt.get("source_event_id") or "").strip() or _receipt_event_id_from_step_results(step_results)
-    if receipt_event_id and not latest_receipt.get("source_event_id"):
+    drained_receipt_event_id = _receipt_event_id_from_step_results(step_results)
+    status_receipt_event_id = str(latest_receipt.get("source_event_id") or "").strip()
+    status_receipt_matches_current = (
+        str(latest_receipt.get("transaction_id") or "").strip() == transaction_id
+        and str(latest_receipt.get("commit_hash") or "").strip() == resolved_commit
+    )
+    receipt_event_id = drained_receipt_event_id or (
+        status_receipt_event_id if status_receipt_matches_current else ""
+    )
+    if receipt_event_id:
         latest_receipt = {**latest_receipt, "source_event_id": receipt_event_id}
     if thread and str(thread.get("status") or "") == "open":
         step_started = time.perf_counter()
@@ -3248,7 +3357,7 @@ def _apply_closeout_landing_attempt(
             "transaction_id": transaction_id,
             "subject_id": subject_id,
             "commit_hash": resolved_commit,
-            "task_ledger_receipt_event_id": latest_receipt.get("source_event_id"),
+            "task_ledger_receipt_event_id": receipt_event_id,
             "work_landing_attempt": {
                 **{
                     key: value
@@ -3288,7 +3397,7 @@ def _apply_closeout_landing_attempt(
             body="Controller-owned landing closeout after scoped commit evidence.",
             evidence_refs=_strings([
                 f"commit:{resolved_commit}",
-                latest_receipt.get("source_event_id"),
+                receipt_event_id,
                 CLOSEOUT_LANDING_ATTEMPT_ACTION_ID,
             ]),
             read_receipt_id=read_receipt_id,
@@ -3350,6 +3459,9 @@ def _apply_closeout_landing_attempt(
             after_close_receipt_idempotency_key = str(
                 receipt_result.get("idempotency_key") or after_close_receipt_idempotency_key
             ).strip()
+            if str(receipt_result.get("status") or "") == "already_done":
+                after_close_receipt_status = "already_done"
+                receipt_satisfied = True
         if after_close_receipt_status in {"ready", "already_queued"}:
             step_started = time.perf_counter()
             drain_result = _drain_exact_receipt_request(
@@ -3419,10 +3531,12 @@ def _apply_closeout_landing_attempt(
     if not session_satisfied:
         final_blocked_by.append("session_not_finalized")
     final_apply_status = "already_done" if not final_blocked_by else "ready"
+    final_receipt_event_id = _receipt_event_id_from_step_results(step_results) or receipt_event_id or None
     step_results["closeout_fast_path"] = {
         "status": "used",
         "skipped_status_recomputes": 2 if not receipt_deferred_until_close else 1,
         "task_ledger_projection_rebuild": "skipped_exact_receipt_drain",
+        "task_ledger_receipt_event_id": final_receipt_event_id,
         "step_elapsed_ms": {
             name: _mapping(result).get("elapsed_ms")
             for name, result in step_results.items()
@@ -3440,6 +3554,7 @@ def _apply_closeout_landing_attempt(
         "idempotency_key": closeout_state.get("idempotency_key"),
         "transaction_id": transaction_id,
         "commit_hash": resolved_commit,
+        "task_ledger_receipt_event_id": final_receipt_event_id,
         "td_id": td_id,
         "session_id": effective_session_id,
         "step_results": step_results,
@@ -3447,6 +3562,97 @@ def _apply_closeout_landing_attempt(
             "apply_status": final_apply_status,
             "blocked_by": final_blocked_by,
         },
+    }
+
+
+def _apply_land_scoped_commit_attempt(
+    repo_root: Path,
+    status: Mapping[str, Any],
+    *,
+    commit_hash: str | None,
+    created_by: str,
+    session_id: str | None,
+) -> dict[str, Any]:
+    attempt = _mapping(status.get("attempt_binding"))
+    subject_ids = _strings(status.get("subject_ids") or [attempt.get("subject_id")])
+    owned_paths = _strings(status.get("owned_paths") or attempt.get("owned_paths") or [])
+    effective_session_id = str(_first([session_id, attempt.get("session_id")]) or "").strip()
+    step_results: dict[str, Any] = {}
+    mutated_steps: list[str] = []
+
+    step_started = time.perf_counter()
+    commit_result = _apply_record_scoped_commit_landing(
+        repo_root,
+        status,
+        commit_hash=commit_hash,
+        created_by=created_by,
+    )
+    commit_result = {**commit_result, "elapsed_ms": _elapsed_ms(step_started)}
+    step_results[RECORD_SCOPED_COMMIT_LANDING_ACTION_ID] = commit_result
+    if commit_result.get("mutated"):
+        mutated_steps.append(RECORD_SCOPED_COMMIT_LANDING_ACTION_ID)
+    if not commit_result.get("ok"):
+        return {
+            "ok": False,
+            "status": "commit_landing_failed",
+            "mutated": bool(mutated_steps),
+            "mutated_steps": mutated_steps,
+            "idempotency_key": commit_result.get("idempotency_key"),
+            "step_results": step_results,
+        }
+
+    effective_session_id = str(
+        _first([effective_session_id, commit_result.get("session_id"), attempt.get("session_id")]) or ""
+    ).strip()
+    effective_subject_ids = subject_ids or _strings([commit_result.get("subject_id")])
+    refreshed_status = build_work_landing_status(
+        repo_root,
+        subject_ids=effective_subject_ids,
+        owned_paths=owned_paths,
+        session_id=effective_session_id or session_id,
+    )
+
+    step_started = time.perf_counter()
+    closeout_result = _apply_closeout_landing_attempt(
+        repo_root,
+        refreshed_status,
+        commit_hash=commit_hash,
+        created_by=created_by,
+        session_id=effective_session_id or session_id,
+    )
+    closeout_result = {**closeout_result, "elapsed_ms": _elapsed_ms(step_started)}
+    step_results[CLOSEOUT_LANDING_ATTEMPT_ACTION_ID] = closeout_result
+    for step_name in _strings(closeout_result.get("mutated_steps") or []):
+        if step_name not in mutated_steps:
+            mutated_steps.append(step_name)
+    if not closeout_result.get("ok"):
+        return {
+            "ok": False,
+            "status": "closeout_landing_failed",
+            "mutated": bool(mutated_steps),
+            "mutated_steps": mutated_steps,
+            "idempotency_key": closeout_result.get("idempotency_key") or commit_result.get("idempotency_key"),
+            "commit_hash": closeout_result.get("commit_hash") or commit_result.get("commit_hash"),
+            "transaction_id": closeout_result.get("transaction_id") or commit_result.get("transaction_id"),
+            "step_results": step_results,
+        }
+
+    sequence_already_done = (
+        str(commit_result.get("status") or "") == "already_done"
+        and str(closeout_result.get("status") or "") == "already_done"
+        and not mutated_steps
+    )
+    return {
+        "ok": True,
+        "status": "already_done" if sequence_already_done else "land_scoped_commit_completed",
+        "mutated": bool(mutated_steps),
+        "mutated_steps": mutated_steps,
+        "idempotency_key": closeout_result.get("idempotency_key") or commit_result.get("idempotency_key"),
+        "commit_hash": closeout_result.get("commit_hash") or commit_result.get("commit_hash"),
+        "transaction_id": closeout_result.get("transaction_id") or commit_result.get("transaction_id"),
+        "td_id": closeout_result.get("td_id") or commit_result.get("td_id"),
+        "session_id": closeout_result.get("session_id") or effective_session_id or session_id,
+        "step_results": step_results,
     }
 
 
@@ -3478,6 +3684,7 @@ def build_work_landing_reconcile_plan(
         supported_aliases = (
             RECEIPT_INTAKE_APPLY_ALIASES
             | RECORD_SCOPED_COMMIT_LANDING_ALIASES
+            | LAND_SCOPED_COMMIT_ATTEMPT_ALIASES
             | CLOSEOUT_LANDING_ATTEMPT_ALIASES
         )
         if normalized_only not in supported_aliases:
@@ -3488,6 +3695,15 @@ def build_work_landing_reconcile_plan(
                 "requested_only": normalized_only or None,
                 "supported_only": sorted(supported_aliases),
             }
+        elif normalized_only in LAND_SCOPED_COMMIT_ATTEMPT_ALIASES:
+            apply_result = _apply_land_scoped_commit_attempt(
+                repo_root.resolve(),
+                status,
+                commit_hash=commit_hash,
+                created_by=created_by,
+                session_id=session_id,
+            )
+            applied_action_id = LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID
         elif normalized_only in RECORD_SCOPED_COMMIT_LANDING_ALIASES:
             apply_result = _apply_record_scoped_commit_landing(
                 repo_root.resolve(),
@@ -3546,6 +3762,7 @@ def build_work_landing_reconcile_plan(
             "allowed_apply_only": sorted(
                 RECEIPT_INTAKE_APPLY_ALIASES
                 | RECORD_SCOPED_COMMIT_LANDING_ALIASES
+                | LAND_SCOPED_COMMIT_ATTEMPT_ALIASES
                 | CLOSEOUT_LANDING_ATTEMPT_ALIASES
             ),
             "broad_shared_index_cleanup_allowed": False,

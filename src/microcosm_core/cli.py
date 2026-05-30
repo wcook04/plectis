@@ -401,6 +401,7 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "bridge-phase-continuity-runtime": "run bridge continuity bundle",
     "pattern-assimilation-step": "validate pattern assimilation bundle",
     "voice-to-doctrine-self-improvement-loop": "run voice-to-doctrine bundle",
+    "cognitive-operator-registry": "run cognitive-operator-registry bundle",
 }
 
 

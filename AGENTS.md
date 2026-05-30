@@ -148,11 +148,11 @@ How a cold human or agent first meets Microcosm and what the short guided path a
 
 `cold_reader_route_map`, `public_reveal_walkthrough`
 
-### Architecture & Navigation (6)
+### Architecture & Navigation (7)
 
 The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
 
-`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`
+`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`
 
 ### Formal Math & Proof (17)
 

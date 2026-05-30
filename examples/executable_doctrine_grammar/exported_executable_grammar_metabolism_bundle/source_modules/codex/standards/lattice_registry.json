@@ -16,7 +16,7 @@
       "artifact_kind": "axiom_candidate",
       "graph_node_kind": "axiom",
       "compression_layer": "axiom",
-      "authority_globs": ["codex/doctrine/axioms/axiom_candidates.json"],
+      "authority_globs": ["obsidian/okay lets do this/*/raw_seed/system_axiom_candidates.json"],
       "standard": "codex/standards/std_axiom_candidate.json",
       "validators": [],
       "projection_builders": [],

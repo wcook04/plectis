@@ -42,6 +42,7 @@
 
 import asyncio
 import copy
+import inspect
 import json
 import os
 import re
@@ -78,7 +79,7 @@ from system.lib.hashing import hash_node
 from system.lib import library_catalog as library_catalog_loader
 from system.lib import work_admission
 from system.lib import frontend_surface_contracts
-from system.lib.swr_cache import swr_get, swr_prewarm
+from system.lib.swr_cache import swr_get, swr_peek, swr_prewarm
 from system.lib.observe_runtime import (
     grouped_runtime_status_payload,
     load_grouped_runtime_manifest,
@@ -304,8 +305,9 @@ _STATION_LAUNCHER_CACHE_TTL_S = 10.0
 _STATION_LAUNCHER_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _STATION_LAUNCHER_CACHE_LOCK = threading.Lock()
 _STATION_LAUNCHER_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
+_STATION_LAUNCHER_BACKGROUND_START_DELAY_S = 0.02
 _STATION_LAUNCHER_AUX_CACHE_TTL_S = 30.0
-_STATION_LAUNCHER_OPERATIONS_PREWARM_WAIT_S = 0.75
+_STATION_LAUNCHER_OPERATIONS_PREWARM_WAIT_S = 0.25
 _STATION_LAUNCHER_OPERATIONS_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _STATION_LAUNCHER_OPERATIONS_CACHE_LOCK = threading.Lock()
 _STATION_LAUNCHER_OPERATIONS_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
@@ -313,7 +315,20 @@ _ROOT_NAVIGATOR_HANDOFF_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
 _ROOT_NAVIGATOR_HANDOFF_CACHE_LOCK = threading.Lock()
 _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
 _ROOT_NAVIGATOR_HANDOFF_CACHE_TTL_S = 600.0
-_ROOT_NAVIGATOR_HANDOFF_PREWARM_WAIT_S = 1.0
+_ROOT_NAVIGATOR_HANDOFF_PREWARM_WAIT_S = 0.25
+_ROOT_NAVIGATOR_HANDOFF_BACKGROUND_START_DELAY_S = 0.02
+_WORLD_MODEL_SNAPSHOT_CACHE_NAME = "world_model_snapshot"
+_WORLD_MODEL_SNAPSHOT_PREWARM_WAIT_S = 0.25
+_ATTENTION_SNAPSHOT_CACHE_TTL_S = 10.0
+_ATTENTION_SNAPSHOT_PREWARM_WAIT_S = 0.25
+_ATTENTION_SNAPSHOT_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
+_ATTENTION_SNAPSHOT_CACHE_LOCK = threading.Lock()
+_ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT: dict[str, threading.Event] = {}
+_BLAST_RADIUS_CACHE_TTL_S = 60.0
+_BLAST_RADIUS_BACKGROUND_START_DELAY_S = 0.02
+_BLAST_RADIUS_CACHE: dict[tuple[str, int], tuple[float, Dict[str, Any]]] = {}
+_BLAST_RADIUS_CACHE_LOCK = threading.Lock()
+_BLAST_RADIUS_REFRESH_IN_FLIGHT: dict[tuple[str, int], threading.Event] = {}
 _MISSION_TRANSACTION_DEFAULT_SUBJECT_ID = "cap_parallel_mission_transactions_git_safe_wave_landing"
 _MISSION_TRANSACTION_DEFAULT_OWNED_PATHS = (
     "system/lib/mission_transaction_landing_preflight.py",
@@ -366,6 +381,54 @@ def _root_navigator_handoff_cache_key() -> str:
     return str(REPO_ROOT.resolve())
 
 
+def _world_model_snapshot_cache_key() -> object:
+    return (str(REPO_ROOT.resolve()), "first_paint")
+
+
+def _attention_snapshot_cache_key() -> str:
+    return str(REPO_ROOT.resolve())
+
+
+def _warming_root_navigator_scene_domain_explainers(
+    axes: list[Mapping[str, Any]],
+) -> Dict[str, Any]:
+    rows: list[Dict[str, Any]] = []
+    for axis in axes:
+        axis_id = str(axis.get("axis_id") or "unknown")
+        kind_ids = [str(kind) for kind in axis.get("candidate_kinds") or [] if str(kind)]
+        if not kind_ids:
+            continue
+        title = str(axis.get("label") or axis_id.replace("_", " ").title())
+        role = str(axis.get("projection_role") or "Full scene-domain explanation is warming.")
+        rows.append(
+            {
+                "scene_role_id": f"warming:{axis_id}",
+                "title": title,
+                "primary_kind": kind_ids[0],
+                "domain_kind_ids": kind_ids,
+                "headline": "Full Root Navigator scene-domain explanation is warming.",
+                "contains": [role],
+                "relation_summary": "Static warming row from the constitutional atlas; source-backed relation and domain evidence is still prewarming.",
+                "paper_module_refs": [],
+                "kind_rows": [
+                    {
+                        "kind_id": kind_id,
+                        "title": kind_id.replace("_", " ").title(),
+                        "support_status": "warming",
+                        "row_count": None,
+                    }
+                    for kind_id in kind_ids
+                ],
+            }
+        )
+    return {
+        "schema": "root_navigator_scene_domain_explainers_v0",
+        "authority_posture": "warming_shell_not_source_authority",
+        "status": "warming",
+        "rows": rows,
+    }
+
+
 def _warming_root_navigator_handoff_payload() -> Dict[str, Any]:
     atlas_rel = frontend_surface_contracts.ROOT_NAVIGATOR_CONSTITUTIONAL_ATLAS_PATH
     atlas_path = REPO_ROOT / atlas_rel
@@ -407,15 +470,7 @@ def _warming_root_navigator_handoff_payload() -> Dict[str, Any]:
             "source_ref": "state/system_atlas/root_coverage_state.json",
             "load_warning": str(exc),
         }
-    try:
-        scene_domain_explainers = frontend_surface_contracts.build_root_navigator_scene_domain_explainers(REPO_ROOT)
-    except Exception as exc:
-        scene_domain_explainers = {
-            "schema": "root_navigator_scene_domain_explainers_v0",
-            "status": "warming_unavailable",
-            "load_warning": str(exc),
-            "rows": [],
-        }
+    scene_domain_explainers = _warming_root_navigator_scene_domain_explainers(axes)
 
     return {
         "schema": "root_navigator_claude_frontend_handoff_packet_v0",
@@ -794,8 +849,12 @@ async def lifespan(app: FastAPI):
         _hot_prewarms: list[tuple[str, Any, Any]] = [
             # Order matters: world_model_snapshot + paper_modules first because
             # they're the heaviest and unblock the launcher/bootstrap surfaces.
-            ("paper_modules_snapshot", _repo_key, lambda: world_model_loader.load_paper_modules_snapshot(REPO_ROOT)),
-            ("world_model_snapshot", _repo_key, lambda: world_model_loader.load_world_model_snapshot(REPO_ROOT)),
+            (
+                "paper_modules_snapshot",
+                _repo_key,
+                lambda: world_model_loader._uncached_load_paper_modules_snapshot(REPO_ROOT),
+            ),
+            ("world_model_snapshot", _repo_key, _world_model_snapshot_uncached_payload),
             ("shard_overview", (_repo_key, "family"), lambda: world_model_loader.load_shard_overview(REPO_ROOT, source="family")),
             ("annex_catalog", _repo_key, lambda: library_catalog_loader.build_annex_catalog(REPO_ROOT)),
             ("codex_tree", _repo_key, _build_codex_tree_payload),
@@ -821,7 +880,7 @@ async def lifespan(app: FastAPI):
             except Exception as exc:
                 logger.warning("prewarm reactions failed: %s", exc)
             try:
-                world_model_loader.load_attention_snapshot(REPO_ROOT)
+                _prewarm_attention_snapshot_inline()
             except Exception as exc:
                 logger.warning("prewarm attention failed: %s", exc)
             try:
@@ -4342,7 +4401,7 @@ def _station_attention_brief(world: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-_STATION_LAUNCHER_PREWARM_WAIT_S = 1.0
+_STATION_LAUNCHER_PREWARM_WAIT_S = 0.25
 
 
 def _warming_station_launcher_payload(reason: str) -> Dict[str, Any]:
@@ -4353,7 +4412,11 @@ def _warming_station_launcher_payload(reason: str) -> Dict[str, Any]:
     can immediately retry once prewarm lands the cache. Avoids racing a
     duplicate compute on top of an already-running prewarm thread.
     """
-    detail = f"station launcher {reason}; background refresh is in flight"
+    detail = (
+        f"station launcher {reason}; background refresh is in flight"
+        if reason == "miss"
+        else "station launcher unavailable; retry will start another background refresh"
+    )
     return {
         "schema": "station_launcher_v1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -4424,6 +4487,518 @@ def _warming_operations_catalog_payload(reason: str) -> Dict[str, Any]:
     }
 
 
+def _warming_world_model_snapshot_payload(reason: str) -> Dict[str, Any]:
+    generated = datetime.now(timezone.utc).isoformat()
+    detail = f"world-model snapshot {reason}; background refresh is in flight"
+    return {
+        "schema": "world_model_snapshot_v1",
+        "generated_at": generated,
+        "family": None,
+        "phases": [],
+        "active_phase": None,
+        "orchestration": None,
+        "docs_focus": {
+            "path": "tools/meta/control/documentation_route_focus.json",
+            "active_preset_id": "neutral",
+            "label": "Neutral",
+            "presets": [],
+            "updated_at": None,
+        },
+        "doctrine_runtime": {
+            "schema_version": None,
+            "purpose": None,
+            "control_plane": {
+                "emit_self": None,
+                "docs_route": None,
+                "docs_route_focus_list": None,
+                "docs_route_focus_set": None,
+                "agent_bootstrap": None,
+                "orchestration_state": None,
+                "orchestration_event_log": None,
+            },
+            "operator_quickstart": [],
+            "freshness": None,
+        },
+        "agent_bootstrap_live": {
+            "schema_version": None,
+            "generated_at": None,
+            "live_bindings": {},
+            "situation_routes": [],
+            "actor_context_surfaces": [],
+            "freshness": None,
+        },
+        "navigation_graph": None,
+        "frontend_navigation_mission_control": None,
+        "navigation_freshness": {
+            "schema": "navigation_freshness_v1",
+            "generated_at": generated,
+            "available": False,
+            "refresh_operation_id": "navigator_refresh",
+            "route_refresh_operation_id": "semantic_route_refresh",
+            "stale_source_count": 0,
+            "stale_or_missing_row_count": 0,
+            "has_estimates": False,
+            "top_source_kind": None,
+            "queue": [],
+        },
+        "catalog": {
+            "system_map_generated_at": None,
+            "concepts": [],
+            "mechanisms": [],
+            "principles": [],
+        },
+        "principles_family": {
+            "path": None,
+            "family_id": None,
+            "family_number": None,
+            "family_title": None,
+            "generated_at": None,
+            "principles": [],
+        },
+        "host_agents": {
+            "schema": "host_agent_external_snapshot_v1",
+            "generated_at": generated,
+            "available": False,
+            "campaign_id": None,
+            "authored_at": None,
+            "authored_freshness": {
+                "tone": "unknown",
+                "age_seconds": None,
+                "label": "warming",
+                "iso": None,
+            },
+            "mining_run_path": None,
+            "current_window": {"label": "30d", "days": 30, "findings": [], "finding_count": 0},
+            "extended_window": {"label": "90d", "days": 90, "findings": [], "finding_count": 0},
+            "curate_count": 0,
+            "deferred_count": 0,
+            "curate": [],
+            "deferred": [],
+        },
+        "host_agent_dotfiles": None,
+        "drift_aggregate": None,
+        "approvals": {
+            "total_pending": 0,
+            "source_kind_counts": {},
+            "action_kind_counts": {},
+            "status_counts": {},
+            "top_records": [],
+        },
+        "freshness": {
+            "orchestration": None,
+            "doctrine_runtime": None,
+            "agent_bootstrap_live": None,
+            "host_agents": {"tone": "unknown", "age_seconds": None, "label": "warming", "iso": None},
+            "host_agent_dotfiles": None,
+            "system_map_generated_at": None,
+            "autonomy_diagnostics": None,
+        },
+        "diagnostics": {
+            "cache": {"status": "warming", "reason": reason},
+            "notes": [
+                "Served a schema-clean warming world-model snapshot instead of blocking first paint on snapshot composition.",
+                detail,
+            ],
+        },
+    }
+
+
+def _world_model_snapshot_uncached_payload() -> Dict[str, Any]:
+    builder = getattr(world_model_loader, "_uncached_load_world_model_snapshot", None)
+    if callable(builder):
+        try:
+            params = inspect.signature(builder).parameters
+        except (TypeError, ValueError):
+            params = {}
+        if "navigation_graph_payload" in params:
+            return builder(REPO_ROOT, navigation_graph_payload="first_paint")
+        return builder(REPO_ROOT)
+    return world_model_loader.load_world_model_snapshot(
+        REPO_ROOT,
+        navigation_graph_payload="first_paint",
+    )
+
+
+def _schedule_world_model_snapshot_prewarm() -> None:
+    swr_prewarm(
+        _WORLD_MODEL_SNAPSHOT_CACHE_NAME,
+        _world_model_snapshot_cache_key(),
+        _world_model_snapshot_uncached_payload,
+    )
+
+
+def _world_model_snapshot_payload() -> Dict[str, Any]:
+    cached = swr_peek(_WORLD_MODEL_SNAPSHOT_CACHE_NAME, _world_model_snapshot_cache_key())
+    if isinstance(cached, dict):
+        return cached
+
+    try:
+        _schedule_world_model_snapshot_prewarm()
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("world-model snapshot prewarm failed to schedule: %s", exc)
+        return _warming_world_model_snapshot_payload("unavailable")
+
+    if _WORLD_MODEL_SNAPSHOT_PREWARM_WAIT_S > 0:
+        time.sleep(_WORLD_MODEL_SNAPSHOT_PREWARM_WAIT_S)
+        cached = swr_peek(_WORLD_MODEL_SNAPSHOT_CACHE_NAME, _world_model_snapshot_cache_key())
+        if isinstance(cached, dict):
+            return cached
+
+    logger.info("world-model snapshot returned warming shell (prewarm in flight)")
+    return _warming_world_model_snapshot_payload("miss")
+
+
+def _warming_attention_snapshot_payload(reason: str) -> Dict[str, Any]:
+    generated = datetime.now(timezone.utc).isoformat()
+    detail = f"attention snapshot {reason}; background refresh is in flight"
+    return {
+        "schema": "attention_snapshot_v1",
+        "generated_at": generated,
+        "banner": {
+            "tone": "warn",
+            "title": "Attention snapshot warming",
+            "summary": detail,
+            "gate_reason": None,
+            "command": None,
+            "target": {"kind": "none"},
+        },
+        "current_driver": {"actor_id": None, "driver_id": None},
+        "next_handoff": None,
+        "active_phase": None,
+        "active_cycle": None,
+        "attention_items": [
+            {
+                "id": "attention:warming",
+                "kind": "info",
+                "title": "Attention snapshot warming",
+                "detail": detail,
+                "owner": "server",
+                "command": None,
+                "target": {"kind": "none"},
+                "score": 0,
+            }
+        ],
+        "recent_changes": [],
+        "next_moves": [],
+        "bridge_health": {
+            "alive": None,
+            "providers": [],
+            "stale_reason": "attention snapshot is warming",
+        },
+        "drift": {
+            "hologram": {
+                "generated_at": None,
+                "freshness": {
+                    "tone": "unknown",
+                    "age_seconds": None,
+                    "label": "warming",
+                    "iso": None,
+                },
+            },
+            "system_view_file_count": None,
+            "doctrine_runtime_mtime": None,
+        },
+        "work_ledger": {
+            "generated_at": None,
+            "counts": {},
+            "triggers": {},
+            "cohort_overview": {},
+            "stale_sessions": [],
+            "handoff_candidates": {
+                "candidate_count": 0,
+                "unimported_count": 0,
+                "candidates": [],
+            },
+        },
+        "reactions": None,
+        "diagnostics": {
+            "cache": {"status": "warming", "reason": reason},
+            "notes": [
+                "Served a schema-clean warming attention payload instead of blocking first paint on attention composition.",
+                detail,
+            ],
+        },
+    }
+
+
+def _start_attention_snapshot_refresh(
+    cache_key: str | None = None,
+    *,
+    thread_name: str = "attention-snapshot-refresh",
+) -> threading.Event:
+    if cache_key is None:
+        cache_key = _attention_snapshot_cache_key()
+    with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+        event = _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT.get(cache_key)
+        if event is not None:
+            return event
+        event = threading.Event()
+        _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT[cache_key] = event
+    threading.Thread(
+        target=_attention_snapshot_background_refresh,
+        args=(cache_key, event),
+        name=thread_name,
+        daemon=True,
+    ).start()
+    return event
+
+
+def _prewarm_attention_snapshot_inline() -> None:
+    cache_key = _attention_snapshot_cache_key()
+    now = time.monotonic()
+    with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+        cached = _ATTENTION_SNAPSHOT_CACHE.get(cache_key)
+        if cached and now - cached[0] <= _ATTENTION_SNAPSHOT_CACHE_TTL_S:
+            return
+        if cache_key in _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT:
+            return
+        event = threading.Event()
+        _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT[cache_key] = event
+    _attention_snapshot_background_refresh(cache_key, event)
+
+
+def _attention_snapshot_payload() -> Dict[str, Any]:
+    cache_key = _attention_snapshot_cache_key()
+    now = time.monotonic()
+    wait_event: threading.Event | None = None
+    with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+        cached = _ATTENTION_SNAPSHOT_CACHE.get(cache_key)
+        if cached:
+            payload = copy.deepcopy(cached[1])
+            if now - cached[0] <= _ATTENTION_SNAPSHOT_CACHE_TTL_S:
+                return payload
+            if cache_key not in _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT:
+                event = threading.Event()
+                _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT[cache_key] = event
+                threading.Thread(
+                    target=_attention_snapshot_background_refresh,
+                    args=(cache_key, event),
+                    name="attention-snapshot-refresh",
+                    daemon=True,
+                ).start()
+            return payload
+        wait_event = _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT.get(cache_key)
+
+    if wait_event is None:
+        wait_event = _start_attention_snapshot_refresh(cache_key)
+    if wait_event is not None:
+        started = time.monotonic()
+        wait_event.wait(timeout=_ATTENTION_SNAPSHOT_PREWARM_WAIT_S)
+        with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+            cached = _ATTENTION_SNAPSHOT_CACHE.get(cache_key)
+            if cached:
+                return copy.deepcopy(cached[1])
+            still_in_flight = cache_key in _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT
+        if still_in_flight:
+            elapsed = time.monotonic() - started
+            logger.info(
+                "attention snapshot returned warming shell after %.2fs (prewarm in flight)",
+                elapsed,
+            )
+            return _warming_attention_snapshot_payload("miss")
+        logger.info("attention snapshot returned warming shell after failed refresh")
+        return _warming_attention_snapshot_payload("unavailable")
+
+    return _warming_attention_snapshot_payload("unavailable")
+
+
+def _attention_snapshot_background_refresh(cache_key: str, event: threading.Event) -> None:
+    try:
+        _compute_attention_snapshot_payload(cache_key=cache_key)
+    except Exception as exc:
+        logger.warning("attention snapshot background refresh failed: %s", exc)
+    finally:
+        with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+            _ATTENTION_SNAPSHOT_REFRESH_IN_FLIGHT.pop(cache_key, None)
+        event.set()
+
+
+def _compute_attention_snapshot_payload(*, cache_key: str | None = None) -> Dict[str, Any]:
+    if cache_key is None:
+        cache_key = _attention_snapshot_cache_key()
+    payload = world_model_loader.load_attention_snapshot(REPO_ROOT)
+    if not isinstance(payload, dict):
+        payload = {}
+    with _ATTENTION_SNAPSHOT_CACHE_LOCK:
+        _ATTENTION_SNAPSHOT_CACHE[cache_key] = (time.monotonic(), copy.deepcopy(payload))
+    return copy.deepcopy(payload)
+
+
+def _normalize_blast_radius_request(path: str | None, max_depth: int) -> tuple[str, int]:
+    normalized_path = world_model_loader._normalize_projection_path(path)
+    if not normalized_path:
+        raise ValueError("path is required")
+    clamped_max_depth = max(
+        1,
+        min(int(max_depth or 4), world_model_loader.BLAST_RADIUS_MAX_DEPTH_CAP),
+    )
+    return normalized_path, clamped_max_depth
+
+
+def _warming_blast_radius_payload(
+    *,
+    path: str,
+    max_depth: int,
+    reason: str,
+    refresh_in_flight: bool = True,
+) -> Dict[str, Any]:
+    return {
+        "kind": "kernel.blast_radius",
+        "schema_version": "blast_radius_packet_v1",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "target_path": path,
+        "source": {
+            "graph": str(world_model_loader.HOLOGRAM_GRAPH_PATH),
+            "ui_index": str(world_model_loader.HOLOGRAM_UI_INDEX_PATH),
+            "scope_index": str(world_model_loader.PYTHON_SCOPE_INDEX_PATH),
+            "paper_modules": str(world_model_loader.PAPER_MODULE_INDEX_PATH),
+            "annex_distillation": str(world_model_loader.ANNEX_DISTILLATION_INDEX_PATH),
+            "frontend_navigation": str(world_model_loader.FRONTEND_NAVIGATION_GRAPH_PATH),
+            "source_fingerprint": f"warming:{reason}",
+        },
+        "file_impact": {
+            "direct_dependents": [],
+            "transitive_dependents": [],
+            "depth_buckets": {"1": [], "2": [], "3+": []},
+        },
+        "system_impact": {
+            "paper_modules": [],
+            "frontend_views": [],
+            "standards": [],
+            "skills": [],
+            "annex_patterns": [],
+            "routes": [],
+            "tests": [],
+            "render_checks": [],
+        },
+        "risk": {
+            "impact_score": 0,
+            "confidence": "warming",
+            "risk_reasons": [f"blast_radius_cache_{reason}"],
+        },
+        "edge_sources": [],
+        "suggested_verification": {
+            "schema_version": "suggested_verification_v1",
+            "commands": [],
+            "omission_receipt": {"omitted_commands": 0, "reason": f"blast_radius_cache_{reason}"},
+        },
+        "omission_receipt": {
+            "omitted_files": 0,
+            "omitted_edges": 0,
+            "omitted_overlays": 0,
+            "reason": f"blast_radius_cache_{reason}",
+        },
+        "known_limits": [f"blast_radius_cache_{reason}", f"requested_max_depth:{max_depth}"],
+        "projection_state": {
+            "schema": "blast_radius_projection_state_v1",
+            "state": "warming",
+            "render_ready": False,
+            "refresh_in_flight": bool(refresh_in_flight),
+            "reason": reason,
+            "retry_after_ms": 750,
+        },
+        "diagnostics": {
+            "cache": {"status": "warming", "reason": reason},
+            "notes": [
+                "Served a schema-clean blast-radius warming packet instead of blocking the selected-node drawer on reverse-BFS composition.",
+            ],
+        },
+    }
+
+
+def _start_blast_radius_refresh(
+    cache_key: tuple[str, int],
+    *,
+    thread_name: str = "blast-radius-refresh",
+) -> threading.Event:
+    with _BLAST_RADIUS_CACHE_LOCK:
+        event = _BLAST_RADIUS_REFRESH_IN_FLIGHT.get(cache_key)
+        if event is not None:
+            return event
+        event = threading.Event()
+        _BLAST_RADIUS_REFRESH_IN_FLIGHT[cache_key] = event
+    timer = threading.Timer(
+        _BLAST_RADIUS_BACKGROUND_START_DELAY_S,
+        _blast_radius_background_refresh,
+        args=(cache_key, event),
+    )
+    timer.name = thread_name
+    timer.daemon = True
+    timer.start()
+    return event
+
+
+def _blast_radius_payload(*, path: str, max_depth: int) -> Dict[str, Any]:
+    normalized_path, clamped_max_depth = _normalize_blast_radius_request(path, max_depth)
+    cache_key = (normalized_path, clamped_max_depth)
+    now = time.monotonic()
+    wait_event: threading.Event | None = None
+    with _BLAST_RADIUS_CACHE_LOCK:
+        cached = _BLAST_RADIUS_CACHE.get(cache_key)
+        if cached:
+            payload = copy.deepcopy(cached[1])
+            if now - cached[0] <= _BLAST_RADIUS_CACHE_TTL_S:
+                return payload
+            if cache_key not in _BLAST_RADIUS_REFRESH_IN_FLIGHT:
+                event = threading.Event()
+                _BLAST_RADIUS_REFRESH_IN_FLIGHT[cache_key] = event
+                threading.Thread(
+                    target=_blast_radius_background_refresh,
+                    args=(cache_key, event),
+                    name="blast-radius-refresh",
+                    daemon=True,
+                ).start()
+            return payload
+        wait_event = _BLAST_RADIUS_REFRESH_IN_FLIGHT.get(cache_key)
+
+    if wait_event is None:
+        wait_event = _start_blast_radius_refresh(cache_key)
+    with _BLAST_RADIUS_CACHE_LOCK:
+        cached = _BLAST_RADIUS_CACHE.get(cache_key)
+        if cached:
+            return copy.deepcopy(cached[1])
+        still_in_flight = cache_key in _BLAST_RADIUS_REFRESH_IN_FLIGHT
+    if still_in_flight:
+        logger.info(
+            "blast radius returned warming shell immediately for %s",
+            normalized_path,
+        )
+        return _warming_blast_radius_payload(
+            path=normalized_path,
+            max_depth=clamped_max_depth,
+            reason="miss",
+        )
+    return _warming_blast_radius_payload(
+        path=normalized_path,
+        max_depth=clamped_max_depth,
+        reason="unavailable",
+        refresh_in_flight=False,
+    )
+
+
+def _blast_radius_background_refresh(
+    cache_key: tuple[str, int],
+    event: threading.Event,
+) -> None:
+    normalized_path, clamped_max_depth = cache_key
+    try:
+        payload = world_model_loader.load_blast_radius_snapshot(
+            REPO_ROOT,
+            path=normalized_path,
+            max_depth=clamped_max_depth,
+        )
+        if not isinstance(payload, dict):
+            payload = {}
+        with _BLAST_RADIUS_CACHE_LOCK:
+            _BLAST_RADIUS_CACHE[cache_key] = (time.monotonic(), copy.deepcopy(payload))
+    except Exception as exc:
+        logger.warning("blast radius background refresh failed for %s: %s", normalized_path, exc)
+    finally:
+        with _BLAST_RADIUS_CACHE_LOCK:
+            _BLAST_RADIUS_REFRESH_IN_FLIGHT.pop(cache_key, None)
+        event.set()
+
+
 def _operations_catalog_background_refresh(event: threading.Event) -> None:
     try:
         payload = world_model_loader.list_launchable_operations(REPO_ROOT)
@@ -4489,18 +5064,35 @@ def _operations_catalog_payload() -> Dict[str, Any]:
     return _warming_operations_catalog_payload("miss" if still_in_flight else "unavailable")
 
 
-def _start_root_navigator_handoff_refresh(cache_key: str, *, thread_name: str) -> None:
+def _start_root_navigator_handoff_refresh(
+    cache_key: str,
+    *,
+    thread_name: str,
+    delay_s: float = 0.0,
+) -> threading.Event:
     with _ROOT_NAVIGATOR_HANDOFF_CACHE_LOCK:
-        if cache_key in _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT:
-            return
+        event = _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT.get(cache_key)
+        if event is not None:
+            return event
         event = threading.Event()
         _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT[cache_key] = event
-    threading.Thread(
-        target=_root_navigator_handoff_background_refresh,
-        args=(cache_key, event),
-        name=thread_name,
-        daemon=True,
-    ).start()
+    if delay_s > 0:
+        timer = threading.Timer(
+            delay_s,
+            _root_navigator_handoff_background_refresh,
+            args=(cache_key, event),
+        )
+        timer.name = f"{thread_name}-starter"
+        timer.daemon = True
+        timer.start()
+    else:
+        threading.Thread(
+            target=_root_navigator_handoff_background_refresh,
+            args=(cache_key, event),
+            name=thread_name,
+            daemon=True,
+        ).start()
+    return event
 
 
 def _root_navigator_handoff_payload() -> Dict[str, Any]:
@@ -4525,6 +5117,16 @@ def _root_navigator_handoff_payload() -> Dict[str, Any]:
             return payload
         wait_event = _ROOT_NAVIGATOR_HANDOFF_REFRESH_IN_FLIGHT.get(cache_key)
 
+    if wait_event is None:
+        # No prewarm exists in this process. Return the non-hollow static
+        # packet before the full handoff builder can contend with response
+        # serialization under uvicorn's single worker.
+        _start_root_navigator_handoff_refresh(
+            cache_key,
+            thread_name="root-navigator-handoff-refresh",
+            delay_s=_ROOT_NAVIGATOR_HANDOFF_BACKGROUND_START_DELAY_S,
+        )
+        return _warming_root_navigator_handoff_payload()
     if wait_event is not None:
         started = time.monotonic()
         wait_event.wait(timeout=_ROOT_NAVIGATOR_HANDOFF_PREWARM_WAIT_S)
@@ -4541,7 +5143,8 @@ def _root_navigator_handoff_payload() -> Dict[str, Any]:
             )
             return _warming_root_navigator_handoff_payload()
 
-    return _compute_root_navigator_handoff_payload(cache_key=cache_key)
+        logger.info("root navigator handoff returned warming shell after failed refresh")
+        return _warming_root_navigator_handoff_payload()
 
 
 def _root_navigator_handoff_background_refresh(cache_key: str, event: threading.Event) -> None:
@@ -4568,6 +5171,7 @@ def _start_station_launcher_refresh(
     cache_key: str | None = None,
     *,
     thread_name: str = "station-launcher-refresh",
+    delay_s: float = 0.0,
 ) -> threading.Event:
     if cache_key is None:
         cache_key = str(REPO_ROOT.resolve())
@@ -4577,12 +5181,22 @@ def _start_station_launcher_refresh(
             return event
         event = threading.Event()
         _STATION_LAUNCHER_REFRESH_IN_FLIGHT[cache_key] = event
-    threading.Thread(
-        target=_station_launcher_background_refresh,
-        args=(cache_key, event),
-        name=thread_name,
-        daemon=True,
-    ).start()
+    if delay_s > 0:
+        timer = threading.Timer(
+            delay_s,
+            _station_launcher_background_refresh,
+            args=(cache_key, event),
+        )
+        timer.name = f"{thread_name}-starter"
+        timer.daemon = True
+        timer.start()
+    else:
+        threading.Thread(
+            target=_station_launcher_background_refresh,
+            args=(cache_key, event),
+            name=thread_name,
+            daemon=True,
+        ).start()
     return event
 
 
@@ -4594,9 +5208,10 @@ def _station_launcher_payload() -> Dict[str, Any]:
       slow (`load_paper_modules_snapshot` walks the repo subtree).
     - Mechanism: Stale-while-revalidate over the payload cache. On cache hit,
       return instantly. If the hit is stale, spawn a single-flight background
-      refresh. The first-ever request waits briefly for the prewarm thread to
-      land cache; if prewarm is still in flight after that, return a degraded
-      warming shell rather than racing a duplicate compute.
+      refresh. A request that arrives while startup prewarm is already in
+      flight waits briefly for that cache to land; a true cold request starts a
+      delayed background refresh and returns a degraded warming shell
+      immediately.
     - Guarantee: Missing subsystems degrade inside `_compute_station_launcher_payload`.
       A failed background refresh is logged and does not evict the stale copy,
       so the surface stays usable even when a subsystem is misbehaving.
@@ -4626,7 +5241,13 @@ def _station_launcher_payload() -> Dict[str, Any]:
         # that one build rather than racing a duplicate compute.
         wait_event = _STATION_LAUNCHER_REFRESH_IN_FLIGHT.get(cache_key)
     if wait_event is None:
-        wait_event = _start_station_launcher_refresh(cache_key)
+        # No prewarm exists in this process. Yield a warming response before
+        # the heavy builder can grab the GIL under uvicorn's single worker.
+        _start_station_launcher_refresh(
+            cache_key,
+            delay_s=_STATION_LAUNCHER_BACKGROUND_START_DELAY_S,
+        )
+        return _warming_station_launcher_payload("miss")
     if wait_event is not None:
         # Bounded wait — first request blocks briefly for the prewarm thread
         # to land the cache. If it doesn't, fall back to a warming shell so
@@ -5458,7 +6079,7 @@ def zenith_bootstrap_snapshot():
     try:
         return {
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "attention": world_model_loader.load_attention_snapshot(REPO_ROOT) or {},
+            "attention": _attention_snapshot_payload(),
             "station_launcher": _station_launcher_payload(),
             "runtime": _zenith_runtime_payload(),
         }
@@ -6808,12 +7429,12 @@ def blast_radius_endpoint(
     """
     [ACTION]
     - Teleology: Expose `blast_radius_packet_v1` over HTTP so Station and other read-only consumers can render system-radius impact without re-running the kernel CLI. This endpoint is *transport*, not a second BFS owner.
-    - Mechanism: Normalize `path` and clamp `max_depth` via `system.server.world_model.load_blast_radius_snapshot`, which delegates to `system.lib.code_architecture_projection.build_blast_radius_packet`. The endpoint never walks the graph itself.
-    - Guarantee: Returns the same `blast_radius_packet_v1` dict the kernel `--blast-radius` command emits. Valid-but-unknown targets return 200 with `risk.confidence='low'` and `risk_reasons=['target_not_in_hologram']`, never 5xx.
+    - Mechanism: Normalize `path`, serve a route-local stale-while-revalidate packet when warm, and on a cold miss return a warming packet immediately while a delayed background `system.server.world_model.load_blast_radius_snapshot` build starts. The endpoint never walks the graph itself.
+    - Guarantee: Returns the same `blast_radius_packet_v1` dict the kernel `--blast-radius` command emits when ready, or a schema-clean `risk.confidence='warming'` packet while the builder is in flight. Valid-but-unknown targets return 200 with `risk.confidence='low'` and `risk_reasons=['target_not_in_hologram']`, never 5xx.
     - Fails: 400 on missing or syntactically invalid path.
     """
     try:
-        return world_model_loader.load_blast_radius_snapshot(REPO_ROOT, path=path, max_depth=max_depth)
+        return _blast_radius_payload(path=path, max_depth=max_depth)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
     except Exception as exc:
@@ -6829,17 +7450,43 @@ def world_model_snapshot():
       compact JSON payload so the cockpit can render orchestration, active phase
       family, doctrine catalog, docs focus, and freshness indicators in one
       bounded fetch.
-    - Mechanism: Delegates to system.server.world_model.load_world_model_snapshot.
+    - Mechanism: Serves the existing SWR snapshot when warm; on a cold miss,
+      schedules one background build and returns a schema-clean warming packet
+      instead of blocking first paint on snapshot composition.
     - Reads: control plane + doctrine + active phase family JSON files.
     - Writes: None.
     - Guarantee: Always returns 200 with a snapshot dict; missing slices appear
       as None instead of raising.
     """
     try:
-        return world_model_loader.load_world_model_snapshot(REPO_ROOT)
+        return _world_model_snapshot_payload()
     except Exception as exc:
         logger.exception("World model snapshot failed: %s", exc)
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.get("/api/world-model/ux-responsiveness")
+def world_model_ux_responsiveness():
+    """
+    [ACTION]
+    - Teleology: Make the UX-responsiveness goal's own progress visible in the
+      cockpit, as the first proof of that goal (the `ux_responsiveness_conductor`
+      autonomous seed). This backs a read-only progress strip — never a scheduler,
+      poller, live command streamer, or fake progress bar.
+    - Mechanism: Read the authored seed JSON and project its non-secret progress
+      fields (goal status, telos, current focus, current wave, last change, proof
+      surface, next-wave objective).
+    - Reads: state/meta_missions/type_a_autonomous_seed_loop/seeds/
+      ux_responsiveness_conductor_autonomous_seed.json
+    - Writes: None.
+    - Guarantee: Always returns 200 with `available` True/False; a missing seed
+      yields `available=False` instead of raising.
+    """
+    from system.lib.ux_responsiveness_goal_projection import (
+        build_ux_responsiveness_goal_projection,
+    )
+
+    return build_ux_responsiveness_goal_projection(REPO_ROOT)
 
 
 @app.get("/api/world-model/system-lens", response_model=SystemLensProjectionResponse)
@@ -7786,7 +8433,7 @@ def world_model_attention():
     - Fails: HTTP 500 on unexpected errors.
     """
     try:
-        return world_model_loader.load_attention_snapshot(REPO_ROOT)
+        return _attention_snapshot_payload()
     except Exception as exc:
         logger.exception("attention snapshot failed: %s", exc)
         raise HTTPException(status_code=500, detail=str(exc))

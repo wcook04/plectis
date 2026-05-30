@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 20658,
+      "byte_count": 35875,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 484,
+      "line_count": 883,
       "module_id": "checkpoint_script_body_import",
       "required_anchors": [
         "checkpoint \u2014 save-button Git",
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "checkpoint",
       "source_role": "save-button Git shell lane for scoped commits, broad checkpoints, rescue refs, and private backup delegation",
-      "source_sha256": "6b1a3bfd54d8a1721aaf5eaa2afdc8fbbeac0a30c5262bd3f559c1927314ca6d",
+      "source_sha256": "4ec4a2852a5a304e4dd91c7bfa473ba1ad1a8ba8cba6fd5fb5a47cd9048887f1",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
-      "target_sha256": "6b1a3bfd54d8a1721aaf5eaa2afdc8fbbeac0a30c5262bd3f559c1927314ca6d"
+      "target_sha256": "4ec4a2852a5a304e4dd91c7bfa473ba1ad1a8ba8cba6fd5fb5a47cd9048887f1"
     },
     {
       "anchor_count": 6,

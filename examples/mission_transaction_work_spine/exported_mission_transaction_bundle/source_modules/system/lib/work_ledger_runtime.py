@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -15,6 +16,7 @@ import re
 import shlex
 import subprocess
 import uuid
+from bisect import bisect_left
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
@@ -2317,6 +2319,12 @@ def _seed_speed_dirty_pressure_focus(
 
     checkpoint = dirty_tree_pressure.get("operator_authorized_mainline_checkpoint")
     checkpoint = checkpoint if isinstance(checkpoint, Mapping) else {}
+    unclaimed_checkpoint = dirty_tree_pressure.get(
+        "operator_authorized_unclaimed_checkpoint"
+    )
+    unclaimed_checkpoint = (
+        unclaimed_checkpoint if isinstance(unclaimed_checkpoint, Mapping) else {}
+    )
     group_packet = checkpoint.get("blocking_active_claim_session_groups")
     group_packet = group_packet if isinstance(group_packet, Mapping) else {}
     groups = [
@@ -2330,6 +2338,9 @@ def _seed_speed_dirty_pressure_focus(
     )
     claim_collision_count = int(checkpoint.get("claim_collision_count") or 0)
     checkpoint_status = str(checkpoint.get("status") or "").strip() or "unknown"
+    unclaimed_checkpoint_status = (
+        str(unclaimed_checkpoint.get("status") or "").strip() or "unknown"
+    )
     first_action_kind = None
     first_action = None
     first_action_command = None
@@ -2337,7 +2348,29 @@ def _seed_speed_dirty_pressure_focus(
     status = "dirty_pressure_observed"
     promote_for_no_heartbeat = False
 
-    if claim_collision_count:
+    if checkpoint_status == "available":
+        first_action_kind = "operator_authorized_broad_checkpoint"
+        first_action = "Run the operator-authorized broad checkpoint after a final pressure recheck."
+        first_action_command = str(checkpoint.get("command") or "").strip() or None
+        first_action_ref = (
+            "dirty_tree_pressure.operator_authorized_mainline_checkpoint.command"
+        )
+        status = "checkpoint_available"
+    elif unclaimed_checkpoint_status == "available":
+        first_action_kind = "operator_authorized_unclaimed_checkpoint"
+        first_action = (
+            "Run the operator-authorized unclaimed-path checkpoint after a final "
+            "pressure recheck; active claimed paths remain excluded."
+        )
+        first_action_command = (
+            str(unclaimed_checkpoint.get("command") or "").strip() or None
+        )
+        first_action_ref = (
+            "dirty_tree_pressure.operator_authorized_unclaimed_checkpoint.command"
+        )
+        status = "unclaimed_checkpoint_available"
+        promote_for_no_heartbeat = bool(first_action_command)
+    elif claim_collision_count:
         collision_cleanup = checkpoint.get("blocking_claim_collision_cleanup")
         collision_cleanup = (
             collision_cleanup if isinstance(collision_cleanup, Mapping) else {}
@@ -2379,14 +2412,6 @@ def _seed_speed_dirty_pressure_focus(
         )
         status = "checkpoint_blocked_by_active_claims"
         promote_for_no_heartbeat = bool(first_action_command)
-    elif checkpoint_status == "available":
-        first_action_kind = "operator_authorized_broad_checkpoint"
-        first_action = "Run the operator-authorized broad checkpoint after a final pressure recheck."
-        first_action_command = str(checkpoint.get("command") or "").strip() or None
-        first_action_ref = (
-            "dirty_tree_pressure.operator_authorized_mainline_checkpoint.command"
-        )
-        status = "checkpoint_available"
 
     def _bounded_owner_surfaces(
         row: Mapping[str, Any],
@@ -3605,7 +3630,10 @@ def build_seed_speed_status(
 
     heartbeat_first_action: Dict[str, Any] | None = None
 
-    def _deferred_heartbeat_action() -> Dict[str, Any]:
+    def _deferred_heartbeat_action(
+        *,
+        deferred_by_no_heartbeat_mode: bool,
+    ) -> Dict[str, Any]:
         read_only_command = None
         read_only_ref = None
         if heartbeat_gap_claim_sessions:
@@ -3624,7 +3652,7 @@ def build_seed_speed_status(
                 str(non_heartbeat_first_action.get("command") or "").strip() or None
             )
             read_only_ref = "non_heartbeat_first_action.command"
-        return {
+        action = {
             "kind": first_action_kind,
             "action": first_action,
             "command": read_only_command,
@@ -3632,9 +3660,13 @@ def build_seed_speed_status(
             "ref": read_only_ref,
             "deferred_heartbeat_command": first_action_command,
             "deferred_heartbeat_ref": first_action_ref,
-            "deferred_by_no_heartbeat_mode": True,
             "write_command_suppressed": True,
         }
+        if deferred_by_no_heartbeat_mode:
+            action["deferred_by_no_heartbeat_mode"] = True
+        else:
+            action["deferred_by_authority_boundary"] = True
+        return action
 
     if first_action_kind in {"heartbeat_gap", "projected_unknown_heartbeat"}:
         non_heartbeat_first_action = _seed_speed_choose_disjoint_lane_action(
@@ -3660,12 +3692,40 @@ def build_seed_speed_status(
     coordination_mode = "no_heartbeat" if prefer_non_heartbeat else "standard"
     first_action_source = "computed_first_action"
     if (
+        not prefer_non_heartbeat
+        and first_action_kind in {"heartbeat_gap", "projected_unknown_heartbeat"}
+    ):
+        heartbeat_first_action = _deferred_heartbeat_action(
+            deferred_by_no_heartbeat_mode=False,
+        )
+        first_action_kind = str(
+            non_heartbeat_first_action.get("kind") or first_action_kind
+        )
+        first_action = str(
+            non_heartbeat_first_action.get("action") or first_action
+        )
+        first_action_command = (
+            str(non_heartbeat_first_action.get("command") or "").strip() or None
+        )
+        first_action_ref = (
+            str(non_heartbeat_first_action.get("ref") or "").strip() or None
+        )
+        non_heartbeat_first_action["same_as_first_action"] = True
+        non_heartbeat_first_action["why"] = (
+            "Promoted because default seed-speed guidance is read-only across "
+            "session boundaries; heartbeat writes require explicit owner or "
+            "lane authority."
+        )
+        first_action_source = "authority_safe_non_heartbeat_first_action"
+    if (
         prefer_non_heartbeat
         and dirty_tree_pressure_action
         and first_action_kind != "claim_collision"
     ):
         if first_action_kind in {"heartbeat_gap", "projected_unknown_heartbeat"}:
-            heartbeat_first_action = _deferred_heartbeat_action()
+            heartbeat_first_action = _deferred_heartbeat_action(
+                deferred_by_no_heartbeat_mode=True,
+            )
         first_action_kind = str(
             dirty_tree_pressure_action.get("kind") or first_action_kind
         )
@@ -3692,7 +3752,9 @@ def build_seed_speed_status(
         "heartbeat_gap",
         "projected_unknown_heartbeat",
     }:
-        heartbeat_first_action = _deferred_heartbeat_action()
+        heartbeat_first_action = _deferred_heartbeat_action(
+            deferred_by_no_heartbeat_mode=True,
+        )
         first_action_kind = str(
             non_heartbeat_first_action.get("kind") or first_action_kind
         )
@@ -4340,6 +4402,73 @@ def _dirty_tree_scoped_work_unblock(
     }
 
 
+def _dirty_tree_unclaimed_checkpoint(
+    *,
+    bankruptcy_authorized: bool,
+    dirty_scan_status: str,
+    dirty_class_counts: Mapping[str, int],
+    active_claim_dirty_count: int,
+    generated_owner_dirty: Mapping[str, Any],
+    unclaimed_source_dirty: Mapping[str, Any],
+    command: str,
+) -> Dict[str, Any]:
+    included_counts: Dict[str, int] = {}
+    for class_id in ("generated_owner_dirty", "unclaimed_source_dirty"):
+        count = int(dirty_class_counts.get(class_id) or 0)
+        if count:
+            included_counts[class_id] = count
+    included_count = sum(included_counts.values())
+    scan_available = dirty_scan_status in ("git_status_porcelain_v1_z", "provided")
+    available = bool(bankruptcy_authorized) and scan_available and included_count > 0
+
+    if not bankruptcy_authorized:
+        status = "not_authorized"
+        blocked_by = ["operator_bankruptcy_authorization_missing"]
+    elif not scan_available:
+        status = "blocked"
+        blocked_by = ["dirty_path_scan_unavailable"]
+    elif included_count <= 0:
+        status = "blocked"
+        blocked_by = ["no_unclaimed_dirty_paths"]
+    else:
+        status = "available"
+        blocked_by = []
+
+    packet: Dict[str, Any] = {
+        "schema": "dirty_tree_unclaimed_checkpoint_v0",
+        "authorized": bool(bankruptcy_authorized),
+        "status": status,
+        "command": command,
+        "scope": "non_active_claim_dirty_paths",
+        "included_dirty_path_count": included_count,
+        "included_dirty_path_classes": included_counts,
+        "excluded_active_claim_dirty_path_count": int(active_claim_dirty_count or 0),
+        "blocked_by": blocked_by,
+        "path_selection_policy": (
+            "Use Work Ledger dirty-path classification to include generated-owner "
+            "and unclaimed-source dirty paths while excluding any dirty path covered "
+            "by an active path claim."
+        ),
+        "requires_dirty_path_scan": True,
+        "requires_operator_bankruptcy_authorization": True,
+    }
+    if included_counts.get("generated_owner_dirty"):
+        packet["included_generated_owner_dirty"] = dict(generated_owner_dirty)
+    if included_counts.get("unclaimed_source_dirty"):
+        packet["included_unclaimed_source_dirty"] = dict(unclaimed_source_dirty)
+    if active_claim_dirty_count:
+        packet["active_claim_boundary"] = (
+            "Active claimed dirty paths are excluded, not swept; owner sessions "
+            "must land or release those paths separately."
+        )
+    if available and active_claim_dirty_count:
+        packet["coordination_warning"] = (
+            "This clears only unclaimed/non-actively-claimed paths. Re-run dirty-tree "
+            "pressure afterward; active claimed paths remain dirty by design."
+        )
+    return packet
+
+
 def _dirty_tree_after_active_claims_clear_preview(
     *,
     bankruptcy_authorized: bool,
@@ -4431,10 +4560,12 @@ def _dirty_tree_containment_plan(
     generated_owner_dirty_count: int,
     unclaimed_source_dirty_count: int,
     mainline_checkpoint_available: bool,
+    unclaimed_checkpoint_available: bool,
     rescue_coverage: Mapping[str, Any],
     rescue_repeat_policy: Mapping[str, Any],
     active_claim_session_groups: Mapping[str, Any],
     broad_checkpoint_command: str,
+    unclaimed_checkpoint_command: str,
     rescue_ref_command: str,
 ) -> Dict[str, Any]:
     steps: List[Dict[str, Any]] = []
@@ -4479,7 +4610,7 @@ def _dirty_tree_containment_plan(
                 "owner_session_groups": active_claim_session_groups,
             }
         )
-    if unclaimed_source_dirty_count:
+    if unclaimed_source_dirty_count and not unclaimed_checkpoint_available:
         steps.append(
             {
                 "step_id": "classify_or_claim_unclaimed_source_dirty",
@@ -4516,6 +4647,19 @@ def _dirty_tree_containment_plan(
                 "command": broad_checkpoint_command,
             }
         )
+    elif unclaimed_checkpoint_available:
+        steps.append(
+            {
+                "step_id": "operator_authorized_unclaimed_checkpoint",
+                "status": "available",
+                "command": unclaimed_checkpoint_command,
+                "why": (
+                    "Operator-authorized bankruptcy can clear unclaimed and "
+                    "generated-owner dirty paths while excluding active claimed "
+                    "paths."
+                ),
+            }
+        )
     elif dirty_total:
         steps.append(
             {
@@ -4529,6 +4673,8 @@ def _dirty_tree_containment_plan(
         status = "clean"
     elif mainline_checkpoint_available:
         status = "mainline_checkpoint_available"
+    elif unclaimed_checkpoint_available:
+        status = "unclaimed_checkpoint_available"
     elif active_claim_dirty_count:
         status = "active_claims_block_broad_checkpoint"
     else:
@@ -4906,15 +5052,60 @@ def _path_covers_path(container: str, path: str) -> bool:
     return target_path.startswith(f"{container_path.rstrip('/')}/")
 
 
+def _coverage_index(paths: Iterable[str]) -> Dict[str, Any]:
+    normalized = sorted({_normalize_dirty_path(path) for path in paths if path})
+    exact = set(normalized)
+    covered_descendant_prefixes: set[str] = set()
+    for path in normalized:
+        parts = path.split("/")
+        for index in range(1, len(parts)):
+            covered_descendant_prefixes.add("/".join(parts[:index]))
+    return {
+        "paths": normalized,
+        "exact": exact,
+        "covered_descendant_prefixes": covered_descendant_prefixes,
+    }
+
+
+def _path_has_descendant_in_index(path: str, index: Mapping[str, Any]) -> bool:
+    paths = list(index.get("paths") or [])
+    if not paths:
+        return False
+    prefix = f"{path.rstrip('/')}/"
+    position = bisect_left(paths, prefix)
+    return position < len(paths) and str(paths[position]).startswith(prefix)
+
+
+def _path_covered_by_index(path: str, index: Mapping[str, Any]) -> bool:
+    normalized = _normalize_dirty_path(path)
+    if not normalized:
+        return False
+    exact = set(index.get("exact") or set())
+    if normalized in exact:
+        return True
+    parts = normalized.split("/")
+    return any("/".join(parts[:i]) in exact for i in range(1, len(parts)))
+
+
+def _path_overlaps_index(path: str, index: Mapping[str, Any]) -> bool:
+    normalized = _normalize_dirty_path(path)
+    if not normalized:
+        return False
+    exact = set(index.get("exact") or set())
+    if normalized in exact:
+        return True
+    if _path_covered_by_index(normalized, index):
+        return True
+    if normalized in set(index.get("covered_descendant_prefixes") or set()):
+        return True
+    return _path_has_descendant_in_index(normalized, index)
+
+
 def _path_overlaps_pathset(path: str, pathset: set[str]) -> bool:
     normalized = _normalize_dirty_path(path)
     if not normalized:
         return False
-    return any(
-        _path_covers_path(normalized, candidate)
-        or _path_covers_path(candidate, normalized)
-        for candidate in pathset
-    )
+    return _path_overlaps_index(normalized, _coverage_index(pathset))
 
 
 def _pathset_delta_with_directory_coverage(
@@ -4924,11 +5115,13 @@ def _pathset_delta_with_directory_coverage(
 ) -> Dict[str, List[str]]:
     current_set = {_normalize_dirty_path(path) for path in current_paths if path}
     rescued_set = {_normalize_dirty_path(path) for path in rescued_paths if path}
+    current_index = _coverage_index(current_set)
+    rescued_index = _coverage_index(rescued_set)
     missing_from_rescue = sorted(
-        path for path in current_set if not _path_overlaps_pathset(path, rescued_set)
+        path for path in current_set if not _path_overlaps_index(path, rescued_index)
     )
     not_currently_dirty = sorted(
-        path for path in rescued_set if not _path_overlaps_pathset(path, current_set)
+        path for path in rescued_set if not _path_overlaps_index(path, current_index)
     )
     return {
         "missing_from_rescue": missing_from_rescue,
@@ -4943,10 +5136,11 @@ def _rescue_content_check_paths(
 ) -> List[str]:
     current_set = {_normalize_dirty_path(path) for path in current_paths if path}
     rescued_set = {_normalize_dirty_path(path) for path in rescued_paths if path}
+    current_index = _coverage_index(current_set)
     covered_rescued_paths = sorted(
         path
         for path in rescued_set
-        if any(_path_covers_path(current_path, path) for current_path in current_set)
+        if _path_covered_by_index(path, current_index)
     )
     return covered_rescued_paths
 
@@ -5195,6 +5389,10 @@ def build_dirty_tree_bankruptcy_pressure(
     )
     active_claim_dirty_count = int(dirty_class_counts.get("active_claim_dirty") or 0)
     broad_checkpoint_command = './checkpoint --arbiter --message "bankruptcy: land dirty tree state"'
+    unclaimed_checkpoint_command = (
+        './checkpoint --arbiter --unclaimed --message '
+        '"bankruptcy: land unclaimed dirty tree state"'
+    )
     rescue_ref_command = (
         './checkpoint --rescue-ref --dry-run --message "rescue: dirty-tree finalizer preservation"'
     )
@@ -5278,6 +5476,18 @@ def build_dirty_tree_bankruptcy_pressure(
         _first_active_claim_dirty_group_command(active_claim_session_groups)
         or "wait_for_claim_release_or_finalize_session_before_sweeping"
     )
+    unclaimed_checkpoint = _dirty_tree_unclaimed_checkpoint(
+        bankruptcy_authorized=bool(bankruptcy_authorized),
+        dirty_scan_status=dirty_scan_status,
+        dirty_class_counts=dirty_class_counts,
+        active_claim_dirty_count=active_claim_dirty_count,
+        generated_owner_dirty=generated_owner_dirty,
+        unclaimed_source_dirty=unclaimed_source_dirty,
+        command=unclaimed_checkpoint_command,
+    )
+    unclaimed_checkpoint_available = (
+        str(unclaimed_checkpoint.get("status") or "") == "available"
+    )
     rescue_repeat_policy = _dirty_tree_rescue_repeat_policy(
         dirty_total=len(normalized_dirty_paths),
         dirty_scan_status=dirty_scan_status,
@@ -5340,6 +5550,8 @@ def build_dirty_tree_bankruptcy_pressure(
         rescue_repeat_policy=rescue_repeat_policy,
         active_claim_session_groups=active_claim_session_groups,
         broad_checkpoint_command=broad_checkpoint_command,
+        unclaimed_checkpoint_command=unclaimed_checkpoint_command,
+        unclaimed_checkpoint_available=unclaimed_checkpoint_available,
         rescue_ref_command=rescue_ref_command,
     )
     blocked_residuals: List[Dict[str, Any]] = []
@@ -5373,7 +5585,11 @@ def build_dirty_tree_bankruptcy_pressure(
                 "next_safe_action": "run git status --porcelain=v1 -z or pass --dirty-path fixtures",
             }
         )
-    if dirty_class_counts.get("unclaimed_source_dirty") and not mainline_checkpoint_available:
+    if (
+        dirty_class_counts.get("unclaimed_source_dirty")
+        and not mainline_checkpoint_available
+        and not unclaimed_checkpoint_available
+    ):
         unclaimed_next_safe_action = (
             rescue_ref_command
             if rescue_repeat_policy.get("repeat_rescue_now")
@@ -5396,7 +5612,11 @@ def build_dirty_tree_bankruptcy_pressure(
     generic_closeout_plan_command = (
         "./repo-python tools/meta/control/closeout_executor.py plan --json --compact"
     )
-    if claim_collision_actions:
+    if mainline_checkpoint_available:
+        next_safe_action = broad_checkpoint_command
+    elif unclaimed_checkpoint_available:
+        next_safe_action = unclaimed_checkpoint_command
+    elif claim_collision_actions:
         next_safe_action = (
             claim_collision_cleanup.get("auto_release_dry_run_command")
             or claim_collision_cleanup.get("first_action_command")
@@ -5407,8 +5627,6 @@ def build_dirty_tree_bankruptcy_pressure(
             "./repo-python tools/meta/factory/work_ledger.py session-sweep "
             "--dry-run --dirty-tree-pressure"
         )
-    elif mainline_checkpoint_available:
-        next_safe_action = broad_checkpoint_command
     elif active_claim_dirty_count and (
         not rescue_drift_next_safe_action
         or rescue_drift_next_safe_action == generic_closeout_plan_command
@@ -5431,6 +5649,7 @@ def build_dirty_tree_bankruptcy_pressure(
         "safety_authority": False,
         "bankruptcy_authorized": bool(bankruptcy_authorized),
         "operator_authorized_mainline_checkpoint": operator_checkpoint,
+        "operator_authorized_unclaimed_checkpoint": unclaimed_checkpoint,
         "generated_at": work_ledger.utc_now(),
         "source_surfaces": [
             str(RUNTIME_STATUS_REL),
@@ -5497,7 +5716,25 @@ def build_dirty_tree_bankruptcy_pressure(
                 }
             ]
             if mainline_checkpoint_available
-            else []
+            else (
+                [
+                    {
+                        "reason": "OperatorAuthorizedUnclaimedDirtyTreeBankruptcy",
+                        "command": unclaimed_checkpoint_command,
+                        "conservative_fallback_command": rescue_ref_command,
+                        "dirty_path_count": unclaimed_checkpoint.get(
+                            "included_dirty_path_count"
+                        ),
+                        "excluded_active_claim_dirty_path_count": (
+                            unclaimed_checkpoint.get(
+                                "excluded_active_claim_dirty_path_count"
+                            )
+                        ),
+                    }
+                ]
+                if unclaimed_checkpoint_available
+                else []
+            )
         ),
         "blocked_residuals": blocked_residuals,
         "next_safe_action": next_safe_action,
@@ -5509,6 +5746,7 @@ def build_dirty_tree_bankruptcy_pressure(
             "private_backup_dry_run": "./checkpoint --private-backup --dry-run --json",
             "rescue_ref_dry_run": rescue_ref_command,
             "operator_authorized_broad_checkpoint": broad_checkpoint_command,
+            "operator_authorized_unclaimed_checkpoint": unclaimed_checkpoint_command,
             "closeout_plan": "./repo-python tools/meta/control/closeout_executor.py plan --json --compact",
         },
     }
@@ -5537,6 +5775,9 @@ def dirty_tree_pressure_alias(card: Mapping[str, Any]) -> Dict[str, Any]:
         "dirty_path_class_counts": class_counts,
         "operator_authorized_mainline_checkpoint": card.get(
             "operator_authorized_mainline_checkpoint"
+        ),
+        "operator_authorized_unclaimed_checkpoint": card.get(
+            "operator_authorized_unclaimed_checkpoint"
         ),
         "active_claim_session_groups": card.get("active_claim_session_groups"),
         "scoped_work_unblock": card.get("scoped_work_unblock"),
@@ -5704,7 +5945,7 @@ def _duplicate_same_session_claim_dedupe_actions(
     *,
     now: datetime,
     orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
-    limit: int = SESSION_COHORT_OVERVIEW_LIMIT,
+    limit: int | None = SESSION_COHORT_OVERVIEW_LIMIT,
 ) -> List[Dict[str, Any]]:
     sessions_payload = status.get("sessions") if isinstance(status.get("sessions"), Mapping) else {}
     active_claims: List[Dict[str, Any]] = []
@@ -5720,6 +5961,10 @@ def _duplicate_same_session_claim_dedupe_actions(
             row["phase_id"] = session.get("phase_id")
             active_claims.append(row)
     active_claims.sort(key=lambda c: str(c.get("leased_until") or ""), reverse=True)
+
+    action_limit = None if limit is None else max(0, int(limit or 0))
+    if action_limit == 0:
+        return []
 
     actions: List[Dict[str, Any]] = []
     scheduled_release_keys: set[tuple[str, str]] = set()
@@ -5791,9 +6036,91 @@ def _duplicate_same_session_claim_dedupe_actions(
                 ],
             }
         )
-        if len(actions) >= max(0, int(limit or 0)):
+        if action_limit is not None and len(actions) >= action_limit:
             break
     return actions
+
+
+def _duplicate_claim_release_keys(actions: Sequence[Mapping[str, Any]]) -> set[tuple[str, str]]:
+    return {
+        (str(action.get("session_id") or ""), str(claim_id or ""))
+        for action in actions
+        for claim_id in action.get("release_claim_ids") or []
+        if str(action.get("session_id") or "") and str(claim_id or "")
+    }
+
+
+def _mark_duplicate_claims_released(
+    status: Dict[str, Any],
+    release_keys: set[tuple[str, str]],
+    *,
+    current: datetime,
+    release_reason: str,
+) -> List[Dict[str, Any]]:
+    released: List[Dict[str, Any]] = []
+    if not release_keys:
+        return released
+
+    sessions = dict(status.get("sessions") or {})
+    for session_id, session in list(sessions.items()):
+        if not isinstance(session, Mapping):
+            continue
+        claims = [
+            dict(claim)
+            for claim in session.get("claims") or []
+            if isinstance(claim, Mapping)
+        ]
+        changed = False
+        for claim in claims:
+            claim_id = str(claim.get("claim_id") or "")
+            if (str(session_id), claim_id) not in release_keys:
+                continue
+            if claim.get("released_at") or claim.get("expired_at"):
+                continue
+            claim["released_at"] = current.isoformat()
+            claim["release_reason"] = release_reason
+            released_claim = _compact_claim(claim)
+            released_claim["session_id"] = str(session_id)
+            released.append(released_claim)
+            changed = True
+        if changed:
+            session = dict(session)
+            session["claims"] = claims
+            sessions[str(session_id)] = session
+    status["sessions"] = sessions
+    return released
+
+
+def _dedupe_duplicate_claims_to_fixed_point(
+    status: Dict[str, Any],
+    *,
+    current: datetime,
+    release_reason: str,
+) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]], int]:
+    all_actions: List[Dict[str, Any]] = []
+    all_released: List[Dict[str, Any]] = []
+    iteration_count = 0
+    for _ in range(100):
+        iteration_count += 1
+        actions = _duplicate_same_session_claim_dedupe_actions(
+            status,
+            now=current,
+            limit=None,
+        )
+        if not actions:
+            iteration_count -= 1
+            break
+        released = _mark_duplicate_claims_released(
+            status,
+            _duplicate_claim_release_keys(actions),
+            current=current,
+            release_reason=release_reason,
+        )
+        if not released:
+            break
+        all_actions.extend(actions)
+        all_released.extend(released)
+    return all_actions, all_released, iteration_count
 
 
 def dedupe_duplicate_same_session_claims(
@@ -5817,23 +6144,24 @@ def dedupe_duplicate_same_session_claims(
 
     if dry_run:
         status = _load_runtime_status_for_session_scan(repo_root)
-        actions = _duplicate_same_session_claim_dedupe_actions(
-            status,
-            now=current,
-            limit=safe_limit,
+        actions, would_release, iteration_count = _dedupe_duplicate_claims_to_fixed_point(
+            copy.deepcopy(dict(status)),
+            current=current,
+            release_reason=release_reason,
         )
-        release_count = sum(int(action.get("release_count") or 0) for action in actions)
+        preview_actions = actions[:safe_limit] if safe_limit else []
         return {
             "schema": DUPLICATE_CLAIM_DEDUPE_SCHEMA,
-            "status": "would_release" if release_count else "clean",
+            "status": "would_release" if would_release else "clean",
             "dry_run": True,
             "generated_at": current.isoformat(),
             "release_reason": release_reason,
             "duplicate_collision_count": len(actions),
             "released_count": 0,
-            "would_release_count": release_count,
-            "actions": actions,
-            "actions_omitted": 0,
+            "would_release_count": len(would_release),
+            "actions": preview_actions,
+            "actions_omitted": max(0, len(actions) - len(preview_actions)),
+            "dedupe_iteration_count": iteration_count,
             "policy": (
                 "same-session duplicate only; keeps newest lease and releases older "
                 "duplicate claims"
@@ -5841,47 +6169,14 @@ def dedupe_duplicate_same_session_claims(
         }
 
     with work_ledger.file_lock(_runtime_lock_path(repo_root)):
-        status = _load_runtime_status_for_session_scan(repo_root)
-        actions = _duplicate_same_session_claim_dedupe_actions(
+        status = dict(_load_runtime_status_for_session_scan(repo_root))
+        actions, released, iteration_count = _dedupe_duplicate_claims_to_fixed_point(
             status,
-            now=current,
-            limit=safe_limit,
+            current=current,
+            release_reason=release_reason,
         )
-        release_keys = {
-            (str(action.get("session_id") or ""), str(claim_id or ""))
-            for action in actions
-            for claim_id in action.get("release_claim_ids") or []
-            if str(action.get("session_id") or "") and str(claim_id or "")
-        }
-        released: List[Dict[str, Any]] = []
-        if release_keys:
-            sessions = dict(status.get("sessions") or {})
-            for session_id, session in list(sessions.items()):
-                if not isinstance(session, Mapping):
-                    continue
-                claims = [
-                    dict(claim)
-                    for claim in session.get("claims") or []
-                    if isinstance(claim, Mapping)
-                ]
-                changed = False
-                for claim in claims:
-                    claim_id = str(claim.get("claim_id") or "")
-                    if (str(session_id), claim_id) not in release_keys:
-                        continue
-                    if claim.get("released_at") or claim.get("expired_at"):
-                        continue
-                    claim["released_at"] = current.isoformat()
-                    claim["release_reason"] = release_reason
-                    released_claim = _compact_claim(claim)
-                    released_claim["session_id"] = str(session_id)
-                    released.append(released_claim)
-                    changed = True
-                if changed:
-                    session = dict(session)
-                    session["claims"] = claims
-                    sessions[str(session_id)] = session
-            status["sessions"] = sessions
+        preview_actions = actions[:safe_limit] if safe_limit else []
+        if released:
             event = {
                 "event_id": mint_sweep_event_id(),
                 "kind": "duplicate_claim_dedupe",
@@ -5908,8 +6203,9 @@ def dedupe_duplicate_same_session_claims(
         "duplicate_collision_count": len(actions),
         "released_count": len(released),
         "would_release_count": 0,
-        "actions": actions,
-        "actions_omitted": 0,
+        "actions": preview_actions,
+        "actions_omitted": max(0, len(actions) - len(preview_actions)),
+        "dedupe_iteration_count": iteration_count,
         "released": released,
         "policy": (
             "same-session duplicate only; keeps newest lease and releases older "

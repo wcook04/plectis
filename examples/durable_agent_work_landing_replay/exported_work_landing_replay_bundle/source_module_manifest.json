@@ -50,9 +50,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 143081,
+      "byte_count": 152486,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 3553,
+      "line_count": 3770,
       "material_class": "public_macro_ledger_body",
       "module_id": "work_landing_status_source_body_import",
       "path": "source_modules/system/lib/work_landing_status.py",
@@ -61,15 +61,15 @@
         "def build_work_landing_status",
         "def build_work_landing_reconcile_plan"
       ],
-      "sha256": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "sha256": "sha256:efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/work_landing_status.py",
       "source_role": "Macro work-landing status and reconcile controller library that classifies finalizers, receipt-intake state, commit landing, and Work Ledger closeout readiness.",
-      "source_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "source_sha256": "efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py",
-      "target_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "target_sha256": "efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
       "validation_refs": [
         "microcosm_core.organs.durable_agent_work_landing_replay.validate_source_module_imports",
         "tests/test_durable_agent_work_landing_replay.py::test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_floor"
@@ -78,9 +78,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 6476,
+      "byte_count": 6587,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 187,
+      "line_count": 190,
       "material_class": "public_macro_tool_body",
       "module_id": "work_landing_cli_source_body_import",
       "path": "source_modules/tools/meta/control/work_landing.py",
@@ -89,15 +89,15 @@
         "def build_parser",
         "def main"
       ],
-      "sha256": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "sha256": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/work_landing.py",
       "source_role": "Macro CLI surface for work-landing status, reconcile, begin, and admission-check commands over WorkItem landing attempts.",
-      "source_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "source_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py",
-      "target_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "target_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
       "validation_refs": [
         "microcosm_core.organs.durable_agent_work_landing_replay.validate_source_module_imports",
         "tests/test_durable_agent_work_landing_replay.py::test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_floor"
@@ -162,9 +162,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 176124,
+      "byte_count": 176624,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4370,
+      "line_count": 4383,
       "material_class": "public_macro_ledger_body",
       "module_id": "work_ledger_runtime_claims_source_body_import",
       "path": "source_modules/tools/meta/factory/work_ledger.py",
@@ -173,15 +173,15 @@
         "HEARTBEAT_PARTICIPATION_HELP",
         "def main"
       ],
-      "sha256": "sha256:f6c4fa662c86264ff08a321315b8abc01f03a9d5cf29591bb9bf0e7e6e51476d",
+      "sha256": "sha256:45425bb801908f9018e8ddde9533e2229e9f5bb775888ea7afe7d31834862d42",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/factory/work_ledger.py",
       "source_role": "Macro Work Ledger lifecycle CLI for session preflight, active claim cards, heartbeats, progress/finalize flows, and dirty-tree coordination.",
-      "source_sha256": "f6c4fa662c86264ff08a321315b8abc01f03a9d5cf29591bb9bf0e7e6e51476d",
+      "source_sha256": "45425bb801908f9018e8ddde9533e2229e9f5bb775888ea7afe7d31834862d42",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "target_sha256": "f6c4fa662c86264ff08a321315b8abc01f03a9d5cf29591bb9bf0e7e6e51476d",
+      "target_sha256": "45425bb801908f9018e8ddde9533e2229e9f5bb775888ea7afe7d31834862d42",
       "validation_refs": [
         "microcosm_core.organs.durable_agent_work_landing_replay.validate_source_module_imports",
         "tests/test_durable_agent_work_landing_replay.py::test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_floor"

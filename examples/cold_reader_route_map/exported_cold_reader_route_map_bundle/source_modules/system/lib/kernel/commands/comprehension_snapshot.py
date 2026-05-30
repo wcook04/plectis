@@ -1917,6 +1917,28 @@ def _compact_entry_workitem_handoff_for_admission(
     return compact
 
 
+def _empty_top_schedulable_workitem_for_entry() -> dict[str, Any]:
+    return {
+        "id": "no_schedulable_workitem_projected",
+        "title": "No schedulable WorkItem projected",
+        "rank": None,
+        "state": "none_projected",
+        "work_item_type": "projection_status",
+        "projection_placeholder": True,
+        "drilldown_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        "dependency_status": {
+            "schedulable": False,
+            "hard_dep_count": 0,
+            "edge_details_omitted_for_entry_admission": True,
+        },
+        "omission_receipt": {
+            "omitted": ["full Task Ledger execution menu"],
+            "reason": "No schedulable/ready WorkItem was projected at entry time; open Task Ledger cluster for live selection.",
+            "drilldown": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        },
+    }
+
+
 def _hard_compact_entry_workitem_handoff_for_admission(
     workitem: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
@@ -2537,6 +2559,18 @@ def _hard_compact_transaction_control_plane_for_admission(
         "status": payload.get("status"),
         "target_id": payload.get("target_id"),
         "next_action": payload.get("next_action"),
+        "shared_index_quarantine": {
+            "status": (
+                (payload.get("shared_index_quarantine") or {}).get("status")
+                if isinstance(payload.get("shared_index_quarantine"), dict)
+                else payload.get("status")
+            ),
+            "next_action": (
+                (payload.get("shared_index_quarantine") or {}).get("next_action")
+                if isinstance(payload.get("shared_index_quarantine"), dict)
+                else payload.get("next_action")
+            ),
+        },
         "omission_receipt": {
             "omitted": [
                 "per-subplane quarantine cards",
@@ -2956,11 +2990,73 @@ def _apply_entry_payload_admission(
             ] = len(post_receipt_compacted_sections)
             refresh_admission_size()
             if packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target":
-                packet["entry_payload_admission"].pop(
-                    "post_receipt_compacted_section_count",
-                    None,
-                )
                 refresh_admission_size()
+    if (
+        packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+        and not full_diagnostics_requested
+    ):
+        for key in (
+            "top_sections_before",
+            "top_sections_after",
+            "preserved_non_negotiable_fields",
+            "owner_surface",
+        ):
+            packet["entry_payload_admission"].pop(key, None)
+        refresh_admission_size()
+    if (
+        packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+        and not full_diagnostics_requested
+    ):
+        closeout_git_state = packet.get("closeout_git_state")
+        if isinstance(closeout_git_state, dict):
+            packet["closeout_git_state"] = {
+                key: value
+                for key, value in {
+                    "schema": "closeout_git_state_summary_v0",
+                    "status": closeout_git_state.get("status"),
+                    "reason": closeout_git_state.get("reason"),
+                    "dirty_total": closeout_git_state.get("dirty_total"),
+                    "scoped_work_allowed": closeout_git_state.get("scoped_work_allowed"),
+                    "scoped_work_gate": closeout_git_state.get("scoped_work_gate"),
+                    "recommended_lane": closeout_git_state.get("recommended_lane"),
+                    "drilldown": "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions",
+                    "trimmed_for_entry_admission": True,
+                }.items()
+                if value not in (None, "", [], {})
+            }
+        mutation_governance = packet.get("mutation_governance")
+        latest_gate = (
+            mutation_governance.get("latest_intent_gate")
+            if isinstance(mutation_governance, dict)
+            else None
+        )
+        if isinstance(latest_gate, dict):
+            packet["mutation_governance"] = {
+                "latest_intent_gate": {
+                    key: latest_gate.get(key)
+                    for key in (
+                        "status",
+                        "latest_intent",
+                        "repo_patch_allowed",
+                        "prohibit_file_writes",
+                        "prohibit_seed_reentry",
+                    )
+                    if latest_gate.get(key) not in (None, "", [], {})
+                },
+                "trimmed_for_entry_admission": True,
+            }
+        allowed = packet.get("allowed_drilldowns")
+        if isinstance(allowed, list):
+            packet["allowed_drilldowns"] = [
+                {
+                    key: row.get(key)
+                    for key in ("command", "surface_role")
+                    if isinstance(row, dict) and row.get(key) not in (None, "", [], {})
+                }
+                for row in allowed[:2]
+                if isinstance(row, dict)
+            ]
+        refresh_admission_size()
     return packet
 
 
@@ -6103,6 +6199,18 @@ def _task_mentions_publication_lane_push_recovery(repo_root: Path, task: str | N
     return any(term in text for term in terms)
 
 
+def _task_mentions_local_to_general_propagation(repo_root: Path, task: str | None) -> bool:
+    text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
+    if not text:
+        return False
+    terms = _projected_situation_match_terms(
+        repo_root,
+        situation_id="local_to_general_propagation",
+        route_id="sit_local_to_general_propagation",
+    )
+    return any(term in text for term in terms)
+
+
 def _projected_situation_route_command(
     repo_root: Path,
     *,
@@ -6827,6 +6935,8 @@ def build_entry_packet(
             break
     top_ready_payload = top_ready_workitem(repo_root)
     top_schedulable_payload = top_schedulable_workitem(repo_root)
+    if top_schedulable_payload is None:
+        top_schedulable_payload = _empty_top_schedulable_workitem_for_entry()
     from system.lib.active_execution_constellation import (
         build_active_execution_constellation,
         compact_active_execution_constellation_for_entry,
@@ -6855,6 +6965,11 @@ def build_entry_packet(
     is_mechanism_workitem_affinity = _task_mentions_mechanism_workitem_affinity(task_text)
     is_doctrine_population = _task_mentions_doctrine_population(task_text)
     is_type_b_to_type_a_handoff = _task_mentions_type_b_to_type_a_handoff(repo_root, task_text)
+    is_local_to_general_propagation = (
+        _task_mentions_local_to_general_propagation(repo_root, task_text)
+        and not is_type_b_to_type_a_handoff
+        and not is_doctrine_population
+    )
     is_agent_principle_authoring = (
         _task_mentions_agent_principle_authoring(task_text)
         and not is_type_b_to_type_a_handoff
@@ -6890,6 +7005,7 @@ def build_entry_packet(
         and not is_speed_refinement
         and not is_doctrine_population
         and not is_navigation_repair
+        and not is_local_to_general_propagation
     )
     is_frontend_capability_discovery = _task_mentions_frontend_capability_discovery(task_text)
     frontend_capability_slices = (
@@ -6935,6 +7051,7 @@ def build_entry_packet(
         and not is_doctrine_population
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
+        and not is_local_to_general_propagation
         and state_axis is None
         and not is_state_axis_overview
         and not is_projection_closure_audit
@@ -6963,6 +7080,7 @@ def build_entry_packet(
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
         and not is_mechanism_workitem_affinity
+        and not is_local_to_general_propagation
         and state_axis is None
         and not is_state_axis_overview
     ) or is_projection_closure_audit or (is_speed_refinement and not is_autonomous_seed_framework)
@@ -7003,13 +7121,16 @@ def build_entry_packet(
         and not is_active_execution_constellation
         and not is_agent_trouble_diagnosis
         and not is_navigation
+        and not is_local_to_general_propagation
         and not is_publication_lane_push_recovery
         and not is_config_authority_plane
         and not is_frontend_visual_memory
     )
     selected_lane = {
         "lane_id": (
-            "agent_trouble_diagnosis_seed"
+            "navigation_enforcement"
+            if is_speed_refinement
+            else "agent_trouble_diagnosis_seed"
             if is_agent_trouble_diagnosis
             else "system_state_axis_overview"
             if is_state_axis_overview and not is_projection_closure_audit
@@ -7019,10 +7140,10 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "projection_closure_audit"
             if is_projection_closure_audit
+            else "local_to_general_propagation"
+            if is_local_to_general_propagation
             else "type_a_autonomous_seed_framework"
             if is_autonomous_seed_framework
-            else "navigation_enforcement"
-            if is_speed_refinement
             else "cognitive_operator_discovery"
             if is_cognitive_operator_discovery
             else "organisation_control_plane"
@@ -7060,7 +7181,9 @@ def build_entry_packet(
             else "active_phase"
         ),
         "reason": (
-            "Latest operator message asks to diagnose agent trouble/transcript behavior; use the read-only trouble-diagnosis route and keep quoted prior seeds as evidence, not live instructions."
+            "Task asks for speed refinements; open existing command telemetry, latency-seed, process-bottleneck, command-profile, and speedboard surfaces before generic autonomous-seed or cognitive-operator routing."
+            if is_speed_refinement
+            else "Latest operator message asks to diagnose agent trouble/transcript behavior; use the read-only trouble-diagnosis route and keep quoted prior seeds as evidence, not live instructions."
             if is_agent_trouble_diagnosis
             else "Task asks for the compressed state-axis universe; open the generated fact navigation artifact."
             if is_state_axis_overview and not is_projection_closure_audit
@@ -7070,10 +7193,10 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "Task asks what doctrine/state is not projected; route to the projection-closure audit ratchet."
             if is_projection_closure_audit
+            else "Task asks to turn a local lesson, operator snippet, failure-class packet, or runtime/launcher receipt gap into a non-overfit system refinement; open local-to-general context before mutating an owner surface."
+            if is_local_to_general_propagation
             else "Task asks about autonomous seeds, wake prompts, repeated prompt clusters, or seed cohorts; open the Type A autonomous-seed framework, prompt-authoring standard, seed corpus, and wake-prompt diagnostics before generic cognitive-operator routing."
             if is_autonomous_seed_framework
-            else "Task asks for speed refinements; open existing command telemetry, latency-seed, process-bottleneck, command-profile, and speedboard surfaces before generic autonomous-seed or cognitive-operator routing."
-            if is_speed_refinement
             else "Task asks for autonomous cognitive-operator discovery or counterevidence handling; open the cognitive operator surface through context-pack before ordinary active-phase work."
             if is_cognitive_operator_discovery
             else "Task asks for system organisation; compose closeout, dirty ownership, Task Ledger, generated-state, and stale-doctrine lanes before selecting any leaf repair."
@@ -7119,7 +7242,9 @@ def build_entry_packet(
         else:
             state_axis_command = f"./repo-python kernel.py --facts --facts-facet {axis_value} --band flag"
     next_command = (
-        "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json"
+        f"./repo-python kernel.py --navigation-metabolism {task_arg} --metabolism-profile quick --context-budget {context_budget}"
+        if is_speed_refinement
+        else "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json"
         if is_agent_trouble_diagnosis
         else "./repo-python kernel.py --facts --band cluster_flag"
         if is_state_axis_overview and not is_projection_closure_audit
@@ -7127,6 +7252,8 @@ def build_entry_packet(
         if state_axis_command is not None and not is_projection_closure_audit
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_disclosure_query and task_text and not is_projection_closure_audit
+        else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
+        if is_local_to_general_propagation and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_autonomous_seed_framework and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
@@ -7236,6 +7363,7 @@ def build_entry_packet(
         if (
             isinstance(preferred_workitem_payload, dict)
             and preferred_workitem_payload.get("drilldown_command")
+            and not preferred_workitem_payload.get("projection_placeholder")
         ):
             preferred_command = str(preferred_workitem_payload["drilldown_command"])
             next_action = {
@@ -7260,6 +7388,8 @@ def build_entry_packet(
     recognized_situation = (
         "task_ledger_workitem"
         if selected_workitem_payload is not None
+        else "navigation_control_boundary"
+        if is_speed_refinement
         else "agent_trouble_diagnosis_seed"
         if is_agent_trouble_diagnosis
         else "type_b_to_type_a_continuation_handoff"
@@ -7278,6 +7408,8 @@ def build_entry_packet(
         if is_disclosure_query and not is_projection_closure_audit
         else "projection_closure_audit"
         if is_projection_closure_audit
+        else "local_to_general_propagation"
+        if is_local_to_general_propagation
         else "type_a_autonomous_seed_framework"
         if is_autonomous_seed_framework
         else "cognitive_operator_discovery"

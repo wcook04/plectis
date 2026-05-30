@@ -206,7 +206,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 14904,
+      "byte_count": 14927,
       "classification": "copied_non_secret_macro_body",
       "line_count": 384,
       "material_class": "public_macro_standard_body",
@@ -217,15 +217,15 @@
         "\"artifact_kinds\"",
         "\"launchable_ops\""
       ],
-      "sha256": "sha256:20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2",
+      "sha256": "sha256:a726bf67298a27e1b0479641a7e782df4fdc229ba5c2f91e8321606d62c787f0",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "codex/standards/lattice_registry.json",
       "source_role": "Macro lattice registry declaring artifact kinds, launchable operations, reactions, and compression layers",
-      "source_sha256": "20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2",
+      "source_sha256": "a726bf67298a27e1b0479641a7e782df4fdc229ba5c2f91e8321606d62c787f0",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/lattice_registry.json",
-      "target_sha256": "20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2"
+      "target_sha256": "a726bf67298a27e1b0479641a7e782df4fdc229ba5c2f91e8321606d62c787f0"
     },
     {
       "body_copied": true,

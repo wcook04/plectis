@@ -28,7 +28,8 @@
       "restore",
       "checkout -- path",
       "reset --hard",
-      "clean -f",
+      "clean -f / -fx / -fX",
+      "delete ignored dependency installs, render receipts, or runtime caches outside the owning cleanup lane",
       "delete unknown or generated work",
       "regenerate over dirty projection without owner-tool or adoption receipt"
     ],

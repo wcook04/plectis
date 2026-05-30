@@ -532,7 +532,8 @@
       "promotion_candidates": "promotion_candidates is the shaped-capture review queue. Rows here may be valuable and well-described, but they are still attention candidates, not implementation commitments.",
       "commitment_queue": "execution_menu is the WIP-limited commitment queue for WorkItems with explicit commitment event evidence: work_item.promoted, work_item.claimed, work_item.state_transitioned, work_item.rerank_committed with portfolio-commitment semantics, or operator/controller override. Implementation work should normally come from execution_menu, ready_by_rank, or an explicit operator/controller override; shaped-ready capture and legacy rank_history alone are not enough.",
       "active_wip_policy": "active_wip must stay bounded and explainable. This standard does not impose a hard numeric cap yet; organizer-report should surface WIP pressure before any blocking cap is enforced.",
-      "rank_policy": "Rank and promotion changes require justification and, where operator-review-required, explicit operator or controller approval."
+      "rank_policy": "Rank and promotion changes require justification and, where operator-review-required, explicit operator or controller approval.",
+      "commitment_tier": "The blocking, bounded, session-OWNED tier that actuates active_wip_policy and blocking_or_redirect_hook. Source of truth is the WorkItem spine (capture -> promote -> block --reason, commitment-tagged, mission scope_profile, authorization_blocks_execution); commitments.jsonl is a bounded migration harness, not authority. A commitment carries a hard per-session budget (default 7; cannot be exceeded without close/defer = anti-accumulation by construction) and a recorded-reason escape hatch (work is neither lost nor permanently wedging). Implemented by tools/meta/control/commitment_discipline.py: status --session <id> emits yield_disposition blocked|clear, fail-safe (any error resolves to clear) and session-owned so it can never wedge a concurrent session on a shared phase; only the owning session's open commitments block, never captures. decay classifies untriaged captured-state rows older than a threshold into state/task_ledger/views/stale_fixed_candidates.json as a triage surface, not auto-delete, since stale_fixed_cap_sweeper still governs retirement; metrics surfaces arrival rate, queue depth, and age percentiles (Little's Law) as the real drain lever. Tests: tests/test_commitment_discipline.py. Procedure: codex/doctrine/skills/task_ledger/commitment_discipline.md. Promoting the hard Stop-hook/closeout guard from advisory to enforced is operator-gated per active_wip_policy (surface before enforce)."
     },
     "provider_native_task_affordance_boundary": {
       "policy_id": "provider_native_task_affordance_boundary",
@@ -561,12 +562,14 @@
         "durable_id_path_hash_or_commit_read_back_from_owner_surface",
         "validation_state_reported_as_passed_failed_blocked_or_not_run",
         "blocked_validation_includes_gate_reason_and_retry_command",
+        "trace_error_signature_routed_to_owner_before_success_claim",
         "referenced_paths_or_standards_exist_or_are_selected_by_option_surface"
       ],
       "invalid_exit_patterns": [
         "claiming a blocked or queued validation as green",
         "claiming a capture id from a failed quick-capture invocation",
         "claiming a scoped commit from a nonzero scoped_commit command",
+        "treating CLI usage output or a nonzero exit captured in session diagnostics as if the command succeeded",
         "editing tests against an imagined source path or standard"
       ]
     },

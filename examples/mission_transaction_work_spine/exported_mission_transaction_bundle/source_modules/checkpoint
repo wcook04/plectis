@@ -7,7 +7,14 @@
 #   ./checkpoint --dry-run    preview what would be saved
 #   ./checkpoint --status     compact pending summary
 #   ./checkpoint --force      skip safety warnings; with concurrent live sessions,
-#                              message must name dirty paths
+#                              broad checkpoints must name dirty paths
+#   ./checkpoint --arbiter --unclaimed \
+#       --message "bankruptcy: land unclaimed dirty tree state"
+#                              stage only dirty paths not covered by active path claims
+#   ./checkpoint --arbiter --unclaimed --dry-run
+#                              fast path-filter preview; no private-index content staging
+#   ./checkpoint --arbiter --unclaimed --dry-run --verify-dry-run-stage
+#                              dry-run the full private-index staging path
 #   ./checkpoint --rescue-ref --message "rescue: dirty-tree bankruptcy snapshot"
 #                              preserve dirt to refs/aiw/rescue/dirty-tree/<run_id>
 #   ./checkpoint --backup-status
@@ -41,6 +48,8 @@ FORCE=false
 RESCUE_REF=false
 RESCUE_BRANCH_ALIAS=false
 ARBITER=false
+UNCLAIMED_ONLY=false
+VERIFY_DRY_RUN_STAGE=false
 BACKUP_STATUS=false
 PRIVATE_BACKUP=false
 BACKUP_JSON=false
@@ -84,6 +93,8 @@ while [[ $# -gt 0 ]]; do
         --dry-run)  DRY_RUN=true ;;
         --force)    FORCE=true ;;
         --arbiter)  ARBITER=true ;;
+        --unclaimed|--unclaimed-only) UNCLAIMED_ONLY=true ;;
+        --verify-dry-run-stage) VERIFY_DRY_RUN_STAGE=true ;;
         --rescue-ref) RESCUE_REF=true ;;
         --backup-status) BACKUP_STATUS=true ;;
         --private-backup|--emergency-private-backup) PRIVATE_BACKUP=true ;;
@@ -148,8 +159,14 @@ while [[ $# -gt 0 ]]; do
             echo "  ./checkpoint --message \"my note\""
             echo "  ./checkpoint --dry-run    preview what would be saved"
             echo "  ./checkpoint --status     compact pending summary"
-            echo "  ./checkpoint --force      skip safety warnings; with concurrent live sessions, message must name dirty paths"
+            echo "  ./checkpoint --force      skip safety warnings; with concurrent live sessions, broad checkpoints must name dirty paths"
             echo "  ./checkpoint --arbiter    allow broad main checkpoint despite active claims/resources"
+            echo "  ./checkpoint --arbiter --unclaimed"
+            echo "                           checkpoint only dirty paths not covered by active Work Ledger path claims"
+            echo "  ./checkpoint --arbiter --unclaimed --dry-run"
+            echo "                           fast path-filter preview without private-index content staging"
+            echo "  ./checkpoint --arbiter --unclaimed --dry-run --verify-dry-run-stage"
+            echo "                           run the full private-index staging path for validation"
             echo "  ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\""
             echo "                           write refs/aiw/rescue/dirty-tree/<run_id>; do not update main; do not push"
             echo "  ./checkpoint --rescue-branch"
@@ -207,7 +224,11 @@ print(f"ORPHANED_SESSIONS={orphaned}")
     eval "$decision"
     if [[ "$ACTIVE_CLAIMS" -gt 0 || "$ACTIVE_RESOURCE_LEASES" -gt 0 ]]; then
         if [[ "$ARBITER" == "true" ]]; then
-            echo -e "${YELLOW}WARNING: --arbiter is overriding active claims/resources for a broad checkpoint.${RESET}"
+            if [[ "$UNCLAIMED_ONLY" == "true" ]]; then
+                echo -e "${YELLOW}WARNING: --arbiter --unclaimed is preserving active claimed paths and landing only unclaimed dirty paths.${RESET}"
+            else
+                echo -e "${YELLOW}WARNING: --arbiter is overriding active claims/resources for a broad checkpoint.${RESET}"
+            fi
             echo -e "${DIM}active_claims=${ACTIVE_CLAIMS} active_resource_leases=${ACTIVE_RESOURCE_LEASES}${RESET}"
         else
             echo -e "${RED}ERROR: broad checkpoint to main refused while active claims/resources exist.${RESET}"
@@ -220,7 +241,11 @@ print(f"ORPHANED_SESSIONS={orphaned}")
         local dirty_paths
         dirty_paths="$(checkpoint_guard_dirty_paths)"
         if [[ -n "$dirty_paths" ]]; then
-            if [[ "$FORCE" != "true" ]]; then
+            if [[ "$UNCLAIMED_ONLY" == "true" ]]; then
+                echo -e "${YELLOW}WARNING: multiple live sessions detected; --unclaimed will stage only paths not covered by active path claims.${RESET}"
+                echo -e "${DIM}effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}${RESET}"
+                return 0
+            elif [[ "$FORCE" != "true" ]]; then
                 echo -e "${RED}ERROR: broad checkpoint to main refused while multiple live agent sessions exist.${RESET}"
                 echo -e "${YELLOW}Use ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\", or rerun with --force and a --message that names every dirty path being swept.${RESET}"
                 echo -e "${DIM}effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}${RESET}"
@@ -244,6 +269,339 @@ print(f"ORPHANED_SESSIONS={orphaned}")
         echo -e "${YELLOW}WARNING: effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}; orphaned_sessions=${ORPHANED_SESSIONS}.${RESET}"
         echo -e "${DIM}Continuing because no active claims or measurable resource leases are blocking.${RESET}"
     fi
+}
+
+checkpoint_prepare_unclaimed_manifest() {
+    local pressure_file="$1"
+    local path_file="$2"
+    local summary_file="$3"
+    local parent_sha="$4"
+    if [[ ! -x "./repo-python" || ! -f "tools/meta/factory/work_ledger.py" ]]; then
+        echo -e "${RED}ERROR: --unclaimed requires ./repo-python and tools/meta/factory/work_ledger.py.${RESET}"
+        exit 1
+    fi
+    if ! ./repo-python tools/meta/factory/work_ledger.py session-sweep \
+        --dry-run \
+        --dirty-tree-pressure \
+        --bankruptcy-authorized \
+        --dirty-path-limit 1000000 > "$pressure_file"; then
+        echo -e "${RED}ERROR: failed to compute dirty-tree pressure for --unclaimed checkpoint.${RESET}"
+        exit 1
+    fi
+    if ! python3 - "$pressure_file" "$path_file" "$summary_file" "$parent_sha" <<'PY'
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+pressure_path = Path(sys.argv[1])
+path_file = Path(sys.argv[2])
+summary_file = Path(sys.argv[3])
+parent_sha = sys.argv[4]
+payload = json.loads(pressure_path.read_text(encoding="utf-8"))
+card = payload.get("dirty_tree_bankruptcy_pressure", payload)
+rows = card.get("dirty_path_rows") if isinstance(card, dict) else []
+if not isinstance(rows, list):
+    rows = []
+
+def _path_chunks(paths, *, max_count=200, max_bytes=120000):
+    chunk = []
+    byte_count = 0
+    for path in paths:
+        path_size = len(path.encode("utf-8", "surrogateescape")) + 1
+        if chunk and (len(chunk) >= max_count or byte_count + path_size > max_bytes):
+            yield chunk
+            chunk = []
+            byte_count = 0
+        chunk.append(path)
+        byte_count += path_size
+    if chunk:
+        yield chunk
+
+def _git_stdout(args, *, input_data=None, ok_codes=(0,)):
+    completed = subprocess.run(
+        ["git", *args],
+        input=input_data,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if completed.returncode not in ok_codes:
+        stderr = completed.stderr.decode("utf-8", "replace").strip()
+        raise SystemExit(f"git {' '.join(args)} failed: {stderr or completed.returncode}")
+    return completed.stdout
+
+def _decode_nul_paths(raw):
+    return {
+        item.decode("utf-8", "surrogateescape")
+        for item in raw.split(b"\0")
+        if item
+    }
+
+def _head_tracked_paths(paths):
+    tracked = set()
+    for chunk in _path_chunks(sorted(set(paths))):
+        tracked.update(
+            _decode_nul_paths(
+                _git_stdout(
+                    ["ls-tree", "-r", "-z", "--name-only", parent_sha, "--", *chunk]
+                )
+            )
+        )
+    return tracked
+
+def _ignored_paths(paths):
+    path_list = sorted(set(paths))
+    if not path_list:
+        return set()
+    payload = b"".join(
+        path.encode("utf-8", "surrogateescape") + b"\0" for path in path_list
+    )
+    return _decode_nul_paths(
+        _git_stdout(["check-ignore", "-z", "--stdin"], input_data=payload, ok_codes=(0, 1))
+    )
+
+def _path_exists(path):
+    candidate = Path(path)
+    return candidate.exists() or candidate.is_symlink()
+
+def _path_size(path):
+    try:
+        return int(os.path.getsize(path))
+    except OSError:
+        return 0
+
+eligible = []
+excluded = []
+skipped_ignored = []
+skipped_missing_untracked = []
+included_classes = {}
+seen_includable_classes = {}
+candidate_paths = []
+for row in rows:
+    if not isinstance(row, dict):
+        continue
+    path = str(row.get("path") or "").strip()
+    class_id = str(row.get("class") or "").strip()
+    if not path:
+        continue
+    if class_id == "active_claim_dirty":
+        excluded.append(path)
+        continue
+    if class_id in {"generated_owner_dirty", "unclaimed_source_dirty"}:
+        seen_includable_classes[class_id] = (
+            seen_includable_classes.get(class_id, 0) + 1
+        )
+        candidate_paths.append(path)
+
+head_tracked = _head_tracked_paths(candidate_paths)
+ignored_untracked = _ignored_paths(
+    path for path in candidate_paths if path not in head_tracked
+)
+missing_untracked = {
+    path
+    for path in candidate_paths
+    if path not in head_tracked and not _path_exists(path)
+}
+candidate_path_set = set(candidate_paths)
+for row in rows:
+    if not isinstance(row, dict):
+        continue
+    path = str(row.get("path") or "").strip()
+    class_id = str(row.get("class") or "").strip()
+    if path not in candidate_path_set:
+        continue
+    if path not in head_tracked and path in missing_untracked:
+        skipped_missing_untracked.append(path)
+        continue
+    if path not in head_tracked and path in ignored_untracked:
+        skipped_ignored.append(path)
+        continue
+    eligible.append(path)
+    included_classes[class_id] = included_classes.get(class_id, 0) + 1
+
+class_counts = card.get("dirty_path_class_counts") or card.get("class_counts") or {}
+expected_seen = sum(
+    int(class_counts.get(class_id) or 0)
+    for class_id in ("generated_owner_dirty", "unclaimed_source_dirty")
+)
+if expected_seen and sum(seen_includable_classes.values()) != expected_seen:
+    raise SystemExit(
+        "dirty-tree pressure manifest was incomplete; refusing unclaimed checkpoint"
+    )
+expected = (
+    sum(seen_includable_classes.values())
+    - len(set(skipped_ignored))
+    - len(set(skipped_missing_untracked))
+)
+if expected and len(set(eligible)) != expected:
+    raise SystemExit(
+        "dirty-tree pressure manifest was incomplete; refusing unclaimed checkpoint"
+    )
+if not eligible:
+    raise SystemExit("no unclaimed dirty paths are available to checkpoint")
+
+eligible_set = set(eligible)
+eligible_head_tracked = {path for path in eligible_set if path in head_tracked}
+deleted_paths = sorted(path for path in eligible_head_tracked if not _path_exists(path))
+modified_paths = sorted(eligible_head_tracked - set(deleted_paths))
+added_paths = sorted(eligible_set - head_tracked)
+large_added_paths = [
+    {"path": path, "size_bytes": _path_size(path)}
+    for path in added_paths
+    if _path_size(path) > 52428800
+]
+path_file.write_bytes(
+    b"".join(
+        path.encode("utf-8", "surrogateescape") + b"\0"
+        for path in sorted(eligible_set)
+    )
+)
+summary = {
+    "schema": "checkpoint_unclaimed_manifest_v0",
+    "included_path_count": len(eligible_set),
+    "excluded_active_claim_dirty_path_count": len(set(excluded)),
+    "skipped_ignored_untracked_path_count": len(set(skipped_ignored)),
+    "skipped_missing_untracked_path_count": len(set(skipped_missing_untracked)),
+    "included_dirty_path_classes": included_classes,
+    "dry_run_effect_counts": {
+        "added": len(added_paths),
+        "modified": len(modified_paths),
+        "deleted": len(deleted_paths),
+        "total": len(eligible_set),
+    },
+    "large_added_path_count": len(large_added_paths),
+    "large_added_paths": large_added_paths[:20],
+    "deleted_paths_preview": deleted_paths[:20],
+    "deleted_paths_preview_omitted": max(0, len(deleted_paths) - 20),
+    "added_paths_preview": added_paths[:20],
+    "added_paths_preview_omitted": max(0, len(added_paths) - 20),
+    "modified_paths_preview": modified_paths[:20],
+    "modified_paths_preview_omitted": max(0, len(modified_paths) - 20),
+    "path_filter_validation": {
+        "schema": "checkpoint_unclaimed_path_filter_validation_v0",
+        "mode": "bulk_git_queries_against_parent_tree",
+        "parent": parent_sha,
+        "candidate_path_count": len(candidate_path_set),
+        "head_tracked_candidate_count": len(head_tracked),
+        "ignored_untracked_candidate_count": len(ignored_untracked),
+        "missing_untracked_candidate_count": len(missing_untracked),
+    },
+    "paths_preview": sorted(eligible_set)[:20],
+    "paths_preview_omitted": max(0, len(eligible_set) - 20),
+    "operator_authorized_unclaimed_checkpoint": card.get(
+        "operator_authorized_unclaimed_checkpoint"
+    ),
+}
+summary_file.write_text(
+    json.dumps(summary, indent=2, sort_keys=True) + "\n",
+    encoding="utf-8",
+)
+PY
+    then
+        echo -e "${RED}ERROR: dirty-tree pressure did not produce a safe unclaimed checkpoint manifest.${RESET}"
+        exit 1
+    fi
+}
+
+checkpoint_unclaimed_trailers() {
+    local summary_file="$1"
+    python3 - "$summary_file" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+summary = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+print("AIW-Unclaimed-Checkpoint: true")
+print(f"AIW-Included-Dirty-Paths: {int(summary.get('included_path_count') or 0)}")
+print(
+    "AIW-Excluded-Active-Claim-Dirty-Paths: "
+    f"{int(summary.get('excluded_active_claim_dirty_path_count') or 0)}"
+)
+print(
+    "AIW-Skipped-Ignored-Untracked-Paths: "
+    f"{int(summary.get('skipped_ignored_untracked_path_count') or 0)}"
+)
+print(
+    "AIW-Skipped-Missing-Untracked-Paths: "
+    f"{int(summary.get('skipped_missing_untracked_path_count') or 0)}"
+)
+PY
+}
+
+checkpoint_print_unclaimed_fast_dry_run() {
+    local summary_file="$1"
+    python3 - "$summary_file" "$MSG" "$HAS_REMOTE" "$REMOTE_BEHIND" "$FORCE" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+summary = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+message = sys.argv[2]
+has_remote = sys.argv[3] == "true"
+remote_behind = int(sys.argv[4] or 0)
+force = sys.argv[5] == "true"
+counts = summary.get("dry_run_effect_counts") or {}
+added = int(counts.get("added") or 0)
+modified = int(counts.get("modified") or 0)
+deleted = int(counts.get("deleted") or 0)
+large_paths = list(summary.get("large_added_paths") or [])
+
+if deleted > 10 and not force:
+    print(f"WARNING: {deleted} files would be DELETED:")
+    for path in summary.get("deleted_paths_preview", [])[:20]:
+        print(f"  {path}")
+    if int(summary.get("deleted_paths_preview_omitted") or 0):
+        print(f"  ... and {int(summary.get('deleted_paths_preview_omitted') or 0)} more")
+    print("Use --force to proceed, or investigate.")
+    print("(no staged changes were left in the shared index — dry run is non-mutating)")
+    raise SystemExit(1)
+
+if large_paths and not force:
+    print("WARNING: Large files would be added (>50MB):")
+    for row in large_paths:
+        size_mb = int(row.get("size_bytes") or 0) // 1048576
+        print(f"  {row.get('path')} ({size_mb}MB)")
+    if int(summary.get("large_added_path_count") or 0) > len(large_paths):
+        print(
+            "  ... and "
+            f"{int(summary.get('large_added_path_count') or 0) - len(large_paths)} more"
+        )
+    print("Use --force to proceed.")
+    print("(no staged changes were left in the shared index — dry run is non-mutating)")
+    raise SystemExit(1)
+
+print("DRY RUN — would save:")
+print(f"  +{added} ~{modified} -{deleted}")
+print(f"  message: {message}")
+print(
+    "  unclaimed checkpoint: "
+    f"include {int(summary.get('included_path_count') or 0)} paths; "
+    f"exclude {int(summary.get('excluded_active_claim_dirty_path_count') or 0)} active-claimed paths; "
+    f"skip {int(summary.get('skipped_ignored_untracked_path_count') or 0)} ignored untracked paths; "
+    f"skip {int(summary.get('skipped_missing_untracked_path_count') or 0)} missing untracked paths"
+)
+validation = summary.get("path_filter_validation") or {}
+print(
+    "  dry-run staging: skipped private-index content staging; "
+    f"validated {int(validation.get('candidate_path_count') or 0)} candidate paths with bulk Git probes"
+)
+if has_remote and remote_behind > 0:
+    print(
+        "  remote: origin/main is "
+        f"{remote_behind} commits ahead; save can land locally before publication is reconciled"
+    )
+preview = list(summary.get("paths_preview") or [])
+if preview:
+    print("")
+    for path in preview[:5]:
+        print(f"  {path}")
+    omitted = int(summary.get("paths_preview_omitted") or 0)
+    if omitted:
+        print(f"  ... and {omitted} more")
+print("(no staged changes were left in the shared index — dry run is non-mutating)")
+PY
 }
 
 checkpoint_guard_dirty_paths() {
@@ -330,6 +688,11 @@ if [[ -z "$MSG" ]]; then
     fi
 fi
 
+if [[ "$UNCLAIMED_ONLY" == "true" && "$ARBITER" != "true" ]]; then
+    echo -e "${RED}ERROR: --unclaimed is only valid with --arbiter after explicit bankruptcy authorization.${RESET}"
+    exit 1
+fi
+
 if [[ "$RESCUE_REF" == "true" ]]; then
     if [[ -z "$MSG" ]]; then
         MSG="rescue: dirty-tree bankruptcy snapshot"
@@ -354,7 +717,9 @@ checkpoint_guard_main_landing
 # ── Safety: observe remote without mutating the dirty tree ──
 if git remote get-url origin &>/dev/null; then
     HAS_REMOTE=true
-    git fetch origin main --quiet 2>/dev/null || true
+    if [[ "$DRY_RUN" != "true" ]]; then
+        git fetch origin main --quiet 2>/dev/null || true
+    fi
     REMOTE_BEHIND=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
 else
     HAS_REMOTE=false
@@ -371,13 +736,32 @@ fi
 # that takes "every dirty path" instead of an explicit allowlist.
 PRIVATE_INDEX="$(mktemp -t checkpoint_index.XXXXXXXX)"
 REFRESH_PATHS="$(mktemp -t checkpoint_paths.XXXXXXXX)"
-trap 'rm -f "$PRIVATE_INDEX" "$REFRESH_PATHS"' EXIT INT TERM
-export GIT_INDEX_FILE="$PRIVATE_INDEX"
-git read-tree HEAD
+UNCLAIMED_PATHS="$(mktemp -t checkpoint_unclaimed_paths.XXXXXXXX)"
+UNCLAIMED_PRESSURE="$(mktemp -t checkpoint_unclaimed_pressure.XXXXXXXX)"
+UNCLAIMED_SUMMARY="$(mktemp -t checkpoint_unclaimed_summary.XXXXXXXX)"
+trap 'rm -f "$PRIVATE_INDEX" "$REFRESH_PATHS" "$UNCLAIMED_PATHS" "$UNCLAIMED_PRESSURE" "$UNCLAIMED_SUMMARY"' EXIT INT TERM
 PARENT_SHA="$(git rev-parse HEAD)"
 
+if [[ "$UNCLAIMED_ONLY" == "true" ]]; then
+    checkpoint_prepare_unclaimed_manifest "$UNCLAIMED_PRESSURE" "$UNCLAIMED_PATHS" "$UNCLAIMED_SUMMARY" "$PARENT_SHA"
+    MSG="${MSG}
+
+$(checkpoint_unclaimed_trailers "$UNCLAIMED_SUMMARY")"
+    if [[ "$DRY_RUN" == "true" && "$VERIFY_DRY_RUN_STAGE" != "true" ]]; then
+        checkpoint_print_unclaimed_fast_dry_run "$UNCLAIMED_SUMMARY"
+        exit $?
+    fi
+fi
+
+export GIT_INDEX_FILE="$PRIVATE_INDEX"
+git read-tree "$PARENT_SHA"
+
 # ── Stage everything (private index only) ──
-git add -A
+if [[ "$UNCLAIMED_ONLY" == "true" ]]; then
+    git add -f -A --pathspec-from-file="$UNCLAIMED_PATHS" --pathspec-file-nul
+else
+    git add -A
+fi
 
 # ── Count changes ──
 DELETED=$(git diff --cached --name-only --diff-filter=D 2>/dev/null | wc -l | tr -d ' ')
@@ -428,6 +812,21 @@ if [[ "$DRY_RUN" == "true" ]]; then
     echo -e "${CYAN}DRY RUN — would save:${RESET}"
     echo -e "  ${SUMMARY}"
     echo -e "  message: ${MSG}"
+    if [[ "$UNCLAIMED_ONLY" == "true" ]]; then
+        python3 - "$UNCLAIMED_SUMMARY" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+summary = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+print(
+    "  unclaimed checkpoint: "
+    f"include {int(summary.get('included_path_count') or 0)} paths; "
+    f"exclude {int(summary.get('excluded_active_claim_dirty_path_count') or 0)} active-claimed paths; "
+    f"skip {int(summary.get('skipped_ignored_untracked_path_count') or 0)} ignored untracked paths"
+)
+PY
+    fi
     if [[ "$HAS_REMOTE" == "true" && "$REMOTE_BEHIND" -gt 0 ]]; then
         echo -e "  ${YELLOW}remote: origin/main is ${REMOTE_BEHIND} commits ahead; save can land locally before publication is reconciled${RESET}"
     fi

@@ -135,6 +135,10 @@ logger = logging.getLogger("server.world_model")
 
 _READONLY_SNAPSHOT_CACHE_TTL_S = 10.0
 _OPERATIONS_LENS_CACHE_TTL_S = 45.0
+_SYSTEM_LENS_CACHE_TTL_S = 15.0
+_SYSTEM_LENS_COLD_WAIT_S = 0.35
+_TASK_LEDGER_PROJECTION_CACHE_TTL_S = 10.0
+_TASK_LEDGER_PROJECTION_COLD_WAIT_S = 0.35
 _BLAST_RADIUS_PACKET_CACHE_TTL_S = 60.0
 _CODE_MAP_PACKET_WAIT_TIMEOUT_S = 90.0
 _OPERATIONS_LENS_COLD_WAIT_S = 0.75
@@ -150,7 +154,7 @@ _CODE_MAP_FRESHNESS_SCHEMA = "code_map_freshness_v1"
 _CODE_MAP_SERVING_TRACE_SCHEMA = "code_map_serving_trace_v1"
 _CODE_MAP_BUILD_DIAGNOSTICS_SCHEMA = "code_map_build_diagnostics_v1"
 _CODE_MAP_LAST_GOOD_CACHE_REL = "state/world_model/code_map_packet_last_good.json"
-_CODE_MAP_DISK_LAST_GOOD_MAX_FILES = 300
+_CODE_MAP_DISK_LAST_GOOD_MAX_FILES = 150
 _CODE_MAP_LAST_GOOD_MEMORY_CACHE: dict[tuple[str, str, int, bool], tuple[float, str, Dict[str, Any], str | None]] = {}
 _CODE_MAP_LAST_GOOD_LOCK = Lock()
 _ATTENTION_SNAPSHOT_CACHE: dict[str, tuple[float, Dict[str, Any]]] = {}
@@ -1969,10 +1973,16 @@ def _navigation_graph_read_model_contract(
     return contract
 
 
-def _condense_navigation_graph(repo_root: Path) -> Dict[str, Any] | None:
+def _condense_navigation_graph(
+    repo_root: Path,
+    *,
+    payload_mode: str = "full",
+) -> Dict[str, Any] | None:
     raw = _safe_read_json(repo_root, FRONTEND_NAV_GRAPH_PATH)
     if not isinstance(raw, dict):
         return None
+    payload_mode = "first_paint" if payload_mode == "first_paint" else "full"
+    first_paint_payload = payload_mode == "first_paint"
 
     semantic_layer = frontend_surface_contracts.load_semantic_layer(repo_root)
     semantic_by_id = {
@@ -2027,94 +2037,94 @@ def _condense_navigation_graph(repo_root: Path) -> Dict[str, Any] | None:
             utility_count += 1
 
         adjacency[view_id] = {"outbound_ids": [], "inbound_ids": []}
-        views.append(
-            {
-                "id": view_id,
-                "kind": kind,
-                "route": entry.get("route") if isinstance(entry.get("route"), str) else None,
-                "entry_route": (
-                    entry.get("entry_route")
-                    if isinstance(entry.get("entry_route"), str)
+        view_row: Dict[str, Any] = {
+            "id": view_id,
+            "kind": kind,
+            "route": entry.get("route") if isinstance(entry.get("route"), str) else None,
+            "entry_route": (
+                entry.get("entry_route")
+                if isinstance(entry.get("entry_route"), str)
+                else None
+            ),
+            "route_aliases": route_aliases,
+            "label": entry.get("label") if isinstance(entry.get("label"), str) else view_id,
+            "purpose": entry.get("purpose") if isinstance(entry.get("purpose"), str) else None,
+            "shell_group": shell_group,
+            "station_group": station_group,
+            "station_lens_eligible": bool(entry.get("station_lens_eligible")),
+            "overlay_of": (
+                entry.get("overlay_of") if isinstance(entry.get("overlay_of"), str) else None
+            ),
+            "cul_de_sac": {
+                "declared": bool(cul_de_sac.get("declared")),
+                "reason": (
+                    cul_de_sac.get("reason")
+                    if isinstance(cul_de_sac.get("reason"), str)
                     else None
                 ),
-                "route_aliases": route_aliases,
-                "label": entry.get("label") if isinstance(entry.get("label"), str) else view_id,
-                "purpose": entry.get("purpose") if isinstance(entry.get("purpose"), str) else None,
-                "shell_group": shell_group,
-                "station_group": station_group,
-                "station_lens_eligible": bool(entry.get("station_lens_eligible")),
-                "overlay_of": (
-                    entry.get("overlay_of") if isinstance(entry.get("overlay_of"), str) else None
-                ),
-                "cul_de_sac": {
-                    "declared": bool(cul_de_sac.get("declared")),
-                    "reason": (
-                        cul_de_sac.get("reason")
-                        if isinstance(cul_de_sac.get("reason"), str)
+                "effective": bool(cul_de_sac.get("effective")),
+            },
+            "capture": (
+                {
+                    "slug": (
+                        capture.get("slug") if isinstance(capture.get("slug"), str) else None
+                    ),
+                    "route": (
+                        capture.get("route")
+                        if isinstance(capture.get("route"), str)
                         else None
                     ),
-                    "effective": bool(cul_de_sac.get("effective")),
-                },
-                "capture": (
-                    {
-                        "slug": (
-                            capture.get("slug") if isinstance(capture.get("slug"), str) else None
-                        ),
-                        "route": (
-                            capture.get("route")
-                            if isinstance(capture.get("route"), str)
-                            else None
-                        ),
-                        "ready_selector": (
-                            capture.get("ready_selector")
-                            if isinstance(capture.get("ready_selector"), str)
-                            else None
-                        ),
-                        "stabilize_ms": (
-                            int(capture.get("stabilize_ms"))
-                            if isinstance(capture.get("stabilize_ms"), (int, float))
-                            else None
-                        ),
-                        "capture_group": (
-                            capture.get("capture_group")
-                            if isinstance(capture.get("capture_group"), str)
-                            else None
-                        ),
-                        "full_page": (
-                            capture.get("full_page")
-                            if isinstance(capture.get("full_page"), bool)
-                            else None
-                        ),
-                        "notes": (
-                            capture.get("notes")
-                            if isinstance(capture.get("notes"), str)
-                            else None
-                        ),
-                        "bound_via": (
-                            capture.get("bound_via")
-                            if isinstance(capture.get("bound_via"), str)
-                            else None
-                        ),
-                        "load_timing": _condense_capture_load_timing(
-                            capture.get("load_timing")
-                        ),
-                    }
-                    if capture
-                    else None
-                ),
-                "semantic_health": _condense_frontend_semantic_row(
-                    semantic_by_id.get(view_id),
-                    view_id=view_id,
-                    route=entry.get("entry_route") or entry.get("route"),
-                ),
-                "surface_audit": _condense_surface_audit_row(entry.get("surface_audit")),
-                "fanout_count": int(entry.get("fanout_count") or 0),
-                "fanin_count": int(entry.get("fanin_count") or 0),
-                "pathway_count": int(entry.get("pathway_count") or 0),
-                "pathway_fanout_count": int(entry.get("pathway_fanout_count") or 0),
-                "pathway_fanin_count": int(entry.get("pathway_fanin_count") or 0),
-            }
-        )
+                    "ready_selector": (
+                        capture.get("ready_selector")
+                        if isinstance(capture.get("ready_selector"), str)
+                        else None
+                    ),
+                    "stabilize_ms": (
+                        int(capture.get("stabilize_ms"))
+                        if isinstance(capture.get("stabilize_ms"), (int, float))
+                        else None
+                    ),
+                    "capture_group": (
+                        capture.get("capture_group")
+                        if isinstance(capture.get("capture_group"), str)
+                        else None
+                    ),
+                    "full_page": (
+                        capture.get("full_page")
+                        if isinstance(capture.get("full_page"), bool)
+                        else None
+                    ),
+                    "notes": (
+                        capture.get("notes")
+                        if isinstance(capture.get("notes"), str)
+                        else None
+                    ),
+                    "bound_via": (
+                        capture.get("bound_via")
+                        if isinstance(capture.get("bound_via"), str)
+                        else None
+                    ),
+                    "load_timing": _condense_capture_load_timing(
+                        capture.get("load_timing")
+                    ),
+                }
+                if capture
+                else None
+            ),
+            "fanout_count": int(entry.get("fanout_count") or 0),
+            "fanin_count": int(entry.get("fanin_count") or 0),
+            "pathway_count": int(entry.get("pathway_count") or 0),
+            "pathway_fanout_count": int(entry.get("pathway_fanout_count") or 0),
+            "pathway_fanin_count": int(entry.get("pathway_fanin_count") or 0),
+        }
+        if not first_paint_payload:
+            view_row["semantic_health"] = _condense_frontend_semantic_row(
+                semantic_by_id.get(view_id),
+                view_id=view_id,
+                route=entry.get("entry_route") or entry.get("route"),
+            )
+            view_row["surface_audit"] = _condense_surface_audit_row(entry.get("surface_audit"))
+        views.append(view_row)
 
     for edge in edges_raw:
         if not isinstance(edge, dict):
@@ -2306,7 +2316,7 @@ def _condense_navigation_graph(repo_root: Path) -> Dict[str, Any] | None:
         if len(drift_preview) >= 5:
             break
 
-    return {
+    payload: Dict[str, Any] = {
         "schema_version": raw.get("schema_version"),
         "generated_at": raw.get("generated_at"),
         "edge_grammar_contract": NAVIGATION_EDGE_GRAMMAR_CONTRACT,
@@ -2370,13 +2380,33 @@ def _condense_navigation_graph(repo_root: Path) -> Dict[str, Any] | None:
         },
         "views": views,
         "adjacency": adjacency,
-        "edges": edges,
         "pathway_audit": pathway_audit,
         "relation_summary": relation_summary,
         "group_flows": group_flows,
         "drift_preview": drift_preview,
         "freshness": freshness,
     }
+    if first_paint_payload:
+        payload["payload_budget"] = {
+            "mode": "first_paint",
+            "omitted_sections": [
+                "edges",
+                "views.semantic_health",
+                "views.surface_audit",
+            ],
+            "edge_count_preserved_in_read_model_contract": len(edges),
+            "adjacency_preserved": True,
+            "full_payload_source": FRONTEND_NAV_GRAPH_PATH,
+            "reason": "world_model_snapshot_first_paint_navigation_slice",
+        }
+    else:
+        payload["edges"] = edges
+        payload["payload_budget"] = {
+            "mode": "full",
+            "omitted_sections": [],
+            "edge_count_preserved_in_read_model_contract": len(edges),
+        }
+    return payload
 
 
 def _load_frontend_navigation_mission_control(repo_root: Path) -> Dict[str, Any]:
@@ -3000,7 +3030,12 @@ def _load_market_clock_runtime(repo_root: Path) -> Dict[str, Any]:
         conn.close()
 
 
-def load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Dict[str, Any]:
+def load_market_feeds_snapshot(
+    repo_root: Path,
+    limit: int = 24,
+    *,
+    include_heavy_artifacts: bool = True,
+) -> Dict[str, Any]:
     """Read-only market-feeds snapshot for the cockpit market tile.
 
     Cold builds walk state/runs/* and stat each subdir (~500 ms).
@@ -3013,13 +3048,37 @@ def load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Dict[str, An
     """
     return swr_get(
         "market_feeds_snapshot",
-        (str(repo_root.resolve()), int(limit)),
-        lambda: _uncached_load_market_feeds_snapshot(repo_root, limit),
+        (str(repo_root.resolve()), int(limit), bool(include_heavy_artifacts)),
+        lambda: _uncached_load_market_feeds_snapshot(
+            repo_root,
+            limit,
+            include_heavy_artifacts=include_heavy_artifacts,
+        ),
         ttl_s=10.0,
+        copy_value=False,
     )
 
 
-def _uncached_load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Dict[str, Any]:
+def _market_feeds_omitted_artifact(
+    *,
+    artifact_id: str,
+    run_id: Any,
+) -> Dict[str, Any]:
+    return {
+        "omitted": True,
+        "artifact_id": artifact_id,
+        "reason": "world_model_snapshot_lean_market_slice",
+        "payload_route": "/api/market/intelligence/display-bundle/latest-ready",
+        "run_id": run_id,
+    }
+
+
+def _uncached_load_market_feeds_snapshot(
+    repo_root: Path,
+    limit: int = 24,
+    *,
+    include_heavy_artifacts: bool = True,
+) -> Dict[str, Any]:
     runs_dir = repo_root / "state" / "runs"
     rows: List[Dict[str, Any]] = []
     if runs_dir.exists():
@@ -3037,65 +3096,79 @@ def _uncached_load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Di
     latest_market_situation_graph: Dict[str, Any] | None = None
     latest_market_dashboard_read_model: Dict[str, Any] | None = None
     if latest and latest.get("run_id"):
-        try:
-            latest_evidence_card = _build_market_feed_run_evidence_card(
-                repo_root,
-                run_id=str(latest.get("run_id")),
-            )
-        except Exception as exc:
-            latest_evidence_card = {
-                "schema_version": "market_feed_run_evidence_card_v0",
-                "run_id": latest.get("run_id"),
-                "error": f"{type(exc).__name__}: {exc}",
-                "safe_use_level": "evidence_card_unavailable",
-                "evidence_use": {
-                    "external_market_claims_allowed": False,
-                    "trading_or_investment_claims_allowed": False,
-                },
-            }
-        try:
-            latest_quant_presentation_mart = _load_latest_quant_presentation_mart(
-                repo_root,
-                expected_run_id=str(latest.get("run_id")),
-            )
-        except Exception as exc:
-            latest_quant_presentation_mart = {
-                "schema_version": "quant_presentation_mart_v0_1",
-                "run": {
+        if include_heavy_artifacts:
+            try:
+                latest_evidence_card = _build_market_feed_run_evidence_card(
+                    repo_root,
+                    run_id=str(latest.get("run_id")),
+                )
+            except Exception as exc:
+                latest_evidence_card = {
+                    "schema_version": "market_feed_run_evidence_card_v0",
                     "run_id": latest.get("run_id"),
-                    "safe_use_level": "quant_mart_unavailable",
-                },
-                "projection_status": {
-                    "status": "quant_mart_unavailable",
-                    "reason": f"{type(exc).__name__}: {exc}",
-                },
-                "ranked_observations": [],
-                "panel_manifest": [],
-            }
-        try:
-            expected_fingerprint = (
-                str(latest_quant_presentation_mart.get("source_fingerprint") or "")
-                if isinstance(latest_quant_presentation_mart, Mapping)
-                else ""
+                    "error": f"{type(exc).__name__}: {exc}",
+                    "safe_use_level": "evidence_card_unavailable",
+                    "evidence_use": {
+                        "external_market_claims_allowed": False,
+                        "trading_or_investment_claims_allowed": False,
+                    },
+                }
+            try:
+                latest_quant_presentation_mart = _load_latest_quant_presentation_mart(
+                    repo_root,
+                    expected_run_id=str(latest.get("run_id")),
+                )
+            except Exception as exc:
+                latest_quant_presentation_mart = {
+                    "schema_version": "quant_presentation_mart_v0_1",
+                    "run": {
+                        "run_id": latest.get("run_id"),
+                        "safe_use_level": "quant_mart_unavailable",
+                    },
+                    "projection_status": {
+                        "status": "quant_mart_unavailable",
+                        "reason": f"{type(exc).__name__}: {exc}",
+                    },
+                    "ranked_observations": [],
+                    "panel_manifest": [],
+                }
+            try:
+                expected_fingerprint = (
+                    str(latest_quant_presentation_mart.get("source_fingerprint") or "")
+                    if isinstance(latest_quant_presentation_mart, Mapping)
+                    else ""
+                )
+                latest_market_situation_graph = _load_latest_market_situation_graph(
+                    repo_root,
+                    expected_run_id=str(latest.get("run_id")),
+                    expected_mart_fingerprint=expected_fingerprint or None,
+                )
+            except Exception as exc:
+                latest_market_situation_graph = {
+                    "schema_version": "market_situation_graph_v0",
+                    "run_id": latest.get("run_id"),
+                    "projection_status": {
+                        "status": "market_situation_graph_unavailable",
+                        "reason": f"{type(exc).__name__}: {exc}",
+                    },
+                    "situations": [],
+                    "entities": [],
+                    "edges": [],
+                    "validation_summary": {"situation_count": 0},
+                }
+        else:
+            latest_evidence_card = _market_feeds_omitted_artifact(
+                artifact_id="latest_evidence_card",
+                run_id=latest.get("run_id"),
             )
-            latest_market_situation_graph = _load_latest_market_situation_graph(
-                repo_root,
-                expected_run_id=str(latest.get("run_id")),
-                expected_mart_fingerprint=expected_fingerprint or None,
+            latest_quant_presentation_mart = _market_feeds_omitted_artifact(
+                artifact_id="latest_quant_presentation_mart",
+                run_id=latest.get("run_id"),
             )
-        except Exception as exc:
-            latest_market_situation_graph = {
-                "schema_version": "market_situation_graph_v0",
-                "run_id": latest.get("run_id"),
-                "projection_status": {
-                    "status": "market_situation_graph_unavailable",
-                    "reason": f"{type(exc).__name__}: {exc}",
-                },
-                "situations": [],
-                "entities": [],
-                "edges": [],
-                "validation_summary": {"situation_count": 0},
-            }
+            latest_market_situation_graph = _market_feeds_omitted_artifact(
+                artifact_id="latest_market_situation_graph",
+                run_id=latest.get("run_id"),
+            )
         try:
             graph_status = (
                 ((latest_market_situation_graph.get("projection_status") or {}).get("status"))
@@ -3235,6 +3308,7 @@ def _uncached_load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Di
             and isinstance(latest_market_dashboard_read_model.get("validation_debt"), Mapping)
             else 0
         ),
+        "heavy_artifacts_embedded": bool(include_heavy_artifacts),
     }
     # v0.7+v0.9: surface a SMALL status of the backend-published
     # latest-ready display bundle. The full bundle is 1+ MB once
@@ -3283,6 +3357,15 @@ def _uncached_load_market_feeds_snapshot(repo_root: Path, limit: int = 24) -> Di
         "latest_ready_market_display_bundle_status": latest_ready_display_bundle_status,
         "latest_feed_run": latest,
         "feed_runs": rows,
+        "payload_budget": {
+            "heavy_artifacts": (
+                "embedded"
+                if include_heavy_artifacts
+                else "omitted_use_latest_ready_display_bundle_route"
+            ),
+            "payload_route": "/api/market/intelligence/display-bundle/latest-ready",
+            "feed_run_limit": int(limit),
+        },
         "paper_module": "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
         "station_route": "/station/market-feeds",
     }
@@ -4158,16 +4241,31 @@ def _uncached_load_lab_oracle_evolve_snapshot(repo_root: Path, limit: int = 24) 
     }
 
 
-def load_world_model_snapshot(repo_root: Path) -> Dict[str, Any]:
+def load_world_model_snapshot(
+    repo_root: Path,
+    *,
+    navigation_graph_payload: str = "full",
+) -> Dict[str, Any]:
     # The snapshot is a 150k+-char aggregation over orchestration, doctrine,
     # paper-modules, approvals, and host-agent dotfiles. Nothing in it changes
     # more often than the controller ticks on disk, so serve under SWR and pay
     # the cold compute cost at most once every TTL per process.
+    navigation_graph_payload = (
+        "first_paint" if navigation_graph_payload == "first_paint" else "full"
+    )
+    root_key = str(repo_root.resolve())
+    cache_key: object = (
+        root_key if navigation_graph_payload == "full" else (root_key, navigation_graph_payload)
+    )
     return swr_get(
         "world_model_snapshot",
-        str(repo_root.resolve()),
-        lambda: _uncached_load_world_model_snapshot(repo_root),
+        cache_key,
+        lambda: _uncached_load_world_model_snapshot(
+            repo_root,
+            navigation_graph_payload=navigation_graph_payload,
+        ),
         ttl_s=10.0,
+        copy_value=False,
     )
 
 
@@ -4425,7 +4523,11 @@ def load_lean_mathematics_microcosm_snapshot(repo_root: Path) -> Dict[str, Any]:
     }
 
 
-def _uncached_load_world_model_snapshot(repo_root: Path) -> Dict[str, Any]:
+def _uncached_load_world_model_snapshot(
+    repo_root: Path,
+    *,
+    navigation_graph_payload: str = "full",
+) -> Dict[str, Any]:
     """
     [ACTION]
     - Teleology: Build the compact world-model snapshot used by the cockpit shell.
@@ -4461,7 +4563,10 @@ def _uncached_load_world_model_snapshot(repo_root: Path) -> Dict[str, Any]:
     docs_focus = _condense_docs_focus(repo_root)
     doctrine_runtime = _condense_doctrine_runtime(repo_root)
     bootstrap = _condense_agent_bootstrap_live(repo_root)
-    navigation_graph = _condense_navigation_graph(repo_root)
+    navigation_graph = _condense_navigation_graph(
+        repo_root,
+        payload_mode=navigation_graph_payload,
+    )
     frontend_navigation_mission_control = _load_frontend_navigation_mission_control(repo_root)
     try:
         navigation_freshness = load_navigation_freshness_snapshot(repo_root)
@@ -4558,7 +4663,11 @@ def _uncached_load_world_model_snapshot(repo_root: Path) -> Dict[str, Any]:
             "station_route": "/station/lab-oracle-evolve",
         }
     try:
-        market_feeds = load_market_feeds_snapshot(repo_root)
+        market_feeds = load_market_feeds_snapshot(
+            repo_root,
+            limit=8,
+            include_heavy_artifacts=False,
+        )
     except Exception as exc:
         logger.debug("market feeds snapshot load failed: %s", exc)
         market_feeds = {
@@ -9825,6 +9934,73 @@ def _cap_cartography_exposition_specimen(
     }
 
 
+def _cap_cartography_exposition_specimen_receipt(
+    payload: Mapping[str, Any] | None,
+    contract: Mapping[str, Any],
+) -> dict[str, Any]:
+    source_view = "state/task_ledger/views/cap_cartography.json"
+    readiness = contract.get("readiness") if isinstance(contract.get("readiness"), Mapping) else {}
+    frontend_posture = (
+        contract.get("frontend_posture")
+        if isinstance(contract.get("frontend_posture"), Mapping)
+        else {}
+    )
+    summary = (
+        payload.get("summary")
+        if isinstance(payload, Mapping) and isinstance(payload.get("summary"), Mapping)
+        else {}
+    )
+    warnings = _cap_cartography_rows(payload, "warnings") if isinstance(payload, Mapping) else []
+    warning_names = [str(row.get("warning")) for row in warnings if row.get("warning")]
+    graph_ready = bool(readiness.get("overview_graph_ready"))
+    complete = bool(readiness.get("overview_complete"))
+    return {
+        "schema_version": "cap_cartography_exposition_specimen_v0",
+        "source_ref": "/api/world-model/task-ledger/projection",
+        "payload_route": "/api/world-model/task-ledger/cartography/cap",
+        "source_view": source_view,
+        "source_schema_version": payload.get("schema_version") if isinstance(payload, Mapping) else None,
+        "mode": "observe_only",
+        "available": isinstance(payload, Mapping) and payload.get("schema_version") == "cap_cartography_v0",
+        "omitted": True,
+        "omission_reason": "default_task_ledger_projection_payload_budget",
+        "status": {
+            "graph_ready": graph_ready,
+            "complete": complete,
+            "bounded": bool(graph_ready and not complete),
+            "edge_limit_hit": bool(readiness.get("edge_limit_hit")),
+            "overflow_index_available": bool(readiness.get("overflow_index_available")),
+            "drilldown_index_available": bool(readiness.get("drilldown_index_available")),
+            "unclassified_index_available": bool(readiness.get("unclassified_index_available")),
+            "warnings": [*warning_names, "exposition_specimen_omitted_by_default"],
+        },
+        "frontend_posture": dict(frontend_posture),
+        "overview_tiles": [
+            {"id": "cap_universe_count", "value": summary.get("cap_universe_count")},
+            {"id": "cluster_count", "value": readiness.get("cluster_count") or summary.get("cluster_count")},
+            {"id": "node_count", "value": readiness.get("node_count") or summary.get("node_count")},
+            {"id": "edge_count", "value": readiness.get("edge_count") or summary.get("edge_count")},
+            {"id": "omitted_edge_count", "value": readiness.get("omitted_edge_count") or summary.get("omitted_edge_count")},
+            {"id": "unclassified_count", "value": readiness.get("unclassified_count") or summary.get("unclassified_count")},
+        ],
+        "cluster_elements": [],
+        "node_elements": [],
+        "edge_elements": [],
+        "drilldown_elements": [],
+        "unclassified_elements": [],
+        "legend": {},
+        "blocked_actions": ["create_cap", "mutate_cap", "edit_edge", "infer_title_semantics"],
+        "integrity": {
+            "orphan_renderer_edge_count": 0,
+            "omitted_renderer_edge_count": 0,
+            "renderer_inferred_semantic_count": 0,
+            "rendered_node_count": 0,
+            "rendered_cluster_count": 0,
+            "rendered_edge_count": 0,
+        },
+    }
+
+
 def _task_ledger_route(item: Mapping[str, Any]) -> dict[str, Any]:
     execution = item.get("execution") if isinstance(item.get("execution"), Mapping) else {}
     route = {
@@ -10602,7 +10778,11 @@ def _meta_work_evidence(
     *,
     limit: int,
 ) -> dict[str, Any]:
-    task_projection = load_task_ledger_projection(repo_root, limit=limit)
+    task_projection = load_task_ledger_projection(
+        repo_root,
+        limit=limit,
+        allow_warming_shell=False,
+    )
     workitem_cartography = _safe_read_json(repo_root, "state/task_ledger/views/workitem_cartography.json") or {}
     cap_cartography = _safe_read_json(repo_root, "state/task_ledger/views/cap_cartography.json") or {}
     mission_picture = _safe_read_json(repo_root, "state/task_ledger/views/mission_operating_picture.json") or {}
@@ -12921,7 +13101,168 @@ def load_workitem_dossier_payload(
     }
 
 
-def load_task_ledger_projection(repo_root: Path, *, limit: int = 8) -> Dict[str, Any]:
+def _task_ledger_projection_warming_shell(
+    repo_root: Path,
+    *,
+    limit: int,
+    include_cap_exposition_specimen: bool,
+) -> Dict[str, Any]:
+    events_path = "state/task_ledger/events.jsonl"
+    ledger_path = "state/task_ledger/ledger.json"
+    authority = {
+        "event_log": events_path,
+        "deterministic_projection": ledger_path,
+        "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py",
+        "station_consumer": "/station/ledger",
+        "endpoint": "/api/world-model/task-ledger/projection",
+        "boundary": "read_only_projection_events_are_authority",
+    }
+    freshness = {
+        "events": compute_freshness(_file_mtime(repo_root, events_path)),
+        "ledger": compute_freshness(_file_mtime(repo_root, ledger_path)),
+        "views_generated_at": {},
+    }
+    current_next = {
+        "id": None,
+        "label": "Task Ledger projection warming",
+        "tone": "warn",
+        "queue": {
+            "state": "warming",
+            "reason": "task_ledger_projection_prewarm_in_flight",
+            "limit": limit,
+        },
+        "work_item": None,
+    }
+    projection_honesty = {
+        "phase_scope": "Task Ledger projection is warming; shell carries no WorkItem rows.",
+        "queue_source": None,
+        "queue_path": None,
+        "fallback_used": False,
+        "route_metadata_policy": "Rows are omitted until the process cache is warm.",
+        "unknown_policy": "Cold projection compute is surfaced as warming instead of blocking the Station route.",
+        "unknown_route_count": 0,
+        "public_projection_status": "warming",
+        "tmp_receipts_policy": "Disposable /tmp publication receipts are not treated as green publication evidence by this endpoint.",
+    }
+    cap_contract = _cap_cartography_consumption_contract(None)
+    workitem_contract = _workitem_cartography_consumption_contract(None)
+    return {
+        **_diagnostic_projection_envelope(
+            schema="task_ledger_projection_v1",
+            authority=authority,
+            freshness=freshness,
+            current_next=current_next,
+            projection_honesty=projection_honesty,
+        ),
+        "serving": {
+            "state": "warming",
+            "served_from": "warming_shell",
+            "reason": "task_ledger_projection_prewarm_in_flight",
+            "cache_name": "task_ledger_projection",
+            "cache_ttl_s": _TASK_LEDGER_PROJECTION_CACHE_TTL_S,
+            "cold_wait_s": _TASK_LEDGER_PROJECTION_COLD_WAIT_S,
+        },
+        "counts": {"work_items": 0, "states": {}, "types": {}, "views": {}},
+        "overload": {
+            "active_wip": 0,
+            "captures": 0,
+            "needs_signoff": 0,
+            "missing_contracts": 0,
+            "stale_review": 0,
+        },
+        "legibility": {
+            "kind": "task_ledger_legibility_projection_v1",
+            "clusters": [],
+            "next_action_groups": [],
+            "cluster_policy": {},
+            "compression_honesty": {
+                "omission_policy": "Full Task Ledger projection is warming; source views remain authoritative.",
+                "omitted_count": 0,
+            },
+        },
+        "payload_budget": {
+            "cap_cartography_exposition_specimen": (
+                "embedded_full_specimen"
+                if include_cap_exposition_specimen
+                else "omitted_by_default_use_payload_route"
+            ),
+            "payload_route": "/api/world-model/task-ledger/cartography/cap",
+        },
+        "cap_cartography_consumption_contract": cap_contract,
+        "cap_cartography_exposition_specimen": _cap_cartography_exposition_specimen_receipt(
+            None,
+            cap_contract,
+        ),
+        "workitem_cartography_consumption_contract": workitem_contract,
+        "sections": {},
+        "recent_event_tail": [],
+    }
+
+
+def load_task_ledger_projection(
+    repo_root: Path,
+    *,
+    limit: int = 8,
+    include_cap_exposition_specimen: bool = False,
+    allow_warming_shell: bool = True,
+) -> Dict[str, Any]:
+    bounded_limit = max(1, int(limit))
+    include_specimen = bool(include_cap_exposition_specimen)
+    root_key = str(repo_root.resolve())
+    cache_key = (root_key, bounded_limit, include_specimen)
+    if allow_warming_shell:
+        cached = swr_peek("task_ledger_projection", cache_key, copy_value=False)
+        if cached is not None:
+            return swr_get(
+                "task_ledger_projection",
+                cache_key,
+                lambda: _uncached_load_task_ledger_projection(
+                    repo_root,
+                    limit=bounded_limit,
+                    include_cap_exposition_specimen=include_specimen,
+                ),
+                ttl_s=_TASK_LEDGER_PROJECTION_CACHE_TTL_S,
+                copy_value=False,
+            )
+        swr_prewarm(
+            "task_ledger_projection",
+            cache_key,
+            lambda: _uncached_load_task_ledger_projection(
+                repo_root,
+                limit=bounded_limit,
+                include_cap_exposition_specimen=include_specimen,
+            ),
+        )
+        deadline = time.monotonic() + _TASK_LEDGER_PROJECTION_COLD_WAIT_S
+        while time.monotonic() < deadline:
+            cached = swr_peek("task_ledger_projection", cache_key, copy_value=False)
+            if cached is not None:
+                return cached
+            time.sleep(0.025)
+        return _task_ledger_projection_warming_shell(
+            repo_root,
+            limit=bounded_limit,
+            include_cap_exposition_specimen=include_specimen,
+        )
+    return swr_get(
+        "task_ledger_projection",
+        cache_key,
+        lambda: _uncached_load_task_ledger_projection(
+            repo_root,
+            limit=bounded_limit,
+            include_cap_exposition_specimen=include_specimen,
+        ),
+        ttl_s=_TASK_LEDGER_PROJECTION_CACHE_TTL_S,
+        copy_value=False,
+    )
+
+
+def _uncached_load_task_ledger_projection(
+    repo_root: Path,
+    *,
+    limit: int = 8,
+    include_cap_exposition_specimen: bool = False,
+) -> Dict[str, Any]:
     """
     [ACTION]
     - Teleology: Serve the compact Task Ledger live projection needed by the
@@ -13022,6 +13363,17 @@ def load_task_ledger_projection(repo_root: Path, *, limit: int = 8) -> Dict[str,
     cap_cartography_contract = _cap_cartography_consumption_contract(cap_cartography_payload)
     workitem_cartography_payload = view_payloads.get("workitem_cartography")
     workitem_cartography_contract = _workitem_cartography_consumption_contract(workitem_cartography_payload)
+    cap_exposition_specimen = (
+        _cap_cartography_exposition_specimen(
+            cap_cartography_payload,
+            cap_cartography_contract,
+        )
+        if include_cap_exposition_specimen
+        else _cap_cartography_exposition_specimen_receipt(
+            cap_cartography_payload,
+            cap_cartography_contract,
+        )
+    )
     return {
         **_diagnostic_projection_envelope(
             schema="task_ledger_projection_v1",
@@ -13049,11 +13401,16 @@ def load_task_ledger_projection(repo_root: Path, *, limit: int = 8) -> Dict[str,
             view_counts=view_counts,
             limit=limit,
         ),
+        "payload_budget": {
+            "cap_cartography_exposition_specimen": (
+                "embedded_full_specimen"
+                if include_cap_exposition_specimen
+                else "omitted_by_default_use_payload_route"
+            ),
+            "payload_route": "/api/world-model/task-ledger/cartography/cap",
+        },
         "cap_cartography_consumption_contract": cap_cartography_contract,
-        "cap_cartography_exposition_specimen": _cap_cartography_exposition_specimen(
-            cap_cartography_payload,
-            cap_cartography_contract,
-        ),
+        "cap_cartography_exposition_specimen": cap_exposition_specimen,
         "workitem_cartography_consumption_contract": workitem_cartography_contract,
         "sections": sections,
         "recent_event_tail": _task_ledger_event_tail(repo_root, limit=limit),
@@ -13345,7 +13702,78 @@ def _system_lens_recent_transitions(
     return rows[:limit]
 
 
-def load_system_lens_projection(repo_root: Path) -> Dict[str, Any]:
+def _system_lens_warming_shell(repo_root: Path) -> Dict[str, Any]:
+    generated = datetime.now(timezone.utc).isoformat()
+    factory = _system_lens_factory_slice(repo_root)
+    return {
+        "schema": "system_lens_projection_v1",
+        "generated_at": generated,
+        "source_generated_at": {
+            "world_model": None,
+            "work_ledger_overview": None,
+            "task_ledger_projection": None,
+            "approvals": None,
+            "drift": None,
+            "factory": factory.get("last_stage_apply") or factory.get("last_run"),
+        },
+        "freshness": compute_freshness(generated),
+        "serving": {
+            "state": "warming",
+            "served_from": "warming_shell",
+            "reason": "system_lens_projection_prewarm_in_flight",
+            "cache_name": "system_lens_projection",
+            "cache_ttl_s": _SYSTEM_LENS_CACHE_TTL_S,
+            "cold_wait_s": _SYSTEM_LENS_COLD_WAIT_S,
+        },
+        "phase": _system_lens_phase_slice(None),
+        "factory": factory,
+        "orchestration": _system_lens_orchestration_slice(None),
+        "work": _system_lens_work_slice({}, {}),
+        "approvals": _system_lens_approvals_slice({}),
+        "drift": _system_lens_drift_slice(None),
+        "recent_transitions": [],
+    }
+
+
+def load_system_lens_projection(
+    repo_root: Path,
+    *,
+    allow_warming_shell: bool = True,
+) -> Dict[str, Any]:
+    root_key = str(repo_root.resolve())
+    if allow_warming_shell:
+        cached = swr_peek("system_lens_projection", root_key, copy_value=False)
+        if cached is not None:
+            return swr_get(
+                "system_lens_projection",
+                root_key,
+                lambda: _uncached_load_system_lens_projection(repo_root),
+                ttl_s=_SYSTEM_LENS_CACHE_TTL_S,
+                copy_value=False,
+            )
+        swr_prewarm(
+            "system_lens_projection",
+            root_key,
+            lambda: _uncached_load_system_lens_projection(repo_root),
+        )
+        deadline = time.monotonic() + _SYSTEM_LENS_COLD_WAIT_S
+        while time.monotonic() < deadline:
+            cached = swr_peek("system_lens_projection", root_key, copy_value=False)
+            if cached is not None:
+                return cached
+            time.sleep(0.025)
+        return _system_lens_warming_shell(repo_root)
+
+    return swr_get(
+        "system_lens_projection",
+        root_key,
+        lambda: _uncached_load_system_lens_projection(repo_root),
+        ttl_s=_SYSTEM_LENS_CACHE_TTL_S,
+        copy_value=False,
+    )
+
+
+def _uncached_load_system_lens_projection(repo_root: Path) -> Dict[str, Any]:
     """
     [ACTION]
     - Teleology: Compose the System intelligence lens as one rich backend
@@ -13358,7 +13786,11 @@ def load_system_lens_projection(repo_root: Path) -> Dict[str, Any]:
     generated = datetime.now(timezone.utc).isoformat()
     world = load_world_model_snapshot(repo_root)
     work = load_work_ledger_overview(repo_root)
-    task_projection = load_task_ledger_projection(repo_root, limit=8)
+    task_projection = load_task_ledger_projection(
+        repo_root,
+        limit=8,
+        allow_warming_shell=False,
+    )
     approvals = list_approvals(repo_root)
     factory = _system_lens_factory_slice(repo_root)
     orchestration_events = load_orchestration_events(repo_root, limit=20)
@@ -17920,7 +18352,7 @@ def _code_map_disk_last_good_packet(
     max_files: int,
 ) -> tuple[Dict[str, Any], int]:
     stored_max_files = min(int(max_files), _CODE_MAP_DISK_LAST_GOOD_MAX_FILES)
-    row = copy.deepcopy(dict(packet))
+    row = dict(packet)
     files = row.get("files") if isinstance(row.get("files"), list) else []
     if int(max_files) <= stored_max_files or len(files) <= stored_max_files:
         return row, int(max_files)
@@ -18238,14 +18670,29 @@ def load_code_map_snapshot(
     cached = swr_peek(_CODE_MAP_CACHE_NAME, key, copy_value=False)
     phase_timings_ms["process_cache_peek"] = _code_map_elapsed_ms(stage_started_at)
     if isinstance(cached, Mapping):
+        cached_packet = cached
+        cached_state = "ready"
+        cached_served_from = "process_cache"
+        cached_served_max_files = clamped_max_files
+        cached_degraded_reason = None
+        if not normalized_focus and clamped_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES:
+            cached_packet, cached_served_max_files = _code_map_disk_last_good_packet(
+                cached,
+                max_files=clamped_max_files,
+            )
+            cached_state = "partial_ready"
+            cached_served_from = "process_cache_first_paint"
+            cached_degraded_reason = (
+                f"interactive_first_paint_cap_{cached_served_max_files}_below_requested_{clamped_max_files}"
+            )
         return _annotated(
-            cached,
-            state="ready",
-            served_from="process_cache",
-            served_max_files=clamped_max_files,
+            cached_packet,
+            state=cached_state,
+            served_from=cached_served_from,
+            served_max_files=cached_served_max_files,
             cache_source_stat_fingerprint=source_stat_fingerprint,
             refresh_in_flight=False,
-            degraded_reason=None,
+            degraded_reason=cached_degraded_reason,
             last_good_stored_at=None,
         )
 
@@ -18257,14 +18704,33 @@ def load_code_map_snapshot(
     )
     phase_timings_ms["last_good_exact_read"] = _code_map_elapsed_ms(stage_started_at)
     if last_good and last_good.get("cache_source_stat_fingerprint") == source_stat_fingerprint:
+        last_good_packet = last_good["packet"]
+        last_good_state = "ready"
+        last_good_served_from = str(last_good.get("served_from") or "last_good")
+        last_good_served_max_files = int(last_good.get("stored_max_files") or clamped_max_files)
+        last_good_degraded_reason = None
+        if (
+            not normalized_focus
+            and last_good_served_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES
+            and clamped_max_files > _CODE_MAP_DISK_LAST_GOOD_MAX_FILES
+        ):
+            last_good_packet, last_good_served_max_files = _code_map_disk_last_good_packet(
+                last_good_packet,
+                max_files=clamped_max_files,
+            )
+            last_good_state = "partial_ready"
+            last_good_served_from = f"{last_good_served_from}_first_paint"
+            last_good_degraded_reason = (
+                f"interactive_first_paint_cap_{last_good_served_max_files}_below_requested_{clamped_max_files}"
+            )
         return _annotated(
-            last_good["packet"],
-            state="ready",
-            served_from=str(last_good.get("served_from") or "last_good"),
-            served_max_files=int(last_good.get("stored_max_files") or clamped_max_files),
+            last_good_packet,
+            state=last_good_state,
+            served_from=last_good_served_from,
+            served_max_files=last_good_served_max_files,
             cache_source_stat_fingerprint=source_stat_fingerprint,
             refresh_in_flight=False,
-            degraded_reason=None,
+            degraded_reason=last_good_degraded_reason,
             last_good_stored_at=str(last_good.get("stored_at") or ""),
         )
 
