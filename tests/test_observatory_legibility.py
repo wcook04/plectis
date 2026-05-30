@@ -339,7 +339,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         receipt["route_cleanup_contract_proof"]["generated_region_hand_edit_authorized"]
         is False
     )
-    assert receipt["projection_import_map_proof"]["row_count"] == 6
+    assert receipt["projection_import_map_proof"]["row_count"] == 7
     assert receipt["projection_import_map_proof"]["stage_count"] == 6
     assert receipt["projection_import_map_proof"]["automated_import_guarantee"] is False
     assert receipt["import_projector_contract_proof"]["row_count"] == 9

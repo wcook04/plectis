@@ -14,7 +14,7 @@
     "synthetic_public_projection_read_model_only": true
   },
   "command": "microcosm projection-import-map",
-  "created_at": "2026-05-28T16:12:42+00:00",
+  "created_at": "2026-05-30T02:31:37+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
@@ -176,6 +176,34 @@
         "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
         "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary"
       ]
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::frontend_cockpit",
+      "cleaned": [
+        "live operator browser and session state",
+        "private root paths rewritten to relative source refs"
+      ],
+      "copied": [
+        "6 exact macro Station cockpit source bodies (2,301 lines)",
+        "source/target sha256 digest parity per module",
+        "child projection protocol bound to the macro import spine via parent_protocol_ref"
+      ],
+      "endpoint": "/authority",
+      "map_row_id": "frontend_cockpit_hud_source_modules_to_import_floor",
+      "omitted": [
+        "provider payload bodies",
+        "raw operator voice",
+        "private frontend runtime dependency and live browser access"
+      ],
+      "projection_status": "pass",
+      "public_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json",
+      "public_surface": "microcosm authority && microcosm status",
+      "source_authority": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_projection_protocol.json",
+      "source_pattern_id": "frontend_cockpit_hud_source_modules_import",
+      "validation_refs": [
+        "tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports",
+        "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens"
+      ]
     }
   ],
   "import_stages": [
@@ -237,16 +265,16 @@
   ],
   "lens_id": "public_projection_import_map_lens",
   "map_summary": {
-    "authority_ceiling_row_count": 6,
+    "authority_ceiling_row_count": 7,
     "automated_import_guarantee": false,
     "private_body_export_count": 0,
     "proof_body_export_count": 0,
     "provider_payload_export_count": 0,
-    "public_surface_count": 6,
+    "public_surface_count": 7,
     "release_authorized": false,
-    "row_count": 6,
+    "row_count": 7,
     "stage_count": 6,
-    "validation_ref_count": 12
+    "validation_ref_count": 14
   },
   "negative_case_ids": [
     "private_body_copied_into_public_surface_rejected",
