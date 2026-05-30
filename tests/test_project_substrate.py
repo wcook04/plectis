@@ -113,6 +113,23 @@ def test_read_jsonl_streams_dict_rows_without_materializing_file(
     ]
 
 
+def test_read_text_prefix_streams_bounded_prefix_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    source_path = tmp_path / "large_module.py"
+    source_path.write_text("0123456789" * 1000, encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == source_path:
+            raise AssertionError("_read_text_prefix should stream bounded reads")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert project_substrate._read_text_prefix(source_path, limit=12) == "012345678901"
+
+
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
     tmp_path: Path,
 ) -> None:

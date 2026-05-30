@@ -568,6 +568,9 @@ def propose_routes(
 
 def _read_text_prefix(path: Path, limit: int | None = 20000) -> str:
     try:
+        if limit is not None and limit >= 0:
+            with path.open("r", encoding="utf-8", errors="ignore") as fh:
+                return fh.read(limit)
         text = path.read_text(encoding="utf-8", errors="ignore")
         return text if limit is None else text[:limit]
     except OSError:
