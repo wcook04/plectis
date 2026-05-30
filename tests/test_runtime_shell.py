@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import threading
+from copy import deepcopy
 from pathlib import Path
 from urllib.request import urlopen
 
@@ -1188,20 +1189,96 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                 "body_digest_mismatch",
                 "target_digest_mismatch",
             ],
-            "source_refs": ["system/lib/standard_option_surface.py"],
-            "validation_refs": [
-                "microcosm-substrate/tests/"
-                "test_macro_projection_import_protocol.py::"
-                "test_standard_option_surface_body_import"
-            ],
-            "verification_mode": "exact_source_digest_match",
             "body_text_in_receipt": False,
         }
     ]
+    assert "source_refs" not in macro_detail["defect_preview"][0]
+    assert "validation_refs" not in macro_detail["defect_preview"][0]
+    assert "verification_mode" not in macro_detail["defect_preview"][0]
     assert card["front_door"]["source_open_body_import_floor"][
-        "defect_preview"
-    ] == macro_detail["defect_preview"]
+        "defect_preview_ref"
+    ] == (
+        "front_door_status.blocking_surface_details."
+        "macro_body_import_floor.defect_preview"
+    )
+    assert "defect_preview" not in card["front_door"][
+        "source_open_body_import_floor"
+    ]
+    assert "defect_preview" not in card["macro_body_import_floor"]
     assert card["macro_body_import_floor"]["defect_count"] == 1
+
+
+def test_status_card_macro_drift_preview_stays_compact() -> None:
+    status = RuntimeShell(MICROCOSM_ROOT)._status_card_source_payload()
+    body_floor = deepcopy(status["macro_body_import_floor"])
+    defects: list[dict[str, object]] = []
+    body_imports: list[dict[str, object]] = []
+    for index in range(8):
+        material_id = f"navigation_route_plane_context_pack_source_body_import_{index}"
+        defects.append(
+            {
+                "material_id": material_id,
+                "material_class": "public_macro_tool_body",
+                "target_ref": (
+                    "examples/navigation_hologram_route_plane/"
+                    "exported_route_plane_bundle/source_modules/system/lib/"
+                    "navigation_context_pack.py"
+                ),
+                "defect_codes": [
+                    "body_digest_mismatch",
+                    "target_digest_mismatch",
+                ],
+                "body_in_receipt": False,
+            }
+        )
+        body_imports.append(
+            {
+                "material_id": material_id,
+                "source_refs": [
+                    "system/lib/navigation_context_pack.py",
+                    "examples/navigation_hologram_route_plane/"
+                    "exported_route_plane_bundle/source_module_manifest.json",
+                    "system/lib/kernel/commands/comprehension_snapshot.py",
+                ],
+                "validation_refs": [
+                    "microcosm-substrate/tests/"
+                    "test_navigation_hologram_route_plane.py::"
+                    "test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+                    "microcosm-substrate/tests/"
+                    "test_navigation_hologram_route_plane.py::"
+                    "test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+                ],
+                "verification_mode": "exact_source_digest_match",
+            }
+        )
+    body_floor.update(
+        {
+            "status": "blocked",
+            "defect_count": len(defects),
+            "defects": defects,
+            "body_imports": body_imports,
+        }
+    )
+    status["status"] = "blocked"
+    status["macro_body_import_floor"] = body_floor
+
+    card = runtime_shell._runtime_status_card(status)
+    card_json = json.dumps(card, sort_keys=True)
+    macro_detail = card["front_door_status"]["blocking_surface_details"][
+        "macro_body_import_floor"
+    ]
+
+    assert len(card_json) < 13000
+    assert macro_detail["defect_count"] == 8
+    assert len(macro_detail["defect_preview"]) == 3
+    assert "source_refs" not in macro_detail["defect_preview"][0]
+    assert "validation_refs" not in macro_detail["defect_preview"][0]
+    assert "verification_mode" not in macro_detail["defect_preview"][0]
+    assert card["macro_body_import_floor"]["defect_preview_ref"] == (
+        "front_door_status.blocking_surface_details."
+        "macro_body_import_floor.defect_preview"
+    )
+    assert "defect_preview" not in card["macro_body_import_floor"]
 
 
 def test_runtime_shell_spine_is_cold_reader_xray() -> None:

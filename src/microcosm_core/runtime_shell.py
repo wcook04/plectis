@@ -3949,7 +3949,10 @@ def _compact_project_card_body_import_floor(
         compact.update(
             {
                 "defect_count": body_floor.get("defect_count"),
-                "defect_preview": body_floor_defect_preview,
+                "defect_preview_ref": (
+                    "front_door_status.blocking_surface_details."
+                    "macro_body_import_floor.defect_preview"
+                ),
                 "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
                 "full_defects_ref": (
                     "microcosm status::macro_body_import_floor.defects"
@@ -4203,7 +4206,30 @@ def _compact_body_import_defects(
     return preview
 
 
-def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
+def _compact_status_card_body_floor_defects(
+    body_floor: dict[str, Any],
+    *,
+    limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
+) -> list[dict[str, Any]]:
+    compact: list[dict[str, Any]] = []
+    for defect in _compact_body_import_defects(body_floor, limit=limit):
+        compact.append(
+            {
+                "material_id": defect.get("material_id"),
+                "material_class": defect.get("material_class"),
+                "target_ref": defect.get("target_ref"),
+                "defect_codes": defect.get("defect_codes", []),
+                "body_text_in_receipt": defect.get("body_text_in_receipt") is True,
+            }
+        )
+    return compact
+
+
+def _status_card_front_door_status(
+    card: dict[str, Any],
+    *,
+    body_floor_defect_preview: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     front_door = (
         card.get("front_door", {})
         if isinstance(card.get("front_door"), dict)
@@ -4317,7 +4343,10 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
             detail.update(
                 {
                     "defect_count": body_floor.get("defect_count"),
-                    "defect_preview": body_floor.get("defect_preview", []),
+                    "defect_preview": body_floor_defect_preview
+                    if body_floor_defect_preview is not None
+                    else body_floor.get("defect_preview", []),
+                    "defect_preview_scope": "material_target_codes_body",
                     "defect_preview_limit": body_floor.get(
                         "defect_preview_limit",
                         STATUS_CARD_DEFECT_PREVIEW_LIMIT,
@@ -4585,7 +4614,7 @@ def _runtime_status_card(
             ),
             "latest_family_preview_limit": STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT,
         }
-    body_floor_defect_preview = _compact_body_import_defects(body_floor)
+    body_floor_defect_preview = _compact_status_card_body_floor_defects(body_floor)
     card = {
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
@@ -4851,7 +4880,10 @@ def _runtime_status_card(
     if body_floor.get("defect_count") or body_floor_defect_preview:
         defect_summary = {
             "defect_count": body_floor.get("defect_count"),
-            "defect_preview": body_floor_defect_preview,
+            "defect_preview_ref": (
+                "front_door_status.blocking_surface_details."
+                "macro_body_import_floor.defect_preview"
+            ),
             "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
             "full_defects_ref": "microcosm status::macro_body_import_floor.defects",
         }
@@ -5037,7 +5069,10 @@ def _runtime_status_card(
     }
     if boundary_status != PASS:
         card["status"] = "blocked"
-    card["front_door_status"] = _status_card_front_door_status(card)
+    card["front_door_status"] = _status_card_front_door_status(
+        card,
+        body_floor_defect_preview=body_floor_defect_preview,
+    )
     if card.get("project_ref"):
         card["front_door_status"] = _replace_project_placeholder(
             card["front_door_status"],
