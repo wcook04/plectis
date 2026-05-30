@@ -106,6 +106,10 @@ def _evidence_refs(project: Path) -> set[str]:
     }
 
 
+def _has_json_file(path: Path) -> bool:
+    return path.is_dir() and any(path.glob("*.json"))
+
+
 def _state_artifact_semantics(project: Path) -> list[dict[str, Any]]:
     return [
         {
@@ -131,8 +135,7 @@ def _state_artifact_semantics(project: Path) -> list[dict[str, Any]]:
         {
             "state_ref": ".microcosm/explanations/*.json",
             "semantics": "stable_ref_latest_body",
-            "exists": (project / ".microcosm/explanations").is_dir()
-            and bool(list((project / ".microcosm/explanations").glob("*.json"))),
+            "exists": _has_json_file(project / ".microcosm/explanations"),
         },
         {
             "state_ref": ".microcosm/work_items.json",
@@ -147,8 +150,7 @@ def _state_artifact_semantics(project: Path) -> list[dict[str, Any]]:
         {
             "state_ref": ".microcosm/evidence/*.json",
             "semantics": "stable_ref_latest_body_with_replacement_metadata",
-            "exists": (project / ".microcosm/evidence").is_dir()
-            and bool(list((project / ".microcosm/evidence").glob("*.json"))),
+            "exists": _has_json_file(project / ".microcosm/evidence"),
         },
         {
             "state_ref": ".microcosm/graph.json",

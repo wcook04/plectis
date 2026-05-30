@@ -5,6 +5,7 @@ from pathlib import Path
 
 from microcosm_core import cli
 from microcosm_core import project_substrate
+from microcosm_core.validators import transaction_evidence_stability
 from microcosm_core.validators.transaction_evidence_stability import validate_stability
 
 
@@ -39,6 +40,35 @@ def _run_causal_loop(project: Path) -> str:
     project_substrate.state_graph(project)
     project_substrate.list_evidence(project)
     return str(created["work_id"])
+
+
+def test_state_artifact_semantics_checks_json_presence_without_materializing_glob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    json_dir = tmp_path / ".microcosm/explanations"
+    json_dir.mkdir(parents=True)
+    first = json_dir / "first.json"
+    second = json_dir / "second.json"
+    first.write_text("{}", encoding="utf-8")
+    second.write_text("{}", encoding="utf-8")
+    original_glob = Path.glob
+    yielded: list[str] = []
+
+    def guarded_glob(self: Path, pattern: str):
+        if self == json_dir and pattern == "*.json":
+            def stream():
+                yielded.append("first")
+                yield first
+                yielded.append("second")
+                raise AssertionError("json presence check should stop after first match")
+
+            return stream()
+        return original_glob(self, pattern)
+
+    monkeypatch.setattr(Path, "glob", guarded_glob)
+
+    assert transaction_evidence_stability._has_json_file(json_dir) is True
+    assert yielded == ["first"]
 
 
 def test_transaction_evidence_stability_validator_proves_resolved_chain(tmp_path: Path) -> None:
