@@ -16,6 +16,7 @@ import pytest
 
 from microcosm_core import cli
 from microcosm_core import project_substrate
+from microcosm_core import runtime_evidence_index
 from microcosm_core.runtime_shell import (
     PRODUCT_PATH_DEMOTED_ORGAN_IDS,
     PROOF_LAB_FIRST_SCREEN_COMMAND,
@@ -604,6 +605,44 @@ def test_cli_root_evidence_list_can_be_bounded(
     assert payload["limit"] == 2
     assert payload["truncated"] is True
     assert len(payload["evidence"]) == 2
+
+
+def test_runtime_evidence_list_only_summarizes_returned_limit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    receipt_dir = public_root / "receipts/runtime_shell/demo"
+    receipt_dir.mkdir(parents=True)
+    for index in range(5):
+        (receipt_dir / f"result_{index}.json").write_text(
+            json.dumps({"status": "pass", "organ_id": f"demo_organ_{index}"}),
+            encoding="utf-8",
+        )
+    summarized_refs: list[str] = []
+
+    def compact_summary(path: Path, root: Path) -> dict[str, object]:
+        summarized_refs.append(path.relative_to(root).as_posix())
+        return {
+            "receipt_ref": summarized_refs[-1],
+            "status": "pass",
+        }
+
+    monkeypatch.setattr(
+        runtime_evidence_index,
+        "compact_receipt_summary",
+        compact_summary,
+    )
+
+    payload = runtime_evidence_index.list_runtime_evidence(public_root, limit=2)
+
+    assert payload["receipt_count"] == 5
+    assert payload["returned_receipt_count"] == 2
+    assert payload["truncated"] is True
+    assert summarized_refs == [
+        "receipts/runtime_shell/demo/result_0.json",
+        "receipts/runtime_shell/demo/result_1.json",
+    ]
 
 
 def test_cli_first_screen_text_projection_is_package_backed(
