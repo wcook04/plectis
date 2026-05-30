@@ -33,6 +33,24 @@ def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path
     assert result["hits"][0]["body_redacted"] is True
 
 
+def test_scanner_blocks_unreadable_text_candidate_without_body(tmp_path: Path) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    fixture = tmp_path / "bad.txt"
+    fixture.write_bytes(b"\xff\xfe\xfa")
+
+    result = scan_paths([fixture], forbidden_classes=policy)
+
+    assert result["status"] == BLOCKED_PRIVATE
+    assert result["scanned_path_count"] == 1
+    assert result["blocking_hit_count"] == 1
+    assert result["hits"][0]["forbidden_class"] == "unreadable_text_candidate"
+    assert result["hits"][0]["term_id"] == "utf8_decode_failed"
+    assert result["hits"][0]["error_class"] == "UnicodeDecodeError"
+    assert result["hits"][0]["body_redacted"] is True
+    assert "matched_excerpt" not in result["hits"][0]
+    assert "body" not in result["hits"][0]
+
+
 def test_public_root_scan_paths_are_public_relative() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     fixture = (

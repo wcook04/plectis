@@ -411,6 +411,36 @@ def _merge_scan_results(
     }
 
 
+def _unreadable_text_result(
+    *,
+    path: str,
+    error: OSError | UnicodeDecodeError,
+    forbidden_classes: dict[str, Any],
+) -> dict[str, Any]:
+    term_id = "utf8_decode_failed"
+    remediation = "re-encode or exclude the text candidate before public scan"
+    if isinstance(error, OSError):
+        term_id = "text_read_failed"
+        remediation = "make the text candidate readable or exclude it before public scan"
+    return {
+        "status": BLOCKED_PRIVATE,
+        "hits": [
+            {
+                "path": path,
+                "forbidden_class": "unreadable_text_candidate",
+                "term_id": term_id,
+                "error_class": error.__class__.__name__,
+                "body_redacted": True,
+                "remediation": remediation,
+            }
+        ],
+        "forbidden_output_fields": ["matched_excerpt", "body"],
+        "body_redacted": True,
+        "scan_scope": _scan_scope(forbidden_classes),
+        "anti_claim": _anti_claim(forbidden_classes),
+    }
+
+
 def scan_paths(
     paths: list[str | Path],
     *,
@@ -426,10 +456,22 @@ def scan_paths(
         if not path.is_file() or path.suffix not in TEXT_SUFFIXES:
             continue
         scanned += 1
+        public_path = public_relative_path(path, display_root=root)
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError) as error:
+            results.append(
+                _unreadable_text_result(
+                    path=public_path,
+                    error=error,
+                    forbidden_classes=forbidden_classes,
+                )
+            )
+            continue
         results.append(
             scan_text(
-                path.read_text(encoding="utf-8"),
-                path=public_relative_path(path, display_root=root),
+                text,
+                path=public_path,
                 forbidden_classes=forbidden_classes,
                 source_context=source_context,
             )
