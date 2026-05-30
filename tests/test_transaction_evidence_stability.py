@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from microcosm_core import cli
 from microcosm_core import project_substrate
@@ -69,6 +70,32 @@ def test_state_artifact_semantics_checks_json_presence_without_materializing_glo
 
     assert transaction_evidence_stability._has_json_file(json_dir) is True
     assert yielded == ["first"]
+
+
+def test_transaction_evidence_stability_read_jsonl_streams_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    events = tmp_path / "events.jsonl"
+    events.write_text(
+        '{"event_id":"evt_0001","ref":"evidence/one.json"}\n'
+        '["skip non-object rows"]\n'
+        "\n"
+        '{"event_id":"evt_0002","ref":"evidence/two.json"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == events:
+            raise AssertionError("transaction evidence JSONL reader should stream rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert transaction_evidence_stability._read_jsonl(events) == [
+        {"event_id": "evt_0001", "ref": "evidence/one.json"},
+        {"event_id": "evt_0002", "ref": "evidence/two.json"},
+    ]
 
 
 def test_transaction_evidence_stability_validator_proves_resolved_chain(tmp_path: Path) -> None:
