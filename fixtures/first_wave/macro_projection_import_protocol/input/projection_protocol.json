@@ -1786,24 +1786,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:06181ae8d0e98ca5fca590efa2d9ed96dc7b67246b2d09e8dae71dd63c639f24",
+      "body_digest": "sha256:e26795ecc52b5281f5cf8c8aa903d6c9f714ecf4d0a9fb6efc2ae4959c853640",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:06181ae8d0e98ca5fca590efa2d9ed96dc7b67246b2d09e8dae71dd63c639f24",
-        "source_line_count": 12432,
+        "source_body_digest": "sha256:e26795ecc52b5281f5cf8c8aa903d6c9f714ecf4d0a9fb6efc2ae4959c853640",
+        "source_line_count": 12475,
         "source_ref": "system/lib/task_ledger_events.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:06181ae8d0e98ca5fca590efa2d9ed96dc7b67246b2d09e8dae71dd63c639f24",
-        "target_line_count": 12432,
+        "target_body_digest": "sha256:e26795ecc52b5281f5cf8c8aa903d6c9f714ecf4d0a9fb6efc2ae4959c853640",
+        "target_line_count": 12475,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 12432,
+      "body_line_count": 12475,
       "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2176,24 +2176,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:2980a9e798c78931c5ca48a2f966398bcc888b9162ce3484c16a6e63aacb8e02",
+      "body_digest": "sha256:4aa57603f8b2812ed93b1cc622cfea7dd2435e8c407eb2260a5fc60a7aa221c3",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:2980a9e798c78931c5ca48a2f966398bcc888b9162ce3484c16a6e63aacb8e02",
-        "source_line_count": 8158,
+        "source_body_digest": "sha256:4aa57603f8b2812ed93b1cc622cfea7dd2435e8c407eb2260a5fc60a7aa221c3",
+        "source_line_count": 8188,
         "source_ref": "system/lib/work_ledger_runtime.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:2980a9e798c78931c5ca48a2f966398bcc888b9162ce3484c16a6e63aacb8e02",
-        "target_line_count": 8158,
+        "target_body_digest": "sha256:4aa57603f8b2812ed93b1cc622cfea7dd2435e8c407eb2260a5fc60a7aa221c3",
+        "target_line_count": 8188,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 8158,
+      "body_line_count": 8188,
       "claim_ceiling": "public Work Ledger control source-module body import only; not live Work Ledger mutation, Task Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",

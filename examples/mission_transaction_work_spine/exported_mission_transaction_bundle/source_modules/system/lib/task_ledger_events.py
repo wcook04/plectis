@@ -57,6 +57,8 @@ TASK_LEDGER_PROJECTION_SCHEMA = "task_ledger_v2"
 TASK_SIGNOFF_PROJECTION_SCHEMA = "task_sign_off_ledger_v2"
 TASK_LEDGER_INTAKE_REQUEST_SCHEMA = "task_ledger_intake_request_v0"
 OPERATOR_AUTHORIZATION_POLICY_SCHEMA = "operator_authorization_policy_v1"
+TASK_LEDGER_REBUILD_COMMAND = "./repo-python tools/meta/factory/task_ledger_apply.py rebuild"
+TASK_LEDGER_REBUILD_CHECK_COMMAND = "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --check"
 TaskLedgerProgressCallback = Callable[[Mapping[str, Any]], None]
 TASK_LEDGER_MIN_FREE_BYTES_ENV = "AIW_TASK_LEDGER_MIN_FREE_BYTES"
 TASK_LEDGER_MIN_FREE_BYTES_DEFAULT = 512 * 1024 * 1024
@@ -79,6 +81,38 @@ def _emit_progress(
     }
     payload.update(fields)
     progress_callback(payload)
+
+
+def _projection_check_payload(mismatches: Sequence[str]) -> Dict[str, Any]:
+    mismatch_list = [str(path) for path in mismatches]
+    payload: Dict[str, Any] = {
+        "ok": not mismatch_list,
+        "checked": True,
+        "status": "clean" if not mismatch_list else "projection_rebuild_required",
+        "mismatches": mismatch_list,
+        "mismatch_count": len(mismatch_list),
+    }
+    if mismatch_list:
+        payload.update(
+            {
+                "next_step": (
+                    "Task Ledger deterministic projections are stale; run the owner rebuild "
+                    "route before trusting generated views."
+                ),
+                "next_command": TASK_LEDGER_REBUILD_COMMAND,
+                "safe_next_command": TASK_LEDGER_REBUILD_COMMAND,
+                "verification_command": TASK_LEDGER_REBUILD_CHECK_COMMAND,
+                "owner_route": TASK_LEDGER_REBUILD_COMMAND,
+            }
+        )
+    else:
+        payload.update(
+            {
+                "next_step": "Task Ledger deterministic projections match event authority.",
+                "verification_command": TASK_LEDGER_REBUILD_CHECK_COMMAND,
+            }
+        )
+    return payload
 
 
 def _existing_parent(path: Path) -> Path:
@@ -633,7 +667,15 @@ def authority_health(
     with file_lock(repo_root / LOCK_REL):
         health = _authority_health_unlocked(repo_root, ids=ids)
     if projection_check and health.get("status") == "clean":
-        health["projection_check"] = rebuild_projections(repo_root, check=True)
+        projection_result = rebuild_projections(repo_root, check=True)
+        health["projection_check"] = projection_result
+        if not bool(projection_result.get("ok")):
+            health["projection_status"] = projection_result.get("status")
+            health["next_step"] = str(projection_result.get("next_step") or "")
+            health["safe_next_command"] = str(projection_result.get("safe_next_command") or "")
+            health["projection_check_command"] = str(
+                projection_result.get("verification_command") or TASK_LEDGER_REBUILD_CHECK_COMMAND
+            )
     elif projection_check:
         health["projection_check"] = {
             "ok": False,
@@ -12085,8 +12127,9 @@ def _rebuild_projections_unlocked(
         )
         mismatches = []
         for rel_path, payload in targets.items():
-            current = _safe_read_json(repo_root / rel_path)
-            if current and current != payload:
+            projection_path = repo_root / rel_path
+            current = _safe_read_json(projection_path)
+            if not projection_path.exists() or current != payload:
                 mismatches.append(str(rel_path))
         _emit_progress(
             progress_callback,
@@ -12094,7 +12137,7 @@ def _rebuild_projections_unlocked(
             ok=not mismatches,
             mismatch_count=len(mismatches),
         )
-        return {"ok": not mismatches, "checked": True, "mismatches": mismatches}
+        return _projection_check_payload(mismatches)
     headroom = task_ledger_disk_write_headroom(
         repo_root,
         operation="task_ledger_projection_rebuild",

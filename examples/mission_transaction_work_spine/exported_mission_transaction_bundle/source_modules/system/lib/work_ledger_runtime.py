@@ -660,6 +660,22 @@ def _wl_command(command: str, *args: str) -> str:
     return f"{base} {suffix}".strip()
 
 
+def _duration_hours_token(duration: timedelta) -> str:
+    hours = duration.total_seconds() / 3600.0
+    if hours.is_integer():
+        return str(int(hours))
+    return f"{hours:.3f}".rstrip("0").rstrip(".")
+
+
+def _orphan_visibility_sweep_command(orphan_after: timedelta, *args: str) -> str:
+    return _wl_command(
+        "session-sweep",
+        "--dry-run",
+        f"--orphan-after-hours {_duration_hours_token(orphan_after)}",
+        *args,
+    )
+
+
 def _mission_command(*args: str) -> str:
     suffix = " ".join(arg for arg in args if arg)
     base = "./repo-python tools/meta/control/mission_transaction_preflight.py"
@@ -952,6 +968,7 @@ def _build_monitor_cards(
     td_collision_count: int,
     claim_collision_preview: Mapping[str, Any],
     mission_focus_group_count: int = 0,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
 ) -> List[Dict[str, Any]]:
     effective_active = int(counts.get("effective_active_sessions") or 0)
     orphaned_active = int(counts.get("orphaned_active_sessions") or 0)
@@ -1030,7 +1047,7 @@ def _build_monitor_cards(
             "risk_band": _monitor_risk_band(orphaned_status),
             "count": orphaned_active,
             "summary": f"{orphaned_active} active sessions are older than the orphan visibility threshold",
-            "drilldown": "./repo-python tools/meta/factory/work_ledger.py session-sweep --dry-run",
+            "drilldown": _orphan_visibility_sweep_command(orphan_after),
         },
         {
             "card_id": "stale_append_obligations",
@@ -1119,7 +1136,11 @@ def _session_heartbeat_repair_row(card: Mapping[str, Any]) -> Dict[str, Any] | N
     )
 
 
-def _session_lifecycle_repair_rows(card: Mapping[str, Any]) -> List[Dict[str, Any]]:
+def _session_lifecycle_repair_rows(
+    card: Mapping[str, Any],
+    *,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> List[Dict[str, Any]]:
     session_id = str(card.get("session_id") or "").strip()
     if not session_id:
         return []
@@ -1136,7 +1157,7 @@ def _session_lifecycle_repair_rows(card: Mapping[str, Any]) -> List[Dict[str, An
                     "visible until session-sweep proves whether it should refresh or finalize."
                 ),
                 owning_surface="work_ledger.session_sweep",
-                safe_next_command=_wl_command("session-sweep", "--dry-run"),
+                safe_next_command=_orphan_visibility_sweep_command(orphan_after),
                 proof_route=_wl_command("session-status", f"--session-id {quoted_session} --full"),
                 residual_capture_route=_residual_capture_command("orphaned_session"),
                 details={"session_id": session_id},
@@ -1207,7 +1228,11 @@ def _claim_ref_repair_rows(card: Mapping[str, Any]) -> List[Dict[str, Any]]:
     return rows
 
 
-def _awareness_card(compact: Mapping[str, Any]) -> Dict[str, Any]:
+def _awareness_card(
+    compact: Mapping[str, Any],
+    *,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> Dict[str, Any]:
     heartbeat = (
         dict(compact.get("pass_heartbeat") or {})
         if isinstance(compact.get("pass_heartbeat"), Mapping)
@@ -1236,7 +1261,7 @@ def _awareness_card(compact: Mapping[str, Any]) -> Dict[str, Any]:
     heartbeat_row = _session_heartbeat_repair_row(card)
     if heartbeat_row:
         repair_rows.append(heartbeat_row)
-    repair_rows.extend(_session_lifecycle_repair_rows(card))
+    repair_rows.extend(_session_lifecycle_repair_rows(card, orphan_after=orphan_after))
     repair_rows.extend(_claim_ref_repair_rows(card))
     if repair_rows:
         card["repair_rows"] = repair_rows
@@ -1273,13 +1298,14 @@ def _build_awareness_cards(
     effective_active_compacts: Sequence[Mapping[str, Any]],
     orphaned_active_compacts: Sequence[Mapping[str, Any]],
     limit: int,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
 ) -> List[Dict[str, Any]]:
     safe_limit = max(0, int(limit or 0))
     if safe_limit == 0:
         return []
     rows: List[Dict[str, Any]] = []
     for compact in list(effective_active_compacts) + list(orphaned_active_compacts):
-        rows.append(_awareness_card(compact))
+        rows.append(_awareness_card(compact, orphan_after=orphan_after))
     rows.sort(key=_awareness_card_sort_key)
     return rows[:safe_limit]
 
@@ -1541,6 +1567,7 @@ def _overview_repair_rows(
     stale_sessions: Sequence[Mapping[str, Any]],
     heartbeat_participation: Mapping[str, Any],
     limit: int,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
 ) -> List[Dict[str, Any]]:
     safe_limit = max(0, int(limit or 0))
     row_limit = max(1, safe_limit)
@@ -1616,7 +1643,7 @@ def _overview_repair_rows(
                     "sweep or refresh them before treating the active count as live coordination pressure."
                 ),
                 owning_surface="work_ledger.session_sweep",
-                safe_next_command=_wl_command("session-sweep", "--dry-run"),
+                safe_next_command=_orphan_visibility_sweep_command(orphan_after),
                 proof_route=_wl_command("session-status", "--overview --with-session-cards --limit 12"),
                 residual_capture_route=_residual_capture_command("orphaned_session"),
                 details={"session_count": len(orphaned_active_sessions)},
@@ -1883,6 +1910,7 @@ def build_session_cohort_overview(
             for session in orphaned_active_sessions
         ],
         limit=safe_limit,
+        orphan_after=orphan_after,
     )
     heartbeat_participation = _heartbeat_participation_summary(
         effective_active_compacts=effective_active_compacts,
@@ -1908,6 +1936,7 @@ def build_session_cohort_overview(
         stale_sessions=stale_sessions,
         heartbeat_participation=heartbeat_participation,
         limit=safe_limit,
+        orphan_after=orphan_after,
     )
     monitor_cards = _build_monitor_cards(
         risk_level=risk_level,
@@ -1919,6 +1948,7 @@ def build_session_cohort_overview(
         td_collision_count=len(td_id_collisions),
         claim_collision_preview=claim_collision_preview,
         mission_focus_group_count=len(mission_focus_groups),
+        orphan_after=orphan_after,
     )
     monitor_cards = _attach_monitor_repair_rows(monitor_cards, repair_rows)
     landing_lane = _recommended_landing_lane(
