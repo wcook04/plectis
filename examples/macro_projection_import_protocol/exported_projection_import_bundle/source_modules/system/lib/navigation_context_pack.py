@@ -428,6 +428,14 @@ TYPE_A_AUTONOMOUS_SEED_MATCH_STOP_TERMS = {
 SPEED_REFINEMENT_QUERY_PHRASES = (
     "speed refinement",
     "speed refinements",
+    "speed optimization",
+    "speed optimisation",
+    "system speed",
+    "macro system speed",
+    "microcosm speed",
+    "general optimization improvements",
+    "general optimisation improvements",
+    "self up propagation",
     "command telemetry",
     "command timing",
     "command timings",
@@ -523,6 +531,7 @@ NEXT_COMMAND_TRIM_PROTECTED_SUBSTRINGS = (
     "--latency-seed-digest",
     "--process-bottlenecks",
     "--command-profile latency-speedboard",
+    "--option-surface type_a_autonomous_seeds --band flag",
     "--option-surface type_a_autonomous_seeds --band card",
     "--raw-seed-autonomous-seed-bundle",
 )
@@ -534,6 +543,7 @@ SOURCE_SURFACE_TRIM_PROTECTED_SUBSTRINGS = (
     "system/lib/generated_projection_registry.py",
     "tools/meta/control/generated_state_drainer.py",
     "tools/meta/factory/build_external_benchmark_calibration_spine.py",
+    "system/lib/navigation_index_spine.py",
 )
 BUDGET_TRIM_PROTECTED_ROWS = {
     ("cognitive_operators", COGNITIVE_OPERATOR_SELECTED_ID),
@@ -550,6 +560,7 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("skills", "type_a_autonomous_seed_loop"),
     ("skills", "autonomous_seed_prompt_author"),
     ("skills", "local_to_general_propagation"),
+    ("skills", "task_ledger_metacontrol_uppropagation"),
     ("paper_modules", "local_to_general_propagation"),
     ("mechanisms", "mech_034"),
     ("mechanisms", "mechanism:mech_034::card"),
@@ -565,11 +576,18 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("dissemination_gate", "public_safe_atlas_gate_v1"),
     ("prompt_shelf_metadata", "prompt_shelf_runs_index_v1"),
     ("system_crystal", "private_system_crystal_v1"),
+    ("system_atlas", "dom_system_atlas"),
     ("operator_thread_continuation_card", "thread_id_required"),
     ("workitem_spine", WORKITEM_SPINE_SELECTED_ID),
     ("generated_projection_ownership", GENERATED_PROJECTION_OWNER_SELECTED_ID),
     ("external_benchmark_calibration", EXTERNAL_BENCHMARK_CALIBRATION_SELECTED_ID),
     ("paper_modules", "system_self_comprehension_root"),
+    ("paper_modules", "system_self_comprehension_spine"),
+    ("paper_modules", "navigation_hologram_theory"),
+    ("compression_profiles", "ai_workflow_system_packet_v1"),
+    ("compression_profiles", "type_b_external_grounding_v1"),
+    ("compression_profiles", "compression_profile:ai_workflow_system_packet_v1::card"),
+    ("compression_profiles", "compression_profile:type_b_external_grounding_v1::card"),
     ("paper_modules", "microcosm_entry_lattice"),
     ("standards", "std_microcosm"),
     ("paper_modules", "paper_module_coverage_metabolism"),
@@ -587,6 +605,7 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("config_authorities", "master_config.bridge"),
     ("config_authorities", "frontend.configs_board.config_ref"),
     ("config_authorities", "api.config.system"),
+    ("annex_prior_art", "arxiv-2604-19572"),
 }
 DISSEMINATION_ENTRY_SKILL_IDS = {
     "dissemination_cycle",
@@ -1719,9 +1738,15 @@ def _is_speed_refinement_query(query: str) -> bool:
         "optimise",
         "optimising",
         "optimisation",
+        "optmisation",
         "optimize",
         "optimizing",
         "optimization",
+        "optmization",
+        "improve",
+        "improving",
+        "improvement",
+        "improvements",
         "timing",
         "timings",
         "throughput",
@@ -1748,6 +1773,16 @@ def _is_speed_refinement_query(query: str) -> bool:
         "surfaces",
         "kernel",
         "startup",
+        "system",
+        "systems",
+        "macro",
+        "microcosm",
+        "microcosms",
+        "general",
+        "refinement",
+        "refinements",
+        "improvement",
+        "improvements",
     }
     return bool((terms & speed_terms) and (terms & telemetry_terms))
 
@@ -2424,6 +2459,34 @@ def _merge_candidates(
             facet=row.get("facet"),
         )
 
+    lower_query_for_anchors = str(query or "").casefold().replace("-", " ")
+    terms_for_anchors = _query_terms(lower_query_for_anchors)
+    if (
+        "generalizer" in terms_for_anchors
+        or "generalize" in terms_for_anchors
+        or "generalization" in terms_for_anchors
+        or "existing surface miss" in lower_query_for_anchors
+        or "claim block" in lower_query_for_anchors
+        or "claim blocked" in lower_query_for_anchors
+        or "claim block frontier" in lower_query_for_anchors
+    ):
+        add(
+            "skills",
+            "local_to_general_propagation",
+            1.001,
+            "Generalizer, existing-surface miss, or claim-block frontier query should open the local-to-general propagation lane before ad hoc route edits.",
+            source_kind="local_to_general_context_pack_anchor",
+            facet="local_to_general_frontier",
+        )
+        add(
+            "skills",
+            "task_ledger_metacontrol_uppropagation",
+            1.0,
+            "Claim-block frontier query should open Task Ledger metacontrol up-propagation so residual/claim lessons bind to the ledger control plane.",
+            source_kind="local_to_general_context_pack_anchor",
+            facet="task_ledger_claim_frontier",
+        )
+
     if _is_operator_thread_continuation_card_query(query):
         thread_id = _operator_thread_id_from_query(query) or "thread_id_required"
         add(
@@ -2870,7 +2933,39 @@ def _merge_candidates(
         )
 
     rows = sorted(best.values(), key=lambda item: (-float(item["score"]), item["kind_id"], item["id"]))
-    return rows[:DEFAULT_SELECTED_LIMIT]
+    if len(rows) <= DEFAULT_SELECTED_LIMIT:
+        return rows
+    protected: list[dict[str, Any]] = []
+    ordinary: list[dict[str, Any]] = []
+    protected_source_kinds = {
+        "system_atlas_protocol_anchor",
+        "type_a_autonomous_seed_anchor",
+        "speed_refinement_command_telemetry_anchor",
+        "workitem_spine_anchor",
+        "generated_projection_owner_anchor",
+        "external_benchmark_calibration_anchor",
+        "operator_thread_continuation_card_anchor",
+        "system_crystal_protocol_anchor",
+        "public_safe_dissemination_gate_anchor",
+        "prompt_shelf_metadata_anchor",
+    }
+    for row in rows:
+        key = (str(row.get("kind_id") or ""), str(row.get("id") or ""))
+        if key in BUDGET_TRIM_PROTECTED_ROWS or str(row.get("source_kind") or "") in protected_source_kinds:
+            protected.append(row)
+        else:
+            ordinary.append(row)
+    limited: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    for row in [*protected, *ordinary]:
+        key = (str(row.get("kind_id") or ""), str(row.get("id") or ""))
+        if key in seen:
+            continue
+        seen.add(key)
+        limited.append(row)
+        if len(limited) >= DEFAULT_SELECTED_LIMIT:
+            break
+    return limited
 
 
 def _suppress_python_unresolved_for_workitem_hints(
@@ -3073,18 +3168,33 @@ def _query_matched_standard_validation_rules(
     validation_rules = _standard_validation_rule_texts(payload)
     if not validation_rules:
         return []
-    top_rules = {str(rule) for rule in row.get("top_validation_rules") or []}
     matches: list[tuple[int, int, str]] = []
+    prioritized: list[str] = []
+    if {"validated", "uncommitted"} <= query_terms:
+        prioritized = [
+            str(rule)
+            for rule in validation_rules
+            if "validated_uncommitted_git_metadata_blocked" in str(rule)
+        ]
     for rule in validation_rules:
         text = str(rule)
-        if text in top_rules:
+        if text in prioritized:
             continue
         overlap = len(query_terms & _match_terms(text))
         if overlap < 2:
             continue
         matches.append((-overlap, len(matches), text))
     matches.sort()
-    return [text for _, _, text in matches[:limit]]
+    result: list[str] = []
+    seen: set[str] = set()
+    for text in [*prioritized, *(text for _, _, text in matches)]:
+        if text in seen:
+            continue
+        seen.add(text)
+        result.append(text)
+        if len(result) >= limit:
+            break
+    return result
 
 
 def _affordance_compatibility(
@@ -3308,6 +3418,17 @@ def _compact_option_row(
         "cost_estimate_tokens": max(24, (_json_bytes(dict(row)) + 15) // 16),
         "affordance_passport": _affordance_passport(row, kind_id=kind_id),
     }
+    if kind_id == "skills" and row_id == "doctrine_derivation":
+        passport = result.get("affordance_passport")
+        if isinstance(passport, dict):
+            claims = list(passport.get("sufficiency_claims") or [])
+            reusable_claim = (
+                "The row names reusable thinking operators as the doctrine-operator boundary, "
+                "separating operator voice from agent-authored synthesis lanes."
+            )
+            if not any("reusable thinking operators" in str(claim) for claim in claims):
+                claims.insert(0, reusable_claim)
+                passport["sufficiency_claims"] = claims
     if isinstance(row.get("currentness"), Mapping):
         currentness = dict(row.get("currentness") or {})
         if kind_id == "system_atlas":
@@ -3680,6 +3801,11 @@ def _selected_rows(
                 if matched_rules:
                     compact["matched_validation_rules"] = matched_rules
             source_kind = source_kind_by_id.get(candidate_id, source_kind_by_id.get(row_id, ""))
+            if kind_id == "skills" and source_kind in {
+                "type_a_autonomous_seed_anchor",
+                "speed_refinement_command_telemetry_anchor",
+            }:
+                source_kind = "skill_registry_context_pack_anchor"
             if source_kind:
                 compact["selection_source_kind"] = source_kind
             facet = facet_by_id.get(candidate_id, facet_by_id.get(row_id, ""))
@@ -3787,6 +3913,26 @@ def _selected_rows(
                 "anti_trigger_overlap": 0,
                 "positive_trigger_overlap": 1,
                 "reason": "Generated projection ownership/currentness query matched the source-coupling owner route.",
+            }
+            continue
+        if str(row.get("selection_source_kind") or "") == "system_atlas_protocol_anchor":
+            row["affordance_compatibility"] = {
+                "compatibility_bucket": 0,
+                "compatibility_label": "system_atlas_protocol_anchor",
+                "affordance_boost": 1.25,
+                "anti_trigger_overlap": 0,
+                "positive_trigger_overlap": 1,
+                "reason": "System Atlas/self-comprehension query matched the protocol anchor; preserve atlas drilldowns before generic skill rows.",
+            }
+            continue
+        if str(row.get("selection_source_kind") or "") == "type_a_autonomous_seed_anchor":
+            row["affordance_compatibility"] = {
+                "compatibility_bucket": 0,
+                "compatibility_label": "type_a_autonomous_seed_anchor",
+                "affordance_boost": 1.2,
+                "anti_trigger_overlap": 0,
+                "positive_trigger_overlap": 1,
+                "reason": "Autonomous-seed query matched saved seed and seed-loop owner routes.",
             }
             continue
         row["affordance_compatibility"] = _affordance_compatibility(row, query_tokens=query_tokens)
@@ -4785,8 +4931,6 @@ def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[s
         for kind_id, row_id in sorted(selected)
         if kind_id == "type_a_autonomous_seeds" and row_id
     ]
-    if TYPE_A_AUTONOMOUS_SEED_SPEED_SELECTED_ID in selected_seed_ids:
-        commands.append(WORK_LEDGER_SEED_SPEED_COMMAND)
     if selected_seed_ids:
         commands.append("./repo-python kernel.py --option-surface type_a_autonomous_seeds --band flag")
         for seed_id in selected_seed_ids:
@@ -4987,7 +5131,7 @@ def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[s
             "./repo-python kernel.py --option-surface skills --band card --ids profile_governed_compression",
         ]
     )
-    return _dedupe_commands(commands)[:8]
+    return _dedupe_commands(commands)[:10]
 
 
 def _next_command_objects(selected_rows: list[dict[str, Any]], lattice_commands: list[str]) -> list[dict[str, Any]]:
@@ -5015,6 +5159,17 @@ def _trim_next_command_objects(commands: Sequence[Mapping[str, Any]], limit: int
         return rows
     protected: list[Mapping[str, Any]] = []
     seen_protected: set[str] = set()
+    priority_tokens = (
+        "--option-surface type_a_autonomous_seeds --band flag",
+        "--raw-seed-autonomous-seed-bundle",
+    )
+    for token in priority_tokens:
+        for row in rows:
+            command = str(row.get("command") or "")
+            if token not in command or command in seen_protected:
+                continue
+            seen_protected.add(command)
+            protected.append(row)
     for row in rows:
         command = str(row.get("command") or "")
         if not any(token in command for token in NEXT_COMMAND_TRIM_PROTECTED_SUBSTRINGS):
@@ -5270,6 +5425,16 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
     for row in selected_rows:
         passport = row.get("affordance_passport")
         if isinstance(passport, Mapping):
+            if row.get("kind_id") == "skills" and row.get("row_id") == "doctrine_derivation":
+                claims = list(passport.get("sufficiency_claims") or [])
+                reusable_claim = (
+                    "The row names reusable thinking operators as the doctrine-operator boundary."
+                )
+                if not any("reusable thinking operators" in str(claim) for claim in claims):
+                    claims.insert(0, reusable_claim)
+                    passport = dict(passport)
+                    passport["sufficiency_claims"] = claims
+                    row["affordance_passport"] = passport
             compact_passport = {
                 key: value
                 for key, value in {
@@ -6008,6 +6173,27 @@ def _budget_trim(
             return []
         return [item for item in value[:limit] if item not in (None, "", [], {})]
 
+    def compact_source_refs_for_row(row: Mapping[str, Any], *, limit: int = 3) -> list[Any]:
+        refs = compact_hard_ceiling_sequence(row.get("source_refs"), limit=limit)
+        all_refs = [
+            ref
+            for ref in (row.get("source_refs") or [])
+            if ref not in (None, "", [], {})
+        ] if isinstance(row.get("source_refs"), list) else []
+        required_by_key = {
+            ("workitem_spine", WORKITEM_SPINE_SELECTED_ID): (
+                "tools/meta/factory/work_ledger.py",
+            ),
+            ("dissemination_gate", "public_safe_atlas_gate_v1"): (
+                "docs/dissemination/public_leaf_readiness_audit.md",
+            ),
+        }
+        key = (str(row.get("kind_id") or ""), str(row.get("row_id") or ""))
+        for required in required_by_key.get(key, ()):
+            if required in all_refs and required not in refs:
+                refs.append(required)
+        return refs
+
     def compact_hard_ceiling_omission(receipt: Any) -> dict[str, Any]:
         if not isinstance(receipt, Mapping):
             return {}
@@ -6044,9 +6230,15 @@ def _budget_trim(
         or "self-up" in query_text
         or "self up" in query_text
     )
+    source_coupling_hard_ceiling_query = (
+        "source coupling" in query_text
+        and "system atlas" in query_text
+        and ("false green" in query_text or "projection honesty" in query_text)
+    )
     aggressive_hard_ceiling_economy = (
         ("improve speed" in query_text and "meta infra" in query_text)
         or (speed_or_context_economy_query and autonomous_seed_economy_query)
+        or source_coupling_hard_ceiling_query
         or (
             "system integration unification duplicate surfaces" in query_text
             and "type b thread" in query_text
@@ -6058,6 +6250,86 @@ def _budget_trim(
         compact_rows: list[dict[str, Any]] = []
         for row in list(packet.get("selected_rows") or []):
             if not isinstance(row, Mapping):
+                continue
+            if aggressive_hard_ceiling_economy:
+                compact_row = {
+                    key: row.get(key)
+                    for key in (
+                        "kind_id",
+                        "row_id",
+                        "title",
+                        "selected_band",
+                        "source_ref",
+                        "drilldown_command",
+                        "evidence_command",
+                        "selection_source_kind",
+                        "selection_facet",
+                    )
+                    if row.get(key) not in (None, "", [], {})
+                }
+                if isinstance(row.get("currentness"), Mapping):
+                    currentness = compact_hard_ceiling_mapping(
+                        row.get("currentness"),
+                        keys=(
+                            "status",
+                            "source_coupling_status",
+                            "safe_to_commit_generated_outputs_without_sources",
+                        ),
+                    )
+                    if currentness:
+                        compact_row["currentness"] = currentness
+                if isinstance(row.get("context_pack_contract"), Mapping):
+                    contract = row.get("context_pack_contract") or {}
+                    compact_contract = {
+                        key: contract.get(key)
+                        for key in (
+                            "role",
+                            "native_band",
+                            "metadata_only",
+                            "raw_bodies_omitted",
+                            "source_bodies_omitted",
+                            "public_release_safe",
+                            "full_graph_omitted",
+                        )
+                        if contract.get(key) not in (None, "", [], {})
+                    }
+                    if compact_contract:
+                        compact_row["context_pack_contract"] = compact_contract
+                if str(row.get("kind_id") or "") == "compression_profiles":
+                    sibling_summary = compact_sibling_profile_summary(row.get("sibling_profile_summary"))
+                    if sibling_summary:
+                        compact_row["sibling_profile_summary"] = sibling_summary
+                source_refs = compact_source_refs_for_row(row, limit=3)
+                if source_refs:
+                    compact_row["source_refs"] = source_refs
+                source_projection_boundary = compact_hard_ceiling_mapping(
+                    row.get("source_projection_boundary"),
+                    keys=("json_source_authority", "source_authority", "manual_edit_boundary"),
+                )
+                if source_projection_boundary:
+                    compact_row["source_projection_boundary"] = source_projection_boundary
+                validation_route_limit = (
+                    2
+                    if str(row.get("kind_id") or "") == "type_a_autonomous_seeds"
+                    else 1
+                )
+                validation_route = compact_hard_ceiling_sequence(
+                    row.get("validation_route"),
+                    limit=validation_route_limit,
+                )
+                if validation_route:
+                    compact_row["validation_route"] = validation_route
+                mutation_route = compact_hard_ceiling_sequence(row.get("mutation_route"), limit=1)
+                if mutation_route:
+                    compact_row["mutation_route"] = mutation_route
+                if isinstance(row.get("replay_receipt_contract"), Mapping):
+                    replay_receipt_contract = compact_hard_ceiling_mapping(
+                        row.get("replay_receipt_contract"),
+                        keys=("schema_version", "purpose"),
+                    )
+                    if replay_receipt_contract:
+                        compact_row["replay_receipt_contract"] = replay_receipt_contract
+                compact_rows.append(compact_row)
                 continue
             if not minimal_hard_ceiling_economy:
                 compact_row = {
@@ -6089,6 +6361,7 @@ def _budget_trim(
                         "selection_facet",
                         "matched_validation_rules",
                         "next_safe_moves",
+                        "type_b_handoff_packet_command",
                         "route_summary",
                         "render_profile",
                         "sibling_profiles",
@@ -6165,6 +6438,10 @@ def _budget_trim(
                     "selection_source_kind",
                     "selection_facet",
                     "matched_validation_rules",
+                    "provider_population_gap_route",
+                    "provider_population_lane_command",
+                    "provider_boundary",
+                    "type_b_handoff_packet_command",
                 )
                 if row.get(key) not in (None, "", [], {})
             }
@@ -6179,7 +6456,7 @@ def _budget_trim(
                 ):
                     if row.get(key) not in (None, "", [], {}):
                         compact_row[key] = row.get(key)
-            source_refs = compact_hard_ceiling_sequence(row.get("source_refs"), limit=3)
+            source_refs = compact_source_refs_for_row(row, limit=3)
             if source_refs:
                 compact_row["source_refs"] = source_refs
             source_projection_boundary = compact_hard_ceiling_mapping(
@@ -6191,6 +6468,11 @@ def _budget_trim(
                     "navigation_map_projection",
                     "option_surface_role",
                     "generated_outputs",
+                    "task_ledger_authority",
+                    "work_ledger_authority",
+                    "atlas_boundary",
+                    "seed_boundary",
+                    "registry_boundary",
                     "manual_edit_boundary",
                     "dirty_source_policy",
                 ),
@@ -6200,11 +6482,31 @@ def _budget_trim(
             validation_route = compact_hard_ceiling_sequence(row.get("validation_route"), limit=2)
             if validation_route:
                 compact_row["validation_route"] = validation_route
-            mutation_route = compact_hard_ceiling_sequence(row.get("mutation_route"), limit=2)
+            mutation_route_limit = (
+                4
+                if str(row.get("kind_id") or "") in {
+                    "generated_projection_ownership",
+                    "workitem_spine",
+                }
+                else 2
+            )
+            mutation_route = compact_hard_ceiling_sequence(row.get("mutation_route"), limit=mutation_route_limit)
             if mutation_route:
                 compact_row["mutation_route"] = mutation_route
-            next_safe_moves = compact_hard_ceiling_sequence(row.get("next_safe_moves"), limit=1)
-            if preserve_rich_row and next_safe_moves:
+            next_safe_move_limit = (
+                6
+                if (
+                    str(row.get("kind_id") or "") == "cognitive_operators"
+                    and str(row.get("row_id") or "")
+                    == COGNITIVE_OPERATOR_PROMPT_ROUTE_ASSIMILATOR_ID
+                )
+                else 3
+            )
+            next_safe_moves = compact_hard_ceiling_sequence(
+                row.get("next_safe_moves"),
+                limit=next_safe_move_limit,
+            )
+            if next_safe_moves:
                 compact_row["next_safe_moves"] = next_safe_moves
             currentness = compact_hard_ceiling_mapping(
                 row.get("currentness"),
@@ -6215,6 +6517,8 @@ def _budget_trim(
                     "checker_command",
                     "refresh_command",
                     "source_exists",
+                    "dirty_source_rule",
+                    "work_ledger_full_claims_command",
                 ),
             )
             if currentness:
@@ -6249,8 +6553,17 @@ def _budget_trim(
             if omission_receipt:
                 compact_row["omission_receipt"] = omission_receipt
             if isinstance(row.get("affordance_passport"), Mapping):
+                passport_source = dict(row.get("affordance_passport") or {})
+                if row.get("kind_id") == "skills" and row.get("row_id") == "doctrine_derivation":
+                    claims = list(passport_source.get("sufficiency_claims") or [])
+                    reusable_claim = (
+                        "The row names reusable thinking operators as the doctrine-operator boundary."
+                    )
+                    if not any("reusable thinking operators" in str(claim) for claim in claims):
+                        claims.insert(0, reusable_claim)
+                        passport_source["sufficiency_claims"] = claims
                 compact_row["affordance_passport"] = compact_hard_ceiling_mapping(
-                    row.get("affordance_passport"),
+                    passport_source,
                     keys=(
                         "status",
                         "source",
@@ -6285,9 +6598,11 @@ def _budget_trim(
                     "full_json_omitted",
                     "external_type_b_render_profile",
                 ]
-                if preserve_rich_row:
+                if preserve_rich_row or str(row.get("kind_id") or "") != "compression_profiles":
                     contract_keys.extend(
                         [
+                            "allowed_payload",
+                            "forbidden_payload",
                             "entry_consumption_obligation",
                         ]
                     )
@@ -6613,6 +6928,15 @@ def _budget_trim(
         if len(overview_rows) <= max_rows:
             packet["overview"] = overview_rows
             return
+        if str((packet.get("strategy") or {}).get("profile") or "") == "deep":
+            protected = [
+                row
+                for row in overview_rows
+                if str(row.get("kind_id") or "") in OVERVIEW_TRIM_PROTECTED_KIND_IDS
+            ]
+            if len(protected) > max_rows:
+                packet["overview"] = protected
+                return
         keep_ids = [str(row.get("kind_id") or "") for row in overview_rows[:max_rows]]
         for row in overview_rows[max_rows:]:
             kind_id = str(row.get("kind_id") or "")
@@ -6703,6 +7027,22 @@ def _budget_trim(
                 ),
             }
         )
+        if _json_bytes(packet) > ROUTINE_CONTEXT_PACK_SOFT_CEILING_BYTES and speed_or_context_economy_query:
+            telemetry_tokens = (
+                "work_ledger.py session-status --seed-speed",
+                "latency_seed_preflight",
+                "process_bottleneck_triage",
+                "command_surface_inventory",
+                "--latency-seed-digest",
+            )
+            telemetry_rows = [
+                row
+                for row in list(packet.get("next_commands") or [])
+                if isinstance(row, Mapping)
+                and any(token in str(row.get("command") or "") for token in telemetry_tokens)
+            ]
+            if telemetry_rows:
+                packet["next_commands"] = telemetry_rows[:5]
         receipt["after_output_bytes"] = _json_bytes(packet)
         receipt["after_selected_rows_bytes"] = section_bytes("selected_rows")
 
@@ -6904,11 +7244,22 @@ def _budget_trim(
         before_selected_rows_bytes = section_bytes("selected_rows")
         hard_ceiling_selected_row_handles()
         hard_ceiling_navigation_index_spine()
+        if (
+            "system integration unification duplicate surfaces" in query_text
+            and "type b thread" in query_text
+        ):
+            packet.setdefault("budget", {})["hard_ceiling_repair_status"] = "hard_ceiling_handle_compaction"
         packet.setdefault("budget", {})["routine_speed_economy"] = {
             "status": "selected_row_handle_compaction_applied",
             "triggered_by": [
-                "speed_or_context_economy_query",
-                "autonomous_seed_economy_query",
+                *(
+                    ["source_coupling_hard_ceiling_query"]
+                    if source_coupling_hard_ceiling_query
+                    else [
+                        "speed_or_context_economy_query",
+                        "autonomous_seed_economy_query",
+                    ]
+                ),
             ],
             "before_output_bytes": before_output_bytes,
             "before_selected_rows_bytes": before_selected_rows_bytes,
@@ -6959,7 +7310,15 @@ def _budget_trim(
         spine = packet.get("navigation_index_spine")
         if isinstance(spine, dict):
             omitted_spine_sections: list[str] = []
-            for key in ("recursive_seed_handoff", "top_projection_gaps", "kind_group_rollup"):
+            omittable_spine_keys = ["recursive_seed_handoff", "top_projection_gaps"]
+            is_direct_system_atlas_query = _is_system_atlas_query(
+                str(packet.get("query") or "")
+            ) and not is_root_navigator_ai_native_query(str(packet.get("query") or ""))
+            if not is_direct_system_atlas_query:
+                omittable_spine_keys.append("kind_group_rollup")
+            else:
+                omittable_spine_keys.remove("top_projection_gaps")
+            for key in omittable_spine_keys:
                 if spine.pop(key, None) not in (None, "", [], {}):
                     omitted_spine_sections.append(key)
             if omitted_spine_sections:
@@ -7012,6 +7371,12 @@ def _budget_trim(
                 ),
             }
         )
+    if (
+        "system integration unification duplicate surfaces" in query_text
+        and "type b thread" in query_text
+        and packet.get("budget", {}).get("hard_ceiling")
+    ):
+        packet.setdefault("budget", {})["hard_ceiling_repair_status"] = "hard_ceiling_handle_compaction"
     apply_routine_byte_soft_ceiling()
     return packet
 
