@@ -47,7 +47,7 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Mapping, Optional
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -138,6 +138,10 @@ CLOSEOUT_EXECUTOR_BLOCKER_EVIDENCE_RE = re.compile(
     r"conflict|patch conflict|same[- ]file|same path|permission|secret|"
     r"unsafe|held by policy|not safe|cannot|can't"
     r")\b",
+    re.IGNORECASE,
+)
+UNCOMMITTED_CLOSEOUT_HINT_RE = re.compile(
+    r"\b(uncommitted|scope[- ]commit|scoped commit|ready for review|ready to commit)\b",
     re.IGNORECASE,
 )
 REPO_SUBSTRATE_PATH_HINT_RE = re.compile(
@@ -1875,6 +1879,11 @@ def _message_claims_repo_substrate_work(message: str) -> bool:
         return True
     if CLOSEOUT_EXECUTOR_ACTION_EVIDENCE_RE.search(message):
         return True
+    if UNCOMMITTED_CLOSEOUT_HINT_RE.search(message) and (
+        CLOSEOUT_EXECUTOR_BLOCKER_EVIDENCE_RE.search(message)
+        or _message_reports_publication_blocker(message)
+    ):
+        return True
     absolute_repo_path_mentioned = str(REPO_ROOT) in message
     return bool(
         (absolute_repo_path_mentioned or REPO_SUBSTRATE_PATH_HINT_RE.search(message))
@@ -2045,16 +2054,76 @@ def _executor_action_lane(plan: Dict[str, Any]) -> tuple[str, str]:
 def _message_reports_concrete_closeout_blocker(message: str) -> bool:
     if not message.strip():
         return False
-    if CLOSEOUT_EXECUTOR_BLOCKER_EVIDENCE_RE.search(message):
-        return bool(
-            re.search(
-                r"\b(path|file|test|failure|failed|conflict|patch|"
-                r"permission|secret|unsafe|held by policy|publication held|"
-                r"validation|same[- ]file|same path|branch|head)\b",
-                message,
-                re.IGNORECASE,
-            )
+    return bool(CLOSEOUT_EXECUTOR_BLOCKER_EVIDENCE_RE.search(message) and _message_has_concrete_blocker_noun(message))
+
+
+def _message_has_concrete_blocker_noun(message: str) -> bool:
+    return bool(
+        re.search(
+            r"\b(path|file|test|failure|failed|conflict|patch|"
+            r"permission|secret|unsafe|held by policy|publication held|"
+            r"validation|same[- ]file|same path|branch|head)\b",
+            message,
+            re.IGNORECASE,
         )
+    )
+
+
+def _message_reports_publication_blocker(message: str) -> bool:
+    if not message.strip():
+        return False
+    publication_topic = re.search(
+        r"\b(publication|publish(?:ed|ing)?|push(?:ed|ing)?|remote|origin/main|shared origin)\b",
+        message,
+        re.IGNORECASE,
+    )
+    blocker_topic = re.search(
+        r"\b(block(?:ed|er)?|held|hold|refus(?:ed|es|al)|not clear|boundary|unauthori[sz]ed)\b",
+        message,
+        re.IGNORECASE,
+    )
+    return bool(publication_topic and blocker_topic)
+
+
+def _message_reports_local_landing_evidence(message: str) -> bool:
+    return bool(
+        re.search(
+            r"\b(landed_local_publication_blocked|scoped commit landed|"
+            r"local commit landed|committed locally|scoped_commit\.py|new_commit|commit [0-9a-f]{7,40})\b",
+            message,
+            re.IGNORECASE,
+        )
+    )
+
+
+def _message_reports_local_landing_blocker(message: str) -> bool:
+    return bool(
+        re.search(
+            r"\b(failing test|test failure|validation failed|patch conflict|"
+            r"same[- ]file|same path|git metadata|metadata write|permission denied|"
+            r"active work ledger|work ledger.*claim|non[- ]isolatable|"
+            r"path attribution impossible|secret|unsafe|explicit no[- ]commit)\b",
+            message,
+            re.IGNORECASE,
+        )
+    )
+
+
+def _publication_blocker_has_local_landing_receipt(
+    message: str,
+    *,
+    lane: str = "",
+    packet: Optional[Mapping[str, Any]] = None,
+) -> bool:
+    if not _message_reports_publication_blocker(message):
+        return True
+    if _message_reports_local_landing_evidence(message) or _message_reports_local_landing_blocker(message):
+        return True
+    if lane in {"publish_if_clear", "publication_gate"}:
+        try:
+            return int((packet or {}).get("dirty_total") or 0) == 0
+        except Exception:
+            return False
     return False
 
 
@@ -2097,7 +2166,10 @@ def _message_reports_ui_effect_receipt(message: str) -> bool:
 def _message_reports_lane_action_or_blocker(message: str, lane: str, cluster_id: str = "") -> bool:
     if not message.strip():
         return False
-    if _message_reports_concrete_closeout_blocker(message):
+    if _message_reports_concrete_closeout_blocker(message) and _publication_blocker_has_local_landing_receipt(
+        message,
+        lane=lane,
+    ):
         return True
 
     lowered = message.lower()
@@ -2373,7 +2445,11 @@ def _closeout_executor_null_stop_block_reason(payload: Dict[str, Any]) -> str:
             "and report the current action receipt, or state a concrete blocker."
         )
     if _action_requires_effect_receipt(action):
-        if _message_reports_concrete_closeout_blocker(last_msg):
+        if _message_reports_concrete_closeout_blocker(last_msg) and _publication_blocker_has_local_landing_receipt(
+            last_msg,
+            lane=lane,
+            packet=packet,
+        ):
             return ""
         if _message_reports_lane_action_or_blocker(last_msg, lane, cluster_id) and _message_reports_ui_effect_receipt(last_msg):
             return ""
@@ -2386,6 +2462,20 @@ def _closeout_executor_null_stop_block_reason(payload: Dict[str, Any]) -> str:
         )
     if _closeout_state_delta_allows_red_stop(_closeout_state_delta(payload, packet, plan)):
         return ""
+    if _message_reports_publication_blocker(last_msg) and not _publication_blocker_has_local_landing_receipt(
+        last_msg,
+        lane=lane,
+        packet=packet,
+    ):
+        return (
+            "Closeout local-landing guard: final response names a publication/push blocker "
+            f"while closeout_git_state still reports dirty={packet.get('dirty_total')} and "
+            f"executor lane={lane}. Publication blockers do not substitute for landing "
+            "this turn's owned paths. Before yielding, land the owned local slice with "
+            "a scoped commit, or name a local commit blocker such as failing validation, "
+            "git metadata denial, non-isolatable same-path ownership, unsafe/secret content, "
+            "or explicit no-commit policy."
+        )
     if _message_reports_lane_action_or_blocker(last_msg, lane, cluster_id):
         return ""
     cluster_suffix = f" cluster={cluster_id}" if cluster_id else ""

@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 12577,
+      "byte_count": 12705,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 343,
+      "line_count": 345,
       "material_class": "public_macro_tool_body",
       "material_id": "shared_worktree_guard_body_import",
       "module_id": "shared_worktree_guard_body_import",
@@ -26,17 +26,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "system/lib/shared_worktree_guard.py",
       "source_role": "Shared dirty-worktree git guard used by repo-git and mission/work-ledger preflight to block broad stash/reset/restore/clean and route push publication through the bloat gate.",
-      "source_sha256": "7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab",
+      "source_sha256": "a8daa00daa45b48fe12f3a5f9425d9c24af97ec5ee3485891649448173e4f771",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/shared_worktree_guard.py",
-      "target_sha256": "7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab"
+      "target_sha256": "a8daa00daa45b48fe12f3a5f9425d9c24af97ec5ee3485891649448173e4f771"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 175581,
+      "byte_count": 179380,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4782,
+      "line_count": 4889,
       "material_class": "public_macro_tool_body",
       "material_id": "shared_worktree_guard_test_body_import",
       "module_id": "shared_worktree_guard_test_body_import",
@@ -51,9 +51,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "system/server/tests/test_work_ledger_core.py",
       "source_role": "Work Ledger regression suite containing the live shared-worktree git-risk tests for session preflight, destructive git refusal, read-only git allowance, and chained stash detection.",
-      "source_sha256": "af40e5799eea47c68bd9c57c32007aa87f9e36ca728d040df5913b150ee67231",
+      "source_sha256": "2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
-      "target_sha256": "af40e5799eea47c68bd9c57c32007aa87f9e36ca728d040df5913b150ee67231"
+      "target_sha256": "2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and static source-boundary checks; copied source modules are body evidence, not authority to mutate git state, inspect live dirty-path payloads, append ledgers, push or publish, call providers, inspect browser/HUD state, or claim release authority.",

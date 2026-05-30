@@ -30,6 +30,7 @@ from tools.meta.factory import build_agent_execution_trace as trace_cli
 from system.lib.kernel.commands import navigate
 from system.lib.agent_execution_trace import (
     build_process_trace_route_packet,
+    build_process_summary_route_packet,
     build_agent_execution_trace,
     build_trace_compactness_levels,
     compare_agents,
@@ -104,6 +105,28 @@ def test_agent_execution_trace_cli_check_json_preserves_check_mode(
     assert payload["kind"] == "agent_execution_trace_summary"
     assert payload["summary"]["error_count"] == 0
     assert "sources" not in payload
+
+
+def test_process_summary_missing_cache_points_to_writing_refresh(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    standard = tmp_path / "codex/standards/std_agent_execution_trace.json"
+    standard.parent.mkdir(parents=True, exist_ok=True)
+    standard.write_text("{}", encoding="utf-8")
+
+    code, payload = build_process_summary_route_packet(
+        repo_root=tmp_path,
+        request="codex:latest",
+    )
+
+    assert code == 1
+    assert payload["source_freshness"]["status"] == "missing_or_malformed_summary"
+    assert payload["source_freshness"]["refresh_command"] == (
+        "./repo-python tools/meta/factory/build_agent_execution_trace.py"
+    )
+    assert payload["next"][1]["command"] == (
+        "./repo-python tools/meta/factory/build_agent_execution_trace.py"
+    )
+    assert "--summary" not in json.dumps(payload)
 
 
 def _claude_tool_use_pair(
@@ -1042,7 +1065,14 @@ def test_codex_session_io_and_control_tools_are_not_unknown(tmp_path: Path) -> N
     assert wait_span["output_line_count"] == 3
     assert "exec_session_poll" in wait_span["shape_tags"]
     assert result["audit"]["bottlenecks"]["exec_session_io"]["slow_count"] == 1
-    assert result["audit"]["bottlenecks"]["exec_session_io"]["repair_hints"]
+    wait_hint = result["audit"]["bottlenecks"]["exec_session_io"]["repair_hints"][0]
+    assert wait_hint["hint_id"] == "inspect_preceding_exec_or_add_status_surface"
+    assert wait_hint["preferred_next"] == (
+        "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+    )
+    assert wait_hint["owner_surface"] == "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+    assert "./repo-python kernel.py --process-trace <session_id>" in wait_hint["replacement_commands"]
+    assert "raw task-output bodies" in wait_hint["privacy_boundary"]
 
 
 def test_repo_python_module_invocations_classify_by_primary_tool() -> None:
@@ -1252,8 +1282,8 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
         for row in audit["bottlenecks"]["bash_find"]["repair_hints"]
         if row["hint_id"] == "replace_find_scan_with_rg_files_or_option_surface"
     )
-    assert find_hint["preferred_next"].startswith("./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory")
-    assert find_hint["owner_surface"].endswith("--action artifact_discovery_inventory --scope <term-or-root>")
+    assert find_hint["preferred_next"].startswith("./repo-python kernel.py --artifact-discovery-inventory")
+    assert find_hint["owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
     assert "rg --files <known-roots> | rg '<name-or-term>'" in find_hint["replacement_commands"]
     assert "metadata only" in find_hint["privacy_boundary"]
     assert "background_poll" in audit["bottlenecks"]["bash_grep"]["example_spans"][0]["command_shape_tags"]
@@ -1267,9 +1297,9 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     assert "replace_raw_search_scan_with_owner_route" in grep_hint_ids
     raw_search_hint = next(row for row in grep_hints if row["hint_id"] == "replace_raw_search_scan_with_owner_route")
     assert raw_search_hint["preferred_next"].startswith(
-        "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory"
+        "./repo-python kernel.py --artifact-discovery-inventory"
     )
-    assert raw_search_hint["owner_surface"].endswith("--action artifact_discovery_inventory --scope <term-or-root>")
+    assert raw_search_hint["owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
     assert './repo-python kernel.py --entry "<task>" --context-budget 12000' in raw_search_hint["replacement_commands"]
     assert "metadata only" in raw_search_hint["privacy_boundary"]
     assert result["summary"]["top_output_producers"][0]["action_kind"] == "test_or_build_command"
@@ -1277,6 +1307,44 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
     # Confirm slow_action_shape finding fired
     rules = {f["rule"] for f in audit["findings"]}
     assert "slow_action_shape" in rules
+
+
+def test_read_file_bottleneck_generic_hint_for_unclassified_source_reads(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = _claude_project_slug_for(tmp_path)
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    t0 = datetime(2026, 4, 21, 20, 0, 0, tzinfo=timezone.utc)
+    source_path = tmp_path / "system/lib/example.py"
+    records = _claude_tool_use_pair(
+        use_id="toolu_source_read",
+        tool_name="Read",
+        start=t0,
+        end=t0 + timedelta(seconds=12),
+        input_body={"file_path": str(source_path)},
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "source-read.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    read_row = result["audit"]["bottlenecks"]["read_file"]
+    assert read_row["example_spans"][0]["command_shape_tags"] == []
+    hint = next(
+        row
+        for row in read_row["repair_hints"]
+        if row["hint_id"] == "prefer_bounded_read_or_identifier_search"
+    )
+    assert hint["owner_surface"] == "known_path_bounded_read"
+    assert "rg -n '<symbol-or-error>' <known-path-or-root>" in hint["replacement_commands"]
+    assert "sed -n '<start>,<end>p' <known-path>" in hint["replacement_commands"]
+    assert hint["replacement_commands"][-1] == './repo-python kernel.py --context-pack "<task>" --context-budget 12000'
+    assert "full file bodies" in hint["privacy_boundary"]
 
 
 def test_kernel_command_by_kernel_flag_aggregation(tmp_path: Path) -> None:
@@ -1506,10 +1574,10 @@ def test_context_yield_attribution_classifies_known_motifs(tmp_path: Path) -> No
     assert raw_body["owner_coverage"]["route_available"] is True
     assert raw_body["owner_coverage"]["route_used"] is False
     assert raw_body["owner_coverage"]["route_gap"] == "route_available_but_not_used_for_active_examples"
-    assert raw_body["decision"]["patch_owner_surface"].endswith("--action artifact_discovery_inventory --scope <term-or-root>")
+    assert raw_body["decision"]["patch_owner_surface"].endswith("--artifact-discovery-inventory <term-or-root>")
     steering = raw_body["steering"]
     assert steering["point_of_use_surface"] == "./repo-python kernel.py --process-bottlenecks --force"
-    assert steering["replacement_route"].endswith("--action artifact_discovery_inventory --scope <term-or-root>")
+    assert steering["replacement_route"].endswith("--artifact-discovery-inventory <term-or-root>")
     assert steering["applies_to_status"] == "governed_route_available_but_not_used"
     assert steering["applies_to_count"] >= 1
     assert "accepted_required_context" in steering["does_not_apply_to"]
@@ -1973,7 +2041,7 @@ def test_kernel_route_process_summary_shape() -> None:
         check=True,
     )
     summary_result = subprocess.run(
-        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-summary", "latest"],
+        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-summary", "latest", "--force"],
         capture_output=True,
         text=True,
         cwd=REPO_ROOT,
@@ -1983,9 +2051,9 @@ def test_kernel_route_process_summary_shape() -> None:
     payload = json.loads(summary_result.stdout)
     assert payload["kind"] == "kernel.navigate.process_summary"
     assert payload["schema_version"] == "process_summary_v1"
-    assert payload["query"]["force_live"] is False
-    assert payload["source_freshness"]["mode"] == "cached_read_model"
-    assert payload["source_freshness"]["dynamic_rollout_status"] == "not_revalidated_cached_projection_read"
+    assert payload["query"]["force_live"] is True
+    assert payload["source_freshness"]["mode"] == "live_in_memory"
+    assert payload["source_freshness"]["dynamic_rollout_status"] == "revalidated_live_in_memory"
     assert payload["identity_scope"]["schema_version"] == "process_summary_identity_scope_v1"
     assert payload["identity_scope"]["selection_basis"] == "latest_ended_session"
     assert payload["identity_scope"]["current_session_claim"] == "not_claimed"
@@ -2049,6 +2117,25 @@ def test_kernel_route_process_bottlenecks_shape() -> None:
     assert len(result.stdout.encode()) < 35_000
 
 
+def test_process_bottleneck_next_commands_start_with_top_context_route() -> None:
+    context_yield = {
+        "rows": [
+            {
+                "motif": "raw_body_before_selection",
+                "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                "existing_route": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+            }
+        ]
+    }
+
+    next_commands = navigate._process_bottleneck_next_commands(context_yield)
+
+    assert next_commands[0]["command"] == "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
+    assert "raw_body_before_selection" in next_commands[0]["reason"]
+    assert next_commands[1]["command"] == "python3 kernel.py --process-audit"
+    assert next_commands[2]["command"] == "python3 kernel.py --process-bottlenecks --force"
+
+
 def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:
     result = subprocess.run(
         [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-bottlenecks", "--force"],
@@ -2085,6 +2172,50 @@ def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:
         assert "omission_receipt" not in row
         assert row.get("examples") in (None, [])
     assert len(result.stdout.encode()) < 30_000
+
+
+def test_process_output_producer_compaction_keeps_first_repair_hint() -> None:
+    rows = [
+        {
+            "action_kind": "bash_grep",
+            "span_count": 3,
+            "total_output_bytes": 120_000,
+            "max_output_bytes": 90_000,
+            "p95_output_bytes": 85_000,
+            "example_spans": [
+                {"normalized_command": "rg -n thing system codex state"},
+            ],
+            "repair_hints": [
+                {
+                    "hint_id": "replace_polling_with_status_surface",
+                    "owner_surface": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
+                },
+                {
+                    "hint_id": "replace_raw_search_scan_with_owner_route",
+                    "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                },
+                {"hint_id": "second_hint_stays_behind_full_row"},
+            ],
+        }
+    ]
+
+    compact = navigate._compact_process_output_producers(rows)
+
+    assert compact == [
+        {
+            "action_kind": "bash_grep",
+            "span_count": 3,
+            "total_output_bytes": 120_000,
+            "max_output_bytes": 90_000,
+            "p95_output_bytes": 85_000,
+            "repair_hints": [
+                {
+                    "hint_id": "replace_raw_search_scan_with_owner_route",
+                    "owner_surface": "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                }
+            ],
+        }
+    ]
 
 
 def test_kernel_route_process_trace_rejects_unknown() -> None:

@@ -71,6 +71,7 @@ PROCESS_SUMMARY_IDENTITY_SCOPE_SCHEMA_VERSION = "process_summary_identity_scope_
 PROCESS_SUMMARY_OWNER_SURFACE = "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
 PROCESS_TRACE_OWNER_SURFACE = "./repo-python kernel.py --process-trace <session_id>"
 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND = "./repo-python kernel.py --process-bottlenecks --force"
+PROCESS_TRACE_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
 PROCESS_METADATA_PRIVACY_BOUNDARY = "process packets expose command/status/timing/output-size metadata, not raw task-output bodies"
 CONTEXT_YIELD_ATTRIBUTION_SCHEMA_VERSION = "context_yield_attribution_packet_v0"
 CONTEXT_YIELD_LARGE_OUTPUT_BYTES = 32000
@@ -81,11 +82,10 @@ DOCUMENT_READ_PRIVACY_BOUNDARY = (
     "an owner route selects the document, row, or section"
 )
 ARTIFACT_DISCOVERY_OWNER_SURFACE = (
-    "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>"
+    "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
 )
 ARTIFACT_DISCOVERY_EXAMPLE_COMMAND = (
-    "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory "
-    "--scope market --scope type_census"
+    "./repo-python kernel.py --artifact-discovery-inventory market type_census"
 )
 ARTIFACT_DISCOVERY_PRIVACY_BOUNDARY = (
     "artifact_discovery_inventory emits path, size, suffix, and term metadata only; open selected files "
@@ -1439,6 +1439,7 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "preferred_next": "Use a typed option surface or rg --files with a precise path/pattern instead of truncating broad find output.",
             })
     elif kind == "read_file":
+        read_hint_count = len(hints)
         if tag_counts.get("task_output_file") or tag_counts.get("tool_result_file"):
             hints.append({
                 "hint_id": "replace_output_file_read_with_status_surface",
@@ -1466,12 +1467,36 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 ],
                 "privacy_boundary": DOCUMENT_READ_PRIVACY_BOUNDARY,
             })
+        if len(hints) == read_hint_count:
+            hints.append({
+                "hint_id": "prefer_bounded_read_or_identifier_search",
+                "reason": "Slow reads target source or otherwise unclassified files without a more specific owner hint.",
+                "preferred_next": "Search exact identifiers or open a bounded line range before reading the whole file body.",
+                "owner_surface": "known_path_bounded_read",
+                "replacement_commands": [
+                    "rg -n '<symbol-or-error>' <known-path-or-root>",
+                    "sed -n '<start>,<end>p' <known-path>",
+                    "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
+                    "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+                ],
+                "privacy_boundary": (
+                    "bounded reads expose only the selected symbol, line range, or metadata row; "
+                    "full file bodies remain a deliberate drilldown"
+                ),
+            })
     elif kind == "exec_session_io":
         if tag_counts.get("exec_session_poll") or tag_counts.get("configured_wait"):
             hints.append({
                 "hint_id": "inspect_preceding_exec_or_add_status_surface",
                 "reason": "Slow spans wait on an existing Codex exec session rather than starting a new shell command.",
-                "preferred_next": "Inspect the preceding exec_command shape or add/use a compact owner status packet instead of repeated long session waits.",
+                "preferred_next": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
+                "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "replacement_commands": [
+                    PROCESS_SUMMARY_OWNER_SURFACE,
+                    PROCESS_TRACE_OWNER_SURFACE,
+                    PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+                ],
+                "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
     elif kind in {"task_tool", "unknown_tool"}:
         hints.append({
@@ -1533,7 +1558,7 @@ _CONTEXT_YIELD_MOTIF_META: dict[str, dict[str, Any]] = {
         "disconfirming_check": "The file read is the only source of non-recomputable evidence needed for the next action.",
     },
     "raw_body_before_selection": {
-        "owner_surface": "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>",
+        "owner_surface": ARTIFACT_DISCOVERY_OWNER_SURFACE,
         "existing_route": ARTIFACT_DISCOVERY_OWNER_SURFACE,
         "candidate_patch": "Replace broad raw shell discovery with owner inventory/status packets before opening bodies.",
         "safety_gate": "the inventory emits enough identity, size, suffix, path, and route scent to choose the next file or row",
@@ -1659,7 +1684,9 @@ def _context_yield_route_used(motif: str, example: Mapping[str, Any]) -> bool:
     command = str(example.get("normalized_command") or "").lower()
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
     if motif == "raw_body_before_selection":
-        return "action_quote.py" in command and "artifact_discovery_inventory" in command
+        return (
+            "action_quote.py" in command and "artifact_discovery_inventory" in command
+        ) or "--artifact-discovery-inventory" in command
     if motif == "raw_global_diff":
         return "diff_review_context_packet" in tags or (
             "git_state_snapshot.py" in command and "--diff-review" in command
@@ -4175,7 +4202,7 @@ def _process_summary_cached_read_models(
             "validity_scope": "static_rules_and_cached_projection_files_only",
             "dynamic_rollouts_revalidated": False,
         },
-        "refresh_command": "./repo-python tools/meta/factory/build_agent_execution_trace.py --summary",
+        "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
         "force_live_command": "./repo-python kernel.py --process-summary latest --force",
         "warnings": warnings,
     }
@@ -4309,7 +4336,7 @@ def build_process_summary_route_packet(
             "wall_ms": round((time.perf_counter() - started) * 1000.0, 3),
             "dynamic_rollout_status": "revalidated_live_in_memory",
             "requested_window": {"since": since_ts, "session_limit": effective_session_limit},
-            "refresh_command": "./repo-python tools/meta/factory/build_agent_execution_trace.py --summary",
+            "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
             "force_live_command": f"./repo-python kernel.py --process-summary {raw} --force",
             "warnings": [],
         }
@@ -4345,7 +4372,7 @@ def build_process_summary_route_packet(
                     "reason": "Force authoritative live rollout parsing for this request.",
                 },
                 {
-                    "command": "./repo-python tools/meta/factory/build_agent_execution_trace.py --summary",
+                    "command": PROCESS_TRACE_REFRESH_COMMAND,
                     "reason": "Refresh the cached process summary read model.",
                 },
             ],
@@ -4608,7 +4635,7 @@ def load_process_bottleneck_summary_cache(
             "dynamic_rollouts_revalidated": False,
         },
         "refresh": {
-            "command": "./repo-python tools/meta/factory/build_agent_execution_trace.py --summary",
+            "command": PROCESS_TRACE_REFRESH_COMMAND,
             "live_kernel_command": "./repo-python kernel.py --process-bottlenecks",
             "why": "Use refresh when the caller needs authoritative live rollout parsing instead of a cached projection read.",
         },

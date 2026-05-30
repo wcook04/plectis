@@ -1,7 +1,7 @@
 {
   "kind": "agent_bootstrap_live",
   "schema_version": "agent_bootstrap_live_v0",
-  "generated_at": "2026-05-29T20:46:27.099222+00:00",
+  "generated_at": "2026-05-30T02:56:55.668422+00:00",
   "source_event": null,
   "live_bindings": {
     "pipeline_state_rel": null,
@@ -20,7 +20,7 @@
     "orchestration_active_driver": "no_active_runtime_phase",
     "orchestration_gate_reason": "no_active_runtime_phase",
     "orchestration_event_log_rel": "tools/meta/control/orchestration_events.jsonl",
-    "orchestration_latest_event_id": "orch_20260528T011622_791049_0000_c07b479c02",
+    "orchestration_latest_event_id": "orch_20260530T025655_244942_0000_863a4379dc",
     "orchestration_current_owner": "control_room_manager",
     "orchestration_next_handoff": "human_operator",
     "active_directive_path": null,
@@ -38,7 +38,7 @@
     "factory_last_run": "2026-03-25T02:01:06.404686+00:00",
     "factory_last_event_at": "2026-04-27T07:44:10.226050+00:00",
     "factory_stage_observed_at": "2026-03-25T02:01:06.404686+00:00",
-    "factory_state_age_days": 65,
+    "factory_state_age_days": 66,
     "factory_state_freshness": "stale_historical_snapshot",
     "factory_state_role": "historical_snapshot",
     "factory_state_live": false,
@@ -2690,7 +2690,7 @@
       "situation_id": "local_to_general_propagation",
       "route_command": "./repo-python kernel.py --docs-route \"lattice transposition generalized up-propagation\"",
       "label": "Local-to-general propagation and lattice transposition",
-      "use_when": "The task is about up-propagating a local lesson into the generalized system, generalise-uppropagate, lattice transposition, portable invariants, refined vs nothing_to_refine closeout, failure-class propagation packets, existing-surface route misses, claim-block frontiers, or choosing the plane home for a reusable lesson.",
+      "use_when": "The task is about up-propagating a local lesson into the generalized system, generalise-uppropagate, lattice transposition, portable invariants, refined vs nothing_to_refine closeout, failure-class propagation packets, existing-surface route misses, claim-block frontiers, operator snippets that should become non-overfit system refinements, runtime launcher receipt gaps, or choosing the plane home for a reusable lesson.",
       "route_id": "sit_local_to_general_propagation",
       "fallback_command": "./repo-python kernel.py --row skills:local_to_general_propagation --band card",
       "match_tokens": [
@@ -2705,7 +2705,18 @@
         "claim blocked frontier",
         "claim-blocked frontier",
         "existing surface miss plus claim-block frontier",
-        "claim-blocked local lesson"
+        "claim-blocked local lesson",
+        "operator snippet",
+        "random snippet",
+        "arbitrary snippet",
+        "pasted snippet",
+        "dogfood blocker",
+        "snippet to system refinement",
+        "non-overfit system refinement",
+        "runtime prerequisite gap",
+        "launch readiness receipt",
+        "background launcher receipt",
+        "background work receipt"
       ],
       "actor_delivery": {
         "decision": "context_pack_only",
@@ -3331,7 +3342,7 @@
         "path": "AGENTS.override.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 15536,
+        "bytes": 15655,
         "budget_bytes": 17600,
         "budget_status": "within_budget"
       },
@@ -3339,7 +3350,7 @@
         "path": "AGENTS.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 34475,
+        "bytes": 34687,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3347,7 +3358,7 @@
         "path": "CODEX.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 32037,
+        "bytes": 32415,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3355,7 +3366,7 @@
         "path": "CLAUDE.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 28308,
+        "bytes": 28640,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       }

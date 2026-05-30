@@ -3137,6 +3137,20 @@ def _update_protocol_exact_copy_row(
         )
         return None
     if not source_path.is_file():
+        if target_path.is_file():
+            target_stats = _body_stats(target_path)
+            target_digest = target_stats["body_digest"]
+            target_line_count = target_stats["line_count"]
+            protocol_already_matches_target = (
+                row.get("body_digest") == target_digest
+                and row.get("body_line_count") == target_line_count
+                and verification.get("source_body_digest") == target_digest
+                and verification.get("target_body_digest") == target_digest
+                and verification.get("source_line_count") == target_line_count
+                and verification.get("target_line_count") == target_line_count
+            )
+            if protocol_already_matches_target:
+                return None
         defects.append(
             {
                 "material_id": material_id,

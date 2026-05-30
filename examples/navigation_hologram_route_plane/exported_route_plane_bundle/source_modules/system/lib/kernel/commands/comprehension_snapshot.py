@@ -6199,6 +6199,18 @@ def _task_mentions_publication_lane_push_recovery(repo_root: Path, task: str | N
     return any(term in text for term in terms)
 
 
+def _task_mentions_local_to_general_propagation(repo_root: Path, task: str | None) -> bool:
+    text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
+    if not text:
+        return False
+    terms = _projected_situation_match_terms(
+        repo_root,
+        situation_id="local_to_general_propagation",
+        route_id="sit_local_to_general_propagation",
+    )
+    return any(term in text for term in terms)
+
+
 def _projected_situation_route_command(
     repo_root: Path,
     *,
@@ -6953,6 +6965,11 @@ def build_entry_packet(
     is_mechanism_workitem_affinity = _task_mentions_mechanism_workitem_affinity(task_text)
     is_doctrine_population = _task_mentions_doctrine_population(task_text)
     is_type_b_to_type_a_handoff = _task_mentions_type_b_to_type_a_handoff(repo_root, task_text)
+    is_local_to_general_propagation = (
+        _task_mentions_local_to_general_propagation(repo_root, task_text)
+        and not is_type_b_to_type_a_handoff
+        and not is_doctrine_population
+    )
     is_agent_principle_authoring = (
         _task_mentions_agent_principle_authoring(task_text)
         and not is_type_b_to_type_a_handoff
@@ -6988,6 +7005,7 @@ def build_entry_packet(
         and not is_speed_refinement
         and not is_doctrine_population
         and not is_navigation_repair
+        and not is_local_to_general_propagation
     )
     is_frontend_capability_discovery = _task_mentions_frontend_capability_discovery(task_text)
     frontend_capability_slices = (
@@ -7033,6 +7051,7 @@ def build_entry_packet(
         and not is_doctrine_population
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
+        and not is_local_to_general_propagation
         and state_axis is None
         and not is_state_axis_overview
         and not is_projection_closure_audit
@@ -7061,6 +7080,7 @@ def build_entry_packet(
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
         and not is_mechanism_workitem_affinity
+        and not is_local_to_general_propagation
         and state_axis is None
         and not is_state_axis_overview
     ) or is_projection_closure_audit or (is_speed_refinement and not is_autonomous_seed_framework)
@@ -7101,6 +7121,7 @@ def build_entry_packet(
         and not is_active_execution_constellation
         and not is_agent_trouble_diagnosis
         and not is_navigation
+        and not is_local_to_general_propagation
         and not is_publication_lane_push_recovery
         and not is_config_authority_plane
         and not is_frontend_visual_memory
@@ -7119,6 +7140,8 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "projection_closure_audit"
             if is_projection_closure_audit
+            else "local_to_general_propagation"
+            if is_local_to_general_propagation
             else "type_a_autonomous_seed_framework"
             if is_autonomous_seed_framework
             else "cognitive_operator_discovery"
@@ -7170,6 +7193,8 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "Task asks what doctrine/state is not projected; route to the projection-closure audit ratchet."
             if is_projection_closure_audit
+            else "Task asks to turn a local lesson, operator snippet, failure-class packet, or runtime/launcher receipt gap into a non-overfit system refinement; open local-to-general context before mutating an owner surface."
+            if is_local_to_general_propagation
             else "Task asks about autonomous seeds, wake prompts, repeated prompt clusters, or seed cohorts; open the Type A autonomous-seed framework, prompt-authoring standard, seed corpus, and wake-prompt diagnostics before generic cognitive-operator routing."
             if is_autonomous_seed_framework
             else "Task asks for autonomous cognitive-operator discovery or counterevidence handling; open the cognitive operator surface through context-pack before ordinary active-phase work."
@@ -7227,6 +7252,8 @@ def build_entry_packet(
         if state_axis_command is not None and not is_projection_closure_audit
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_disclosure_query and task_text and not is_projection_closure_audit
+        else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
+        if is_local_to_general_propagation and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_autonomous_seed_framework and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
@@ -7381,6 +7408,8 @@ def build_entry_packet(
         if is_disclosure_query and not is_projection_closure_audit
         else "projection_closure_audit"
         if is_projection_closure_audit
+        else "local_to_general_propagation"
+        if is_local_to_general_propagation
         else "type_a_autonomous_seed_framework"
         if is_autonomous_seed_framework
         else "cognitive_operator_discovery"

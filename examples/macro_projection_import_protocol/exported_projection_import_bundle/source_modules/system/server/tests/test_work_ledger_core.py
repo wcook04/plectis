@@ -10,7 +10,15 @@ from types import SimpleNamespace
 
 import pytest
 
-from system.lib import agent_seed_handoffs, shared_worktree_guard, work_admission, work_ledger, work_ledger_runtime
+from system.lib import (
+    agent_observability,
+    agent_seed_handoffs,
+    host_pressure as host_pressure_lib,
+    shared_worktree_guard,
+    work_admission,
+    work_ledger,
+    work_ledger_runtime,
+)
 from tools.meta.factory import work_ledger as work_ledger_cli
 
 
@@ -2988,7 +2996,21 @@ def test_shared_worktree_guard_blocks_destructive_git_in_dirty_tree() -> None:
     assert decision["blocked"] is True
     assert decision["dirty_path_count"] == 2
     assert decision["risks"][0]["risk"] == "shared_git_restore"
-    assert "shared dirty worktree" in decision["advice"]
+    assert "shared dirty or artifact-bearing worktree" in decision["advice"]
+
+
+def test_shared_worktree_guard_blocks_git_clean_even_when_status_clean() -> None:
+    decision = shared_worktree_guard.assess_git_argv(
+        ["clean", "-fdx"],
+        repo_root=Path("/unused"),
+        dirty_paths=[],
+    )
+
+    assert decision["allowed"] is False
+    assert decision["blocked"] is True
+    assert decision["dirty_path_count"] == 0
+    assert decision["risks"][0]["risk"] == "shared_git_clean"
+    assert "ignored dependency installs" in decision["advice"]
 
 
 def test_shared_worktree_guard_allows_read_only_git_status_in_dirty_tree() -> None:
@@ -3296,6 +3318,37 @@ def test_cli_helper_lease_admission_uses_live_inventory_summary(
     assert payload["helper_lease_budget"]["current_count"] == 7
     assert payload["hygiene_summary"]["safe_close_candidate_count"] == 1
     assert payload["hygiene_summary"]["requires_owner_check_count"] == 9
+
+
+def test_current_host_pressure_packet_samples_process_rows(monkeypatch, tmp_path: Path) -> None:
+    calls: list[dict] = []
+
+    class FakeTraceStore:
+        def __init__(self, repo_root, *, max_history: int) -> None:
+            self.repo_root = repo_root
+            self.max_history = max_history
+
+    def fake_packet_from_store(store, repo_root, **kwargs):
+        calls.append({"store": store, "repo_root": repo_root, **kwargs})
+        return {
+            "summary": {
+                "active_agents": 1,
+                "pressure_index": 0,
+                "progress_per_pressure": 0,
+                "bottleneck_class": "normal",
+            }
+        }
+
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(agent_observability, "AgentTraceStore", FakeTraceStore)
+    monkeypatch.setattr(host_pressure_lib, "build_progress_pressure_packet_from_store", fake_packet_from_store)
+
+    payload = work_ledger_cli._current_host_pressure_packet(workload_class="mixed_realistic")
+
+    assert payload["summary"]["bottleneck_class"] == "normal"
+    assert calls
+    assert calls[0]["include_processes"] is True
+    assert calls[0]["requested_workload_class"] == "mixed_realistic"
 
 
 def test_cli_resident_pressure_relief_requires_resident_actuator(
@@ -4619,6 +4672,60 @@ def test_cohort_overview_emits_duplicate_same_session_claim_repair_row(tmp_path:
     assert row["status"] == "watch"
     assert "session-release-claim" in row["safe_next_command"]
     assert "--reason duplicate_same_session_claim" in row["safe_next_command"]
+
+
+def test_duplicate_same_session_claim_dedupe_converges_beyond_preview_limit(
+    tmp_path: Path,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    session_id = "codex_many_duplicates"
+    work_ledger_runtime.bootstrap_session(
+        tmp_path,
+        session_id=session_id,
+        actor="codex",
+        phase_id="09_35",
+        family_id="09",
+    )
+    duplicate_count = work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT + 3
+    for index in range(duplicate_count):
+        path = f"system/lib/duplicate_{index}.py"
+        work_ledger_runtime.claim_work_path(
+            tmp_path,
+            session_id=session_id,
+            path=path,
+            lease_minutes=30,
+        )
+        work_ledger_runtime.claim_work_path(
+            tmp_path,
+            session_id=session_id,
+            path=path,
+            lease_minutes=30,
+        )
+
+    dry_run = work_ledger_runtime.dedupe_duplicate_same_session_claims(
+        tmp_path,
+        dry_run=True,
+    )
+    assert dry_run["status"] == "would_release"
+    assert dry_run["duplicate_collision_count"] == duplicate_count
+    assert dry_run["would_release_count"] == duplicate_count
+    assert len(dry_run["actions"]) == work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
+    assert dry_run["actions_omitted"] == 3
+
+    result = work_ledger_runtime.dedupe_duplicate_same_session_claims(tmp_path)
+    assert result["status"] == "released"
+    assert result["duplicate_collision_count"] == duplicate_count
+    assert result["released_count"] == duplicate_count
+    assert len(result["actions"]) == work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
+    assert result["actions_omitted"] == 3
+
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    assert status["cohort_overview"]["counts"]["claim_collisions"] == 0
+    assert (
+        work_ledger_runtime.dedupe_duplicate_same_session_claims(tmp_path)["status"]
+        == "clean"
+    )
 
 
 def test_cohort_overview_emits_path_claim_collision_repair_row(tmp_path: Path) -> None:

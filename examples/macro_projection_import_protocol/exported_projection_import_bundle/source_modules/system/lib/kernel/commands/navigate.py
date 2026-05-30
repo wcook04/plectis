@@ -15346,6 +15346,98 @@ def _command_profile_output_shape(payload: Any, *, limit: int = 8) -> dict[str, 
     }
 
 
+def _command_profile_host_pressure_admission_snapshot(
+    repo_root: Path,
+    *,
+    phases: list[dict[str, Any]] | None = None,
+    event_limit: int = 500,
+) -> dict[str, Any]:
+    from system.lib.agent_observability import AgentTraceStore
+    from system.lib.host_pressure import build_progress_pressure_packet_from_store
+
+    host_pressure_phases: list[dict[str, Any]] = []
+    started = perf_counter()
+    try:
+        packet = build_progress_pressure_packet_from_store(
+            AgentTraceStore(repo_root),
+            repo_root,
+            window_s=900,
+            event_limit=event_limit,
+            include_processes=False,
+            profile_sink=host_pressure_phases,
+        )
+    except Exception as exc:  # pragma: no cover - defensive guard for profiling surfaces
+        elapsed_ms = round((perf_counter() - started) * 1000, 3)
+        admission = {
+            "schema": "command_profile_host_pressure_admission_v0",
+            "status": "unavailable",
+            "decision": "allow",
+            "reason": "host_pressure_snapshot_failed_open_for_profile_surface",
+            "error_type": type(exc).__name__,
+            "event_limit": event_limit,
+            "include_processes": False,
+        }
+        if phases is not None:
+            phases.append(
+                {
+                    "phase": "command_profile_host_pressure_admission",
+                    "ms": elapsed_ms,
+                    "status": admission["status"],
+                    "decision": admission["decision"],
+                    "reason": admission["reason"],
+                    "event_limit": event_limit,
+                    "include_processes": False,
+                }
+            )
+        return admission
+
+    elapsed_ms = round((perf_counter() - started) * 1000, 3)
+    summary = packet.get("summary") if isinstance(packet, Mapping) else {}
+    governor = packet.get("mac_throttle_relief_governor") if isinstance(packet, Mapping) else {}
+    governor_admission = (
+        governor.get("admission")
+        if isinstance(governor, Mapping) and isinstance(governor.get("admission"), Mapping)
+        else {}
+    )
+    admission = {
+        "schema": "command_profile_host_pressure_admission_v0",
+        "status": "available",
+        "decision": summary.get("admission_default_decision")
+        if isinstance(summary, Mapping)
+        else None,
+        "reason": governor_admission.get("reason")
+        if isinstance(governor_admission, Mapping)
+        else None,
+        "governor_decision": summary.get("governor_decision")
+        if isinstance(summary, Mapping)
+        else None,
+        "bottleneck_class": summary.get("bottleneck_class")
+        if isinstance(summary, Mapping)
+        else None,
+        "pressure_index": summary.get("pressure_index") if isinstance(summary, Mapping) else None,
+        "event_limit": event_limit,
+        "include_processes": False,
+        "output_bytes": _command_profile_payload_bytes(packet),
+    }
+    if phases is not None:
+        phases.append(
+            {
+                "phase": "command_profile_host_pressure_admission",
+                "ms": elapsed_ms,
+                "output_bytes": admission["output_bytes"],
+                "status": admission["status"],
+                "decision": admission["decision"],
+                "reason": admission["reason"],
+                "bottleneck_class": admission["bottleneck_class"],
+                "pressure_index": admission["pressure_index"],
+                "event_limit": event_limit,
+                "include_processes": False,
+                "subphase_count": len(host_pressure_phases),
+            }
+        )
+    return admission
+
+
 _COMMAND_PROFILE_SUPPORTED_SURFACES = [
     "info",
     "entry",
@@ -15839,7 +15931,6 @@ def cmd_command_profile(
                 "read_model_source": materialized_read_model_source,
             }
         )
-        live_started = perf_counter()
         materialized_remaining_count = (
             len(materialized_summary.get("remaining_bottlenecks", []))
             if isinstance(materialized_summary, Mapping)
@@ -15851,6 +15942,7 @@ def cmd_command_profile(
             else ""
         )
         if materialized_remaining_count and materialized_source_status not in {"missing", "unavailable"}:
+            live_started = perf_counter()
             live_summary = {
                 "remaining_bottlenecks": [],
                 "remaining_bottlenecks_source": {
@@ -15866,21 +15958,54 @@ def cmd_command_profile(
             live_source = live_summary["remaining_bottlenecks_source"]
             live_skipped = True
         else:
-            live_board = latency_speedboard.build_speedboard(
+            host_pressure_admission = _command_profile_host_pressure_admission_snapshot(
                 repo_root,
-                live_process=True,
-                process_limit=3,
+                phases=phases,
             )
-            live_summary = latency_speedboard.summarize_speedboard(
-                live_board,
-                preview_limit=3,
-            )
-            live_source = (
-                live_summary.get("remaining_bottlenecks_source", {})
-                if isinstance(live_summary, Mapping)
-                else {}
-            )
-            live_skipped = False
+            host_pressure_decision = str(host_pressure_admission.get("decision") or "")
+            live_started = perf_counter()
+            if host_pressure_decision in {"queue_until_pressure_clears", "require_operator_override"}:
+                live_summary = {
+                    "remaining_bottlenecks": [],
+                    "remaining_bottlenecks_source": {
+                        "mode": "deferred",
+                        "status": "deferred_host_pressure_admission",
+                        "reason": (
+                            "host_pressure_admission_blocks_live_process_summary"
+                        ),
+                        "host_pressure_decision": host_pressure_decision,
+                        "host_pressure_reason": host_pressure_admission.get("reason"),
+                        "host_pressure_command": (
+                            "./repo-python kernel.py --host-pressure "
+                            "--host-pressure-no-processes --host-pressure-event-limit 500"
+                        ),
+                        "retry_profile_command": (
+                            "./repo-python kernel.py --command-profile latency-speedboard"
+                        ),
+                        "force_live_command": (
+                            "./repo-python tools/meta/observability/latency_speedboard.py "
+                            "show --live-process --process-limit 3 --limit 3"
+                        ),
+                    },
+                }
+                live_source = live_summary["remaining_bottlenecks_source"]
+                live_skipped = True
+            else:
+                live_board = latency_speedboard.build_speedboard(
+                    repo_root,
+                    live_process=True,
+                    process_limit=3,
+                )
+                live_summary = latency_speedboard.summarize_speedboard(
+                    live_board,
+                    preview_limit=3,
+                )
+                live_source = (
+                    live_summary.get("remaining_bottlenecks_source", {})
+                    if isinstance(live_summary, Mapping)
+                    else {}
+                )
+                live_skipped = False
         phases.append(
             {
                 "phase": "latency_speedboard_live_process_summary",
@@ -15908,6 +16033,11 @@ def cmd_command_profile(
                     else 0
                 ),
                 "skipped": live_skipped,
+                "host_pressure_decision": (
+                    live_source.get("host_pressure_decision")
+                    if isinstance(live_source, Mapping)
+                    else None
+                ),
             }
         )
         payload = {
@@ -15951,6 +16081,11 @@ def cmd_command_profile(
                     else 0
                 ),
                 "skipped": live_skipped,
+                "host_pressure_decision": (
+                    live_source.get("host_pressure_decision")
+                    if isinstance(live_source, Mapping)
+                    else None
+                ),
             },
             "privacy_boundary": "speedboard summaries emit timing/count/path metadata only; no raw stdout or stderr bodies",
         }
@@ -17279,14 +17414,21 @@ def _process_bottleneck_decision_authority(cache_status: Mapping[str, Any]) -> d
     }
 
 
-def _process_summary_cache_status(summary: Mapping[str, Any] | None) -> dict[str, Any]:
-    generated_at = str((summary or {}).get("generated_at") or "")
-    generated_dt = parse_iso_datetime(generated_at)
-    age_seconds = None
+def _process_bottleneck_age_seconds(generated_at: Any, *, fallback: Any = None) -> float | None:
+    generated_dt = parse_iso_datetime(str(generated_at or ""))
     if generated_dt is not None:
         if generated_dt.tzinfo is None:
             generated_dt = generated_dt.replace(tzinfo=timezone.utc)
-        age_seconds = round((datetime.now(timezone.utc) - generated_dt).total_seconds(), 3)
+        return round((datetime.now(timezone.utc) - generated_dt).total_seconds(), 3)
+    try:
+        return float(fallback)
+    except (TypeError, ValueError):
+        return None
+
+
+def _process_summary_cache_status(summary: Mapping[str, Any] | None) -> dict[str, Any]:
+    generated_at = str((summary or {}).get("generated_at") or "")
+    age_seconds = _process_bottleneck_age_seconds(generated_at)
     status = "hit"
     if age_seconds is not None and age_seconds > PROCESS_BOTTLENECK_STALE_AFTER_SECONDS:
         status = "stale"
@@ -17453,9 +17595,10 @@ def _load_process_bottleneck_speedboard_fallback(
             "remaining_bottlenecks_source": dict(source),
         }
     source_status = str(source.get("status") or "unknown")
+    generated_at = source.get("generated_at")
     summary = {
         "kind": "agent_execution_trace_summary",
-        "generated_at": source.get("generated_at"),
+        "generated_at": generated_at,
         "summary": {
             "session_count": _int_value(source.get("session_count")),
             "window": {
@@ -17474,8 +17617,11 @@ def _load_process_bottleneck_speedboard_fallback(
         "speedboard_path": rel_speedboard,
         "fallback_source": "latency_speedboard.remaining_bottlenecks",
         "summary_path": source.get("summary_path"),
-        "generated_at": source.get("generated_at"),
-        "age_seconds": source.get("age_s"),
+        "generated_at": generated_at,
+        "age_seconds": _process_bottleneck_age_seconds(
+            generated_at,
+            fallback=source.get("age_s"),
+        ),
         "stale_after_seconds": source.get("stale_after_s"),
         "refresh_command": source.get("refresh_command")
         or "./repo-python tools/meta/observability/latency_speedboard.py show --live-process",
@@ -17708,6 +17854,29 @@ def _compact_process_bottleneck_rows(
     return compact
 
 
+def _select_process_output_repair_hints(row: Mapping[str, Any], *, limit: int = 1) -> list[Any]:
+    hints = [hint for hint in list(row.get("repair_hints") or []) if isinstance(hint, Mapping)]
+    if not hints:
+        return []
+    priority = {
+        "replace_raw_search_scan_with_owner_route": 0,
+        "replace_find_scan_with_rg_files_or_option_surface": 1,
+        "prefer_bounded_read_or_identifier_search": 2,
+        "prefer_card_or_section_before_full_doc_read": 3,
+        "replace_output_file_read_with_status_surface": 4,
+        "replace_tmp_artifact_scan_with_owner_summary": 5,
+        "replace_polling_with_status_surface": 6,
+    }
+    ranked = sorted(
+        enumerate(hints),
+        key=lambda item: (
+            priority.get(str(item[1].get("hint_id") or ""), 100),
+            item[0],
+        ),
+    )
+    return [hint for _, hint in ranked[: max(0, limit)]]
+
+
 def _compact_process_output_producers(rows: Sequence[Any], *, limit: int = 5) -> list[dict[str, Any]]:
     compact: list[dict[str, Any]] = []
     for row in list(rows)[:limit]:
@@ -17721,6 +17890,7 @@ def _compact_process_output_producers(rows: Sequence[Any], *, limit: int = 5) ->
                     "total_output_bytes": row.get("total_output_bytes"),
                     "max_output_bytes": row.get("max_output_bytes"),
                     "p95_output_bytes": row.get("p95_output_bytes"),
+                    "repair_hints": _select_process_output_repair_hints(row),
                 }
             )
         )
@@ -17918,6 +18088,44 @@ def _compact_context_yield_attribution(
             "drilldown": "./repo-python kernel.py --process-audit",
         },
     }
+
+
+def _process_bottleneck_next_commands(context_yield_attribution: Mapping[str, Any]) -> list[dict[str, Any]]:
+    next_commands: list[dict[str, Any]] = []
+    for row in context_yield_attribution.get("rows") or []:
+        if not isinstance(row, Mapping):
+            continue
+        route = (
+            str(row.get("owner_surface") or "").strip()
+            or str(row.get("existing_route") or "").strip()
+            or str(_mapping(row.get("steering")).get("replacement_route") or "").strip()
+        )
+        if not route:
+            continue
+        motif = str(row.get("motif") or "top context-yield motif").strip()
+        next_commands.append(
+            {
+                "command": route,
+                "reason": (
+                    f"Use the owner route for top context-yield motif {motif!r} "
+                    "before opening raw bodies or broad audit drilldowns."
+                ),
+            }
+        )
+        break
+    next_commands.extend(
+        [
+            {
+                "command": "python3 kernel.py --process-audit",
+                "reason": "Open the full audit with findings and per-session preview.",
+            },
+            {
+                "command": "python3 kernel.py --process-bottlenecks --force",
+                "reason": "Force a live in-memory rebuild when the cached summary is not fresh enough for the decision.",
+            },
+        ]
+    )
+    return next_commands
 
 
 def _compact_process_session(session: Mapping[str, Any]) -> dict[str, Any]:
@@ -18322,16 +18530,7 @@ def _build_process_bottlenecks_packet(
             "next_reads": sources["derived"],
             "output_economy": output_economy,
         },
-        "next": [
-            {
-                "command": "python3 kernel.py --process-audit",
-                "reason": "Open the full audit with findings and per-session preview.",
-            },
-            {
-                "command": "python3 kernel.py --process-bottlenecks --force",
-                "reason": "Force a live in-memory rebuild when the cached summary is not fresh enough for the decision.",
-            },
-        ],
+        "next": _process_bottleneck_next_commands(context_yield_attribution),
         "warnings": warnings,
     }
 
@@ -18357,6 +18556,40 @@ def cmd_process_bottlenecks(
             force_live=force_live,
         )
     )
+
+
+def cmd_artifact_discovery_inventory(scope_paths: Sequence[str] | None = None) -> int:
+    """[ACTION]
+    - Teleology: Expose the metadata-only artifact discovery inventory through the kernel first-contact surface.
+    - Mechanism: Delegate to action_quote's artifact_discovery_inventory owner implementation and annotate the result with the kernel route.
+    - Guarantee: Emits path/content metadata only; does not open artifact bodies or mutate state.
+    - When-needed: Use before broad rg/find/cat discovery over artifact or state trees.
+    - Escalates-to: system/lib/action_quote.py; tools/meta/control/action_quote.py
+    - Navigation-group: kernel_lib
+    """
+    from system.lib.action_quote import build_action_quote
+
+    scopes = [str(item).strip() for item in list(scope_paths or []) if str(item).strip()]
+    payload = build_action_quote(
+        state.REPO_ROOT,
+        action_id="artifact_discovery_inventory",
+        scope_paths=scopes,
+    )
+    kernel_command = "./repo-python kernel.py --artifact-discovery-inventory"
+    if scopes:
+        kernel_command = f"{kernel_command} {' '.join(shlex.quote(scope) for scope in scopes)}"
+    payload["kind"] = "kernel.navigate.artifact_discovery_inventory"
+    payload["kernel_route"] = {
+        "command": kernel_command,
+        "owner_implementation": (
+            "./repo-python tools/meta/control/action_quote.py "
+            "--action artifact_discovery_inventory"
+        ),
+        "privacy_boundary": "metadata_only_no_artifact_bodies_or_stdout_stderr_bodies",
+    }
+    payload["suggested_command"] = kernel_command
+    payload["replacement_command"] = kernel_command
+    return emit_json(payload)
 
 
 def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | None = None) -> int:

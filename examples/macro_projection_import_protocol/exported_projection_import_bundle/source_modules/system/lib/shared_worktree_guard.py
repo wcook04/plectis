@@ -24,9 +24,11 @@ PUBLICATION_GATE_SCHEMA = "shared_worktree_publication_gate_v1"
 DIRTY_PATH_PREVIEW_LIMIT = 25
 PUBLICATION_PREVIEW_LIMIT = 8
 RISK_ADVICE = (
-    "Do not use broad git stash/reset/restore/clean in a shared dirty worktree "
-    "with active agents. Claim paths first, use a separate worktree for "
-    "isolation, or create an explicit patch artifact."
+    "Do not use broad git stash/reset/restore/clean in a shared dirty or "
+    "artifact-bearing worktree with active agents. git clean can delete ignored "
+    "dependency installs and render receipts even when tracked status is clean. "
+    "Claim paths first, use a separate worktree for isolation, or create an "
+    "explicit patch artifact."
 )
 PUBLICATION_GATE_ADVICE = (
     "Publication / remote sync boundary blocked before git push. Inspect the "
@@ -308,7 +310,7 @@ def assess_git_argv(
         isinstance(publication_gate, Mapping)
         and publication_gate.get("status") == "blocked"
     )
-    shared_worktree_blocked = bool(risks and dirty and not allow_unsafe)
+    shared_worktree_blocked = bool(risks and not allow_unsafe)
     blocked = shared_worktree_blocked or publication_blocked
     return {
         "schema": SCHEMA,

@@ -1277,6 +1277,9 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
         "operator_authorized_mainline_checkpoint": card.get(
             "operator_authorized_mainline_checkpoint"
         ),
+        "operator_authorized_unclaimed_checkpoint": card.get(
+            "operator_authorized_unclaimed_checkpoint"
+        ),
         "dirty_scan_status": card.get("dirty_scan_status"),
         "dirty_total": card.get("dirty_total"),
         "dirty_path_rows": card.get("dirty_path_rows"),
@@ -7625,6 +7628,11 @@ def build_navigation_context_pack(
             or dirty_tree_bankruptcy_pressure.get("dirty_path_class_counts"),
             "operator_authorized_mainline_checkpoint": dirty_tree_bankruptcy_pressure.get(
                 "operator_authorized_mainline_checkpoint"
+            ),
+            "operator_authorized_unclaimed_checkpoint": (
+                dirty_tree_bankruptcy_pressure.get(
+                    "operator_authorized_unclaimed_checkpoint"
+                )
             ),
             "active_claim_session_groups": dirty_tree_bankruptcy_pressure.get(
                 "active_claim_session_groups"

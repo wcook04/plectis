@@ -33,9 +33,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 344283,
+      "byte_count": 344617,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7732,
+      "line_count": 7740,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_context_pack_source_body_import",
       "required_anchors": [
@@ -49,17 +49,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/navigation_context_pack.py",
       "source_role": "Task-conditioned context-pack builder for coverage-first navigation, selected-row compaction, route budgets, omission receipts, and control-entry overview packets.",
-      "source_sha256": "30cc7ce022549b84e568d93cd1567dfac8f638de6c0ec5b7ba3bc0edb9f40648",
+      "source_sha256": "d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
-      "target_sha256": "30cc7ce022549b84e568d93cd1567dfac8f638de6c0ec5b7ba3bc0edb9f40648"
+      "target_sha256": "d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 329553,
+      "byte_count": 331009,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7953,
+      "line_count": 7982,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_entry_packet_source_body_import",
       "required_anchors": [
@@ -73,9 +73,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
-      "source_sha256": "094e9fadd770134a884c6f7a6ba111eb0c92b05d41a46b969816f7e91780f2f1",
+      "source_sha256": "c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "094e9fadd770134a884c6f7a6ba111eb0c92b05d41a46b969816f7e91780f2f1"
+      "target_sha256": "c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d"
     },
     {
       "anchor_count": 5,
