@@ -1954,7 +1954,9 @@ def test_cli_workingness_card_smoke(
     assert payload["command"] == "microcosm workingness --card"
     assert payload["source_command"] == "microcosm workingness"
     assert payload["drilldown_command"] == "microcosm workingness"
-    assert payload["endpoint"] == "/workingness"
+    assert payload["endpoint"] == "/workingness-card"
+    assert payload["full_endpoint"] == "/workingness"
+    assert payload["drilldown_endpoint"] == "/workingness"
     assert payload["completeness_status"] == "complete_failure_modes"
     assert payload["surface_counts"]["mapped_organ_count"] == (
         _accepted_organ_count(public_root)
@@ -2041,7 +2043,7 @@ def test_cli_tour_smoke(
     assert "microcosm status --card" in payload["command_path"]
     assert "microcosm workingness" in payload["command_path"]
     assert "microcosm observe <project>" in payload["command_path"]
-    assert "/workingness" in payload["endpoint_path"]
+    assert "/workingness-card" in payload["endpoint_path"]
     assert "/project/observe" in payload["endpoint_path"]
     assert any(
         row["step_id"] == "inspect_status_card"

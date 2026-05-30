@@ -1075,6 +1075,7 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "/" in route["observatory_endpoints"]
     assert "/status" in route["observatory_endpoints"]
     assert "/tour" in route["observatory_endpoints"]
+    assert "/workingness-card" in route["observatory_endpoints"]
     assert "/workingness" in route["observatory_endpoints"]
     assert "/proof-lab" in route["observatory_endpoints"]
     assert "/project/observe" in route["observatory_endpoints"]
@@ -1309,7 +1310,10 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert workingness["next_command"] == "microcosm workingness --card"
     assert workingness["status_card_command"] == "microcosm status --card <project>"
     assert workingness["workingness_command"] == "microcosm workingness --card"
-    assert workingness["endpoint"] == "/workingness"
+    assert workingness["endpoint"] == "/workingness-card"
+    assert workingness["full_endpoint"] == "/workingness"
+    assert workingness["workingness_endpoint"] == "/workingness-card"
+    assert workingness["workingness_drilldown_endpoint"] == "/workingness"
     assert (
         workingness["status_card_front_door_ref"]
         == "microcosm status --card <project>::front_door"

@@ -306,14 +306,17 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
         if step["step_id"] == "inspect_workingness"
     )
     assert workingness_step["workingness_command"] == "microcosm workingness --card"
-    assert workingness_step["workingness_endpoint"] == "/workingness"
+    assert workingness_step["workingness_endpoint"] == "/workingness-card"
+    assert workingness_step["workingness_drilldown_endpoint"] == "/workingness"
 
     status_route_card = tour["route_cards_by_id"]["status_and_workingness"]
     assert status_route_card["command"] == "microcosm status --card <project>"
     assert status_route_card["next_command"] == "microcosm workingness --card"
     assert status_route_card["status_card_endpoint"] == "/project/status"
-    assert status_route_card["workingness_endpoint"] == "/workingness"
-    assert status_route_card["endpoint"] == "/workingness"
+    assert status_route_card["workingness_endpoint"] == "/workingness-card"
+    assert status_route_card["workingness_drilldown_endpoint"] == "/workingness"
+    assert status_route_card["endpoint"] == "/workingness-card"
+    assert status_route_card["full_endpoint"] == "/workingness"
 
     assert route_proof["status"] == "pass"
     assert route_proof["selected_route_id"] == selected_route_id

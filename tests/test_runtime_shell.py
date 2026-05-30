@@ -854,7 +854,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         "map_generation_status describes whether the workingness map ran"
     )
     assert card["workingness"]["command"] == "microcosm workingness --card"
-    assert card["workingness"]["endpoint"] == "/workingness"
+    assert card["workingness"]["endpoint"] == "/workingness-card"
+    assert card["workingness"]["full_endpoint"] == "/workingness"
     assert card["workingness"]["completeness_status"] == "complete_failure_modes"
     assert card["workingness"]["mapped_organ_count"] == _accepted_organ_count()
     assert card["workingness"]["adapter_backed_organ_count"] == (
@@ -1899,7 +1900,9 @@ def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
     assert card["command"] == "microcosm workingness --card"
     assert card["source_command"] == "microcosm workingness"
     assert card["drilldown_command"] == "microcosm workingness"
-    assert card["endpoint"] == "/workingness"
+    assert card["endpoint"] == "/workingness-card"
+    assert card["full_endpoint"] == "/workingness"
+    assert card["drilldown_endpoint"] == "/workingness"
     assert card["surface_counts"]["mapped_organ_count"] == _accepted_organ_count()
     assert card["surface_counts"]["rows_with_failure_modes"] == _accepted_organ_count()
     assert card["surface_counts"]["missing_standard_count"] == 0
@@ -2456,7 +2459,13 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         == "status describes bounded failure-envelope debt; "
         "map_generation_status describes whether the workingness map ran"
     )
-    assert route_cards_by_id["status_and_workingness"]["endpoint"] == "/workingness"
+    assert (
+        route_cards_by_id["status_and_workingness"]["endpoint"]
+        == "/workingness-card"
+    )
+    assert route_cards_by_id["status_and_workingness"]["full_endpoint"] == (
+        "/workingness"
+    )
     assert route_cards_by_id["status_and_workingness"]["status_card_command"] == (
         "microcosm status --card"
     )
@@ -2507,7 +2516,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "release_authorized"
     ] is False
     assert "/tour" in tour["endpoint_path"]
-    assert "/workingness" in tour["endpoint_path"]
+    assert "/workingness-card" in tour["endpoint_path"]
     assert "/trace" in tour["endpoint_path"]
     assert "/repair-loop" in tour["endpoint_path"]
     assert "/evidence-cells" in tour["endpoint_path"]

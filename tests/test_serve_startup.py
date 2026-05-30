@@ -76,6 +76,9 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         observatory_card = json.loads(
             _get(f"http://127.0.0.1:{port}/project/observatory-card").decode("utf-8")
         )
+        workingness_card = json.loads(
+            _get(f"http://127.0.0.1:{port}/workingness-card").decode("utf-8")
+        )
         tour = json.loads(_get(f"http://127.0.0.1:{port}/tour").decode("utf-8"))
     finally:
         server.shutdown()
@@ -100,8 +103,17 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
     assert observatory_card["first_screen_full_endpoint"] == (
         "/project/first-screen-full"
     )
+    assert observatory_card["workingness_endpoint"] == "/workingness-card"
+    assert observatory_card["workingness_drilldown_endpoint"] == "/workingness"
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
     assert observatory_card["selected_route_id"] == "readme_onboarding_route"
+    assert (
+        workingness_card["schema_version"]
+        == "microcosm_workingness_command_speed_card_v1"
+    )
+    assert workingness_card["endpoint"] == "/workingness-card"
+    assert workingness_card["full_endpoint"] == "/workingness"
+    assert "thing_failure_map" not in workingness_card
     assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
     assert tour["selected_route_id"] == "readme_onboarding_route"
 

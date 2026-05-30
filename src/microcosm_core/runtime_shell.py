@@ -357,6 +357,8 @@ LOCAL_FIRST_SCREEN_ROUTE_SELECTION_RULE = (
     "empty or non-README folders can select missing_tests_route, including "
     "missing_tests_route when tests are absent."
 )
+WORKINGNESS_ENDPOINT = "/workingness"
+WORKINGNESS_CARD_ENDPOINT = "/workingness-card"
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 FIRST_SCREEN_STATE_REFS = (
     "project_manifest.json",
@@ -1389,7 +1391,8 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         "status_endpoint": "/status",
         "status_card_endpoint": "/project/status",
         "tour_endpoint": "/tour",
-        "workingness_endpoint": "/workingness",
+        "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
+        "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
         "proof_lab_endpoint": "/proof-lab",
         "python_lens_endpoint": "/project/python-lens",
         "selected_route_id": (
@@ -2379,7 +2382,8 @@ def _cold_reader_first_screen_card(
                     "not a score, maturity board, release gate, or proof authority",
                 ],
                 "workingness_command": "microcosm workingness --card",
-                "workingness_endpoint": "/workingness",
+                "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
+                "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
             },
             {
                 "step_id": "run_first_screen_proof_lab",
@@ -4741,7 +4745,11 @@ def _runtime_status_card(
             ),
             "top_level_status_rule": workingness.get("top_level_status_rule"),
             "command": workingness.get("command"),
-            "endpoint": workingness.get("endpoint"),
+            "endpoint": WORKINGNESS_CARD_ENDPOINT,
+            "full_endpoint": workingness.get("full_endpoint")
+            or WORKINGNESS_ENDPOINT,
+            "drilldown_endpoint": workingness.get("drilldown_endpoint")
+            or WORKINGNESS_ENDPOINT,
             "completeness_status": workingness.get("completeness_status"),
             "mapped_organ_count": workingness.get("mapped_organ_count"),
             "adapter_backed_organ_count": workingness.get(
@@ -5211,7 +5219,9 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         "command": "microcosm workingness --card",
         "source_command": workingness.get("command"),
         "drilldown_command": "microcosm workingness",
-        "endpoint": workingness.get("endpoint"),
+        "endpoint": WORKINGNESS_CARD_ENDPOINT,
+        "full_endpoint": WORKINGNESS_ENDPOINT,
+        "drilldown_endpoint": WORKINGNESS_ENDPOINT,
         "workingness_map_ref": workingness.get("workingness_map_ref"),
         "completeness_status": completeness_status,
         "mapped_organ_count": surface_counts.get("mapped_organ_count"),
@@ -5278,6 +5288,8 @@ def _workingness_command_speed_card(
             summary.get("drilldown_command") or "microcosm workingness"
         ),
         "endpoint": summary.get("endpoint"),
+        "full_endpoint": summary.get("full_endpoint"),
+        "drilldown_endpoint": summary.get("drilldown_endpoint"),
         "workingness_map_ref": summary.get("workingness_map_ref"),
         "completeness_status": summary.get("completeness_status"),
         "top_level_status_rule": (
@@ -5831,7 +5843,7 @@ class RuntimeShell:
             else "partial_failure_modes",
             "map_id": "runtime_organ_workingness_failure_map",
             "command": "microcosm workingness",
-            "endpoint": "/workingness",
+            "endpoint": WORKINGNESS_ENDPOINT,
             "workingness_map_ref": WORKINGNESS_MAP_REF.as_posix(),
             "projection_not_authority": True,
             "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -7458,7 +7470,8 @@ class RuntimeShell:
                 "minute_budget": 0.5,
                 "command": "microcosm status --card <project>",
                 "next_command": "microcosm workingness --card",
-                "endpoint": "/workingness",
+                "endpoint": WORKINGNESS_CARD_ENDPOINT,
+                "full_endpoint": WORKINGNESS_ENDPOINT,
                 "shows": [
                     "compressed project/runtime status card",
                     "workingness failure-envelope summary",
@@ -7479,7 +7492,8 @@ class RuntimeShell:
                 "project_status_card_command": "microcosm status --card <project>",
                 "status_card_endpoint": "/project/status",
                 "workingness_command": "microcosm workingness --card",
-                "workingness_endpoint": "/workingness",
+                "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
+                "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
                 "workingness_summary": workingness_summary,
                 "source_open_body_import_floor": source_open_body_import_floor,
@@ -7742,7 +7756,7 @@ class RuntimeShell:
                 "/replay-gauntlet",
                 "/benchmark-lab",
                 "/legibility-scorecard",
-                "/workingness",
+                WORKINGNESS_CARD_ENDPOINT,
                 "/intake",
                 "/reveal",
                 "/project/observe",
@@ -8366,7 +8380,8 @@ class RuntimeShell:
                 "command": "microcosm status --card <project>",
                 "endpoint": "/project/status",
                 "workingness_command": "microcosm workingness --card",
-                "workingness_endpoint": "/workingness",
+                "workingness_endpoint": WORKINGNESS_CARD_ENDPOINT,
+                "workingness_drilldown_endpoint": WORKINGNESS_ENDPOINT,
             },
             "observatory": {
                 "command": behavior_surfaces.get(
@@ -8485,8 +8500,8 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "reader_action": (
-                "Use this card for first-screen route selection; drill into "
-                "observe or full tour only when the compact refs are not enough."
+                "Use this card for route selection; drill into "
+                "observe or full tour only when needed."
             ),
         }
 
@@ -15130,7 +15145,7 @@ class RuntimeShell:
             "/tour",
             "/project/status",
             "/authority-card",
-            "/workingness",
+            WORKINGNESS_CARD_ENDPOINT,
             "/legibility-scorecard",
             "/proof-lab",
             "/project/observatory-card",
@@ -21194,7 +21209,8 @@ class RuntimeShell:
                     "observatory_card": "/project/observatory-card",
                     "observatory": "/project/observatory",
                     "tour": "/tour",
-                    "workingness": "/workingness",
+                    "workingness_card": WORKINGNESS_CARD_ENDPOINT,
+                    "workingness": WORKINGNESS_ENDPOINT,
                     "proof_lab": "/proof-lab",
                     "python_lens": "/project/python-lens",
                 },
@@ -21472,7 +21488,9 @@ class RuntimeShell:
                     self._send(200, cached_authority_payload())
                 elif path == "/authority-card":
                     self._send(200, shell.authority_card())
-                elif path == "/workingness":
+                elif path == WORKINGNESS_CARD_ENDPOINT:
+                    self._send(200, shell.workingness_card())
+                elif path == WORKINGNESS_ENDPOINT:
                     self._send(200, shell.workingness_map())
                 elif path == "/prediction":
                     self._send(200, shell.prediction_lens())

@@ -521,6 +521,7 @@ def _entry_packet_route_contract(
         "/",
         "/status",
         "/tour",
+        "/workingness-card",
         "/workingness",
         "/proof-lab",
         "/project/python-lens",
@@ -555,6 +556,7 @@ def _entry_packet_route_contract(
         "microcosm observe <project>",
         "microcosm legibility-scorecard",
         "microcosm authority",
+        "/workingness-card",
         "/workingness",
     ]
     if not path.is_file():

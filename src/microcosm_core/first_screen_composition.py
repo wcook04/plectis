@@ -1651,7 +1651,7 @@ def _scale_frame(root: Path) -> dict[str, Any]:
             },
             {
                 "handle": "localhost observatory",
-                "endpoint_ref": "http://localhost:8765/workingness",
+                "endpoint_ref": "http://localhost:8765/workingness-card",
             },
         ],
         "scale_rule": (
