@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+from microcosm_core import architecture_kernel
 from microcosm_core import project_substrate
 from microcosm_core import cli
 from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
@@ -165,6 +166,55 @@ def test_state_ref_status_counts_directory_json_without_materializing_glob(
     status = project_substrate._state_ref_status(project, ".microcosm/evidence/")
 
     assert status["json_count"] == 3
+
+
+def test_architecture_state_index_counts_asset_json_without_materializing_glob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    evidence_dir = project / ".microcosm/evidence"
+    explanation_dir = project / ".microcosm/explanations"
+    evidence_dir.mkdir(parents=True)
+    explanation_dir.mkdir(parents=True)
+    for index in range(2):
+        (evidence_dir / f"receipt_{index}.json").write_text("{}", encoding="utf-8")
+    (explanation_dir / "route.json").write_text("{}", encoding="utf-8")
+    (explanation_dir / "notes.txt").write_text("not counted", encoding="utf-8")
+
+    original_glob = Path.glob
+    glob_iterables: dict[Path, Any] = {}
+
+    def guarded_glob(self: Path, pattern: str):
+        if self in {evidence_dir, explanation_dir} and pattern == "*.json":
+            glob_rows = tuple(original_glob(self, pattern))
+            glob_iterables[self] = (path for path in glob_rows)
+            return glob_iterables[self]
+        return original_glob(self, pattern)
+
+    class GuardedListMeta(type):
+        def __call__(cls, value=(), /):  # noqa: N805
+            if value in glob_iterables.values():
+                raise AssertionError("build_state_index should stream JSON asset counts")
+            return builtins.list(value)
+
+        def __instancecheck__(cls, instance: object) -> bool:  # noqa: N805
+            return isinstance(instance, builtins.list)
+
+    monkeypatch.setattr(Path, "glob", guarded_glob)
+    monkeypatch.setattr(
+        architecture_kernel,
+        "list",
+        GuardedListMeta("GuardedList", (), {}),
+        raising=False,
+    )
+
+    state_index = architecture_kernel.build_state_index(project)
+    item_counts = {
+        row["asset_id"]: row.get("item_count") for row in state_index["assets"]
+    }
+
+    assert item_counts["evidence"] == 2
+    assert item_counts["explanation"] == 1
 
 
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(

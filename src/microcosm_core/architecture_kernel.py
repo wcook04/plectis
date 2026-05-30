@@ -584,6 +584,13 @@ def _base(project: Path, schema_version: str) -> dict[str, Any]:
     }
 
 
+def _count_json_children(path: Path) -> int:
+    try:
+        return sum(1 for _ in path.glob("*.json"))
+    except FileNotFoundError:
+        return 0
+
+
 def build_state_index(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -607,7 +614,7 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
     for kind, rel, description in assets:
         path = state / rel
         if kind in {"evidence", "explanation"}:
-            count = len(list(path.glob("*.json"))) if path.is_dir() else 0
+            count = _count_json_children(path) if path.is_dir() else 0
             exists = path.is_dir()
         else:
             count = None
