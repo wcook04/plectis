@@ -46,11 +46,14 @@ def read_json_strict(path: str | Path) -> Any:
 def read_jsonl_strict(path: str | Path) -> list[object]:
     source = Path(path)
     rows: list[object] = []
-    for line_number, line in enumerate(source.read_text(encoding="utf-8").splitlines(), start=1):
-        if not line.strip():
-            continue
-        row = loads_json_strict(line, f"{source}:{line_number}")
-        if not isinstance(row, dict):
-            raise StrictJsonObjectError(f"{source}:{line_number} is not a JSON object")
-        rows.append(row)
+    with source.open("r", encoding="utf-8") as fh:
+        for line_number, line in enumerate(fh, start=1):
+            if not line.strip():
+                continue
+            row = loads_json_strict(line, f"{source}:{line_number}")
+            if not isinstance(row, dict):
+                raise StrictJsonObjectError(
+                    f"{source}:{line_number} is not a JSON object"
+                )
+            rows.append(row)
     return rows
