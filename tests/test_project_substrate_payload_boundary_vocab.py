@@ -4,7 +4,11 @@ import json
 from pathlib import Path
 
 from microcosm_core import cli, project_substrate
-from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
+from microcosm_core.public_payload_boundary import (
+    EXCLUDED_PUBLIC_PAYLOAD_CLASSES,
+    SOURCE_OPEN_BODY_POLICY,
+    public_payload_boundary,
+)
 
 
 LEGACY_PAYLOAD_TERMS = [
@@ -42,6 +46,27 @@ def _assert_current_payload_boundary_vocab(payload: object) -> None:
     assert SOURCE_OPEN_BODY_POLICY in encoded
     for term in LEGACY_PAYLOAD_TERMS:
         assert term not in encoded
+
+
+def test_public_payload_boundary_excluded_classes_are_payload_local() -> None:
+    sentinel = "test_mutation_should_not_escape_receipt_payload"
+    first = public_payload_boundary(
+        boundary_id="test_boundary",
+        command="microcosm test",
+    )
+    first["excluded_public_payload_classes"].append(sentinel)
+
+    try:
+        second = public_payload_boundary(
+            boundary_id="second_test_boundary",
+            command="microcosm test again",
+        )
+
+        assert sentinel not in second["excluded_public_payload_classes"]
+        assert sentinel not in EXCLUDED_PUBLIC_PAYLOAD_CLASSES
+    finally:
+        if sentinel in EXCLUDED_PUBLIC_PAYLOAD_CLASSES:
+            EXCLUDED_PUBLIC_PAYLOAD_CLASSES.remove(sentinel)
 
 
 def test_project_python_lens_raw_payload_uses_payload_boundary_vocab(tmp_path: Path) -> None:

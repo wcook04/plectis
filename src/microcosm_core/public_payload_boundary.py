@@ -63,7 +63,7 @@ def public_payload_boundary(
         "metadata_only_standin_authorized": False,
         "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
         "public_refs_are_drilldowns_not_replacements": True,
-        "excluded_public_payload_classes": EXCLUDED_PUBLIC_PAYLOAD_CLASSES,
+        "excluded_public_payload_classes": list(EXCLUDED_PUBLIC_PAYLOAD_CLASSES),
         "secrets_exported": False,
         "credential_equivalent_payloads_exported": False,
         "provider_payload_bodies_exported": False,
