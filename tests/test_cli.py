@@ -645,6 +645,26 @@ def test_runtime_evidence_list_only_summarizes_returned_limit(
     ]
 
 
+def test_runtime_evidence_limited_path_selection_preserves_count_and_order(
+    tmp_path: Path,
+) -> None:
+    receipt_dir = tmp_path / "receipts"
+    rows = [
+        receipt_dir / "result_z.json",
+        receipt_dir / "result_b.json",
+        receipt_dir / "result_a.json",
+        receipt_dir / "result_c.json",
+    ]
+
+    count, selected = runtime_evidence_index._bounded_sorted_paths(iter(rows), 2)
+
+    assert count == 4
+    assert [path.name for path in selected] == [
+        "result_a.json",
+        "result_b.json",
+    ]
+
+
 def test_cli_first_screen_text_projection_is_package_backed(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

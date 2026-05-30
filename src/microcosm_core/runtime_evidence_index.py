@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from bisect import insort
+from collections.abc import Iterable
 import json
 from pathlib import Path
 from typing import Any
@@ -91,20 +93,35 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
-def _bounded_rows(
-    rows: list[Any], limit: int | None
-) -> list[Any]:
+def _bounded_sorted_paths(
+    rows: Iterable[Path], limit: int | None
+) -> tuple[int, list[Path]]:
     if limit is None:
-        return rows
-    return rows[: max(limit, 0)]
+        sorted_rows = sorted(rows)
+        return len(sorted_rows), sorted_rows
+    row_limit = max(limit, 0)
+    if row_limit == 0:
+        return sum(1 for _ in rows), []
+    selected: list[Path] = []
+    count = 0
+    for row in rows:
+        count += 1
+        if len(selected) < row_limit:
+            insort(selected, row)
+        elif row < selected[-1]:
+            selected.pop()
+            insort(selected, row)
+    return count, selected
 
 
 def list_runtime_evidence(
     root: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
     root_path = Path(root).expanduser().resolve(strict=False)
-    receipts = sorted((root_path / "receipts").rglob("*.json"))
-    returned_receipts = _bounded_rows(receipts, limit)
+    receipt_count, returned_receipts = _bounded_sorted_paths(
+        (root_path / "receipts").rglob("*.json"),
+        limit,
+    )
     returned_evidence = [
         compact_receipt_summary(path, root_path) for path in returned_receipts
     ]
@@ -112,10 +129,10 @@ def list_runtime_evidence(
         "schema_version": SCHEMA_VERSION,
         "status": PASS,
         "evidence_list_mode": INDEX_MODE,
-        "receipt_count": len(receipts),
+        "receipt_count": receipt_count,
         "returned_receipt_count": len(returned_evidence),
         "limit": limit,
-        "truncated": len(returned_evidence) < len(receipts),
+        "truncated": len(returned_evidence) < receipt_count,
         "compact_rows": True,
         "full_contract_drilldown_command": "microcosm evidence inspect <receipt_ref>",
         "full_contract_drilldown": {
