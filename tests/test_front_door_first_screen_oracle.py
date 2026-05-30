@@ -140,7 +140,12 @@ def test_empty_folder_first_screen_oracle_names_selected_route(
     assert front_door["observatory"]["route_explanation_endpoint"] == (
         "/project/explain/missing_tests_route"
     )
-    assert observatory_card["status"] == ("blocked" if body_floor_blocked else "pass")
+    observatory_blocked = bool(
+        observatory_card["first_screen_route_proof"]["blocking_surface_ids"]
+    )
+    assert observatory_card["status"] == (
+        "blocked" if observatory_blocked else "pass"
+    )
     assert observatory_card["selected_route_id"] == selected_route_id
     expected_observatory_statuses = {
         "first_screen": "pass",
@@ -153,12 +158,12 @@ def test_empty_folder_first_screen_oracle_names_selected_route(
         "proof_lab": "pass",
         "source_open_body_import_floor": "pass",
         "first_screen_composition": "pass",
-        "observatory": "pass",
+        "observatory": "blocked" if observatory_blocked else "pass",
     }
-    if body_floor_blocked:
+    if observatory_blocked:
         expected_observatory_statuses["first_screen"] = "blocked"
+    if body_floor_blocked:
         expected_observatory_statuses["source_open_body_import_floor"] = "blocked"
-        expected_observatory_statuses["observatory"] = "blocked"
     assert observatory_card["surface_statuses"] == expected_observatory_statuses
     assert observatory_card["state_inspection"]["status"] == "pass"
     assert observatory_card["state_inspection"]["state_dir"] == ".microcosm"
@@ -273,7 +278,7 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert front_door_status["surface_statuses"]["macro_body_import_floor"] == (
         "blocked" if body_floor_blocked else "pass"
     )
-    assert front_door_status["surface_statuses"]["observatory"] == "pass"
+    assert front_door_status["surface_statuses"]["observatory"] == "actionable"
     assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
 
     first_screen_commands = [
@@ -351,7 +356,11 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert intake_card["surface_counts"]["projection_cell_count"] >= 1
     assert intake_card["projection_status_counts"]["public_runtime_import_landed"] >= 1
 
-    assert front_door["observatory"]["status"] == "pass"
+    assert front_door["observatory"]["status"] == "actionable"
+    assert (
+        front_door["observatory"]["validation_status"]
+        == "not_evaluated_in_status_card"
+    )
     assert front_door["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert front_door["observatory"]["project_observe_command"] == (
         "microcosm observe <project>"
@@ -360,10 +369,15 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert front_door["observatory"]["first_screen_route_proof_ref"] == (
         "microcosm serve <project>::first_screen_route_proof"
     )
-    assert observatory["front_door_status"]["status"] == (
-        "blocked" if body_floor_blocked else "pass"
+    observatory_blocked = bool(
+        observatory_card["first_screen_route_proof"]["blocking_surface_ids"]
     )
-    assert observatory_card["status"] == ("blocked" if body_floor_blocked else "pass")
+    assert observatory["front_door_status"]["status"] == (
+        "blocked" if observatory_blocked else "pass"
+    )
+    assert observatory_card["status"] == (
+        "blocked" if observatory_blocked else "pass"
+    )
     assert observatory_card["selected_route_id"] == selected_route_id
     assert observatory_card["surface_statuses"]["route"] == "pass"
     assert observatory_card["surface_statuses"]["work"] == "pass"

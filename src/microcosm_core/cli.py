@@ -1143,7 +1143,7 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
     route_proof_status = route_selection_proof.get("status")
     status = (
-        "pass"
+        "actionable"
         if bounded_command and route_proof_status == "pass"
         else "actionable"
         if bounded_command and not raw_selected_route_id
@@ -1172,6 +1172,15 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         or f"microcosm status --card {project_ref}",
         "related_endpoint_count": 9,
         "model_field_count": 13,
+        "validation_status": (
+            "not_evaluated_in_status_card"
+            if status == "actionable"
+            else status
+        ),
+        "reader_action": (
+            "Run bounded_validation_command or open compact_endpoint before "
+            "treating the observatory card itself as pass/fail."
+        ),
         "source_files_mutated": False,
         "provider_calls_authorized": False,
         "release_authorized": False,
@@ -1350,6 +1359,8 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "first_screen_route_proof_ref",
                 "status_card_ref",
                 "model_field_count",
+                "validation_status",
+                "reader_action",
                 "source_files_mutated",
                 "provider_calls_authorized",
                 "release_authorized",

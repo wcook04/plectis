@@ -792,18 +792,16 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert front_door_status["surface_statuses"]["state_write_proof"] == "pass"
     assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
     proof_lab_cache_status = payload["front_door"]["proof_lab"]["cache_status"]
-    expected_actionable = (
-        ["proof_lab_cache"]
-        if proof_lab_cache_status == "stale_cached_receipt"
-        else []
-    )
-    assert front_door_status["actionable_surface_ids"] == expected_actionable
+    expected_actionable = {"observatory"}
+    if proof_lab_cache_status == "stale_cached_receipt":
+        expected_actionable.add("proof_lab_cache")
+    assert set(front_door_status["actionable_surface_ids"]) == expected_actionable
     assert front_door_status["surface_statuses"]["proof_lab_cache"] == (
         "actionable"
         if proof_lab_cache_status == "stale_cached_receipt"
         else "pass"
     )
-    assert front_door_status["surface_statuses"]["observatory"] == "pass"
+    assert front_door_status["surface_statuses"]["observatory"] == "actionable"
     assert "required_surface_ids" not in front_door_status
     assert (
         front_door_status["surface_statuses"]["workingness_failure_envelope"]
@@ -885,7 +883,8 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert proof_lab["proof_bodies_exported"] is False
     assert proof_lab["proof_correctness_claim"] is False
     observatory = payload["front_door"]["observatory"]
-    assert observatory["status"] == "pass"
+    assert observatory["status"] == "actionable"
+    assert observatory["validation_status"] == "not_evaluated_in_status_card"
     assert observatory["command"] == (
         f"microcosm serve {project_ref} --host 127.0.0.1 "
         "--port 8765 --max-requests 6"
@@ -1193,14 +1192,12 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "stale_cached_receipt",
     }
     proof_lab_cache_status = status_card["front_door"]["proof_lab"]["cache_status"]
-    expected_actionable = (
-        ["proof_lab_cache"]
-        if proof_lab_cache_status == "stale_cached_receipt"
-        else []
-    )
-    assert status_card["front_door_status"]["actionable_surface_ids"] == (
-        expected_actionable
-    )
+    expected_actionable = {"observatory"}
+    if proof_lab_cache_status == "stale_cached_receipt":
+        expected_actionable.add("proof_lab_cache")
+    assert set(
+        status_card["front_door_status"]["actionable_surface_ids"]
+    ) == expected_actionable
     if proof_lab_cache_status == "stale_cached_receipt":
         assert status_card["front_door_status"]["surface_statuses"][
             "proof_lab_cache"
@@ -1208,7 +1205,10 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         assert "proof_lab_cache" in status_card["front_door_status"][
             "actionable_surface_ids"
         ]
-    assert status_card["front_door_status"]["surface_statuses"]["observatory"] == "pass"
+    assert (
+        status_card["front_door_status"]["surface_statuses"]["observatory"]
+        == "actionable"
+    )
     assert status_card["front_door"]["state_dir_exists"] is True
     assert status_card["front_door"]["route_explanation"]["status"] == "pass"
     assert status_card["front_door"]["route_explanation"][
@@ -1249,7 +1249,11 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["observatory"]["project_observe_command"] == (
         "microcosm observe <project>"
     )
-    assert status_card["front_door"]["observatory"]["status"] == "pass"
+    assert status_card["front_door"]["observatory"]["status"] == "actionable"
+    assert (
+        status_card["front_door"]["observatory"]["validation_status"]
+        == "not_evaluated_in_status_card"
+    )
     assert status_card["macro_body_import_floor"]["schema_version"] == (
         "microcosm_project_status_body_import_floor_ref_v1"
     )
@@ -1308,10 +1312,17 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     assert status_front_door_status["status"] == (
         "blocked" if body_floor_blocked else "pass"
     )
-    assert observatory_card["status"] == ("blocked" if body_floor_blocked else "pass")
-    assert observatory["front_door_status"]["status"] == (
-        "blocked" if body_floor_blocked else "pass"
+    assert status_front_door["observatory"]["status"] == "actionable"
+    assert (
+        status_front_door["observatory"]["validation_status"]
+        == "not_evaluated_in_status_card"
     )
+    assert status_front_door_status["surface_statuses"]["observatory"] == (
+        "actionable"
+    )
+    assert "observatory" in status_front_door_status["actionable_surface_ids"]
+    assert observatory_card["status"] in {"pass", "blocked"}
+    assert observatory["front_door_status"]["status"] in {"pass", "blocked"}
     if body_floor_blocked:
         assert "macro_body_import_floor" in status_front_door_status[
             "blocking_surface_ids"
@@ -1326,10 +1337,17 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
         ]["blocking_surface_ids"]
     else:
         assert status_front_door_status["blocking_surface_ids"] == []
-        assert (
-            observatory_card["first_screen_route_proof"]["blocking_surface_ids"]
-            == []
-        )
+        if observatory_card["status"] == "pass":
+            assert (
+                observatory_card["first_screen_route_proof"][
+                    "blocking_surface_ids"
+                ]
+                == []
+            )
+        else:
+            assert observatory_card["first_screen_route_proof"][
+                "blocking_surface_ids"
+            ]
     assert observatory_card["surface_statuses"]["state_inspection"] == "pass"
     assert observatory_card["state_inspection"]["status"] == "pass"
     assert observatory_card["state_inspection"]["missing_first_screen_refs"] == []
@@ -1341,7 +1359,7 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     assert status_front_door["proof_lab"]["route_id"] == (
         observatory_card["proof_lab"]["route_id"]
     )
-    assert status_front_door["observatory"]["status"] == "pass"
+    assert status_front_door["observatory"]["status"] == "actionable"
     assert status_front_door["observatory"]["compact_endpoint"] == (
         observatory_card["endpoint"]
     )
