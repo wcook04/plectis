@@ -172,13 +172,14 @@ def _assimilation_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        if not stripped:
-            continue
-        payload = json.loads(stripped)
-        if isinstance(payload, dict):
-            rows.append(payload)
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            payload = json.loads(stripped)
+            if isinstance(payload, dict):
+                rows.append(payload)
     return rows
 
 
@@ -1165,15 +1166,16 @@ def _write_jsonl_upsert(path: Path, row: dict[str, Any], *, run_id: str) -> None
     path.parent.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
     if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            try:
-                payload = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if isinstance(payload, dict) and payload.get("run_id") != run_id:
-                rows.append(payload)
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if not line.strip():
+                    continue
+                try:
+                    payload = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(payload, dict) and payload.get("run_id") != run_id:
+                    rows.append(payload)
     rows.append(row)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{path.name}.", dir=str(path.parent))
     try:

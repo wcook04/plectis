@@ -10,6 +10,8 @@ from microcosm_core.validators.acceptance import (
     EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    _load_jsonl,
+    _write_jsonl_upsert,
     run_assimilation_bundle,
     validate_pattern_assimilation,
 )
@@ -61,6 +63,68 @@ def _read_last_jsonl(path: Path, *, run_id: str) -> dict[str, Any]:
     matches = [row for row in rows if row.get("run_id") == run_id]
     assert matches
     return matches[-1]
+
+
+def test_pattern_assimilation_jsonl_loader_streams_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    jsonl_path = tmp_path / "organ_landing_summaries.jsonl"
+    jsonl_path.write_text(
+        '{"run_id":"run_001","status":"pass"}\n'
+        '["skip non-object rows"]\n'
+        "\n"
+        '{"run_id":"run_002","status":"fail"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == jsonl_path:
+            raise AssertionError("pattern assimilation JSONL loader should stream rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _load_jsonl(jsonl_path) == [
+        {"run_id": "run_001", "status": "pass"},
+        {"run_id": "run_002", "status": "fail"},
+    ]
+
+
+def test_pattern_assimilation_jsonl_upsert_streams_existing_rows(
+    tmp_path: Path, monkeypatch
+) -> None:
+    jsonl_path = tmp_path / "macro_pattern_autonomy_process_runs_v1.jsonl"
+    jsonl_path.write_text(
+        '{"run_id":"keep","status":"pass"}\n'
+        '{"run_id":"replace","status":"old"}\n'
+        "not json\n",
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == jsonl_path:
+            raise AssertionError("pattern assimilation JSONL upsert should stream rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    _write_jsonl_upsert(
+        jsonl_path,
+        {"run_id": "replace", "status": "new"},
+        run_id="replace",
+    )
+
+    rows = [
+        json.loads(line)
+        for line in original_read_text(jsonl_path, encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert rows == [
+        {"run_id": "keep", "status": "pass"},
+        {"run_id": "replace", "status": "new"},
+    ]
 
 
 def test_pattern_assimilation_step_observes_required_negative_cases(tmp_path: Path) -> None:
