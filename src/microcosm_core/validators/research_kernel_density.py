@@ -111,6 +111,20 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     return [row for row in value if isinstance(row, dict)]
 
 
+def _has_json_file(path: Path) -> bool:
+    return path.is_dir() and any(path.glob("*.json"))
+
+
+def _iter_state_payload_files(state: Path):
+    yield from state.rglob("*.json")
+    yield state / "events.jsonl"
+
+
+def _file_contains_any(path: Path, markers: tuple[str, ...]) -> bool:
+    with path.open("r", encoding="utf-8", errors="ignore") as handle:
+        return any(any(marker in line for marker in markers) for line in handle)
+
+
 def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
     findings: list[dict[str, Any]] = []
     blocking_codes: list[str] = []
@@ -134,7 +148,7 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
                 }
             )
     explanations = state / "explanations"
-    if not explanations.is_dir() or not list(explanations.glob("*.json")):
+    if not _has_json_file(explanations):
         blocking_codes.append("PROJECT_ROUTE_EXPLANATION_MISSING")
     graph = read_json_if_exists(state / "graph.json")
     if graph and graph.get("edge_count", 0) < 6:
@@ -330,24 +344,19 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
                 blocking_codes.append("PROJECT_OBSERVATORY_COMMAND_MISSING")
         if not isinstance(authority, dict) or authority.get("release_authorized") is not False:
             blocking_codes.append("PROJECT_TRUTH_READINESS_RELEASE_CEILING_MISSING")
-    state_files = [
-        *sorted(state.rglob("*.json")),
-        state / "events.jsonl",
-    ]
     leaked_refs: list[str] = []
     project_abs = project.resolve(strict=False).as_posix()
-    for path in state_files:
+    for path in _iter_state_payload_files(state):
         if not path.is_file():
             continue
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        if project_abs in text or "/Users/" in text:
+        if _file_contains_any(path, (project_abs, "/Users/")):
             leaked_refs.append(path.relative_to(state).as_posix())
     if leaked_refs:
         blocking_codes.append("PROJECT_STATE_HOST_PATH_LEAK")
         findings.append(
             {
                 "finding_id": "project_state_host_path_leak",
-                "state_refs": leaked_refs,
+                "state_refs": sorted(leaked_refs),
             }
         )
     return findings, blocking_codes

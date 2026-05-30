@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from microcosm_core import project_substrate
+from microcosm_core.validators import research_kernel_density
 from microcosm_core.validators.research_kernel_density import validate_density
 
 
@@ -49,3 +50,61 @@ def test_research_kernel_density_validator_passes_with_scratch_project(tmp_path:
     assert receipt["density_assertions"]["observatory_surface_available"] is True
     assert receipt["density_assertions"]["desktop_sandbox_relative_refs"] is True
     assert receipt["density_assertions"]["release_authorized"] is False
+
+
+def test_explanation_json_presence_short_circuits_glob(tmp_path: Path, monkeypatch) -> None:
+    explanations = tmp_path / "explanations"
+    explanations.mkdir()
+    first = explanations / "route.json"
+    first.write_text("{}", encoding="utf-8")
+
+    original_glob = Path.glob
+    consumed = 0
+
+    def guarded_glob(path: Path, pattern: str):
+        nonlocal consumed
+        if path == explanations and pattern == "*.json":
+            consumed += 1
+            yield first
+            raise AssertionError("glob result was materialized after first JSON file")
+        yield from original_glob(path, pattern)
+
+    monkeypatch.setattr(Path, "glob", guarded_glob)
+
+    assert research_kernel_density._has_json_file(explanations) is True
+    assert consumed == 1
+
+
+def test_state_host_path_scan_streams_payload_files(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    streamed = project / ".microcosm/streamed.json"
+    streamed.write_text(
+        "/Users/example/private-root\n"
+        + "\n".join(f'{{"public_row": {index}}}' for index in range(500)),
+        encoding="utf-8",
+    )
+
+    original_read_text = Path.read_text
+
+    def guarded_read_text(path: Path, *args, **kwargs):
+        if path == streamed:
+            raise AssertionError("state payload scan should stream instead of read_text")
+        return original_read_text(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    receipt = validate_density(
+        MICROCOSM_ROOT,
+        tmp_path / "research_kernel_density.json",
+        command="pytest",
+        project=project,
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PROJECT_STATE_HOST_PATH_LEAK" in receipt["blocking_codes"]
+    assert {
+        "finding_id": "project_state_host_path_leak",
+        "state_refs": ["streamed.json"],
+    } in receipt["findings"]
