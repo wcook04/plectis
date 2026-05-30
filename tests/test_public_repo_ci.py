@@ -116,3 +116,13 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
         "ai-workflow-proof" not in url
         for url in pyproject["project"]["urls"].values()
     )
+
+
+def test_pyproject_pytest_tmp_state_is_repo_local_and_bounded() -> None:
+    pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+
+    pytest_options = pyproject["tool"]["pytest"]["ini_options"]
+    assert pytest_options["addopts"] == "-q --basetemp=.microcosm/test-tmp/pytest"
+    assert pytest_options["cache_dir"] == ".microcosm/test-tmp/.pytest_cache"
+    assert pytest_options["tmp_path_retention_count"] == "1"
+    assert pytest_options["tmp_path_retention_policy"] == "failed"

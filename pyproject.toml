@@ -456,4 +456,7 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q --basetemp=.microcosm/test-tmp/pytest"
+cache_dir = ".microcosm/test-tmp/.pytest_cache"
+tmp_path_retention_count = "1"
+tmp_path_retention_policy = "failed"
