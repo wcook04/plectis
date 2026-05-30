@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from microcosm_core import private_state_scan
 from microcosm_core.private_state_scan import (
     BLOCKED_PRIVATE,
     BLOCKED_PUBLIC_WRITE,
@@ -31,6 +32,34 @@ def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path
     assert result["hits"][0]["term_id"] == "raw_seed_body_sentinel"
     assert "matched_excerpt" not in result["hits"][0]
     assert result["hits"][0]["body_redacted"] is True
+
+
+def test_scan_paths_reuses_forbidden_terms_across_files(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    fixtures = []
+    for index in range(3):
+        fixture = tmp_path / f"clean_{index}.txt"
+        fixture.write_text(f"public body {index}\n", encoding="utf-8")
+        fixtures.append(fixture)
+
+    calls = 0
+    original_terms = private_state_scan._terms
+
+    def counted_terms(forbidden_classes):
+        nonlocal calls
+        calls += 1
+        return original_terms(forbidden_classes)
+
+    monkeypatch.setattr(private_state_scan, "_terms", counted_terms)
+
+    result = scan_paths(fixtures, forbidden_classes=policy)
+
+    assert result["status"] == PASS
+    assert result["scanned_path_count"] == 3
+    assert calls == 1
 
 
 def test_scanner_blocks_unreadable_text_candidate_without_body(tmp_path: Path) -> None:

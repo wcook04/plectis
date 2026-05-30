@@ -342,11 +342,12 @@ def _path_hit(path: str, source_context: str) -> dict[str, Any] | None:
     return None
 
 
-def scan_text(
+def _scan_text_with_terms(
     text: str,
     *,
     path: str,
     forbidden_classes: dict[str, Any],
+    terms: list[dict[str, str]],
     source_context: str = "target",
 ) -> dict[str, Any]:
     hits: list[dict[str, Any]] = []
@@ -355,7 +356,7 @@ def scan_text(
         hits.append(path_based)
 
     allowed_negative = _allowed_synthetic_negative(path, text)
-    for term in _terms(forbidden_classes):
+    for term in terms:
         if term["token"] not in text:
             continue
         hit = {
@@ -384,6 +385,22 @@ def scan_text(
         "scan_scope": _scan_scope(forbidden_classes),
         "anti_claim": _anti_claim(forbidden_classes),
     }
+
+
+def scan_text(
+    text: str,
+    *,
+    path: str,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    return _scan_text_with_terms(
+        text,
+        path=path,
+        forbidden_classes=forbidden_classes,
+        terms=_terms(forbidden_classes),
+        source_context=source_context,
+    )
 
 
 def _merge_scan_results(
@@ -451,7 +468,12 @@ def scan_paths(
     results: list[dict[str, Any]] = []
     scanned = 0
     scan_paths = [Path(raw_path) for raw_path in paths]
-    root = Path(display_root).resolve(strict=False) if display_root is not None else _infer_display_root(scan_paths)
+    root = (
+        Path(display_root).resolve(strict=False)
+        if display_root is not None
+        else _infer_display_root(scan_paths)
+    )
+    terms = _terms(forbidden_classes)
     for path in scan_paths:
         if not path.is_file() or path.suffix not in TEXT_SUFFIXES:
             continue
@@ -469,10 +491,11 @@ def scan_paths(
             )
             continue
         results.append(
-            scan_text(
+            _scan_text_with_terms(
                 text,
                 path=public_path,
                 forbidden_classes=forbidden_classes,
+                terms=terms,
                 source_context=source_context,
             )
         )
