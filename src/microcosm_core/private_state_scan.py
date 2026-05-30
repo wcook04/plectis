@@ -31,6 +31,12 @@ TEXT_SUFFIXES = {
     ".toml",
     ".txt",
 }
+TEXT_FILENAMES = {
+    "Dockerfile",
+    "LICENSE",
+    "Makefile",
+    "NOTICE",
+}
 
 PUBLIC_ROOT_DIR_NAME = "microcosm-substrate"
 PUBLIC_ROOT_RELATIVE_PREFIXES = (
@@ -166,6 +172,11 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
+
+
+def is_text_scan_candidate(path: str | Path) -> bool:
+    candidate = Path(path)
+    return candidate.suffix in TEXT_SUFFIXES or candidate.name in TEXT_FILENAMES
 
 
 def _bool_from_row(row: dict[str, Any], key: str) -> bool:
@@ -475,7 +486,7 @@ def scan_paths(
     )
     terms = _terms(forbidden_classes)
     for path in scan_paths:
-        if not path.is_file() or path.suffix not in TEXT_SUFFIXES:
+        if not path.is_file() or not is_text_scan_candidate(path):
             continue
         scanned += 1
         public_path = public_relative_path(path, display_root=root)

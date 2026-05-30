@@ -9,12 +9,15 @@ from .private_state_scan import (
     BLOCKED_PRIVATE,
     BLOCKED_PUBLIC_WRITE,
     PASS,
+    TEXT_FILENAMES as _TEXT_FILENAMES,
+    is_text_scan_candidate,
     load_forbidden_classes,
     public_relative_path,
 )
 
 BLOCKED_SECRET_EXCLUSION = BLOCKED_PRIVATE
 TEXT_SUFFIXES = frozenset(_legacy.TEXT_SUFFIXES)
+TEXT_FILENAMES = frozenset(_TEXT_FILENAMES)
 
 
 def _without_legacy_body_fields(row: dict[str, Any]) -> dict[str, Any]:
@@ -141,8 +144,10 @@ __all__ = [
     "BLOCKED_PUBLIC_WRITE",
     "BLOCKED_SECRET_EXCLUSION",
     "PASS",
+    "TEXT_FILENAMES",
     "TEXT_SUFFIXES",
     "classify_public_safe_macro_import",
+    "is_text_scan_candidate",
     "load_forbidden_classes",
     "normalize_secret_exclusion_scan",
     "public_relative_path",

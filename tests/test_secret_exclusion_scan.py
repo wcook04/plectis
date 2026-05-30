@@ -8,6 +8,7 @@ from microcosm_core.secret_exclusion_scan import (
     BLOCKED_SECRET_EXCLUSION,
     PASS,
     classify_public_safe_macro_import,
+    is_text_scan_candidate,
     load_forbidden_classes,
     scan_paths,
     scan_text,
@@ -220,7 +221,7 @@ def test_secret_exclusion_validator_skips_local_runtime_residue(tmp_path: Path) 
     assert blocked["secret_exclusion_scan"]["hits"][0]["path"] == "public_sentinel.txt"
 
 
-def test_secret_exclusion_validator_only_collects_scannable_text_suffixes(
+def test_secret_exclusion_validator_collects_scannable_text_files(
     tmp_path: Path,
 ) -> None:
     root = tmp_path / "microcosm-substrate"
@@ -244,4 +245,19 @@ def test_secret_exclusion_validator_only_collects_scannable_text_suffixes(
         for path in _iter_scan_paths(root)
     }
 
-    assert paths == {"README.md", "src/module.py"}
+    assert paths == {"Makefile", "README.md", "src/module.py"}
+
+
+def test_secret_exclusion_scan_paths_catches_extensionless_public_text(
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    makefile = tmp_path / "Makefile"
+    makefile.write_text("SYNTHETIC_RAW_SEED_BODY_SENTINEL\n", encoding="utf-8")
+
+    result = scan_paths([makefile], forbidden_classes=policy)
+
+    assert is_text_scan_candidate(makefile)
+    assert result["status"] == BLOCKED_SECRET_EXCLUSION
+    assert result["scanned_path_count"] == 1
+    assert result["hits"][0]["path"] == str(makefile)

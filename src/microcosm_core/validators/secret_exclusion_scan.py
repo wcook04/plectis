@@ -8,7 +8,7 @@ from typing import Any
 from microcosm_core.receipts import base_receipt, write_receipt
 from microcosm_core.secret_exclusion_scan import (
     PASS,
-    TEXT_SUFFIXES,
+    is_text_scan_candidate,
     load_forbidden_classes,
     scan_paths,
 )
@@ -55,7 +55,7 @@ def _iter_scan_paths(root: Path) -> list[Path]:
         ]
         for filename in filenames:
             path = current / filename
-            if path.suffix in TEXT_SUFFIXES and not _is_local_residue(path, root):
+            if is_text_scan_candidate(path) and not _is_local_residue(path, root):
                 paths.append(path)
     return paths
 
