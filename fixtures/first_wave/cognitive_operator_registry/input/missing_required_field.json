@@ -1,0 +1,19 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "missing_required_field",
+  "operators": [
+    {
+      "operator_id": "cogop_missing_field_demo",
+      "slug": "missing-field-demo",
+      "title": "Missing Field Demo",
+      "status": "active",
+      "claim": "",
+      "activation": {},
+      "process": [],
+      "integration": {},
+      "validation": {},
+      "evidence_refs": [],
+      "dogfood_receipt_refs": []
+    }
+  ]
+}

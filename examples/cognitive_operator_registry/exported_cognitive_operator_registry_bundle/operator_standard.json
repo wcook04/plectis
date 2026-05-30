@@ -1,0 +1,47 @@
+{
+  "schema_version": "cognitive_operator_registry_standard_v1",
+  "standard_id": "std_microcosm_cognitive_operator",
+  "source_standard_ref": "codex/standards/std_cognitive_operator.json",
+  "purpose": "Distilled public contract for typed cognitive operators: required operator-shape fields, allowed status values, and the dogfood receipt contract that proves an active operator changed a live decision.",
+  "required_fields": [
+    "operator_id",
+    "slug",
+    "title",
+    "status",
+    "claim",
+    "activation",
+    "process",
+    "integration",
+    "validation",
+    "evidence_refs",
+    "dogfood_receipt_refs"
+  ],
+  "status_values": [
+    "candidate",
+    "active",
+    "retired"
+  ],
+  "dogfood_contract": {
+    "rule": "Every active operator must have at least one receipt proving it changed a live task decision, artifact, route, or validation result.",
+    "required_receipt_fields": [
+      "receipt_id",
+      "operator_id",
+      "live_problem",
+      "evidence_surfaces",
+      "candidate_set",
+      "selected_operator",
+      "actions_taken",
+      "cognition_delta_evidence",
+      "result_state"
+    ]
+  },
+  "accretion_contract": {
+    "rule": "Before installing another operator with a near-identical slug or claim, a novelty/merge accretion decision must be recorded so the registry does not sprawl.",
+    "source_extension_ref": "codex/standards/std_cognitive_operator.json::operator_accretion_extension"
+  },
+  "safety_rules": [
+    "Cognitive operator rows are not raw seed and must not claim operator-voice authority.",
+    "A dogfood receipt is evidence of use, not proof of permanent doctrine correctness."
+  ],
+  "body_in_receipt": false
+}

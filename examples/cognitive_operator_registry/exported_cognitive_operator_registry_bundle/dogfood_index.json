@@ -1,0 +1,152 @@
+{
+  "body_in_receipt": false,
+  "dogfood_receipts": [
+    {
+      "actions_taken": [
+        "Added cogop_landing_handoff_compiler to codex/doctrine/cognitive_operators.json with activation, passport, contracts, task-selection hooks, and future seed behavior.",
+        "Added std_cognitive_operator.json::landing_handoff_extension and validator-required receipt fields.",
+        "Added context-pack and navigation-index triggers for validated slice, commit blocked, protected Git metadata, exact owned paths, landing handoff, and reentry rule prompts.",
+        "Added focused regression coverage for context-pack selection, navigation-index opening, card-band exposure, and validator rejection of missing landing-handoff receipt fields."
+      ],
+      "candidate_set": [
+        {
+          "candidate": "Use Task Ledger capture only",
+          "decision": "rejected",
+          "reason": "The ledger records blocked status, but it does not force a reusable operator-shaped packet with exact owned paths, validation evidence, authority requirement, and reentry rule."
+        },
+        {
+          "candidate": "Merge into Attention Frame Rehydrator",
+          "decision": "rejected",
+          "reason": "Attention Frame Rehydrator preserves selected handles and mutation boundaries; it does not own scoped landing continuity for validated but uncommitted slices."
+        },
+        {
+          "candidate": "Merge into Route Lease Executor",
+          "decision": "rejected",
+          "reason": "Route Lease Executor consumes selected navigation lanes into action; it does not retain finalizer blockers, commit authority requirements, or owned path landing packets."
+        },
+        {
+          "candidate": "Install Landing Handoff Compiler",
+          "decision": "selected",
+          "reason": "The missing cognition is a reusable finalizer mode: preserve validated work as a landing packet when the current context cannot commit it safely."
+        }
+      ],
+      "cognition_delta_evidence": [
+        "Pre-install context-pack for the stranded-slice prompt returned no selected rows, leaving no first-class landing handoff operator.",
+        "Task Ledger cards show repeated scoped-commit blockers caused by protected Git metadata writes, including attention_frame_rehydrator_scoped_commit_blocked and cap_quick_codex_scoped_commit_blocked_by_git_metad_35bf88ec9f13.",
+        "The new contract makes the validator consume landing_blocker, owned_path_set, validation_evidence, commit_authority_requirement, handoff_packet, status_binding, and reentry_rule.",
+        "Post-install route and test checks require commit-blocked validated-slice prompts to select cogop_landing_handoff_compiler."
+      ],
+      "evidence_surfaces": [
+        "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface task_ledger --band card --ids attention_frame_rehydrator_scoped_commit_blocked cap_quick_codex_scoped_commit_blocked_by_git_metad_35bf88ec9f13 attention_frame_rehydrator_hologram_residual attention_frame_rehydrator_context_pack_miss",
+        "./repo-python tools/meta/control/mission_transaction_preflight.py --subject-id attention_frame_rehydrator --owned-path <attention-frame-owned-paths> --fail-on-status blocked",
+        "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+        "./repo-pytest system/server/tests/test_attention_frame_rehydrator_operator.py system/server/tests/test_operator_accretion_governor.py -q"
+      ],
+      "live_problem": "A validated Attention Frame Rehydrator slice passed focused tests but could not be landed because scoped commit was blocked by protected Git metadata writes in the current authority context. Context-pack for the stranded-slice prompt selected no landing operator, so the next agent would have to rediscover exact owned paths, validation state, and the safe landing requirement from scattered prose and ledger cards.",
+      "operator_id": "cogop_landing_handoff_compiler",
+      "receipt_id": "cogop_landing_handoff_compiler_20260511",
+      "result_state": "active operator installed with registry memory, routing triggers, validator consumption, task-selection hooks, focused tests, and a dogfood packet for the live stranded validated slice.",
+      "selected_operator": {
+        "decision": "install",
+        "operator_id": "cogop_landing_handoff_compiler",
+        "why": "It changes future task selection from generic dirty-tree or ledger prose to a validator-consumed handoff packet with exact reentry material."
+      }
+    },
+    {
+      "actions_taken": [
+        "Added a pressure_reduction_contract to the cognitive-operator standard and validator.",
+        "Registered cogop_pressure_to_action_reducer with activation, passport, counterevidence, causal trial, task-selection hooks, future seed behavior, and proof commands.",
+        "Added context-pack and navigation-index triggers for backlog pressure, row patches, transform receipts, one bounded action, and status binding.",
+        "Added focused regression tests for option-surface projection, validator rejection, context-pack selection, and index-spine openings."
+      ],
+      "candidate_set": [
+        "Direct Task Ledger execution: cap_dissemination_launch_surface_v0 was top schedulable but belongs to the phase rollout lane, not the pressure-cognition failure.",
+        "Row-patch review: raw_seed_candidate_shards had 188 draft patches and 186 valid patches, but broad review would expand a high-cardinality queue without changing future selection.",
+        "Transform-receipt cleanup: transform_job_receipts had 5083 rows, including raw_seed_candidate_io with 1548 receipts and many rejected/failed statuses, but the owner action is queue-specific and high-volume.",
+        "Process-audit repair: route-lease mode-control had 96 broad-route repeat signals, but cogop_route_lease_executor already owns lease consumption.",
+        "Pressure-to-action reducer: install a small validated operator that makes future agents reduce pressure surfaces into one status-bound action before broad expansion."
+      ],
+      "cognition_delta_evidence": [
+        "Pre-install route sample for the pressure prompt had selected_rows=[] and exposed only broad kind signposts for task_ledger, row_patches, and transform_job_receipts.",
+        "Post-install route sample for the same pressure prompt selected cogop_pressure_to_action_reducer with relevance=1.0, selected_band=card, source_kind=cognitive_operator_pressure_reduction_anchor, and a strong_affordance_match passport.",
+        "The validator now consumes pressure_reduction_contract and rejects active operators whose receipt lacks pressure surfaces, selected pressure, rejected pressures, decision axes, bounded action, status-binding target, or validation return condition."
+      ],
+      "evidence_surfaces": [
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+        "./repo-python kernel.py --navigation-metabolism \"discover and install the next missing cognitive operator for autonomous intelligence\" --metabolism-profile quick --context-budget 12000",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        "./repo-python kernel.py --option-surface row_patches --band cluster_flag",
+        "./repo-python kernel.py --option-surface transform_job_receipts --band cluster_flag",
+        "./repo-python kernel.py --process-audit",
+        "./repo-python kernel.py --context-pack \"reduce backlog pressure from task ledger row patches transform job receipts into one bounded action with status binding\" --context-budget 12000"
+      ],
+      "live_problem": "The 2026-05-11 autonomous seed pass exposed simultaneous pressure from Task Ledger backlog, row patches, transform-job receipts, and process-audit route-loop signals. Before installation, the pressure prompt selected no cognitive-operator row and left the agent with broad kind signposts instead of a bounded action.",
+      "operator_id": "cogop_pressure_to_action_reducer",
+      "receipt_id": "cogop_pressure_to_action_reducer_20260511",
+      "result_state": "pressure_reducer_installed_and_route_validated",
+      "selected_operator": {
+        "operator_id": "cogop_pressure_to_action_reducer",
+        "why": "It targets the missing reusable thinking move shared across the live pressure surfaces: converting pressure counts into a selected, reversible, status-bound action."
+      }
+    },
+    {
+      "actions_taken": [
+        "Added cogop_operator_accretion_governor to codex/doctrine/cognitive_operators.json with activation, passport, contracts, task-selection hooks, and future seed behavior.",
+        "Added std_cognitive_operator.json::operator_accretion_extension and validator-required receipt fields.",
+        "Added context-pack and navigation-index triggers for add-another-operator, novelty-gate, merge/reuse, operator-sprawl, and repeated autonomous seed prompts.",
+        "Added focused regression coverage for context-pack selection, navigation-index opening, card-band exposure, and validator rejection of missing accretion receipt fields."
+      ],
+      "candidate_set": [
+        {
+          "candidate": "Backfill the three trigger-only operators with compression passports",
+          "decision": "not selected",
+          "reason": "The Operator Passport Propagator already owns that mode and validator coverage reports the remaining rows directly."
+        },
+        {
+          "candidate": "Install an operator fitness or decay loop",
+          "decision": "deferred",
+          "reason": "Useful but downstream; the current repeated seed first needs a retained gate that decides whether another operator should exist at all."
+        },
+        {
+          "candidate": "Use only cogop_capability_gap_ladder",
+          "decision": "insufficient",
+          "reason": "It selects missing capability work and warns against greenfielding, but it does not require nearest-neighbor, novelty, merge, install/cap, and future reentry receipt fields."
+        },
+        {
+          "candidate": "Install Operator Accretion Governor",
+          "decision": "selected",
+          "reason": "It adds a distinct retained decision state that prevents repeated seeds from treating operator creation as the default output."
+        }
+      ],
+      "cognition_delta_evidence": [
+        "Pre-install context-pack for the add/merge/reuse prompt selected only cogop_capability_gap_ladder, so the system had no row-owned novelty/merge operator to retain the decision before adding more operators.",
+        "Post-install context-pack selection includes cogop_operator_accretion_governor for add-another-operator and merge/reuse prompts.",
+        "The validator now consumes operator_accretion_contract and rejects receipts missing candidate_operator, nearest_existing_operators, novelty_test, merge_or_extend_decision, accretion_risk, install_or_cap_decision, or future_reentry_rule.",
+        "The dogfood decision changed this seed from open-ended operator invention into a bounded install/merge/extend/cap/reject gate with retained nearest-neighbor evidence."
+      ],
+      "evidence_surfaces": [
+        "./repo-python kernel.py --entry \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"decide whether this autonomous seed should add another cognitive operator or merge reuse an existing operator before installing more\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+        "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+        "./repo-python kernel.py --process-audit",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
+      ],
+      "live_problem": "A repeated autonomous seed prompt arrived after the registry already contained nine active cognitive operators. The system could select the root Capability Gap Ladder, but it did not retain a first-class decision about whether another operator should be installed, merged, extended, capped, or rejected.",
+      "operator_id": "cogop_operator_accretion_governor",
+      "receipt_id": "cogop_operator_accretion_governor_20260511",
+      "result_state": "active operator installed with registry memory, routing triggers, validator consumption, task-selection hooks, and focused tests.",
+      "selected_operator": {
+        "decision": "install",
+        "operator_id": "cogop_operator_accretion_governor",
+        "why": "It is the smallest reusable substrate that makes new-operator novelty, merge, extension, cap, and rejection decisions visible to navigation, memory, validation, task selection, and future seed behavior."
+      }
+    }
+  ],
+  "schema_version": "cognitive_operator_registry_dogfood_index_v1",
+  "source_dogfood_root": "state/cognitive_operators/dogfood"
+}

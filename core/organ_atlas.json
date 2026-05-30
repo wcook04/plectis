@@ -526,6 +526,17 @@
       "claim_ceiling_restated": "It validates only the declared public-safe contract of the loop on fixtures; it does not export raw operator voice or private bodies, grant source/doctrine mutation, global-promotion, live Task Ledger mutation, or publication authority, make provider calls, prove correctness, or claim private-root equivalence.",
       "standalone_or_wired": "standalone_specimen",
       "wiring_note": "Imports macro loop shapes (recursive self-improvement, doctrine population, local-to-general propagation, Task Ledger) only by public-safe source refs/hashes; binds to the shared kernel + evidence/authority spine, not to other live organs."
+    },
+    {
+      "organ_id": "cognitive_operator_registry",
+      "family": "architecture_and_navigation",
+      "evidence_class": "semantic_validator",
+      "human_gloss": "This is a checker for the system's catalogue of named thinking-moves (operators like \"reduce competing pressure to one bounded action\" or \"compile a handoff packet when validated work cannot be committed\"). It confirms every operator in the public catalogue is fully described (how it is triggered, used, and checked) and that every operator marked active carries a real receipt proving it once changed a live decision, while rejecting any operator that claims to speak with the owner's voice or overreaches into \"ready to release.\" A cold reader should care because it shows the system treats reasoning itself as inspectable typed substrate instead of ad-hoc prompt lore.",
+      "agent_gloss": "An agent runs this to confirm every operator row in the public cognitive-operator registry carries the required operator-shape fields (activation, process, integration, validation, evidence, dogfood receipts), that each active operator has a dogfood receipt with cognition_delta_evidence, that near-duplicate operators carry an accretion decision (anti-sprawl), and that no row claims operator-voice authority, leaks a private body, or sets a release/provider/mutation overclaim.",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out /tmp/cognitive_operator_registry_out",
+      "claim_ceiling_restated": "It validates only the declared public registry contract and copied non-secret macro bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes raw operator voice, or authorizes release, provider calls, or any whole-system-correctness claim.",
+      "standalone_or_wired": "standalone_specimen",
+      "wiring_note": "Reads the public cognitive-operator registry, standard, and dogfood inputs plus the copied macro bodies as projection inputs, binding only to the shared kernel and evidence/authority spine; it does not feed or invoke other organs."
     }
   ]
 }

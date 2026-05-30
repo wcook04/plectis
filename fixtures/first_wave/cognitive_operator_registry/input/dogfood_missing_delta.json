@@ -1,0 +1,27 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "dogfood_missing_delta",
+  "dogfood_receipts": [
+    {
+      "receipt_id": "cogop_missing_delta_demo_20260530",
+      "operator_id": "cogop_missing_delta_demo",
+      "live_problem": "A live routing decision that the operator was claimed to change.",
+      "evidence_surfaces": [
+        "./repo-python kernel.py --option-surface cognitive_operators --band flag"
+      ],
+      "candidate_set": [
+        "Use an existing operator.",
+        "Install cogop_missing_delta_demo."
+      ],
+      "selected_operator": {
+        "operator_id": "cogop_missing_delta_demo",
+        "why": "It was asserted to be the missing thinking move."
+      },
+      "actions_taken": [
+        "Registered the operator row without recording a cognition delta."
+      ],
+      "cognition_delta_evidence": [],
+      "result_state": "claimed_installed_without_cognition_delta_proof"
+    }
+  ]
+}

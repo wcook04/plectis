@@ -1,0 +1,204 @@
+{
+  "schema_version": "cognitive_operator_registry_v0",
+  "authority_posture": "agent_authored_reusable_cognition_substrate_not_operator_voice",
+  "governing_standard": "codex/standards/std_cognitive_operator.json",
+  "source_registry_ref": "codex/doctrine/cognitive_operators.json",
+  "body_in_receipt": false,
+  "registry_policy": {
+    "operator_voice_authority": false,
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_calls_authorized": false,
+    "source_mutation_authorized": false,
+    "cognitive_operator_registry_mutation_authority": false,
+    "private_data_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "operator_correctness_proven": false
+  },
+  "operators": [
+    {
+      "operator_id": "cogop_landing_handoff_compiler",
+      "slug": "landing-handoff-compiler",
+      "title": "Landing Handoff Compiler",
+      "status": "active",
+      "claim": "When validated work cannot be landed because commit authority, protected Git metadata, concurrency, or another finalizer blocker stops scoped landing, the agent must compile a machine-readable handoff packet with blocker, owned paths, validation evidence, authority requirement, status binding, and reentry rule before yielding.",
+      "activation": {
+        "trigger_phrases": [
+          "landing handoff",
+          "validated slice",
+          "commit blocked",
+          "git metadata",
+          "owned path set",
+          "handoff packet",
+          "reentry rule"
+        ],
+        "opens_when": [
+          "A validated change cannot be committed or otherwise landed in the current authority context.",
+          "Mission transaction preflight or scoped commit reports Git metadata, concurrency, index, or finalizer authority blocked."
+        ],
+        "skip_when": [
+          "The work has not yet reached validation evidence.",
+          "The scoped commit or landing lane is available and can be completed immediately."
+        ]
+      },
+      "process": [
+        "Name the validated-but-unlanded symptom and classify the finalizer blocker.",
+        "Resolve the exact owned path set from mission preflight, tests, and recent mutations; exclude unrelated dirty tree state.",
+        "Attach validation evidence with command, result, and covered behavior.",
+        "State the authority requirement for safe landing, including what must not be done in the current context.",
+        "Emit a handoff packet with reentry commands and a rule for the next seed or agent."
+      ],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_landing_handoff_compiler]",
+          "dogfood_root": "state/cognitive_operators/dogfood"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Validated-slice, commit-blocked, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select cogop_landing_handoff_compiler through context-pack.",
+          "The validator rejects landing-handoff-required operators whose dogfood receipt lacks landing blocker, owned path set, validation evidence, commit authority requirement, handoff packet, status binding, or reentry rule."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::landing_handoff_extension",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "system/lib/cognitive_operator_registry.py"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_landing_handoff_compiler_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_pressure_to_action_reducer",
+      "slug": "pressure-to-action-reducer",
+      "title": "Pressure-to-Action Reducer",
+      "status": "active",
+      "claim": "When live ledgers, queues, receipts, or patches expose broad pressure, the agent must reduce the competing pressure surfaces to one bounded, reversible, status-bound action before expanding another broad audit.",
+      "activation": {
+        "trigger_phrases": [
+          "pressure to action",
+          "backlog pressure",
+          "queue pressure",
+          "reduce pressure",
+          "status binding",
+          "one bounded action"
+        ],
+        "opens_when": [
+          "Pulse, Task Ledger, row-patch, transform-receipt, process-audit, or generated-state surfaces expose multiple plausible next actions.",
+          "A broad backlog count needs conversion into one reversible action with a named validation and status-binding target."
+        ],
+        "skip_when": [
+          "A specific WorkItem, row patch, receipt, or file is already selected and its owner command is clear.",
+          "The next action would require irreversible raw-seed, publication, secret, or high-blast mutation."
+        ]
+      },
+      "process": [
+        "List the live pressure surfaces and their counts or severity signals.",
+        "Score each pressure surface on compounding value, reversibility, owner authority, validation latency, and status-binding availability.",
+        "Reject pressure surfaces that are broad, high-blast, stale, or missing a status-binding target.",
+        "Select exactly one pressure and one bounded action before opening row-level expansions.",
+        "Run the smallest scoped action and focused validation that proves the pressure was reduced or retained as a reusable decision rule."
+      ],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_pressure_to_action_reducer"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_pressure_to_action_reducer]",
+          "dogfood_root": "state/cognitive_operators/dogfood"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Backlog, queue, row-patch, transform-receipt, and status-binding prompts select cogop_pressure_to_action_reducer through context-pack.",
+          "The validator rejects pressure-reduction-required operators whose dogfood receipt lacks pressure surfaces, selected pressure, rejected pressures, decision axes, bounded action, status-binding target, or validation return condition."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_pressure_to_action_reducer",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::pressure_reduction_extension",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_pressure_to_action_reducer_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_operator_accretion_governor",
+      "slug": "operator-accretion-governor",
+      "title": "Operator Accretion Governor",
+      "status": "active",
+      "claim": "Before an autonomous seed installs another cognitive operator, it must decide whether the proposed thinking mode is genuinely novel, should merge into an existing operator, should extend an existing contract, or should become a capped experiment.",
+      "activation": {
+        "trigger_phrases": [
+          "operator accretion",
+          "operator novelty",
+          "novelty gate",
+          "add another cognitive operator",
+          "merge existing operator",
+          "operator sprawl"
+        ],
+        "opens_when": [
+          "The task asks for a new cognitive operator after the registry already contains active operators.",
+          "A proposed operator overlaps existing operators but would add a distinct decision contract or validation field."
+        ],
+        "skip_when": [
+          "The task is an exact implementation for a previously selected operator.",
+          "The operator stack has not yet selected a candidate thinking mode through the Capability Gap Ladder."
+        ]
+      },
+      "process": [
+        "Name the candidate operator and the live problem it would change.",
+        "List nearest existing operators and the specific contract each already covers.",
+        "Run a novelty test: new decision state, new receipt fields, new routing behavior, or new validation semantics must be present.",
+        "Choose one decision: install new operator, merge into existing operator, extend an existing contract, cap the work, or reject the candidate.",
+        "Retain a future reentry rule so the next seed knows when to run this governor before adding more operators."
+      ],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_accretion_governor"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_operator_accretion_governor]",
+          "dogfood_root": "state/cognitive_operators/dogfood"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Add-another-operator, novelty-gate, merge/reuse, operator-sprawl, and repeated-autonomous-seed prompts select cogop_operator_accretion_governor through context-pack.",
+          "The validator rejects accretion-required operators whose dogfood receipt lacks candidate operator, nearest existing operators, novelty test, merge/extend decision, accretion risk, install-or-cap decision, or future reentry rule."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_accretion_governor",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::operator_accretion_extension",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/cognitive_operator_registry.py"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_operator_accretion_governor_20260511.json"
+      ]
+    }
+  ]
+}

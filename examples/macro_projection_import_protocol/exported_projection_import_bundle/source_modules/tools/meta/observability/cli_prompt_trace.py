@@ -154,6 +154,31 @@ def _iso_diff_seconds(a: str, b: str) -> float | None:
         return None
 
 
+def _iso_timestamp_ms(value: object) -> int | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        return int(_dt.datetime.fromisoformat(text).timestamp() * 1000)
+    except Exception:
+        return None
+
+
+def _latest_iso_timestamp(*values: object) -> str:
+    latest_value = ""
+    latest_ms: int | None = None
+    for value in values:
+        ms = _iso_timestamp_ms(value)
+        if ms is None:
+            continue
+        if latest_ms is None or ms > latest_ms:
+            latest_ms = ms
+            latest_value = str(value)
+    return latest_value
+
+
 def _sha16(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
 
@@ -6000,8 +6025,18 @@ def _goal_authority_content_sha16(goals: dict[str, dict]) -> str:
     return _sha16(json.dumps(rows, sort_keys=True, separators=(",", ":"), ensure_ascii=True))
 
 
+def _sqlite_authority_paths(path: Path) -> list[Path]:
+    return [path, Path(f"{path}-wal"), Path(f"{path}-shm")]
+
+
 def _goal_authority_sources(goals: dict[str, dict]) -> dict:
-    mtime_ms = _path_mtime_ms(CODEX_GOALS_DB)
+    source_paths = [
+        {"path": str(path), "mtime_ms": mtime_ms}
+        for path in _sqlite_authority_paths(CODEX_GOALS_DB)
+        for mtime_ms in [_path_mtime_ms(path)]
+        if mtime_ms is not None
+    ]
+    mtime_ms = max((int(row["mtime_ms"]) for row in source_paths), default=None)
     status_counts: dict[str, int] = {}
     for goal in goals.values():
         status = str((goal or {}).get("status") or "unknown")
@@ -6014,6 +6049,7 @@ def _goal_authority_sources(goals: dict[str, dict]) -> dict:
         "status_counts": status_counts,
         "content_signature_version": _GOAL_AUTHORITY_CONTENT_SIGNATURE_VERSION,
         "content_sha16": _goal_authority_content_sha16(goals),
+        "source_paths": source_paths,
     }
     if mtime_ms is not None:
         payload["mtime_ms"] = mtime_ms
@@ -6771,6 +6807,7 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
             "turn_id": turn.turn_id,
             "completed_at": turn.completed_at,
             "started_at": turn.started_at,
+            "last_event_at": _turn_last_event_at(turn),
             "tool_count": len(turn.tool_events),
             "error_count": sum(1 for e in turn.tool_events if e.is_error),
             "prompt_sha16": turn.prompt_sha256_16,
@@ -6860,6 +6897,30 @@ def _active_turn_is_preferred(active_turn: dict | None, completed_turn: dict | N
     return _turn_activity_sort_value(active_turn) > _turn_activity_sort_value(completed_turn)
 
 
+def _turn_last_event_at(turn: Turn) -> str:
+    values: list[object] = [turn.started_at, turn.completed_at]
+    values.extend(event.started_at for event in turn.tool_events)
+    values.extend(event.completed_at for event in turn.tool_events)
+    values.extend(event.timestamp for event in turn.assistant_events)
+    return _latest_iso_timestamp(*values)
+
+
+def _summary_last_activity_at(summary: dict | None) -> str:
+    if not isinstance(summary, dict):
+        return ""
+    values: list[object] = []
+    for key in ("active_turn", "stale_active_turn", "preferred_trace_turn", "latest_completed_turn"):
+        turn = summary.get(key)
+        if not isinstance(turn, dict):
+            continue
+        values.extend([
+            turn.get("last_event_at"),
+            turn.get("completed_at"),
+            turn.get("started_at"),
+        ])
+    return _latest_iso_timestamp(*values)
+
+
 MISSION_SUMMARY_CACHE_SCHEMA = "agent_trace_structurer_mission_summary_cache_v7"
 MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
     "agent_trace_structurer_mission_summary_cache_v6",
@@ -6868,8 +6929,9 @@ MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
     "agent_trace_structurer_mission_summary_cache_v3",
     "agent_trace_structurer_mission_summary_cache_v2",
 )
-MISSION_INDEX_STALE_REPARSE_BUDGET = 1
+MISSION_INDEX_STALE_REPARSE_BUDGET = 8
 MISSION_INDEX_RECENT_STALE_REPARSE_SECONDS = 25 * 60
+MISSION_INDEX_STALE_REPARSE_MAX_BYTES = 2 * 1024 * 1024
 
 
 def _mission_summary_cache_key(provider: str, session_id: str, session_file: Path) -> str:
@@ -7188,10 +7250,19 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             session_path = Path(c["session_file"])
             source_meta = _session_file_meta(c["provider"], c["session_id"], session_path, c)
             cached_summary, cache_state = _mission_summary_cache_lookup(summary_cache, source_meta)
+            defer_stale_reparse = False
             if cache_state == "stale" and _mission_source_recently_changed(source_meta):
-                cache_stats["recent_stale_forced"] += 1
-                cache_state = "recent_stale_forced"
-            if cache_state == "stale" and stale_reparse_remaining <= 0:
+                source_size = int(source_meta.get("size_bytes") or 0)
+                if stale_reparse_remaining > 0 and source_size <= MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                    cache_stats["recent_stale_forced"] += 1
+                    stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
+                    cache_state = "recent_stale_forced"
+                else:
+                    cache_stats["recent_stale_deferred"] = cache_stats.get("recent_stale_deferred", 0) + 1
+                    if source_size > MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                        cache_stats["oversize_stale_deferred"] = cache_stats.get("oversize_stale_deferred", 0) + 1
+                    defer_stale_reparse = True
+            if cache_state == "stale" and (defer_stale_reparse or stale_reparse_remaining <= 0):
                 soft_summary, soft_state = _mission_summary_cache_lookup(
                     summary_cache,
                     source_meta,
@@ -7244,7 +7315,11 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             cache_stats["skipped_archived"] += 1
         latest_completed = completed_active.get("latest_completed_turn")
         active_turn = completed_active.get("active_turn")
+        stale_active_turn = completed_active.get("stale_active_turn")
         preferred_trace_turn = completed_active.get("preferred_trace_turn")
+        trace_last_activity_at = _summary_last_activity_at(completed_active)
+        desktop_last_activity_at = desktop.get("last_activity_at") or ""
+        last_activity_at = trace_last_activity_at or desktop_last_activity_at or c["mtime_utc"]
         prompt_preview = ""
         for preview_turn in (preferred_trace_turn, active_turn, latest_completed):
             if isinstance(preview_turn, dict) and preview_turn.get("prompt_preview"):
@@ -7282,7 +7357,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                 last_clip_meta["prompt_sha16"] = cpt_full["prompt_sha16"]
             if "prompt_char_count" not in last_clip_meta and cpt_full.get("prompt_char_count"):
                 last_clip_meta["prompt_char_count"] = cpt_full["prompt_char_count"]
-        artifact_freshness = _classify_artifact_freshness(preferred_trace_turn or latest_completed, last_clip_meta)
+        artifact_freshness = _classify_artifact_freshness(preferred_trace_turn or latest_completed or stale_active_turn, last_clip_meta)
         goal = codex_thread_goals.get(c["session_id"]) if c["provider"] == "codex" else None
         goal_priority = _goal_sort_priority(goal)
         rows.append({
@@ -7301,7 +7376,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "title_source": title_source,
             "mtime_utc": c["mtime_utc"],
             "size_bytes": c["size_bytes"],
-            "last_activity_at": desktop.get("last_activity_at") or c["mtime_utc"],
+            "last_activity_at": last_activity_at,
             "completed_turns_hint": desktop.get("completed_turns") or 0,
             "is_archived": bool(desktop.get("is_archived")),
             "model": desktop.get("model") or "",
@@ -7313,7 +7388,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "latest_clip": last_clip_meta,
             "latest_completed_turn": latest_completed,
             "active_turn": active_turn,
-            "stale_active_turn": completed_active.get("stale_active_turn"),
+            "stale_active_turn": stale_active_turn,
             "active_turn_stale": bool(completed_active.get("active_turn_stale")),
             "preferred_trace_turn": preferred_trace_turn,
             "subagent_deployments": completed_active.get("subagent_deployments") or [],

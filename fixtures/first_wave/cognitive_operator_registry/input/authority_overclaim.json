@@ -1,0 +1,10 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "authority_overclaim",
+  "release_authorized": true,
+  "provider_calls_authorized": true,
+  "source_mutation_authorized": true,
+  "cognitive_operator_registry_mutation_authority": true,
+  "whole_system_correctness_claim": true,
+  "operator_correctness_proven": true
+}

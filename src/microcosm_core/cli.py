@@ -170,6 +170,9 @@ sleeper_memory_poisoning_quarantine_replay = _LazyModule(
 spatial_world_model_counterfactual_simulation_replay = _LazyModule(
     "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay"
 )
+cognitive_operator_registry = _LazyModule(
+    "microcosm_core.organs.cognitive_operator_registry"
+)
 standards_meta_diagnostics = _LazyModule(
     "microcosm_core.organs.standards_meta_diagnostics"
 )
@@ -2052,6 +2055,15 @@ def main(argv: list[str] | None = None) -> int:
     prediction_parser.add_argument("action", choices=["run", "run-prediction-bundle"])
     _add_input_out(prediction_parser)
 
+    cognitive_operator_parser = _add_bundle_parser(
+        subparsers, "cognitive-operator-registry"
+    )
+    cognitive_operator_parser.add_argument(
+        "action", choices=["run", "run-registry-bundle"]
+    )
+    _add_input_out(cognitive_operator_parser)
+    cognitive_operator_parser.add_argument("--acceptance-out")
+
     standards_meta_parser = _add_bundle_parser(subparsers, "standards-meta-diagnostics")
     standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
     _add_input_out(standards_meta_parser)
@@ -2718,6 +2730,11 @@ def main(argv: list[str] | None = None) -> int:
         return prediction_oracle_reconciliation.main(
             [args.action, "--input", args.input, "--out", args.out]
         )
+    if args.command == "cognitive-operator-registry":
+        cognitive_operator_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            cognitive_operator_args.extend(["--acceptance-out", args.acceptance_out])
+        return cognitive_operator_registry.main(cognitive_operator_args)
     if args.command == "standards-meta-diagnostics":
         standards_meta_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

@@ -53,7 +53,7 @@
     "source_ref": "core/organ_evidence_classes.json",
     "registry_id": "microcosm_organ_evidence_classes",
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 47,
+    "organ_evidence_class_count": 48,
     "class_profile_count": 6,
     "reader_action": "Read accepted_current_authority together with each row evidence_class, claim_ceiling, and truth_accounting_bucket; status alone is receipt inventory, not evidence strength.",
     "row_fields_projected": [
@@ -1018,6 +1018,26 @@
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
       ],
       "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+        "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+      ],
+      "organ_id": "cognitive_operator_registry",
+      "runner": "microcosm_core.organs.cognitive_operator_registry",
+      "status": "accepted_current_authority",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[cognitive_operator_registry]",
+      "evidence_strength_rank": 5,
+      "claim_ceiling": "validates declared public contract only",
+      "truth_accounting_bucket": "real_import_validation",
+      "counts_as_real_substrate_progress": true,
+      "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
+      "validator_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry"
     }
   ],
   "registry_status": "accepted_runtime_spine_verifier_lab_kernel_bound",

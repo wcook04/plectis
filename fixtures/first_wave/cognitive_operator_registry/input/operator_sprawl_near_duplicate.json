@@ -1,0 +1,52 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "operator_sprawl_near_duplicate",
+  "operators": [
+    {
+      "operator_id": "cogop_pressure_reducer_alpha",
+      "slug": "pressure-to-action-reducer",
+      "title": "Pressure To Action Reducer Alpha",
+      "status": "active",
+      "claim": "When live ledgers, queues, receipts, or patches expose broad pressure, the agent must reduce the competing pressure surfaces to one bounded, reversible, status-bound action before expanding another broad audit.",
+      "activation": {
+        "trigger_phrases": ["pressure to action"]
+      },
+      "process": ["Reduce pressure to one bounded action."],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": ["selected by pressure prompts"]
+      },
+      "evidence_refs": ["codex/standards/std_cognitive_operator.json"],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_pressure_reducer_alpha.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_pressure_reducer_beta",
+      "slug": "pressure-to-action-reducer",
+      "title": "Pressure To Action Reducer Beta",
+      "status": "active",
+      "claim": "When live ledgers, queues, receipts, or patches expose broad pressure, the agent must reduce the competing pressure surfaces to one bounded reversible status-bound action before expanding another broad audit.",
+      "activation": {
+        "trigger_phrases": ["pressure to action"]
+      },
+      "process": ["Reduce pressure to one bounded action."],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": ["selected by pressure prompts"]
+      },
+      "evidence_refs": ["codex/standards/std_cognitive_operator.json"],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_pressure_reducer_beta.json"
+      ]
+    }
+  ]
+}

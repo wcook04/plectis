@@ -55,7 +55,7 @@ validators, manifests, and receipts remain the evidence-bearing surfaces.
 
 New here? Two generated surfaces give you the whole system fast:
 [ARCHITECTURE.md](ARCHITECTURE.md) is the architecture at a glance, and
-[ORGANS.md](ORGANS.md) is the comprehension card for all 47 runtime organs.
+[ORGANS.md](ORGANS.md) is the comprehension card for all 48 runtime organs.
 
 From an uninstalled source checkout, the immediately runnable first screen is:
 
@@ -859,7 +859,7 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package carries 47 accepted public runtime organs behind the local
+The public package carries 48 accepted public runtime organs behind the local
 substrate loop. Treat that as a public entry inventory/read-model over
 `core/organ_registry.json` and `core/organ_evidence_classes.json`, not a product progress meter.
 `accepted_current_authority`, organ counts, and adapter-backed counts are
@@ -889,7 +889,7 @@ Fixture and validator readiness for these organs is tracked in-tree at
 state. Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation`
 are documented per organ in [ORGANS.md](ORGANS.md).
 
-The 47 organs cluster into seven families (full cards in [ORGANS.md](ORGANS.md)):
+The 48 organs cluster into seven families (full cards in [ORGANS.md](ORGANS.md)):
 
 ### Entry & Reveal (2)
 

@@ -196,8 +196,15 @@ def test_agent_sabotage_scheming_caught_verdict_mismatch_is_caught(
     # Flip a declared caught verdict so it no longer matches the recomputation,
     # and assert the new stable error code fires while the rest of the contract
     # (negative cases) stays intact.
-    fixture_copy = tmp_path / "input"
-    shutil.copytree(FIXTURE_INPUT, fixture_copy)
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_sabotage_scheming_monitor_replay",
+        public_root / "fixtures/first_wave/agent_sabotage_scheming_monitor_replay",
+    )
+    fixture_copy = (
+        public_root / "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input"
+    )
     episodes_path = fixture_copy / "task_episodes.json"
     episodes = json.loads(episodes_path.read_text(encoding="utf-8"))
     for episode in episodes["task_episodes"]:
@@ -218,9 +225,9 @@ def test_agent_sabotage_scheming_caught_verdict_mismatch_is_caught(
 
     result = run(
         fixture_copy,
-        tmp_path / "receipts",
+        public_root / "receipts/first_wave/agent_sabotage_scheming_monitor_replay",
         command="pytest",
-        acceptance_out=tmp_path / "acceptance.json",
+        acceptance_out=public_root / "acceptance.json",
     )
     assert result["status"] == "blocked"
     assert "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH" in result["error_codes"]

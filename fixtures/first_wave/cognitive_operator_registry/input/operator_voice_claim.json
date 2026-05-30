@@ -1,0 +1,16 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "operator_voice_claim",
+  "operators": [
+    {
+      "operator_id": "cogop_voice_overreach_demo",
+      "slug": "voice-overreach-demo",
+      "title": "Voice Overreach Demo",
+      "status": "active",
+      "claim": "An operator row that wrongly asserts operator-voice authority as if it were raw seed.",
+      "operator_voice_authority": true,
+      "is_raw_seed": true,
+      "speaks_as_operator": true
+    }
+  ]
+}

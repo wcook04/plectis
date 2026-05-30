@@ -1,0 +1,8 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "private_source_leakage",
+  "operator_id": "cogop_private_leak_demo",
+  "private_source_body_present": true,
+  "raw_seed_body": "blocked_private_operator_voice_body",
+  "private_source_ref": "private_macro_body_blocked"
+}

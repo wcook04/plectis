@@ -630,6 +630,18 @@
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
       ],
       "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+    },
+    {
+      "organ_id": "cognitive_operator_registry",
+      "status": "accepted_current_authority",
+      "current_authority_receipt": "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+        "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+        "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+      ],
+      "validator_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry"
     }
   ],
   "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, secret export, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",

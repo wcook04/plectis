@@ -129,8 +129,22 @@ def test_agent_benchmark_integrity_verdict_mismatch_is_caught(tmp_path: Path) ->
     # Flip a declared integrity verdict so it no longer matches the recomputation
     # (the quarantined replay carries a quarantine_reason_ref, so recomputation
     # forces quarantine); assert the new stable error code fires.
-    fixture_copy = tmp_path / "input"
-    shutil.copytree(FIXTURE_INPUT, fixture_copy)
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_benchmark_integrity_anti_gaming_replay",
+        public_root / "examples/agent_benchmark_integrity_anti_gaming_replay",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay",
+        public_root
+        / "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay",
+    )
+    fixture_copy = (
+        public_root
+        / "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input"
+    )
     obs_path = fixture_copy / "replay_observations.json"
     observations = json.loads(obs_path.read_text(encoding="utf-8"))
     for row in observations["replay_observations"]:
@@ -150,9 +164,10 @@ def test_agent_benchmark_integrity_verdict_mismatch_is_caught(tmp_path: Path) ->
 
     result = run(
         fixture_copy,
-        tmp_path / "receipts",
+        public_root
+        / "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
         command="pytest",
-        acceptance_out=tmp_path / "acceptance.json",
+        acceptance_out=public_root / "acceptance.json",
     )
     assert result["status"] == "blocked"
     assert "PUBLIC_TRACE_BENCHMARK_INTEGRITY_VERDICT_MISMATCH" in result["error_codes"]

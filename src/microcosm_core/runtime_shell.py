@@ -194,6 +194,9 @@ sleeper_memory_poisoning_quarantine_replay = _LazyModule(
 spatial_world_model_counterfactual_simulation_replay = _LazyModule(
     "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay"
 )
+cognitive_operator_registry = _LazyModule(
+    "microcosm_core.organs.cognitive_operator_registry"
+)
 standards_meta_diagnostics = _LazyModule(
     "microcosm_core.organs.standards_meta_diagnostics"
 )
@@ -728,6 +731,17 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         example_rel="examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle",
         runner=prediction_oracle_reconciliation.run_prediction_bundle,
         receipt_name="exported_prediction_oracle_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="cognitive_operator_registry",
+        span="cognitive_operator_registry.validate",
+        input_mode="exported_cognitive_operator_registry_bundle",
+        example_rel=(
+            "examples/cognitive_operator_registry/"
+            "exported_cognitive_operator_registry_bundle"
+        ),
+        runner=cognitive_operator_registry.run_registry_bundle,
+        receipt_name="exported_cognitive_operator_registry_bundle_validation_result.json",
     ),
     RuntimeStep(
         organ_id="standards_meta_diagnostics",

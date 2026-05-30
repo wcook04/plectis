@@ -201,8 +201,18 @@ def test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict() -> None
 def test_agent_monitor_redteam_verdict_mismatch_is_caught(tmp_path: Path) -> None:
     # Flip a declared monitor verdict so it no longer matches the span-derived
     # recomputation; assert the new stable error code fires.
-    fixture_copy = tmp_path / "input"
-    shutil.copytree(FIXTURE_INPUT, fixture_copy)
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "fixtures/first_wave/agent_monitor_redteam_falsification_replay",
+        public_root
+        / "fixtures/first_wave/agent_monitor_redteam_falsification_replay",
+    )
+    fixture_copy = (
+        public_root
+        / "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input"
+    )
     obs_path = fixture_copy / "monitor_observations.json"
     observations = json.loads(obs_path.read_text(encoding="utf-8"))
     for row in observations["monitor_observations"]:
@@ -224,9 +234,9 @@ def test_agent_monitor_redteam_verdict_mismatch_is_caught(tmp_path: Path) -> Non
 
     result = run(
         fixture_copy,
-        tmp_path / "receipts",
+        public_root / "receipts/first_wave/agent_monitor_redteam_falsification_replay",
         command="pytest",
-        acceptance_out=tmp_path / "acceptance.json",
+        acceptance_out=public_root / "acceptance.json",
     )
     assert result["status"] == "blocked"
     assert "PUBLIC_TRACE_MONITOR_REDTEAM_VERDICT_MISMATCH" in result["error_codes"]

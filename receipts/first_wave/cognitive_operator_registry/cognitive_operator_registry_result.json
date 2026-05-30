@@ -1,0 +1,317 @@
+{
+  "active_operator_count": 3,
+  "anti_claim": "Cognitive operator registry validation summarizes the public cognitive-operator registry contract and copied non-secret macro bodies only. It does not become registry source authority, mutate operators, prove operator correctness, expose raw operator voice, call providers, authorize release, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "cognitive_operator_registry_projection_only_not_registry_authority",
+    "cognitive_operator_registry_mutation_authority": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_copied_material_count": 0,
+  "body_in_receipt": false,
+  "body_material_status": "",
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry",
+  "covered_operator_ids": [
+    "cogop_landing_handoff_compiler",
+    "cogop_operator_accretion_governor",
+    "cogop_pressure_to_action_reducer"
+  ],
+  "created_at": "2026-05-30T03:28:47+00:00",
+  "dogfood_receipt_count": 3,
+  "error_codes": [
+    "COGOP_ACTIVE_WITHOUT_DOGFOOD",
+    "COGOP_AUTHORITY_OVERCLAIM",
+    "COGOP_DOGFOOD_MISSING_COGNITION_DELTA",
+    "COGOP_MISSING_REQUIRED_FIELD",
+    "COGOP_OPERATOR_SPRAWL",
+    "COGOP_OPERATOR_VOICE_FORBIDDEN",
+    "COGOP_PRIVATE_SOURCE_FORBIDDEN"
+  ],
+  "expected_negative_cases": {
+    "active_without_dogfood": [
+      "COGOP_ACTIVE_WITHOUT_DOGFOOD"
+    ],
+    "authority_overclaim": [
+      "COGOP_AUTHORITY_OVERCLAIM"
+    ],
+    "dogfood_missing_delta": [
+      "COGOP_DOGFOOD_MISSING_COGNITION_DELTA"
+    ],
+    "missing_required_field": [
+      "COGOP_MISSING_REQUIRED_FIELD"
+    ],
+    "operator_sprawl_near_duplicate": [
+      "COGOP_OPERATOR_SPRAWL"
+    ],
+    "operator_voice_claim": [
+      "COGOP_OPERATOR_VOICE_FORBIDDEN"
+    ],
+    "private_source_leakage": [
+      "COGOP_PRIVATE_SOURCE_FORBIDDEN"
+    ]
+  },
+  "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_MISSING_REQUIRED_FIELD",
+      "message": "Operator row omitted one or more required operator-shape fields.",
+      "negative_case_id": "missing_required_field",
+      "subject_id": "cogop_missing_field_demo",
+      "subject_kind": "claim,activation,process,integration,validation,evidence_refs,dogfood_receipt_refs"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_ACTIVE_WITHOUT_DOGFOOD",
+      "message": "Active operator carried no dogfood receipt proving a live cognition change.",
+      "negative_case_id": "active_without_dogfood",
+      "subject_id": "cogop_active_without_dogfood_demo",
+      "subject_kind": "dogfood_receipt_refs"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_DOGFOOD_MISSING_COGNITION_DELTA",
+      "message": "Dogfood receipts must record cognition_delta_evidence proving the operator changed a live decision.",
+      "negative_case_id": "dogfood_missing_delta",
+      "subject_id": "cogop_missing_delta_demo_20260530",
+      "subject_kind": "cognition_delta_evidence"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_OPERATOR_SPRAWL",
+      "message": "Two operators share a slug or near-identical claim with no recorded accretion decision.",
+      "negative_case_id": "operator_sprawl_near_duplicate",
+      "subject_id": "cogop_pressure_reducer_alpha,cogop_pressure_reducer_beta",
+      "subject_kind": "operator_sprawl"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_AUTHORITY_OVERCLAIM",
+      "message": "Operator registry validation cannot authorize release, providers, source/registry mutation, or operator-correctness claims.",
+      "negative_case_id": "authority_overclaim",
+      "subject_id": "cognitive_operator_registry_mutation_authority,operator_correctness_proven,provider_calls_authorized,release_authorized,source_mutation_authorized,whole_system_correctness_claim",
+      "subject_kind": "authority_ceiling"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_OPERATOR_VOICE_FORBIDDEN",
+      "message": "Operator rows are not raw seed and must not claim operator-voice authority.",
+      "negative_case_id": "operator_voice_claim",
+      "subject_id": "cogop_voice_overreach_demo",
+      "subject_kind": "operator_voice"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "COGOP_PRIVATE_SOURCE_FORBIDDEN",
+      "message": "Public operator registry validation must carry public refs, not private operator bodies or raw voice.",
+      "negative_case_id": "private_source_leakage",
+      "subject_id": "cogop_private_leak_demo",
+      "subject_kind": "private_source"
+    }
+  ],
+  "fixture_id": "first_wave.cognitive_operator_registry",
+  "freshness_basis": {
+    "basis_digest": "sha256:9141714a18c34ebc29f9994ed31aec77e77a6eb9bdf87a197c6c4bc81214c344",
+    "card_schema_version": "cognitive_operator_registry_command_card_v1",
+    "include_negative": true,
+    "input_count": 11,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/operator_registry.json",
+        "sha256": "b42b4c6577c152fbec37fa4d53369781cd90aee728f232c425b0587e9a37af39",
+        "size_bytes": 11120
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/operator_standard.json",
+        "sha256": "63a035953d633602c6a4cb5216aac8e16133f62940212b22b58a84a5090c870c",
+        "size_bytes": 1672
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/dogfood_index.json",
+        "sha256": "0bf104597ea6aca183be2ccb63da683da6021639dc5d4f122a4ffd893c26b6c6",
+        "size_bytes": 13627
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/missing_required_field.json",
+        "sha256": "1dfac29d41e9bd72ced14c106c2bb08d3fc3c06e82590a673ee99f42786052a3",
+        "size_bytes": 483
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/active_without_dogfood.json",
+        "sha256": "ce93cd83685de1dfe694975d0f3191c0687d4c4072cbba57cb992749d1147285",
+        "size_bytes": 895
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/dogfood_missing_delta.json",
+        "sha256": "a6119a08cf5f0dae04a4c4026780676f3c4741b76466fea3fd08aea0f942f385",
+        "size_bytes": 974
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/operator_sprawl_near_duplicate.json",
+        "sha256": "e9fbafc3f935f8bdb1569954c161d3cbe198cc9f799581f1b0c09a8514774b24",
+        "size_bytes": 2056
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/authority_overclaim.json",
+        "sha256": "fc2ffa5e24e7938b983ad811943f05910d7f56825c44d6db19a250d24e9bb410",
+        "size_bytes": 369
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/operator_voice_claim.json",
+        "sha256": "648ca37ab78f7da5bbce093b91e80020afa45a3fd9630fd2de4827bc073d6c5d",
+        "size_bytes": 518
+      },
+      {
+        "path": "fixtures/first_wave/cognitive_operator_registry/input/private_source_leakage.json",
+        "sha256": "5873bcc726db098688fba2218fe8274f0ab9b30b4a75bff37d9bcf03a4147bef",
+        "size_bytes": 323
+      },
+      {
+        "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
+        "sha256": "e80d3363f7a0a73d894c41a01c99b9e31fe1793e9e9f6076f805b27d13a69644",
+        "size_bytes": 51537
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "cognitive_operator_registry_freshness_basis_v1",
+    "validator_schema_version": "cognitive_operator_registry_result_v1"
+  },
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "active_without_dogfood": [
+      "COGOP_ACTIVE_WITHOUT_DOGFOOD"
+    ],
+    "authority_overclaim": [
+      "COGOP_AUTHORITY_OVERCLAIM"
+    ],
+    "dogfood_missing_delta": [
+      "COGOP_DOGFOOD_MISSING_COGNITION_DELTA"
+    ],
+    "missing_required_field": [
+      "COGOP_MISSING_REQUIRED_FIELD"
+    ],
+    "operator_sprawl_near_duplicate": [
+      "COGOP_OPERATOR_SPRAWL"
+    ],
+    "operator_voice_claim": [
+      "COGOP_OPERATOR_VOICE_FORBIDDEN"
+    ],
+    "private_source_leakage": [
+      "COGOP_PRIVATE_SOURCE_FORBIDDEN"
+    ]
+  },
+  "operator_count": 3,
+  "organ_id": "cognitive_operator_registry",
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/operator_registry.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/operator_standard.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/dogfood_index.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle",
+    "paper_modules/cognitive_operator_registry.md"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_id": "cognitive_operator_registry_result_receipt_v1",
+  "receipt_paths": [
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
+    "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+  ],
+  "receipt_reused": false,
+  "required_field_count": 11,
+  "schema_version": "cognitive_operator_registry_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 10,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "not_present",
+  "source_module_manifest_ref": "fixtures/first_wave/cognitive_operator_registry/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "findings": [],
+    "material_classes": [],
+    "module_count": 0,
+    "module_ids": [],
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": "fixtures/first_wave/cognitive_operator_registry/input/source_module_manifest.json",
+    "source_refs": [],
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "cognitive_operator_registry_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
+  "source_pattern_ids": [
+    "cognitive_operator_registry",
+    "cogop_landing_handoff_compiler",
+    "cogop_operator_accretion_governor"
+  ],
+  "source_refs": [
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/core/organ_registry.json",
+    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
+  ],
+  "status": "pass",
+  "status_values": [
+    "candidate",
+    "active",
+    "retired"
+  ],
+  "synthetic_receipt_standin_allowed": false,
+  "validator_id": "validator.microcosm.organs.cognitive_operator_registry"
+}

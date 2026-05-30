@@ -1,0 +1,1851 @@
+{
+  "schema_version": "cognitive_operator_registry_v0",
+  "authority_posture": "agent_authored_reusable_cognition_substrate_not_operator_voice",
+  "governing_standard": "codex/standards/std_cognitive_operator.json",
+  "operators": [
+    {
+      "operator_id": "cogop_capability_gap_ladder",
+      "slug": "capability-gap-ladder",
+      "title": "Capability Gap Ladder",
+      "status": "active",
+      "claim": "When a task asks for autonomous improvement, first identify the thinking move the system cannot currently perform or retain, then install the smallest validated substrate that makes that move reusable.",
+      "activation": {
+        "trigger_phrases": [
+          "missing cognitive operator",
+          "autonomous seed",
+          "highest compounding value",
+          "structurally incapable",
+          "changes cognition rather than documentation"
+        ],
+        "opens_when": [
+          "The task is about improving autonomous intelligence rather than completing one named backlog item.",
+          "The request asks for new reusable capability selection, not only fixing a known failing surface.",
+          "Live evidence spans multiple planes such as principles, caps, ledgers, traces, validation, and future agent behavior."
+        ],
+        "skip_when": [
+          "The user named an exact file, bug, or WorkItem and did not ask for adjacent capability discovery.",
+          "An existing option surface already provides the missing thinking move with validation and dogfood evidence.",
+          "The proposed operator would require irreversible, disclosure, publication, or high-blast mutation."
+        ]
+      },
+      "process": [
+        "Enter through control surfaces: pulse, phase, entry, context-pack, and navigation-metabolism or the task-selected equivalent.",
+        "Enumerate existing affordances before invention: option surfaces, mechanisms, standards, skills, Task Ledger, traces, and annex prior art.",
+        "Write candidate operators as capability-gap rows with already_available evidence, missing_substrate evidence, compounding score, and validation path.",
+        "Run the Disconfirmation Harness against the leading candidate before treating the selection as settled.",
+        "Run the Causal Trial Harness before claiming the selected operator changed cognition rather than documentation.",
+        "When two or more active operators are triggered, run the Operator Composition Sequencer to retain order, handoffs, and stop conditions.",
+        "Select exactly one operator unless no bounded installation is possible.",
+        "Install the smallest substrate that changes future behavior: registry row, navigation route, validator, dogfood receipt, and task-selection hook.",
+        "Dogfood the operator on the live problem and record cognition_delta_evidence before closeout.",
+        "If installation is too large, emit a cap with failure evidence, acceptance criteria, first implementation surface, and proposed experiment."
+      ],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_capability_gap_ladder"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_capability_gap_ladder]",
+          "dogfood_root": "state/cognitive_operators/dogfood"
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active operators have activation, integration, validation, evidence_refs, and at least one visible dogfood receipt"
+        },
+        "task_selection_hooks": [
+          "Before taking the top schedulable WorkItem when the operator prompt is autonomy/capability-seeking, run this operator to decide whether an enabling substrate outranks direct execution.",
+          "After a leading operator is selected, invoke cogop_disconfirmation_harness when route outputs disagree or when existing affordances plausibly cover the same thinking mode.",
+          "Before claiming a new operator changed cognition, invoke cogop_causal_trial_harness and pre-register the expected post-install behavior.",
+          "When context-pack or route evidence selects multiple cognitive operators, invoke cogop_operator_composition_sequencer before local execution.",
+          "If the operator selects a missing substrate that cannot be completed now, quick-capture the cap before mentioning it in prose.",
+          "When the selected improvement is bounded and reversible, prefer a scoped implementation plus dogfood receipt over a prose recommendation."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seed prompts should ask for the missing retained thinking mode before choosing a repair target.",
+          "Availability checks must precede new operator authoring.",
+          "Selection receipts should preserve the strongest disconfirming evidence, not only the winning rationale.",
+          "Cognition-change claims should include a causal trial receipt with pre-action prediction, intervention, post-action observation, and prediction result.",
+          "Multi-operator seed runs should preserve the chosen operator sequence and handoff outputs, not only the final winning operator.",
+          "Closeout must name whether cognition changed, what receipt proves it, and what validator consumed it.",
+          "If this root operator is selected and context-pack reports a missing passport, run cogop_operator_passport_propagator before authoring another standalone operator."
+        ]
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "The root capability-gap operator must not remain trigger-only once passport substrate exists."
+      },
+      "compression_passport": {
+        "cluster_keys": [
+          "missing cognitive operator",
+          "autonomous seed",
+          "capability gap",
+          "highest compounding value",
+          "retained thinking mode"
+        ],
+        "atom": "Missing capability selector",
+        "when_to_open": "Open when the task asks for autonomous improvement, a missing cognitive operator, a structurally incapable thinking mode, or the smallest substrate that changes future agent behavior.",
+        "when_not_to_open": "Do not open for an exact named-file repair, routine backlog execution, or a selected existing operator whose passport and dogfood receipt already cover the requested thinking move.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_capability_gap_ladder",
+        "landmines": [
+          "Do not treat a diagnostic, status count, or prose rationale as an installed cognitive operator.",
+          "Do not greenfield a new operator before checking whether an existing row only lacks a passport or route integration.",
+          "Do not claim cognition changed without a validator-consumed receipt or route behavior change."
+        ],
+        "sufficiency_claims": [
+          "The row is selected by autonomous seed and missing-operator prompts.",
+          "The row forces availability, disconfirmation, causal-trial, and composition checks before installation.",
+          "The row now carries machine-readable task-fit memory so context-pack can score it by affordance, not only phrase anchors."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "The operator appears in Kind Atlas and the cognitive_operators option surface.",
+          "The card row lists dogfood receipts and a validation command.",
+          "The validator reports ok=true.",
+          "At least one dogfood receipt names a live problem and concrete cognition_delta_evidence."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_capability_gap_ladder",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_agent_entry_surface.json::adjacent_capability_initiative",
+        "codex/standards/std_cognitive_operator.json",
+        "codex/doctrine/mechanisms/mech_027_skill_discovery_and_routing.json",
+        "system/lib/navigation_mechanism_factory.py",
+        "state/task_ledger/ledger.json"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_capability_gap_ladder_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_disconfirmation_harness",
+      "slug": "disconfirmation-harness",
+      "title": "Disconfirmation Harness",
+      "status": "active",
+      "claim": "Before an agent commits to a plausible route, operator, or task choice, it must retain the strongest conflicting evidence and a concrete falsifier so the chosen path is visibly survived rather than merely asserted.",
+      "activation": {
+        "trigger_phrases": [
+          "disconfirming evidence",
+          "counterevidence",
+          "counterexample",
+          "falsifier",
+          "negative evidence",
+          "route disagreement",
+          "entry context-pack disagreement"
+        ],
+        "opens_when": [
+          "Two control surfaces disagree about the right opening, lane, or selected artifact.",
+          "A selected candidate could be explained away by an existing affordance, standard, skill, mechanism, or ledger row.",
+          "The agent is about to install, promote, or defend a reusable cognitive substrate based on plausible but under-tested evidence."
+        ],
+        "skip_when": [
+          "The task is an exact named-file edit with no competing route or candidate claim.",
+          "The disconfirming evidence is only missing information and can be resolved by the next cheap command.",
+          "The candidate would require high-blast mutation before a falsifier can be stated."
+        ]
+      },
+      "process": [
+        "Name the live claim the agent is about to accept.",
+        "Collect the cheapest conflicting evidence across entry, context-pack, option surfaces, standards, ledgers, traces, and prior local doctrine.",
+        "Separate evidence that falsifies the claim from evidence that only lowers confidence.",
+        "Compare nearest existing owners before inventing a new substrate.",
+        "Revise, reject, cap, or proceed with the claim only after recording why the strongest counterevidence did not defeat it.",
+        "Bind the counterevidence into a dogfood receipt, validation row, or Task Ledger cap so later agents inherit the survived claim."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A receipt that records only the winning rationale does not prove the operator changed cognition."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_disconfirmation_harness",
+          "context_pack_anchor": "route disagreement / counterevidence prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_disconfirmation_harness]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "counterevidence_checked",
+            "disconfirmation_result",
+            "surviving_claim"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active disconfirmation operators require a visible dogfood receipt with counterevidence_checked, disconfirmation_result, and surviving_claim"
+        },
+        "task_selection_hooks": [
+          "When entry and context-pack disagree, preserve the disagreement before accepting either route.",
+          "Before installing a new operator, test whether an existing standard, skill, mechanism, or ledger row already performs the thinking move.",
+          "When a selected WorkItem looks obvious but route evidence conflicts, pause direct execution and record the surviving claim or cap."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds must ask what evidence would prove the selected missing operator is wrong.",
+          "Future cognitive-operator receipts should name the strongest rejected alternative and why it failed.",
+          "When the surviving claim is that a substrate changed cognition, pair this operator with cogop_causal_trial_harness so the causal comparison is retained.",
+          "When counterevidence, causal proof, and capability selection all apply, hand the survived claim to cogop_operator_composition_sequencer so the chain order is retained.",
+          "Route disagreement is evidence to retain and route through this operator, not a transient annoyance to summarize away."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "The operator appears in Kind Atlas and the cognitive_operators option surface.",
+          "Disconfirmation prompts select cogop_disconfirmation_harness through context-pack.",
+          "The entry packet for cognitive-operator discovery includes a navigation_index_spine opening to cognitive_operators.",
+          "The validator rejects active disconfirmation operators whose receipts omit counterevidence fields.",
+          "At least one dogfood receipt names conflicting evidence and a surviving claim."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --entry \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"route disagreement counterevidence before selecting a cognitive operator\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_disconfirmation_harness",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_agent_entry_surface.json::disconfirming evidence",
+        "codex/doctrine/references/reasoning_doctrine.md::disconfirmation",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md::counterexample gates",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_disconfirmation_harness_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_causal_trial_harness",
+      "slug": "causal-trial-harness",
+      "title": "Causal Trial Harness",
+      "status": "active",
+      "claim": "When an agent claims a substrate change altered cognition, it must pre-register an expected post-install behavior, perform the smallest intervention, then compare live observations against the prediction before retaining the claim.",
+      "activation": {
+        "trigger_phrases": [
+          "causal trial harness",
+          "pre/post prediction",
+          "pre action prediction",
+          "post action observation",
+          "causal evidence",
+          "prove cognition changed",
+          "dogfood proof",
+          "prediction result"
+        ],
+        "opens_when": [
+          "A task asks for concrete evidence that a new operator, route, standard, or validation hook changed agent behavior.",
+          "The agent is about to install a reusable cognitive substrate and later close with a cognition_delta_evidence claim.",
+          "A proposed improvement could be merely documentation unless a post-install route, validator, or task-selection behavior changes."
+        ],
+        "skip_when": [
+          "The task is a one-off local bug fix with no reusable cognition-change claim.",
+          "The cheapest meaningful post-check cannot run in the current environment and the right output is a cap.",
+          "The intervention is high-blast or irreversible before an acceptance metric can be stated."
+        ]
+      },
+      "process": [
+        "Name the cognition-change claim in one sentence.",
+        "State a pre-action prediction that would be unlikely if the substrate did not change.",
+        "Name a no-effect result that would make the claim fail or stay capped.",
+        "Perform the smallest reversible intervention that could produce the predicted behavior.",
+        "Run the live post-checks through navigation, option surface, validator, or task-selection routes.",
+        "Compare observation to prediction and record confirmed, partial, or failed result.",
+        "Persist the trial receipt so future agents inherit the causal comparison, not only the winning narrative."
+      ],
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "A receipt that records only retrospective cognition_delta_evidence does not prove the change caused a reusable new mode of thought."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_causal_trial_harness",
+          "context_pack_anchor": "pre/post prediction, causal evidence, dogfood proof, and prove-cognition-changed prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_causal_trial_harness]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "pre_action_prediction",
+            "no_effect_falsifier",
+            "intervention",
+            "post_action_observation",
+            "prediction_result"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active causal-trial operators require a visible dogfood receipt with pre-action prediction, no-effect falsifier, intervention, post-action observation, and prediction result"
+        },
+        "task_selection_hooks": [
+          "Before selecting a new cognitive operator, state what post-install route, validator, or task-selection behavior would prove the operator is real.",
+          "When a seed prompt asks for evidence that cognition changed, prefer a bounded trial over another explanatory module.",
+          "If post-checks cannot distinguish causal change from documentation, cap the operator with explicit failure evidence and acceptance criteria.",
+          "When dogfooding any future operator, update the receipt after live checks instead of treating the initial rationale as sufficient proof."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds should pre-register the expected cognition delta before making operator substrate changes.",
+          "Future closeouts should report prediction_result and the post-check command that consumed the changed substrate.",
+          "When a causal trial is part of a multi-operator dogfood chain, retain the trial as one sequenced step through cogop_operator_composition_sequencer.",
+          "If the post-action observation is partial or failed, leave a cap or Task Ledger item rather than preserving the claim as proven."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "The operator appears in Kind Atlas and the cognitive_operators option surface.",
+          "Causal-evidence and pre/post prediction prompts select cogop_causal_trial_harness through context-pack.",
+          "The validator rejects active causal-trial operators whose receipts omit pre/post trial fields.",
+          "At least one dogfood receipt compares a pre-action prediction to a live post-action observation."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"pre/post prediction evidence to prove cognitive operator changed cognition\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_causal_trial_harness",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json",
+        "codex/doctrine/cognitive_operators.json::operators[cogop_capability_gap_ladder]",
+        "codex/doctrine/cognitive_operators.json::operators[cogop_disconfirmation_harness]",
+        "codex/doctrine/mechanisms/mech_002_typed_receipt_validation.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json::axiom_candidate_evolution_proves_in_microcosm"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_causal_trial_harness_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_operator_composition_sequencer",
+      "slug": "operator-composition-sequencer",
+      "title": "Operator Composition Sequencer",
+      "status": "active",
+      "claim": "When multiple cognitive operators match a task, an agent must choose a minimal ordered chain with handoff outputs and stop conditions, then retain the sequence result so future agents reuse the cognitive stack instead of applying operators ad hoc.",
+      "activation": {
+        "trigger_phrases": [
+          "operator composition",
+          "operator sequence",
+          "operator chain",
+          "operator stack",
+          "compose cognitive operators",
+          "multiple cognitive operators",
+          "operator ordering",
+          "operator pipeline"
+        ],
+        "opens_when": [
+          "Context-pack, entry, or the task text selects two or more cognitive operators.",
+          "An operator row tells the agent to run another operator before closeout.",
+          "The task asks for a reusable autonomous-intelligence improvement and the evidence chain spans selection, counterevidence, and causal proof."
+        ],
+        "skip_when": [
+          "Exactly one operator applies and no row-level hook invokes another operator.",
+          "The task is a named local fix with no cognition-change or operator-selection claim.",
+          "The needed operator chain cannot be executed or tested in the current turn; create a cap with the missing sequence and acceptance criteria instead."
+        ]
+      },
+      "process": [
+        "List all triggered cognitive operators and the evidence that triggered each one.",
+        "Select the smallest ordered chain that can satisfy the live task without duplicating work.",
+        "For each step, name the input it consumes, the output it must hand to the next step, and the stop or skip condition.",
+        "Run the chain in order and preserve the strongest rejected alternative sequence.",
+        "Record operator_sequence, composition_decision, handoff_contracts, and sequence_result in the dogfood receipt.",
+        "If a later route, validator, or post-check disagrees with the selected chain, revise the sequence or cap the operator.",
+        "Make future seed behavior inherit the sequence rather than rediscovering the same operator ordering."
+      ],
+      "composition_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "operator_sequence",
+          "composition_decision",
+          "handoff_contracts",
+          "sequence_result"
+        ],
+        "failure_mode": "A receipt that lists several operators without ordering, handoffs, and a retained sequence result does not prove compositional cognition."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_composition_sequencer",
+          "context_pack_anchor": "operator composition, operator sequence, operator chain, and multiple-cognitive-operator prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_operator_composition_sequencer]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "operator_sequence",
+            "composition_decision",
+            "handoff_contracts",
+            "sequence_result"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active composition operators require a visible dogfood receipt with operator_sequence, composition_decision, handoff_contracts, and sequence_result"
+        },
+        "task_selection_hooks": [
+          "When context-pack selects two or more cognitive operators, sequence them before choosing implementation work.",
+          "When one operator row invokes another operator, preserve that as a handoff contract instead of relying on prose memory.",
+          "When a seed prompt asks for changed cognition, compose capability selection, disconfirmation, and causal trial before claiming success.",
+          "When the minimal sequence cannot be executed, quick-capture a cap with the exact missing sequence and proposed proof experiment."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds should first ask whether the active operator set forms a chain, not just which one operator wins.",
+          "Future dogfood receipts should include the selected sequence whenever multiple operators are triggered.",
+          "Closeout should report sequence_result when composition determined the task path.",
+          "Validator failures for missing composition fields should be treated as cognition not retained, not as cosmetic metadata gaps."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "The operator appears in Kind Atlas and the cognitive_operators option surface.",
+          "Operator-composition and operator-sequence prompts select cogop_operator_composition_sequencer through context-pack.",
+          "The validator rejects active composition operators whose receipts omit sequence fields.",
+          "At least one dogfood receipt records an ordered chain, handoff contracts, and a sequence_result from a live autonomous seed problem."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"operator composition sequence for capability gap disconfirmation causal trial cognitive operators\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_composition_sequencer",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json",
+        "codex/doctrine/cognitive_operators.json::operators[cogop_capability_gap_ladder]",
+        "codex/doctrine/cognitive_operators.json::operators[cogop_disconfirmation_harness]",
+        "codex/doctrine/cognitive_operators.json::operators[cogop_causal_trial_harness]",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_operator_composition_sequencer_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_affordance_passport_author",
+      "slug": "affordance-passport-author",
+      "title": "Affordance Passport Author",
+      "status": "active",
+      "claim": "When an operator, route, skill, or row is meant to guide future agents, it must carry row-owned task-fit affordances, anti-triggers, landmines, and sufficiency claims so selection can survive beyond hardcoded prompt phrases.",
+      "compression_passport": {
+        "cluster_keys": [
+          "affordance passport",
+          "compression passport",
+          "operator task fit",
+          "row-owned triggers",
+          "anti triggers",
+          "landmines"
+        ],
+        "atom": "Row-owned task fit",
+        "when_to_open": "Open when a cognitive operator or navigation row is useful only because code knows a few trigger phrases, or when context-pack reports an absent compression_passport / affordance_passport for a selected kind.",
+        "when_not_to_open": "Do not open for a one-off named file edit, raw prose cleanup, or a row whose standard already requires and validates a complete compression_passport.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_affordance_passport_author",
+        "landmines": [
+          "Adding more trigger phrases is not the same as row-owned affordance memory.",
+          "A passport without when_not_to_open cannot protect task selection from false positives.",
+          "A validator that does not consume the passport makes the operator documentation-only."
+        ],
+        "sufficiency_claims": [
+          "The row is selectable through context-pack for affordance/passport prompts.",
+          "The card projection exposes compression_passport and affordance_passport_contract.",
+          "The validator rejects active passport-required operators that omit required passport fields."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "affordance passport",
+          "compression passport",
+          "operator affordance",
+          "row-owned triggers",
+          "anti trigger",
+          "landmine",
+          "task fit passport"
+        ],
+        "opens_when": [
+          "A selected cognitive operator has activation prose but no machine-readable compression_passport for task fit.",
+          "Context-pack reports affordance_passport.status=absent for a row that future agents should select directly.",
+          "A route improvement would otherwise be implemented by adding more hardcoded phrases without row-owned anti-triggers or landmines."
+        ],
+        "skip_when": [
+          "The row kind already has a standard-owned compression_passport contract and the selected row satisfies it.",
+          "The work is only to repair a failing command, test, or exact named file with no reusable selection gap.",
+          "The candidate passport cannot be validated or projected into context-pack in the current turn."
+        ]
+      },
+      "process": [
+        "Read the selected row and name the current task-selection failure: absent passport, weak trigger-only routing, missing anti-trigger, missing landmine, or missing sufficiency claim.",
+        "Author the smallest compression_passport that carries cluster_keys, atom, when_to_open, when_not_to_open, safe_drilldown, landmines, and sufficiency_claims.",
+        "Bind the passport to its owning standard with an affordance_passport_contract only where validation can consume it.",
+        "Expose the passport through the row's card projection so context-pack can compute affordance_passport and affordance_compatibility.",
+        "Add a focused route trigger only to bootstrap selection of the passport author itself; future target rows should carry their own passports.",
+        "Run a validator rejection test against a passport-required row missing required passport fields.",
+        "Dogfood by converting a live hardcoded-trigger gap into a projected, validated, row-owned passport."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A passport operator that ignores existing activation blocks, skills, or context-pack compatibility may duplicate already-available substrate."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "A passport row that cannot change route selection, card memory, or validator behavior has not changed cognition."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "An active passport author without its own complete compression_passport cannot prove the mode is reusable."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_affordance_passport_author",
+          "context_pack_anchor": "affordance passport, compression passport, row-owned triggers, anti-trigger, and landmine prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_affordance_passport_author]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "counterevidence_checked",
+            "pre_action_prediction",
+            "post_action_observation",
+            "prediction_result"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active passport-required operators require a complete compression_passport and at least one dogfood receipt with counterevidence and causal trial fields"
+        },
+        "task_selection_hooks": [
+          "When context-pack marks a useful selected row with affordance_passport.status=absent, choose this operator before adding more phrase anchors.",
+          "Before installing another cognitive operator, decide whether the missing substrate is actually a passport gap in an existing row.",
+          "When a row's when_not_to_open or landmines would change task choice, preserve those fields in compression_passport instead of prose notes.",
+          "If a passport cannot be projected into selected_rows and validator output, cap it rather than treating authored text as retained cognition."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds should inspect selected row affordance_passport status before deciding the system needs a brand-new operator.",
+          "Future operator rows that need direct selection should carry compression_passport fields as row-owned memory.",
+          "Task-selection changes should cite passport compatibility, not only matched prompt phrases.",
+          "Validation failures for passport-required rows should be treated as missing cognition, not missing metadata."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "The operator appears in Kind Atlas and the cognitive_operators option surface.",
+          "Affordance-passport prompts select cogop_affordance_passport_author through context-pack.",
+          "The card row exposes compression_passport, affordance_passport_contract, and operator_validation.affordance_passport_required=true.",
+          "The validator rejects active passport-required operators whose compression_passport omits required fields.",
+          "At least one dogfood receipt proves a live hardcoded-trigger gap became a projected, validated, row-owned passport."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"affordance passport compression passport anti trigger landmine operator task fit\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_affordance_passport_author",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json",
+        "system/lib/cognitive_operator_registry.py",
+        "system/lib/navigation_context_pack.py::_affordance_passport",
+        "system/lib/navigation_context_pack.py::_affordance_compatibility",
+        "system/lib/navigation_index_spine.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_affordance_passport_author_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_operator_passport_propagator",
+      "slug": "operator-passport-propagator",
+      "title": "Operator Passport Propagator",
+      "status": "active",
+      "claim": "When a reusable cognitive operator remains trigger-only after passport substrate exists, convert the selected operator into a validated passport-bearing row and retain coverage pressure for the rest of the operator stack.",
+      "compression_passport": {
+        "cluster_keys": [
+          "passport propagation",
+          "operator passport propagation",
+          "passport backfill",
+          "missing compression passports",
+          "passport coverage",
+          "trigger-only operator"
+        ],
+        "atom": "Operator passport propagation",
+        "when_to_open": "Open when a selected cognitive operator has no compression_passport, when validator output needs passport coverage, or when an agent is about to add another operator while older active operators remain trigger-only.",
+        "when_not_to_open": "Do not open for a one-off passport field typo, a row whose complete passport already validates, or a broad registry retrofit with no live selected operator to dogfood.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_passport_propagator",
+        "landmines": [
+          "Backfilling every row at once can hide whether any passport changed task selection.",
+          "A coverage count without a selected target does not prove propagation cognition.",
+          "A passport propagation operator that does not report remaining unpassportized operators lets the registry bifurcate again."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for passport propagation and coverage prompts.",
+          "The validator reports affordance_passport_coverage for active cognitive operators.",
+          "The dogfood receipt names the source operator, before/after coverage, remaining rows, and next propagation rule."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "passport propagation",
+          "operator passport propagation",
+          "passport backfill",
+          "missing compression passports",
+          "passport coverage",
+          "trigger-only operator"
+        ],
+        "opens_when": [
+          "A selected active cognitive operator is useful but context-pack reports affordance_passport.status=absent.",
+          "A seed pass is about to author a new operator even though the selected existing operator only lacks row-owned task-fit memory.",
+          "Validation needs to preserve passport coverage and remaining trigger-only operators as first-class state."
+        ],
+        "skip_when": [
+          "The selected operator already has a complete compression_passport and validates under affordance_passport_contract.",
+          "The work is a broad style or prose normalization pass with no live route-selection evidence.",
+          "The proposed propagation cannot be validated by context-pack selection, card projection, and registry coverage in the current turn."
+        ]
+      },
+      "process": [
+        "Read the selected cognitive operator and record whether its missing substrate is a missing operator or a missing passport.",
+        "Backfill only the live selected operator unless the receipt has evidence for a broader migration.",
+        "Add affordance_passport_contract and compression_passport fields that preserve when_to_open, when_not_to_open, landmines, and sufficiency claims.",
+        "Expose passport coverage in the registry validator so remaining trigger-only rows stay visible.",
+        "Add a context-pack anchor for passport propagation prompts so future agents can invoke the operator directly.",
+        "Dogfood by re-running the original seed route and proving the selected operator now reports affordance_passport.status=present.",
+        "Record coverage_before, coverage_after, remaining_unpassportized_operators, and next_propagation_rule in the receipt."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A propagator that treats every missing passport as a new operator may create registry churn instead of improving retained task-fit memory."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If route selection, card projection, and validator coverage do not change, propagation remained documentation-only."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "A passport propagator without its own complete compression_passport cannot guide future propagation work."
+      },
+      "passport_propagation_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "source_operator_id",
+          "target_operator_passport_written",
+          "coverage_before",
+          "coverage_after",
+          "remaining_unpassportized_operators",
+          "next_propagation_rule"
+        ],
+        "failure_mode": "Propagation without before/after coverage and remaining-row memory becomes another one-off backfill."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_passport_propagator",
+          "context_pack_anchor": "passport propagation, passport backfill, missing compression passports, and passport coverage prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_operator_passport_propagator]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "source_operator_id",
+            "coverage_before",
+            "coverage_after",
+            "remaining_unpassportized_operators",
+            "next_propagation_rule"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active passport-propagation operators require complete passport fields, dogfood causal evidence, and before/after passport coverage"
+        },
+        "task_selection_hooks": [
+          "When context-pack selects an active cognitive operator with affordance_passport.status=absent, run this operator before creating a new cognitive operator.",
+          "When validator coverage shows trigger-only active operators, prefer dogfooding the highest-use selected row over broad unaudited backfill.",
+          "When a seed prompt repeats the same missing-operator request, check whether the root operator needs propagation rather than another standalone substrate."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds should treat missing passport coverage as a first-class candidate missing mode.",
+          "Future operator installs should update coverage evidence so remaining trigger-only rows stay visible.",
+          "A selected operator's passport should be preferred over hardcoded anchors when deciding task fit.",
+          "Do not close a propagation pass without naming the remaining unpassportized operators or the next propagation rule."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Passport propagation prompts select cogop_operator_passport_propagator through context-pack.",
+          "The validator reports affordance_passport_coverage with before/after-visible counts.",
+          "The selected root operator, cogop_capability_gap_ladder, reports affordance_passport.status=present after backfill.",
+          "The validator rejects passport-propagation-required operators whose dogfood receipt lacks coverage fields.",
+          "At least one dogfood receipt proves a selected trigger-only operator became a validated passport-bearing row."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"discover and install the next missing cognitive operator for autonomous intelligence\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"operator passport propagation backfill missing compression passports cognitive operators\" --context-budget 12000",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/doctrine/cognitive_operators.json::operators[cogop_capability_gap_ladder]",
+        "codex/standards/std_cognitive_operator.json::passport_propagation_extension",
+        "system/lib/cognitive_operator_registry.py",
+        "system/lib/navigation_context_pack.py::_affordance_passport",
+        "system/lib/navigation_index_spine.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_operator_passport_propagator_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_route_lease_executor",
+      "slug": "route-lease-executor",
+      "title": "Route Lease Executor",
+      "status": "active",
+      "claim": "When entry or context-pack emits a route lease, the agent must convert that lease into a bounded data-plane action with a validation return condition instead of repeating broad navigation without a new authority question.",
+      "compression_passport": {
+        "cluster_keys": [
+          "route lease",
+          "direct action after entry",
+          "second kernel call before direct action",
+          "broad route repeated",
+          "mode control signal",
+          "stop navigating and act"
+        ],
+        "atom": "Lease-to-action boundary",
+        "when_to_open": "Open when a task has already received an entry/context route lease, process-audit reports repeated broad routes, or an agent is about to call another broad kernel route before consuming the selected lane.",
+        "when_not_to_open": "Do not open when the next kernel call is the exact lease-required drilldown, when authority changed, when validation failed and the return condition fired, or when the task has no entry/context lease yet.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_route_lease_executor",
+        "landmines": [
+          "A route lease is a control-plane handoff, not permission to keep browsing.",
+          "Repeating entry/context-pack without a new authority question converts navigation into latency debt.",
+          "Direct action still needs a validation return condition; action without return is just another unbounded loop."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for route-lease and repeated-routing prompts.",
+          "The validator rejects route-lease-required operators whose receipt lacks lease consumption fields.",
+          "The dogfood receipt names the lease id, selected lane, direct action boundary, forbidden follow-up routes, and validation return condition."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "route lease",
+          "consume route lease",
+          "direct action after entry",
+          "second kernel call before direct action",
+          "broad route repeated",
+          "mode control signal"
+        ],
+        "opens_when": [
+          "An entry packet has selected a lane and issued route_lease_v0.",
+          "The next contemplated move is another broad routing command without a new authority or freshness question.",
+          "Process-audit shows broad_route_repeated_without_new_authority_question, second_kernel_call_before_direct_action, or full_output_kernel_bloat signals."
+        ],
+        "skip_when": [
+          "The agent has not yet obtained the required entry/control packet.",
+          "A new authority boundary, changed write scope, failed validation, or stale source-coupling decision requires returning to the kernel.",
+          "The follow-up route is a stable-row drilldown explicitly named by the lease or selected operator."
+        ]
+      },
+      "process": [
+        "Read the current route lease and name the selected lane, next action command, permitted direct actions, and return-to-kernel conditions.",
+        "Classify the next intended command as lease consumption, exact drilldown, legitimate return, or broad-route repeat.",
+        "If it is a broad-route repeat, stop and choose the smallest data-plane action the lease permits: read known paths, patch owned paths, run focused validation, or open a stable row card.",
+        "Record forbidden follow-up routes and the validation return condition before mutation.",
+        "Run the direct action and validate it with focused tests, validator output, or a selected route proof.",
+        "Return to the kernel only when the validation return condition fires or the selected lane changes.",
+        "Bind the lease consumption into a dogfood receipt so future traces can distinguish legitimate returns from route loops."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A lease executor that blocks legitimate authority/freshness returns would overcorrect navigation and make agents act blindly."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If the operator does not change route selection, validation, or future route-loop classification, it is only a slogan."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "A route-lease operator without its own passport cannot reliably tell future agents when to stop navigating."
+      },
+      "route_lease_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "route_lease_id",
+          "lease_selected_lane",
+          "direct_action_boundary",
+          "consumed_by_action",
+          "forbidden_followup_routes",
+          "validation_return_condition"
+        ],
+        "failure_mode": "Lease execution without lease id, boundary, and return condition cannot prove navigation became action."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_route_lease_executor",
+          "context_pack_anchor": "route lease, broad route repeated, second kernel call before direct action, and mode-control prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_route_lease_executor]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "route_lease_id",
+            "lease_selected_lane",
+            "direct_action_boundary",
+            "consumed_by_action",
+            "validation_return_condition"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active route-lease operators require complete passport fields, causal evidence, and route-lease consumption receipt fields"
+        },
+        "task_selection_hooks": [
+          "After entry/context-pack selects a lane, run this operator before calling another broad route unless the return condition is met.",
+          "When process-audit reports route_lease_mode_control_signal rows, choose this operator before adding more route aliases.",
+          "When a future seed has enough evidence to patch the selected substrate, consume the lease into scoped edits and focused validation."
+        ],
+        "future_seed_behavior": [
+          "Autonomous seeds should treat route leases as action contracts once the selected operator and owned surfaces are known.",
+          "Future seeds should name the return-to-kernel condition before invoking another broad route.",
+          "Process-audit mode-control signals should be interpreted as missing lease execution when no legitimate authority return is present.",
+          "Closeout should say what direct action consumed the lease and what validation proved the return condition did not fire."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Route-lease prompts select cogop_route_lease_executor through context-pack.",
+          "The card row exposes route_lease_contract.required=true and operator_validation.route_lease_required=true.",
+          "The validator rejects route-lease-required operators whose dogfood receipt lacks lease consumption fields.",
+          "At least one dogfood receipt proves a live route lease became direct owned-path action with a validation return condition."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"route lease second kernel call before direct action broad route repeated mode control\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_route_lease_executor",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_agent_entry_surface.json::route_lease_v0",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/doctrine/process/trace_rules.json",
+        "system/lib/agent_execution_trace.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_route_lease_executor_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_prompt_route_assimilator",
+      "slug": "prompt-route-assimilator",
+      "title": "Prompt Route Assimilator",
+      "status": "active",
+      "claim": "When session diagnostics or wake prompts expose recurring prompt-derived route misses, the agent must convert the phrase into a retained route or operator affordance with validation instead of leaving it as transient trace noise.",
+      "compression_passport": {
+        "cluster_keys": [
+          "prompt-derived route miss",
+          "wake prompts",
+          "docs-route miss",
+          "trace continuation",
+          "unresolved route phrase",
+          "seed prompt phrase",
+          "autonomous seed for routing",
+          "autonomous routing seed",
+          "typed semantic relation graph",
+          "authority planes",
+          "route proof obligation",
+          "unresolved targets",
+          "duplicate routes",
+          "dead surfaces",
+          "private phrase lists",
+          "wrong-plane handoffs"
+        ],
+        "atom": "Trace phrase to route memory",
+        "when_to_open": "Open when session diagnostics reports unresolved prompt-derived route phrases, wake prompts repeat an operator phrase, docs-route suggests the training loop, or future seeds need a phrase retained as navigation memory.",
+        "when_not_to_open": "Do not open for one-off wording with no trace recurrence, for an already selected exact stable row, or when the phrase maps to an existing operator passport without any routing mutation.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
+        "landmines": [
+          "A route-miss count is not a route mutation.",
+          "Do not add broad aliases for private prompt text; retain only the abstract phrase needed for future routing.",
+          "Assimilation must prove a future prompt selects a stable surface, not just record that the phrase was noticed."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for prompt-derived route-miss and trace-continuation prompts.",
+          "The validator rejects prompt-route-required operators whose receipt lacks phrase evidence, target surface, routing mutation, validation prompt, or retention check.",
+          "The dogfood receipt names the source diagnostics lens, selected phrase, target cognitive-operator surface, mutation, and validated retention prompt."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "prompt-derived route miss",
+          "prompt route assimilation",
+          "wake prompts",
+          "docs-route miss",
+          "trace continuation",
+          "unresolved route phrase",
+          "seed prompt phrase",
+          "autonomous seed for routing",
+          "autonomous routing seed",
+          "typed semantic relation graph",
+          "authority planes",
+          "route proof obligation",
+          "unresolved targets",
+          "duplicate routes",
+          "dead surfaces",
+          "private phrase lists",
+          "wrong-plane handoffs"
+        ],
+        "opens_when": [
+          "Session diagnostics route-misses include recurring phrases from prompts or wake prompts.",
+          "Docs-route returns a suggested training-loop alias but no retained operator affordance yet exists.",
+          "A future seed prompt uses a phrase that should route to a stable operator, skill, standard, or paper module.",
+          "A trace-continuation packet repeats a task phrase that agents keep rediscovering manually.",
+          "An autonomous routing seed names typed semantic relation graphs, authority planes, route proof obligations, private phrase lists, unresolved targets, duplicate routes, dead surfaces, or wrong-plane handoffs."
+        ],
+        "skip_when": [
+          "The phrase is private text that cannot be safely abstracted into a public route trigger.",
+          "The phrase already routes to the correct stable surface through an existing compression passport.",
+          "The right action is a Task Ledger capture rather than a reusable route/task-selection affordance."
+        ]
+      },
+      "process": [
+        "Read the prompt-derived route-miss evidence and select one abstract phrase with recurrence or strong seed relevance.",
+        "Disconfirm against existing operators, skills, docs routes, and passports before adding a new trigger.",
+        "Name the target surface that should open for the phrase and the smallest routing mutation needed.",
+        "Record a validation prompt that should select the target surface after mutation.",
+        "Patch the owning routing/selection surface and focused tests only.",
+        "Run validator and route-selection proof commands.",
+        "Bind the source lens, phrase evidence, target surface, mutation, validation prompt, and retention check into the dogfood receipt."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A prompt-route assimilator that ignores existing routes will create alias bloat instead of retained cognition."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If a future prompt does not select the intended operator or route, the phrase was documented but not assimilated."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "A prompt-route operator without its own passport cannot tell future agents when a phrase deserves retention."
+      },
+      "prompt_route_assimilation_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "source_lens",
+          "prompt_phrase",
+          "route_miss_evidence",
+          "target_surface",
+          "routing_mutation",
+          "validation_prompt",
+          "retention_check"
+        ],
+        "failure_mode": "Assimilation without source lens, phrase evidence, target surface, mutation, and retention proof becomes another route-miss note."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
+          "context_pack_anchor": "prompt-derived route miss, wake prompts, docs-route miss, trace continuation, autonomous seed for routing, autonomous routing seed, typed semantic relation graph, authority planes, route proof obligation, unresolved targets, duplicate routes, dead surfaces, private phrase lists, wrong-plane handoffs, and unresolved route phrase prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_prompt_route_assimilator]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "source_lens",
+            "prompt_phrase",
+            "route_miss_evidence",
+            "target_surface",
+            "routing_mutation",
+            "validation_prompt",
+            "retention_check"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active prompt-route operators require complete passport fields, causal evidence, and prompt-route assimilation receipt fields"
+        },
+        "task_selection_hooks": [
+          "When session diagnostics reports prompt-derived docs-route misses, run this operator before adding broad documentation aliases.",
+          "When wake prompts repeat a phrase that does not route to a stable surface, prefer assimilating the abstract phrase over re-reading session text.",
+          "When a seed prompt uses a phrase that should select an existing operator, add a tested task-selection trigger instead of creating a new paper module."
+        ],
+        "future_seed_behavior": [
+          "Future autonomous seeds should treat route-miss phrases as training signal for entry/task-selection memory.",
+          "Future seeds should disconfirm against existing passports before retaining a new phrase.",
+          "Prompt-derived route assimilation should land in the owning route/operator surface with a testable validation prompt.",
+          "Closeout should name the phrase, target surface, and retention proof, not just the diagnostic count."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Prompt-derived route-miss prompts select cogop_prompt_route_assimilator through context-pack.",
+          "The card row exposes prompt_route_assimilation_contract.required=true and operator_validation.prompt_route_assimilation_required=true.",
+          "The validator rejects prompt-route-required operators whose dogfood receipt lacks phrase evidence, target surface, routing mutation, validation prompt, or retention check.",
+          "At least one dogfood receipt proves a live session-diagnostics route-miss phrase became retained route-selection behavior."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"prompt-derived route miss trace continuation wake prompts unresolved route phrase docs-route miss\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"autonomous seed for routing typed semantic relation graph private phrase lists wrong-plane handoffs\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"autonomous routing seed authority planes unresolved targets duplicate routes dead surfaces route proof obligation\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/doctrine/skills/kernel/agent_session_diagnostics.md",
+        "codex/standards/std_cognitive_operator.json::prompt_route_assimilation_extension",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_20260511.json",
+        "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_routing_seed_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_pressure_to_action_reducer",
+      "slug": "pressure-to-action-reducer",
+      "title": "Pressure-to-Action Reducer",
+      "status": "active",
+      "claim": "When live ledgers, queues, receipts, or patches expose broad pressure, the agent must reduce the competing pressure surfaces to one bounded, reversible, status-bound action before expanding another broad audit.",
+      "compression_passport": {
+        "cluster_keys": [
+          "pressure to action",
+          "backlog pressure",
+          "queue pressure",
+          "row patches",
+          "transform job receipts",
+          "status binding",
+          "bounded action"
+        ],
+        "atom": "Pressure count to bound action",
+        "when_to_open": "Open when a task asks what to do next under backlog, queue, Task Ledger, row-patch, transform-receipt, or status-binding pressure, especially when multiple broad surfaces compete.",
+        "when_not_to_open": "Do not open for an exact named WorkItem, a selected row with an obvious owner command, or a pressure surface whose next event is already mandated by its owning standard.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_pressure_to_action_reducer",
+        "landmines": [
+          "A high count is not an action.",
+          "Do not expand every pressure surface before choosing one bounded action.",
+          "Do not select a pressure whose result cannot bind back to an owner status, receipt, row, or validation surface."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for backlog pressure, row patches, transform receipts, queue pressure, and status-binding prompts.",
+          "The validator rejects pressure-reduction operators whose receipt lacks pressure surfaces, selected pressure, rejected pressures, decision axes, bounded action, status-binding target, or validation return condition.",
+          "The dogfood receipt proves a live multi-surface pressure prompt moved from zero selected operator rows to this operator and a scoped implementation action."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "pressure to action",
+          "backlog pressure",
+          "queue pressure",
+          "reduce pressure",
+          "status binding",
+          "status-bound action",
+          "one bounded action",
+          "task ledger pressure",
+          "row patch pressure",
+          "transform job receipts",
+          "receipt pressure"
+        ],
+        "opens_when": [
+          "Pulse, Task Ledger, row-patch, transform-receipt, process-audit, or generated-state surfaces expose multiple plausible next actions.",
+          "The agent is about to keep auditing high-cardinality pressure instead of choosing a bounded next event.",
+          "A broad backlog count needs conversion into one reversible action with a named validation and status-binding target.",
+          "The task asks which backlog, queue, receipt, or patch pressure should be acted on first."
+        ],
+        "skip_when": [
+          "A specific WorkItem, row patch, receipt, or file is already selected and its owner command is clear.",
+          "The next action would require irreversible raw-seed, publication, secret, or high-blast mutation.",
+          "The pressure is only informational and has no owner surface where status can be bound after action."
+        ]
+      },
+      "process": [
+        "List the live pressure surfaces and their counts or severity signals.",
+        "Score each pressure surface on compounding value, reversibility, owner authority, validation latency, and status-binding availability.",
+        "Reject pressure surfaces that are broad, high-blast, stale, or missing a status-binding target.",
+        "Select exactly one pressure and one bounded action before opening row-level expansions.",
+        "Name the owner status, receipt, row, validation, or Task Ledger surface that will consume the result.",
+        "Run the smallest scoped action and focused validation that proves the pressure was reduced or retained as a reusable decision rule.",
+        "Record the selected pressure, rejected pressures, decision axes, action, status binding, and validation return condition in the dogfood receipt."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A pressure reducer that does not preserve rejected pressure surfaces just rationalizes whichever backlog was most visible."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If pressure prompts still select no operator or only broad kind signposts after installation, the operator did not change cognition."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "A pressure reducer without its own passport cannot be selected before broad backlog expansion."
+      },
+      "pressure_reduction_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pressure_surfaces",
+          "selected_pressure",
+          "rejected_pressures",
+          "decision_axes",
+          "bounded_action",
+          "status_binding_target",
+          "validation_return_condition"
+        ],
+        "failure_mode": "Pressure reduction without surfaces, rejection evidence, a bounded action, and a status-binding target is only prioritization prose."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_pressure_to_action_reducer",
+          "context_pack_anchor": "backlog pressure, queue pressure, row patches, transform job receipts, receipt pressure, one bounded action, and status-binding prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_pressure_to_action_reducer]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "pressure_surfaces",
+            "selected_pressure",
+            "rejected_pressures",
+            "decision_axes",
+            "bounded_action",
+            "status_binding_target",
+            "validation_return_condition"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active pressure-reduction operators require complete passport fields, causal evidence, counterevidence, and pressure-reduction receipt fields"
+        },
+        "task_selection_hooks": [
+          "When Task Ledger, row_patches, transform_job_receipts, process-audit, or pulse expose competing high-volume pressures, run this operator before opening broad row expansions.",
+          "When a seed asks what to do next under backlog pressure, select one bounded action with an owner status-binding target before ordinary execution.",
+          "When a pressure surface lacks a status-binding target, reject it or create a cap rather than acting from the count alone."
+        ],
+        "future_seed_behavior": [
+          "Future autonomous seeds should convert pressure counts into a selected pressure, rejected alternatives, and a bounded validation action.",
+          "Future seeds should prefer a pressure whose result binds to a validator, dogfood receipt, Task Ledger event, or owner row status.",
+          "Future seeds should treat no selected operator row for pressure prompts as evidence that pressure cognition is not retained.",
+          "Closeout should name the pressure surface reduced, what action consumed it, and where status was bound."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Backlog, queue, row-patch, transform-receipt, and status-binding prompts select cogop_pressure_to_action_reducer through context-pack.",
+          "The card row exposes pressure_reduction_contract.required=true and operator_validation.pressure_reduction_required=true.",
+          "The validator rejects pressure-reduction-required operators whose dogfood receipt lacks pressure surfaces, selected pressure, rejected pressures, decision axes, bounded action, status-binding target, or validation return condition.",
+          "At least one dogfood receipt proves a live pressure prompt changed from no selected cognitive operator to this operator and a bounded scoped action."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"reduce backlog pressure from task ledger row patches transform job receipts into one bounded action with status binding\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_pressure_to_action_reducer",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::pressure_reduction_extension",
+        "codex/standards/principles/std_system_axiom_candidate.json::axiom_candidate_status_binding",
+        "codex/standards/principles/std_system_axiom_candidate.json::axiom_candidate_actionability",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "state/task_ledger/views",
+        "state/compute_workers/row_patches",
+        "state/compute_workers/receipts",
+        "codex/hologram/process/audit.json"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_pressure_to_action_reducer_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_operator_accretion_governor",
+      "slug": "operator-accretion-governor",
+      "title": "Operator Accretion Governor",
+      "status": "active",
+      "claim": "Before an autonomous seed installs another cognitive operator, it must decide whether the proposed thinking mode is genuinely novel, should merge into an existing operator, should extend an existing contract, or should become a capped experiment.",
+      "compression_passport": {
+        "cluster_keys": [
+          "operator accretion",
+          "operator novelty",
+          "novelty gate",
+          "merge existing operator",
+          "operator sprawl",
+          "new cognitive operators",
+          "repeated autonomous seed"
+        ],
+        "atom": "New-operator novelty gate",
+        "when_to_open": "Open when a seed proposes adding, installing, discovering, or repeating cognitive-operator work and there is a plausible existing operator, merge target, extension contract, or cap alternative.",
+        "when_not_to_open": "Do not open for the first root missing-operator selection, an exact named operator backfill, or a selected operator whose novelty/merge decision has already been retained in a receipt.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_accretion_governor",
+        "landmines": [
+          "Adding a new operator can be failure to reuse the stack.",
+          "A capability gap claim is incomplete until nearest existing operators and merge targets have been tested.",
+          "Do not let the governor become a veto-only slogan; it must produce install, merge, extend, cap, or reject output with evidence."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for add-another-operator, novelty-gate, merge/reuse, and operator-sprawl prompts.",
+          "The validator rejects accretion-governor operators whose receipt lacks candidate, nearest existing operators, novelty test, merge/extend decision, accretion risk, install-or-cap decision, or future reentry rule.",
+          "The dogfood receipt proves the live repeated seed moved from only the root Capability Gap Ladder to a retained novelty/merge gate before installing another operator."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "operator accretion",
+          "operator novelty",
+          "novelty gate",
+          "new operator gate",
+          "add another cognitive operator",
+          "another cognitive operator",
+          "install another operator",
+          "installing more",
+          "new cognitive operators",
+          "merge existing operator",
+          "merge reuse existing operator",
+          "operator sprawl",
+          "operator proliferation",
+          "should this be a new operator",
+          "repeated autonomous seed"
+        ],
+        "opens_when": [
+          "The task asks for a new cognitive operator after the registry already contains active operators.",
+          "A proposed operator overlaps existing operators but would add a distinct decision contract or validation field.",
+          "The agent needs to decide between installing a new row, extending an existing row, merging behavior, creating a cap, or rejecting the candidate.",
+          "Repeated seed prompts risk accumulating operators without a retained novelty/merge decision."
+        ],
+        "skip_when": [
+          "The task is an exact implementation for a previously selected operator.",
+          "The proposed work is only passport propagation for an existing operator.",
+          "The operator stack has not yet selected a candidate thinking mode through the Capability Gap Ladder.",
+          "The next step is a high-blast mutation that should become a cap before registry changes."
+        ]
+      },
+      "process": [
+        "Name the candidate operator and the live problem it would change.",
+        "List nearest existing operators and the specific contract each already covers.",
+        "Run a novelty test: new decision state, new receipt fields, new routing behavior, or new validation semantics must be present.",
+        "Choose one decision: install new operator, merge into existing operator, extend an existing contract, cap the work, or reject the candidate.",
+        "If installing, record the accretion risk and the smallest substrate that prevents future unchecked accretion.",
+        "If merging, name the target row and exact fields or hooks to update instead of creating a new operator.",
+        "Retain a future reentry rule so the next seed knows when to run this governor before adding more operators."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A governor that does not preserve why existing operators were insufficient becomes an excuse to add more operators."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If add/merge/novelty prompts still select only the root Capability Gap Ladder, the operator did not change future seed cognition."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "An accretion governor without its own passport cannot interrupt repeated seed-driven operator authoring."
+      },
+      "operator_accretion_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "candidate_operator",
+          "nearest_existing_operators",
+          "novelty_test",
+          "merge_or_extend_decision",
+          "accretion_risk",
+          "install_or_cap_decision",
+          "future_reentry_rule"
+        ],
+        "failure_mode": "A new-operator decision without nearest-neighbor, novelty, merge, risk, install/cap, and reentry fields is only rationale."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_accretion_governor",
+          "context_pack_anchor": "add another cognitive operator, new cognitive operators, merge/reuse existing operator, novelty gate, operator sprawl, and repeated autonomous seed prompts select this operator directly"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_operator_accretion_governor]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "receipt_fields": [
+            "candidate_operator",
+            "nearest_existing_operators",
+            "novelty_test",
+            "merge_or_extend_decision",
+            "accretion_risk",
+            "install_or_cap_decision",
+            "future_reentry_rule"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "acceptance": "active accretion-governor operators require complete passport fields, causal evidence, counterevidence, and operator-accretion receipt fields"
+        },
+        "task_selection_hooks": [
+          "After Capability Gap Ladder selects a candidate and before adding a new cognitive operator, run this governor to test novelty against nearest existing operators.",
+          "When a seed prompt repeats operator-installation language after the registry already has active rows, require install, merge, extend, cap, or reject output.",
+          "When an existing operator can carry the thinking mode with a passport, route, validation, or receipt extension, merge there instead of adding a row."
+        ],
+        "future_seed_behavior": [
+          "Future autonomous seeds should run this governor after the root missing-capability selector and before authoring another operator row.",
+          "Future seeds should retain the nearest existing operator comparison even when the final decision is install.",
+          "Future seeds should treat unchecked operator growth as a cognition-risk surface, not as proof of increasing intelligence.",
+          "Closeout should name whether the seed installed, merged, extended, capped, or rejected the candidate and cite the retained decision receipt."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Add-another-operator, novelty-gate, merge/reuse, operator-sprawl, and repeated-autonomous-seed prompts select cogop_operator_accretion_governor through context-pack.",
+          "The card row exposes operator_accretion_contract.required=true and operator_validation.operator_accretion_required=true.",
+          "The validator rejects accretion-required operators whose dogfood receipt lacks candidate operator, nearest existing operators, novelty test, merge/extend decision, accretion risk, install-or-cap decision, or future reentry rule.",
+          "At least one dogfood receipt proves a live repeated seed changed from only the root Capability Gap Ladder to a retained novelty/merge decision before new operator installation."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"decide whether this autonomous seed should add another cognitive operator or merge reuse an existing operator before installing more\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_accretion_governor",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::operator_accretion_extension",
+        "codex/standards/principles/std_system_axiom_candidate.json::axiom_candidate_availability_before_invention",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "system/lib/cognitive_operator_registry.py",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_operator_accretion_governor_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_attention_frame_rehydrator",
+      "slug": "attention-frame-rehydrator",
+      "title": "Attention Frame Rehydrator",
+      "status": "active",
+      "claim": "When an agent faces reread pressure, stale-read errors, resume ambiguity, or mutation from old context, it must rehydrate the relevant AttentionFrame and bind selected handles, freshness constraints, and mutation boundary before widening reads or editing.",
+      "compression_passport": {
+        "cluster_keys": [
+          "attention frame",
+          "attention state",
+          "working attention",
+          "stale read",
+          "reread same files",
+          "rediscovery cost",
+          "mutation boundary",
+          "selected handles"
+        ],
+        "atom": "Rehydrate task-local attention before reread or edit",
+        "when_to_open": "Open when a task mentions attention frames, reread clusters, rediscovery cost, stale read/write errors, file modified since read, selected/focused handles, resume from frame ids, or mutation-boundary checks.",
+        "when_not_to_open": "Do not open for ordinary first-contact navigation, an exact source read that is already selected by a current route lease, or a task whose attention frame was already rehydrated and validated in the current receipt.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
+        "landmines": [
+          "Do not treat AttentionFrame runtime existence as proof that agents will use it.",
+          "Do not solve stale reads by broad rereads when a frame already names selected handles and freshness constraints.",
+          "Do not mutate from an attention frame without checking the mutation boundary and validation return condition."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for attention-frame, reread, stale-read, rediscovery, selected-handle, and mutation-boundary prompts.",
+          "The validator rejects attention-frame operators whose receipt lacks the attention frame surface, binding, retained handles, freshness constraints, mutation boundary, rehydration result, or validation return condition.",
+          "The dogfood receipt proves a live reread/stale-context prompt moved from broad system rows to this operator and the existing AttentionFrame substrate."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "attention frame",
+          "attention-state",
+          "attention state",
+          "working attention",
+          "reread same files",
+          "reread cluster",
+          "rediscovery cost",
+          "stale read",
+          "file modified since read",
+          "file has not been read",
+          "selected handles",
+          "focused handles",
+          "mutation boundary",
+          "resume from frame ids",
+          "rehydrate working context"
+        ],
+        "opens_when": [
+          "Session diagnostics show rereads, rediscovery, stale-read/write errors, or edit-after-stale-context pressure.",
+          "A task asks how to preserve selected evidence, handles, freshness constraints, or mutation boundaries across navigation and validation.",
+          "An agent is about to reopen broad source surfaces even though an AttentionFrame or task frame can carry the relevant attention state.",
+          "A resume or handoff needs task-local selected handles rather than global latest chat memory."
+        ],
+        "skip_when": [
+          "The active task is only first-contact route selection and no prior attention state exists.",
+          "The next action is a direct exact-path read or validation already named by a current route lease.",
+          "A current receipt already records attention frame surface, binding, handles, freshness constraints, mutation boundary, and validation return condition for this task."
+        ]
+      },
+      "process": [
+        "Name the live attention-loss symptom: reread cluster, stale read/write, resume ambiguity, selected-handle loss, or mutation-boundary uncertainty.",
+        "Resolve the narrowest existing AttentionFrame or binding route before broad rereads.",
+        "Extract retained handles, trusted authorities, freshness constraints, and mutation boundary from the attention-state packet.",
+        "Compare the frame against the intended next action and reject stale or unrelated frames.",
+        "Run the smallest validation or route check that proves the frame changes the next decision.",
+        "Record the frame surface, binding, handles, constraints, mutation boundary, rehydration result, and validation return condition in the dogfood receipt."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "An attention-frame operator that does not preserve why route leases, prompt assimilation, or Task Ledger already cover the problem becomes a duplicate memory slogan."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If stale-read/reread prompts still select broad system rows before an attention-frame operator, this did not change cognition."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "Without a passport, the existing AttentionFrame substrate remains invisible to task selection."
+      },
+      "attention_frame_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "attention_frame_surface",
+          "frame_binding",
+          "retained_handles",
+          "freshness_constraints",
+          "mutation_boundary",
+          "rehydration_result",
+          "validation_return_condition"
+        ],
+        "failure_mode": "Attention-frame use without surface, binding, handles, freshness, mutation, rehydration, and validation fields is only remembered context."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
+          "context_pack_anchor": "attention-frame, stale-read, reread, rediscovery, selected-handle, focused-handle, resume, and mutation-boundary prompts select this operator before broad source rereads"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_attention_frame_rehydrator]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "attention_events": "state/navigation_trace/attention_events.jsonl",
+          "receipt_fields": [
+            "attention_frame_surface",
+            "frame_binding",
+            "retained_handles",
+            "freshness_constraints",
+            "mutation_boundary",
+            "rehydration_result",
+            "validation_return_condition"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "attention_state_smoke": "./repo-python kernel.py --attention-state latest --band flag",
+          "acceptance": "active attention-frame operators require complete passport fields, causal evidence, counterevidence, and attention-frame receipt fields"
+        },
+        "task_selection_hooks": [
+          "When session diagnostics or tool errors show repeated rereads, stale-read/write failures, or selected-handle loss, run this operator before more broad source reads.",
+          "When a task needs mutation safety after navigation, rehydrate the AttentionFrame and check mutation_boundary before editing.",
+          "When context-pack misses this operator for attention-frame prompts, treat the prompt as route-training evidence for this row rather than adding a parallel memory surface."
+        ],
+        "future_seed_behavior": [
+          "Future autonomous seeds should treat AttentionFrame runtime as existing substrate and install only task-selection, validation, or receipt wiring around it.",
+          "Future seeds should preserve the frame binding and validation return condition when claiming a reread or stale-write problem changed behavior.",
+          "Future seeds should reject broad rereads when the attention frame already carries selected handles and freshness constraints.",
+          "Closeout should name whether an attention frame was rehydrated, ignored as stale, or unavailable, and cite the dogfood receipt or cap."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Attention-frame, stale-read, reread, rediscovery, selected-handle, and mutation-boundary prompts select cogop_attention_frame_rehydrator through context-pack.",
+          "The card row exposes attention_frame_contract.required=true and operator_validation.attention_frame_required=true.",
+          "The validator rejects attention-frame-required operators whose dogfood receipt lacks attention frame surface, binding, retained handles, freshness constraints, mutation boundary, rehydration result, or validation return condition.",
+          "At least one dogfood receipt proves a live stale-context prompt changed from broad system rows to this operator and the existing AttentionFrame route."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"agents reread same files lose working attention frame stale read errors file modified since read rediscovery cost\" --context-budget 12000",
+          "./repo-python kernel.py --attention-state latest --band flag",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::attention_frame_extension",
+        "system/lib/navigation_trace.py",
+        "system/lib/kernel/commands/embed.py::cmd_attention_state",
+        "system/lib/kernel/commands/navigate.py",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "system/server/tests/test_navigation_trace.py",
+        "system/server/tests/test_mission_transaction_landing_preflight.py",
+        "state/navigation_trace/attention_events.jsonl",
+        "state/task_ledger/ledger.json::navigation_attention_frame_persistence"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_attention_frame_rehydrator_20260511.json"
+      ]
+    },
+    {
+      "operator_id": "cogop_landing_handoff_compiler",
+      "slug": "landing-handoff-compiler",
+      "title": "Landing Handoff Compiler",
+      "status": "active",
+      "claim": "When validated work cannot be landed because commit authority, protected Git metadata, concurrency, or another finalizer blocker stops scoped landing, the agent must compile a machine-readable handoff packet with blocker, owned paths, validation evidence, authority requirement, status binding, and reentry rule before yielding.",
+      "compression_passport": {
+        "cluster_keys": [
+          "landing handoff",
+          "validated slice",
+          "commit blocked",
+          "git metadata",
+          "owned path set",
+          "handoff packet",
+          "reentry rule"
+        ],
+        "atom": "Compile validated-but-unlanded work into a reentry packet",
+        "when_to_open": "Open when a task mentions validated but uncommitted work, scoped commit blocked, protected Git metadata, commit authority, exact owned paths, landing blockers, handoff packets, or reentry rules.",
+        "when_not_to_open": "Do not open for ordinary dirty-tree inspection, pre-validation implementation work, or a slice already landed through scoped commit with no residual handoff need.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
+        "landmines": [
+          "Do not replace scoped commit discipline with a prose note.",
+          "Do not stage broadly to resolve a landing blocker in a mixed tree.",
+          "Do not call a slice closed if the next agent lacks exact owned paths, validation evidence, and the authority requirement."
+        ],
+        "sufficiency_claims": [
+          "Context-pack selects this row for validated-slice, commit-blocked, Git-metadata, owned-path, landing-handoff, and reentry-rule prompts.",
+          "The validator rejects landing-handoff operators whose receipt lacks blocker, owned path set, validation evidence, commit authority requirement, handoff packet, status binding, or reentry rule.",
+          "The dogfood receipt proves a live commit-blocked validated slice changed from no selected operator to this landing handoff route."
+        ]
+      },
+      "activation": {
+        "trigger_phrases": [
+          "landing handoff",
+          "landing continuity",
+          "validated slice",
+          "validated but uncommitted",
+          "uncommitted validated",
+          "uncommitted slice",
+          "commit blocked",
+          "scoped commit blocked",
+          "git metadata",
+          "metadata write denied",
+          "protected git metadata",
+          "commit authority",
+          "owned path set",
+          "exact owned paths",
+          "landing blocker",
+          "handoff packet",
+          "reentry rule",
+          "commit finalizer",
+          "scoped landing"
+        ],
+        "opens_when": [
+          "A validated change cannot be committed or otherwise landed in the current authority context.",
+          "Mission transaction preflight or scoped commit reports Git metadata, concurrency, index, or finalizer authority blocked.",
+          "A future agent needs exact owned paths and validation evidence rather than a broad dirty-tree summary.",
+          "A closeout would otherwise mention uncommitted validated work only in chat."
+        ],
+        "skip_when": [
+          "The work has not yet reached validation evidence.",
+          "The scoped commit or landing lane is available and can be completed immediately.",
+          "The task is only dirty-tree triage with no validated slice to preserve.",
+          "A current handoff packet already records blocker, owned paths, validation evidence, authority requirement, status binding, and reentry rule."
+        ]
+      },
+      "process": [
+        "Name the validated-but-unlanded symptom and classify the finalizer blocker.",
+        "Resolve the exact owned path set from mission preflight, tests, and recent mutations; exclude unrelated dirty tree state.",
+        "Attach validation evidence with command, result, and covered behavior.",
+        "State the authority requirement for safe landing, including what must not be done in the current context.",
+        "Bind status into Task Ledger or the owning status surface before user-facing closeout.",
+        "Emit a handoff packet with reentry commands and a rule for the next seed or agent.",
+        "Run a route check proving future landing-blocked prompts select this operator."
+      ],
+      "counterevidence_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "counterevidence_checked",
+          "disconfirmation_result",
+          "surviving_claim"
+        ],
+        "failure_mode": "A landing operator that does not check Task Ledger, AttentionFrame, Route Lease, and mission transaction coverage becomes duplicate handoff prose."
+      },
+      "causal_trial_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "pre_action_prediction",
+          "no_effect_falsifier",
+          "intervention",
+          "post_action_observation",
+          "prediction_result"
+        ],
+        "failure_mode": "If commit-blocked validated-slice prompts still select no landing operator, this did not change cognition."
+      },
+      "affordance_passport_contract": {
+        "required": true,
+        "required_passport_fields": [
+          "cluster_keys",
+          "atom",
+          "when_to_open",
+          "when_not_to_open",
+          "safe_drilldown",
+          "landmines",
+          "sufficiency_claims"
+        ],
+        "failure_mode": "Without a passport, future agents will find only generic transaction or dirty-tree surfaces."
+      },
+      "landing_handoff_contract": {
+        "required": true,
+        "required_receipt_fields": [
+          "landing_blocker",
+          "owned_path_set",
+          "validation_evidence",
+          "commit_authority_requirement",
+          "handoff_packet",
+          "status_binding",
+          "reentry_rule"
+        ],
+        "failure_mode": "Validated unlanded work without a blocker, owned paths, validation, authority requirement, handoff packet, status binding, and reentry rule is not retained as reusable cognition."
+      },
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators",
+          "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
+          "context_pack_anchor": "validated-slice, commit-blocked, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select this operator before generic dirty-tree or transaction summaries"
+        },
+        "memory": {
+          "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_landing_handoff_compiler]",
+          "dogfood_root": "state/cognitive_operators/dogfood",
+          "status_surfaces": [
+            "state/task_ledger/ledger.json",
+            "tools/meta/control/mission_transaction_preflight.py"
+          ],
+          "receipt_fields": [
+            "landing_blocker",
+            "owned_path_set",
+            "validation_evidence",
+            "commit_authority_requirement",
+            "handoff_packet",
+            "status_binding",
+            "reentry_rule"
+          ]
+        },
+        "validation": {
+          "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+          "route_smoke": "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
+          "acceptance": "active landing-handoff operators require complete passport fields, causal evidence, counterevidence, and landing-handoff receipt fields"
+        },
+        "task_selection_hooks": [
+          "When a validated slice cannot be committed because scoped commit, Git metadata, index, or finalizer authority is blocked, compile the landing handoff before more implementation.",
+          "When context-pack for a commit-blocked prompt selects only generic transaction surfaces or no row, treat it as route-training evidence for this operator.",
+          "Before closeout that mentions uncommitted validated work, bind a Task Ledger status item and preserve exact owned paths plus validation evidence."
+        ],
+        "future_seed_behavior": [
+          "Future autonomous seeds should check for stranded validated work before selecting new operator or backlog implementation.",
+          "Future seeds should land an existing validated handoff before expanding the change if the authority requirement is now available.",
+          "Future seeds must not summarize a stranded slice only in chat; they should cite the handoff packet, blocker, and reentry rule.",
+          "Closeout should name whether the validated slice was landed, remained blocked with a handoff packet, or was invalidated by a fresh preflight."
+        ]
+      },
+      "validation": {
+        "acceptance_criteria": [
+          "Validated-slice, commit-blocked, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select cogop_landing_handoff_compiler through context-pack.",
+          "The card row exposes landing_handoff_contract.required=true and operator_validation.landing_handoff_required=true.",
+          "The validator rejects landing-handoff-required operators whose dogfood receipt lacks landing blocker, owned path set, validation evidence, commit authority requirement, handoff packet, status binding, or reentry rule.",
+          "At least one dogfood receipt proves a live commit-blocked validated slice changed from no selected landing operator to this operator."
+        ],
+        "proof_commands": [
+          "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
+          "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
+        ]
+      },
+      "evidence_refs": [
+        "codex/standards/std_cognitive_operator.json::landing_handoff_extension",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "codex/doctrine/skills/kernel/solo_dev_checkpoint_discipline.md",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_index_spine.py",
+        "system/lib/cognitive_operator_registry.py",
+        "state/task_ledger/ledger.json::attention_frame_rehydrator_scoped_commit_blocked",
+        "state/cognitive_operators/dogfood"
+      ],
+      "dogfood_receipt_refs": [
+        "state/cognitive_operators/dogfood/cogop_landing_handoff_compiler_20260511.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "cognitive_operator_registry_negative_case_v1",
+  "expected_negative_case_id": "active_without_dogfood",
+  "operators": [
+    {
+      "operator_id": "cogop_active_without_dogfood_demo",
+      "slug": "active-without-dogfood-demo",
+      "title": "Active Without Dogfood Demo",
+      "status": "active",
+      "claim": "An active operator that never proved it changed a live decision.",
+      "activation": {
+        "trigger_phrases": ["active without dogfood"]
+      },
+      "process": ["Claim activeness without any dogfood receipt."],
+      "integration": {
+        "navigation": {
+          "kind_id": "cognitive_operators"
+        }
+      },
+      "validation": {
+        "acceptance_criteria": ["never validated"]
+      },
+      "evidence_refs": ["codex/standards/std_cognitive_operator.json"],
+      "dogfood_receipt_refs": []
+    }
+  ],
+  "dogfood_receipts": []
+}

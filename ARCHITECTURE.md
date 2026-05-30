@@ -62,7 +62,7 @@ Organs do not call each other. They bind to these kernel primitives, projected i
 
 ## Level 3 — the organ spine, grouped into families
 
-The 47 accepted organs cluster into 7 families. Open [ORGANS.md](ORGANS.md) for the full per-organ cards.
+The 48 accepted organs cluster into 7 families. Open [ORGANS.md](ORGANS.md) for the full per-organ cards.
 
 ```mermaid
 flowchart LR
@@ -72,7 +72,7 @@ flowchart LR
   R --> O[Observatory + explain]
   R --> S[Organ spine]
   S --> EAR["Entry & Reveal (2)"]
-  S --> AAN["Architecture & Navigation (6)"]
+  S --> AAN["Architecture & Navigation (7)"]
   S --> FMAP["Formal Math & Proof (17)"]
   S --> ARAS["Agent Reliability & Safety Replays (12)"]
   S --> RASR["Research & Science Replays (5)"]
@@ -85,7 +85,7 @@ flowchart LR
 | Family | Organs | What it helps you do |
 |---|---|---|
 | [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | How a cold human or agent first meets Microcosm and what the short guided path actually proves. |
-| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 6 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it. |
+| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 7 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it. |
 | [Formal Math & Proof](ORGANS.md#formal-math--proof) | 17 | The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates. |
 | [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 12 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
 | [Research & Science Replays](ORGANS.md#research--science-replays) | 5 | Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |

@@ -119,7 +119,7 @@ imported macro body.
 ## Accepted Public Runtime Spine
 
 This is the public entry inventory over `core/organ_registry.json` and
-`core/organ_evidence_classes.json`: 47 accepted public runtime organ records
+`core/organ_evidence_classes.json`: 48 accepted public runtime organ records
 with receipt-index status. Those counts are inventory-only route-alignment metadata:
 `accepted_current_authority`, organ counts, and adapter-backed counts are not product progress, release readiness, product completeness, proof
 authority,
@@ -139,7 +139,7 @@ The atlas is regenerated from substrate with
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
 `tests/test_organ_atlas.py`; do not hand-edit `ORGANS.md`/`ARCHITECTURE.md`.
 Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation` are
-documented per organ in [ORGANS.md](ORGANS.md). The 47 organs cluster into seven
+documented per organ in [ORGANS.md](ORGANS.md). The 48 organs cluster into seven
 families:
 
 ### Entry & Reveal (2)

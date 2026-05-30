@@ -2716,7 +2716,7 @@ def _current_host_pressure_packet(*, workload_class: str = "mixed_realistic") ->
             store,
             REPO_ROOT,
             event_limit=500,
-            include_processes=False,
+            include_processes=True,
             requested_workload_class=workload_class,
         )
     except Exception as exc:  # pragma: no cover - host adapters must degrade.

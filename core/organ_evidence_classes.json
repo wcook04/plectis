@@ -315,6 +315,11 @@
       "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy",
       "evidence_class": "semantic_validator",
       "organ_id": "voice_to_doctrine_self_improvement_loop"
+    },
+    {
+      "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
+      "evidence_class": "semantic_validator",
+      "organ_id": "cognitive_operator_registry"
     }
   ],
   "registry_id": "microcosm_organ_evidence_classes",

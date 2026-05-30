@@ -1,0 +1,242 @@
+{
+  "kind": "standard",
+  "schema_version": "standard_v1",
+  "id": "std_cognitive_operator",
+  "title": "Cognitive Operator Standard",
+  "purpose": "Define reusable thinking operators as activation-grade substrate with evidence, dogfood receipts, validation, and navigation/task-selection hooks.",
+  "authority": {
+    "registry": "codex/doctrine/cognitive_operators.json",
+    "projection_code": "system/lib/cognitive_operator_registry.py",
+    "option_surface": "cognitive_operators",
+    "dogfood_root": "state/cognitive_operators/dogfood",
+    "mutation_allowed": false
+  },
+  "compliance_scanner_contract": {
+    "standard_id": "std_cognitive_operator",
+    "scanner": "system/lib/compliance/cognitive_operator_adapter.py::scan_cognitive_operator",
+    "validator_source": "system/lib/cognitive_operator_registry.py::validate_cognitive_operator_registry",
+    "coverage_depth": "domain_runtime_or_projection_scan",
+    "coverage_row_kind": "domain_scanner",
+    "coverage_path": "codex/doctrine/cognitive_operators.json::operators",
+    "ledger_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_cognitive_operator",
+    "validation_probe": [
+      "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
+      "./repo-python tools/meta/factory/build_compliance_ledger.py --check --standard-id std_cognitive_operator",
+      "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_cognitive_operator"
+    ],
+    "navigation_use": {
+      "surface_role": "ATLAS_PROJECTION",
+      "claim": "Compliance row proves registry and dogfood validator coverage for cognitive-operator substrate; it is not mutation authority.",
+      "card_fields": [
+        "cognitive_operator_status",
+        "navigation_role",
+        "actionable_findings"
+      ]
+    }
+  },
+  "operator_shape": {
+    "schema_version": "cognitive_operator_registry_v0",
+    "required_fields": [
+      "operator_id",
+      "slug",
+      "title",
+      "status",
+      "claim",
+      "activation",
+      "process",
+      "integration",
+      "validation",
+      "evidence_refs",
+      "dogfood_receipt_refs"
+    ],
+    "status_values": [
+      "candidate",
+      "active",
+      "retired"
+    ]
+  },
+  "activation_contract": {
+    "rule": "A cognitive operator is usable only when its activation block names concrete trigger phrases, opens_when conditions, and skip_when constraints.",
+    "anti_pattern": "Treating an operator as inspirational prose without a bounded activation test."
+  },
+  "dogfood_contract": {
+    "required_receipt_fields": [
+      "receipt_id",
+      "operator_id",
+      "live_problem",
+      "evidence_surfaces",
+      "candidate_set",
+      "selected_operator",
+      "actions_taken",
+      "cognition_delta_evidence",
+      "result_state"
+    ],
+    "rule": "Every active operator must have at least one receipt proving it changed a live task decision, artifact, route, or validation result."
+  },
+  "counterevidence_extension": {
+    "purpose": "Operators that choose, install, or defend a thinking mode may require explicit negative evidence so future agents can see why the selected claim survived.",
+    "operator_field": "counterevidence_contract",
+    "required_receipt_fields_when_enabled": [
+      "counterevidence_checked",
+      "disconfirmation_result",
+      "surviving_claim"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation"
+  },
+  "causal_trial_extension": {
+    "purpose": "Operators that claim cognition changed must retain a pre/post causal comparison instead of only retrospective rationale.",
+    "operator_field": "causal_trial_contract",
+    "required_receipt_fields_when_enabled": [
+      "pre_action_prediction",
+      "no_effect_falsifier",
+      "intervention",
+      "post_action_observation",
+      "prediction_result"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation"
+  },
+  "composition_extension": {
+    "purpose": "Operators that coordinate multiple cognitive operators must retain the ordered chain, handoffs, and sequence result instead of leaving composition in prose.",
+    "operator_field": "composition_contract",
+    "required_receipt_fields_when_enabled": [
+      "operator_sequence",
+      "composition_decision",
+      "handoff_contracts",
+      "sequence_result"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation"
+  },
+  "affordance_passport_extension": {
+    "purpose": "Operators that should be selected by future agents must carry row-owned affordance fields instead of relying only on hardcoded prompt phrases or prose activation blocks.",
+    "operator_field": "affordance_passport_contract",
+    "required_operator_field_when_enabled": "compression_passport",
+    "required_passport_fields_when_enabled": [
+      "cluster_keys",
+      "atom",
+      "when_to_open",
+      "when_not_to_open",
+      "safe_drilldown",
+      "landmines",
+      "sufficiency_claims"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "context_pack_projection": "system/lib/navigation_context_pack.py::_affordance_passport"
+  },
+  "passport_propagation_extension": {
+    "purpose": "Operators that migrate trigger-only cognitive operators into passport-bearing rows must retain the source row, before/after coverage, remaining rows, and the rule for future propagation.",
+    "operator_field": "passport_propagation_contract",
+    "required_receipt_fields_when_enabled": [
+      "source_operator_id",
+      "target_operator_passport_written",
+      "coverage_before",
+      "coverage_after",
+      "remaining_unpassportized_operators",
+      "next_propagation_rule"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "coverage_projection": "system/lib/cognitive_operator_registry.py::validate_cognitive_operator_registry.affordance_passport_coverage"
+  },
+  "route_lease_extension": {
+    "purpose": "Operators that consume entry/context route leases must retain the lease id, selected lane, direct-action boundary, forbidden follow-up routes, and validation condition so navigation becomes action instead of repeated routing.",
+    "operator_field": "route_lease_contract",
+    "required_receipt_fields_when_enabled": [
+      "route_lease_id",
+      "lease_selected_lane",
+      "direct_action_boundary",
+      "consumed_by_action",
+      "forbidden_followup_routes",
+      "validation_return_condition"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python kernel.py --process-audit"
+  },
+  "prompt_route_assimilation_extension": {
+    "purpose": "Operators that convert prompt-derived route misses into retained future routing affordances must retain the source lens, phrase evidence, target surface, mutation, validation prompt, and retention check.",
+    "retention_policy": "Private or high-context prompt wording must be abstracted into the smallest reusable route phrase before it is retained; do not copy prompt lore into broad aliases when a typed operator, concept, standard, or option surface can carry the route.",
+    "operator_field": "prompt_route_assimilation_contract",
+    "required_receipt_fields_when_enabled": [
+      "source_lens",
+      "prompt_phrase",
+      "route_miss_evidence",
+      "target_surface",
+      "routing_mutation",
+      "validation_prompt",
+      "retention_check"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json"
+  },
+  "pressure_reduction_extension": {
+    "purpose": "Operators that reduce live backlog, queue, receipt, or ledger pressure into one bounded action must retain the competing pressure surfaces, decision axes, selected pressure, rejected pressures, status-binding target, and validation return condition.",
+    "operator_field": "pressure_reduction_contract",
+    "required_receipt_fields_when_enabled": [
+      "pressure_surfaces",
+      "selected_pressure",
+      "rejected_pressures",
+      "decision_axes",
+      "bounded_action",
+      "status_binding_target",
+      "validation_return_condition"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag; ./repo-python kernel.py --option-surface row_patches --band cluster_flag; ./repo-python kernel.py --option-surface transform_job_receipts --band cluster_flag"
+  },
+  "operator_accretion_extension": {
+    "purpose": "Operators that decide whether to add, merge, extend, cap, or reject proposed cognitive operators must retain the candidate, nearest existing operators, novelty test, merge/extend decision, accretion risk, install-or-cap decision, and future reentry rule.",
+    "operator_field": "operator_accretion_contract",
+    "required_receipt_fields_when_enabled": [
+      "candidate_operator",
+      "nearest_existing_operators",
+      "novelty_test",
+      "merge_or_extend_decision",
+      "accretion_risk",
+      "install_or_cap_decision",
+      "future_reentry_rule"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python kernel.py --context-pack \"decide whether this autonomous seed should add another cognitive operator or merge reuse an existing operator before installing more\" --context-budget 12000; ./repo-python kernel.py --option-surface cognitive_operators --band flag"
+  },
+  "attention_frame_extension": {
+    "purpose": "Operators that preserve task-local attention must retain the frame surface, binding, handles, freshness constraints, mutation boundary, rehydration result, and validation return condition instead of relying on chat memory or broad rereads.",
+    "operator_field": "attention_frame_contract",
+    "required_receipt_fields_when_enabled": [
+      "attention_frame_surface",
+      "frame_binding",
+      "retained_handles",
+      "freshness_constraints",
+      "mutation_boundary",
+      "rehydration_result",
+      "validation_return_condition"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python kernel.py --attention-state latest --band flag; ./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json"
+  },
+  "landing_handoff_extension": {
+    "purpose": "Operators that preserve validated-but-unlanded work must retain the blocker, owned paths, validation evidence, authority requirement, handoff packet, status binding, and reentry rule instead of leaving the next agent to rediscover a stranded slice.",
+    "operator_field": "landing_handoff_contract",
+    "required_receipt_fields_when_enabled": [
+      "landing_blocker",
+      "owned_path_set",
+      "validation_evidence",
+      "commit_authority_requirement",
+      "handoff_packet",
+      "status_binding",
+      "reentry_rule"
+    ],
+    "validator": "system/lib/cognitive_operator_registry.py::_operator_validation",
+    "trace_source": "./repo-python tools/meta/control/mission_transaction_preflight.py --subject-id <id> --owned-path <path> --fail-on-status blocked; ./repo-python kernel.py --option-surface task_ledger --band card --ids <cap_id>"
+  },
+  "integration_contract": {
+    "navigation": "The operator must be browsable through `./repo-python kernel.py --option-surface cognitive_operators --band flag` and a card-band row.",
+    "memory": "The registry row persists the operator; dogfood receipts persist use evidence.",
+    "validation": "The validator must reject active operators without evidence, activation, integration, and dogfood receipts.",
+    "task_selection": "The row must name task_selection_hooks so future agents can decide whether to run the operator before picking ordinary backlog work.",
+    "future_seed_behavior": "The row must include future_seed_behavior that tells cold agents how the operator affects first-pass reasoning."
+  },
+  "safety_rules": [
+    "Cognitive operator rows are not raw seed and must not claim operator voice authority.",
+    "A dogfood receipt is evidence of use, not proof of permanent doctrine correctness.",
+    "Operators may route Task Ledger captures, but they must not silently create high-blast work.",
+    "If an operator cannot be installed in the current turn, create a cap with failure evidence, acceptance criteria, first implementation surface, and a proposed experiment."
+  ]
+}
