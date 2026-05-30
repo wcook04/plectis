@@ -154,6 +154,49 @@ def _field_floor() -> dict[str, list[str]]:
     return manifest["validator_contract_ratchet_v1"]["per_output_receipt_field_floor"]
 
 
+def test_route_observability_trace_loader_streams_jsonl_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    trace_path = tmp_path / "agent_trace.jsonl"
+    trace_path.write_text(
+        '{"trace_id":"trace_001","route_id":"entry"}\n'
+        '["skip non-object rows"]\n'
+        "\n"
+        '{"trace_id":"trace_002","route_id":"context_pack"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == trace_path:
+            raise AssertionError("route observability JSONL loader should stream rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert agent_route_observability_runtime._load_jsonl(trace_path) == [
+        {"trace_id": "trace_001", "route_id": "entry"},
+        {"trace_id": "trace_002", "route_id": "context_pack"},
+    ]
+
+
+def test_route_observability_source_line_count_streams_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    source_path = tmp_path / "source.py"
+    source_path.write_text("alpha\n\nomega\n", encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == source_path:
+            raise AssertionError("source line counting should stream rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert agent_route_observability_runtime._source_line_count(source_path) == 3
+
+
 def test_agent_route_observability_source_module_manifests_make_body_copy_contract_explicit() -> None:
     manifests = sorted(
         AGENT_ROUTE_OBSERVABILITY_EXAMPLES_ROOT.glob("*/source_module_manifest.json")
