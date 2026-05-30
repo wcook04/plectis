@@ -29,7 +29,7 @@ def _scratch_project(tmp_path: Path) -> Path:
 
 
 def test_launch_compression_private_hit_scan_streams_nested_payloads(
-    tmp_path: Path,
+    tmp_path: Path, monkeypatch
 ) -> None:
     assert launch_compression._jsonable_has_private_hits(
         {"nested": [{"public": True}, {"path": "/Users/example/project"}]}
@@ -55,6 +55,21 @@ def test_launch_compression_private_hit_scan_streams_nested_payloads(
     assert launch_compression._state_files_have_private_hits(
         [state / "catalog.json", state / "notes.txt"]
     )
+
+    streamed = state / "streamed.jsonl"
+    streamed.write_text(
+        '{"path": "/Users/example/project"}\n' + '{"path": "public"}\n' * 1000,
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args, **kwargs) -> str:
+        if self == streamed:
+            raise AssertionError("state private-hit scan should stream bounded input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+    assert launch_compression._state_files_have_private_hits([streamed])
 
 
 def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> None:

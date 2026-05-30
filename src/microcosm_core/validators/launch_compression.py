@@ -68,11 +68,16 @@ def _jsonable_has_private_hits(value: Any) -> bool:
 
 
 def _state_files_have_private_hits(paths: list[Path]) -> bool:
-    return any(
-        _has_private_hits(path.read_text(encoding="utf-8"))
-        for path in paths
-        if path.suffix in {".json", ".jsonl"}
-    )
+    for path in paths:
+        if path.suffix not in {".json", ".jsonl"}:
+            continue
+        try:
+            with path.open("r", encoding="utf-8", errors="ignore") as fh:
+                if any(_has_private_hits(line) for line in fh):
+                    return True
+        except OSError:
+            continue
+    return False
 
 
 def _walk_state_files(project: Path) -> list[Path]:
