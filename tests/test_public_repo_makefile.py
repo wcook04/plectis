@@ -1,11 +1,84 @@
 from __future__ import annotations
 
+import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MAKEFILE = MICROCOSM_ROOT / "Makefile"
+CHECK_SMOKE_OUTPUTS = MICROCOSM_ROOT / "scripts" / "check_smoke_outputs.py"
+
+
+def _write_json(path: Path, payload: dict[str, object]) -> None:
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _write_valid_smoke_outputs(smoke_out: Path) -> None:
+    smoke_out.mkdir(parents=True)
+    (smoke_out / "hello.txt").write_text(
+        "Microcosm first screen\n",
+        encoding="utf-8",
+    )
+    (smoke_out / "version.txt").write_text("microcosm 0.1.0\n", encoding="utf-8")
+    _write_json(smoke_out / "first-screen-card.json", {"status": "pass"})
+    _write_json(
+        smoke_out / "tour-card.json",
+        {
+            "card_status": "clear",
+            "status": "pass",
+        },
+    )
+    _write_json(smoke_out / "status-card.json", {"status": "pass"})
+    _write_json(
+        smoke_out / "served-status-card.json",
+        {
+            "private_path_hit_count": 0,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "status": "pass",
+        },
+    )
+    _write_json(
+        smoke_out / "authority-card.json",
+        {
+            "authority_ceiling": {"release_authorized": False},
+            "status": "pass",
+            "surface_counts": {"organ_authority_count": 44},
+            "unsafe_payload_bodies_exported": False,
+        },
+    )
+    _write_json(
+        smoke_out / "workingness-card.json",
+        {
+            "authority_ceiling": {"release_authorized": False},
+            "card_status": "clear",
+            "status": "pass",
+            "surface_counts": {
+                "mapped_organ_count": 48,
+                "missing_failure_modes_count": 0,
+                "missing_standard_count": 0,
+            },
+        },
+    )
+    _write_json(
+        smoke_out / "legibility-scorecard.json",
+        {
+            "release_authorized": False,
+            "status": "pass",
+            "unsafe_payload_bodies_in_receipt": False,
+        },
+    )
+    _write_json(
+        smoke_out / "stripping-guard.json",
+        {
+            "release_authorized": False,
+            "status": "pass",
+            "unsafe_payload_bodies_in_receipt": False,
+        },
+    )
 
 
 def test_public_repo_makefile_exposes_standard_command_surface() -> None:
@@ -68,7 +141,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "> $(SMOKE_OUT)/status-card.json",
         "$(SMOKE_OUT)/served-status-card.json",
         "> $(SMOKE_OUT)/stripping-guard.json",
-        "Microcosm smoke receipts written to %s",
+        "$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
         "rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) .microcosm/test-tmp",
     ):
@@ -108,6 +181,59 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
     ):
         assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
     assert text.count("--out $(SMOKE_OUT)/served-status-card.json") == 1
+    assert text.count("scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)") == 1
+    assert "Microcosm smoke receipts written to %s" not in text
+
+
+def test_check_smoke_outputs_prints_public_pass_summary(tmp_path: Path) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Microcosm smoke check: pass" in result.stdout
+    assert f"receipts: {smoke_out}" in result.stdout
+    assert "authority: pass (44 organ authority rows, release false)" in result.stdout
+    assert (
+        "workingness: clear (48 mapped, 0 missing standards, 0 missing failure modes)"
+        in result.stdout
+    )
+    assert "served status: pass (0 private path hits)" in result.stdout
+    assert "version: microcosm 0.1.0" in result.stdout
+    assert result.stderr == ""
+
+
+def test_check_smoke_outputs_fails_when_workingness_is_not_clear(
+    tmp_path: Path,
+) -> None:
+    smoke_out = tmp_path / "smoke"
+    _write_valid_smoke_outputs(smoke_out)
+    workingness = json.loads(
+        (smoke_out / "workingness-card.json").read_text(encoding="utf-8"),
+    )
+    workingness["surface_counts"]["missing_standard_count"] = 1
+    _write_json(smoke_out / "workingness-card.json", workingness)
+
+    result = subprocess.run(
+        [sys.executable, str(CHECK_SMOKE_OUTPUTS), "--smoke-out", str(smoke_out)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "Microcosm smoke check: fail" in result.stderr
+    assert (
+        "workingness-card.json: expected surface_counts.missing_standard_count 0, got 1"
+        in result.stderr
+    )
 
 
 def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:

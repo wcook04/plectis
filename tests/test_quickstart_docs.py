@@ -36,6 +36,11 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         "Open `/workingness` only when you need the full per-organ "
         "failure-envelope map."
     ) in quickstart
+    assert "validates those receipts" in quickstart
+    assert "Microcosm smoke check: pass" in quickstart
+    assert "authority: pass" in quickstart
+    assert "workingness: clear" in quickstart
+    assert "served status: pass" in quickstart
     assert quickstart.index("- `/workingness-card`") < quickstart.index(
         "Open `/workingness` only"
     )

@@ -26,8 +26,10 @@ PYTHONPATH=src python3 -m microcosm_core hello .
 make smoke
 ```
 
-The smoke path writes command outputs under ignored `.microcosm/smoke/` and
-uses compact cards first:
+The smoke path writes command outputs under ignored `.microcosm/smoke/`,
+validates those receipts, and prints a compact terminal summary. A healthy run
+includes `Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`,
+and `served status: pass`. It uses compact cards first:
 
 ```bash
 microcosm hello .

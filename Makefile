@@ -73,7 +73,7 @@ smoke:
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
 	@$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
-	@printf 'Microcosm smoke receipts written to %s\n' "$(SMOKE_OUT)"
+	@$(PYTHON) scripts/check_smoke_outputs.py --smoke-out $(SMOKE_OUT)
 
 ci: test smoke
 
