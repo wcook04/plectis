@@ -37,6 +37,13 @@ TEXT_FILENAMES = {
     "Makefile",
     "NOTICE",
 }
+SCAN_CHUNK_SIZE = 64 * 1024
+SYNTHETIC_NEGATIVE_MARKERS = (
+    '"expected_negative_case": true',
+    '"expected_negative_case_id"',
+    '"negative_case_id"',
+    '"synthetic_negative_fixture": true',
+)
 
 PUBLIC_ROOT_DIR_NAME = "microcosm-substrate"
 PUBLIC_ROOT_RELATIVE_PREFIXES = (
@@ -316,7 +323,7 @@ def classify_public_safe_macro_import(
     }
 
 
-def _allowed_synthetic_negative(path: str, text: str) -> bool:
+def _is_expected_negative_fixture_path(path: str) -> bool:
     lowered = path.lower()
     if lowered.endswith("core/private_state_forbidden_classes.json"):
         return True
@@ -326,13 +333,20 @@ def _allowed_synthetic_negative(path: str, text: str) -> bool:
         return True
     if "pattern_binding_contract/input" not in lowered:
         return False
-    markers = (
-        '"expected_negative_case": true',
-        '"expected_negative_case_id"',
-        '"negative_case_id"',
-        '"synthetic_negative_fixture": true',
-    )
-    return any(marker in text for marker in markers)
+    return True
+
+
+def _allowed_synthetic_negative(path: str, text: str) -> bool:
+    if not _is_expected_negative_fixture_path(path):
+        return False
+    lowered = path.lower()
+    if lowered.endswith("core/private_state_forbidden_classes.json"):
+        return True
+    if lowered.endswith("private_state_forbidden_terms.json"):
+        return True
+    if lowered.startswith("tests/") or "/tests/" in lowered:
+        return True
+    return any(marker in text for marker in SYNTHETIC_NEGATIVE_MARKERS)
 
 
 def _path_hit(path: str, source_context: str) -> dict[str, Any] | None:
@@ -470,6 +484,94 @@ def _unreadable_text_result(
     }
 
 
+def _scan_path_with_terms(
+    path: Path,
+    *,
+    public_path: str,
+    forbidden_classes: dict[str, Any],
+    terms: list[dict[str, str]],
+    source_context: str,
+) -> dict[str, Any]:
+    matched_term_indexes: set[int] = set()
+    marker_seen = False
+    public_path_lower = public_path.lower()
+    negative_path = _is_expected_negative_fixture_path(public_path)
+    markers = (
+        SYNTHETIC_NEGATIVE_MARKERS
+        if negative_path
+        and not public_path_lower.endswith("core/private_state_forbidden_classes.json")
+        and not public_path_lower.endswith("private_state_forbidden_terms.json")
+        and not public_path_lower.startswith("tests/")
+        and "/tests/" not in public_path_lower
+        else ()
+    )
+    needles = [term["token"] for term in terms] + list(markers)
+    overlap = max((len(needle) for needle in needles), default=1) - 1
+    chunk_size = max(1, int(SCAN_CHUNK_SIZE))
+    tail = ""
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            while True:
+                chunk = handle.read(chunk_size)
+                if not chunk:
+                    break
+                window = f"{tail}{chunk}"
+                for index, term in enumerate(terms):
+                    if index not in matched_term_indexes and term["token"] in window:
+                        matched_term_indexes.add(index)
+                if not marker_seen:
+                    marker_seen = any(marker in window for marker in markers)
+                tail = window[-overlap:] if overlap > 0 else ""
+    except (UnicodeDecodeError, OSError) as error:
+        return _unreadable_text_result(
+            path=public_path,
+            error=error,
+            forbidden_classes=forbidden_classes,
+        )
+
+    path_based = _path_hit(public_path, source_context)
+    hits: list[dict[str, Any]] = []
+    if path_based is not None:
+        hits.append(path_based)
+
+    allowed_negative = negative_path and (
+        public_path_lower.endswith("core/private_state_forbidden_classes.json")
+        or public_path_lower.endswith("private_state_forbidden_terms.json")
+        or public_path_lower.startswith("tests/")
+        or "/tests/" in public_path_lower
+        or marker_seen
+    )
+    for index, term in enumerate(terms):
+        if index not in matched_term_indexes:
+            continue
+        hit = {
+            "path": public_path,
+            "forbidden_class": term["forbidden_class"],
+            "term_id": term["term_id"],
+            "body_redacted": True,
+            "remediation": term["remediation"],
+        }
+        if allowed_negative:
+            hit["expected_negative_case"] = True
+        hits.append(hit)
+
+    blocking_hits = [hit for hit in hits if not hit.get("expected_negative_case")]
+    if any(hit.get("forbidden_class") == "target_only_not_source" for hit in blocking_hits):
+        status = BLOCKED_PUBLIC_WRITE
+    elif blocking_hits:
+        status = BLOCKED_PRIVATE
+    else:
+        status = PASS
+    return {
+        "status": status,
+        "hits": hits,
+        "forbidden_output_fields": ["matched_excerpt", "body"],
+        "body_redacted": True,
+        "scan_scope": _scan_scope(forbidden_classes),
+        "anti_claim": _anti_claim(forbidden_classes),
+    }
+
+
 def scan_paths(
     paths: list[str | Path],
     *,
@@ -491,21 +593,10 @@ def scan_paths(
             continue
         scanned += 1
         public_path = public_relative_path(path, display_root=root)
-        try:
-            text = path.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, OSError) as error:
-            results.append(
-                _unreadable_text_result(
-                    path=public_path,
-                    error=error,
-                    forbidden_classes=forbidden_classes,
-                )
-            )
-            continue
         results.append(
-            _scan_text_with_terms(
-                text,
-                path=public_path,
+            _scan_path_with_terms(
+                path,
+                public_path=public_path,
                 forbidden_classes=forbidden_classes,
                 terms=terms,
                 source_context=source_context,

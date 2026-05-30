@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from unittest.mock import patch
 
 from microcosm_core import private_state_scan
 from microcosm_core.private_state_scan import (
@@ -60,6 +61,28 @@ def test_scan_paths_reuses_forbidden_terms_across_files(
     assert result["status"] == PASS
     assert result["scanned_path_count"] == 3
     assert calls == 1
+
+
+def test_scan_paths_streams_file_without_materializing_text(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    fixture = tmp_path / "streamed.txt"
+    fixture.write_text("prefix SYNTHETIC_RAW_SEED_BODY_SENTINEL suffix", encoding="utf-8")
+    monkeypatch.setattr(private_state_scan, "SCAN_CHUNK_SIZE", 7)
+
+    with patch.object(
+        Path,
+        "read_text",
+        side_effect=AssertionError("scan_paths must not materialize file text"),
+    ):
+        result = scan_paths([fixture], forbidden_classes=policy)
+
+    assert result["status"] == BLOCKED_PRIVATE
+    assert result["scanned_path_count"] == 1
+    assert result["hits"][0]["term_id"] == "raw_seed_body_sentinel"
+    assert "matched_excerpt" not in result["hits"][0]
 
 
 def test_scan_paths_reuses_inferred_display_root_across_files(
