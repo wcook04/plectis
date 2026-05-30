@@ -87,6 +87,32 @@ def test_event_id_allocation_counts_existing_lines_without_decoding_history(
     )
 
 
+def test_read_jsonl_streams_dict_rows_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    jsonl_path = tmp_path / "events.jsonl"
+    jsonl_path.write_text(
+        '{"event_id":"evt_0001","span":"seed"}\n'
+        '["skip non-object rows"]\n'
+        "\n"
+        '{"event_id":"evt_0002","span":"next"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == jsonl_path:
+            raise AssertionError("_read_jsonl should stream JSONL rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert project_substrate._read_jsonl(jsonl_path) == [
+        {"event_id": "evt_0001", "span": "seed"},
+        {"event_id": "evt_0002", "span": "next"},
+    ]
+
+
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
     tmp_path: Path,
 ) -> None:
