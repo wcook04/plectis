@@ -62,6 +62,40 @@ def test_scan_paths_reuses_forbidden_terms_across_files(
     assert calls == 1
 
 
+def test_scan_paths_reuses_inferred_display_root_across_files(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    public_root = tmp_path / "microcosm-substrate"
+    public_root.mkdir()
+    fixtures = []
+    for index in range(3):
+        fixture = public_root / f"clean_{index}.txt"
+        fixture.write_text(f"public body {index}\n", encoding="utf-8")
+        fixtures.append(fixture.resolve())
+
+    calls = 0
+    original_public_root_for_path = private_state_scan._public_root_for_path
+
+    def counted_public_root_for_path(path):
+        nonlocal calls
+        calls += 1
+        return original_public_root_for_path(path)
+
+    monkeypatch.setattr(
+        private_state_scan,
+        "_public_root_for_path",
+        counted_public_root_for_path,
+    )
+
+    result = scan_paths(fixtures, forbidden_classes=policy)
+
+    assert result["status"] == PASS
+    assert result["scanned_path_count"] == 3
+    assert calls == 1
+
+
 def test_scanner_blocks_unreadable_text_candidate_without_body(tmp_path: Path) -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     fixture = tmp_path / "bad.txt"

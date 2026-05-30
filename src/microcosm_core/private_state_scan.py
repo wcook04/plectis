@@ -98,18 +98,19 @@ def public_relative_path(path: str | Path, *, display_root: str | Path | None = 
         return raw_path.as_posix()
 
     resolved = _resolved(raw_path)
-    roots: list[Path] = []
     if display_root is not None:
-        roots.append(_resolved(Path(display_root)))
-    inferred_root = _public_root_for_path(raw_path)
-    if inferred_root is not None:
-        roots.append(inferred_root)
-
-    for root in roots:
+        root = _resolved(Path(display_root))
         try:
             return resolved.relative_to(root).as_posix()
         except ValueError:
-            continue
+            pass
+
+    inferred_root = _public_root_for_path(raw_path)
+    if inferred_root is not None:
+        try:
+            return resolved.relative_to(root).as_posix()
+        except ValueError:
+            pass
     return resolved.as_posix()
 
 
