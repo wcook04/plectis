@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -76,8 +78,22 @@ def _bounded_observatory_serve_command(project_label: str) -> str:
     return f"{_observatory_serve_command(project_label)} --max-requests 6"
 
 
+def _json_cache_key(path: Path) -> tuple[str, int, int]:
+    stat = path.stat()
+    return path.resolve().as_posix(), stat.st_mtime_ns, stat.st_size
+
+
+@lru_cache(maxsize=128)
+def _load_json_object(path_ref: str, mtime_ns: int, size: int) -> Any:
+    del mtime_ns, size
+    return json.loads(Path(path_ref).read_text(encoding="utf-8"))
+
+
 def _load_standard(root: Path) -> dict[str, Any]:
-    return json.loads((root / STANDARD_REF).read_text(encoding="utf-8"))
+    payload = _load_json_object(*_json_cache_key(root / STANDARD_REF))
+    if not isinstance(payload, dict):
+        raise TypeError(f"{STANDARD_REF} must contain a JSON object")
+    return payload
 
 
 def _string_set(rows: Any) -> set[str]:
@@ -294,7 +310,7 @@ def _standard_backed_first_screen_scan(
 
 def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
     try:
-        payload = json.loads((root / ref).read_text(encoding="utf-8"))
+        payload = _load_json_object(*_json_cache_key(root / ref))
     except (json.JSONDecodeError, OSError):
         return {}
     if not isinstance(payload, dict):
@@ -1509,17 +1525,21 @@ def _evidence_class_legend(root: Path) -> dict[str, Any]:
             {
                 "evidence_class": class_id,
                 "label": EVIDENCE_CLASS_LABELS[class_id],
-                "claim_ceiling": profile.get("claim_ceiling"),
-                "evaluator_basis": profile.get("evaluator_basis"),
-                "negative_case_independence": profile.get(
-                    "negative_case_independence"
+                "claim_ceiling": deepcopy(profile.get("claim_ceiling")),
+                "evaluator_basis": deepcopy(profile.get("evaluator_basis")),
+                "negative_case_independence": deepcopy(
+                    profile.get("negative_case_independence")
                 ),
-                "truth_accounting_bucket": profile.get("truth_accounting_bucket"),
+                "truth_accounting_bucket": deepcopy(
+                    profile.get("truth_accounting_bucket")
+                ),
                 "counts_as_real_substrate_progress": profile.get(
                     "counts_as_real_substrate_progress"
                 )
                 is True,
-                "evidence_strength_rank": profile.get("evidence_strength_rank"),
+                "evidence_strength_rank": deepcopy(
+                    profile.get("evidence_strength_rank")
+                ),
                 "reader_rule": "declared_claim_ceiling_not_maturity_or_release_score",
             }
         )
@@ -1528,8 +1548,8 @@ def _evidence_class_legend(root: Path) -> dict[str, Any]:
         "schema_version": "microcosm_evidence_class_legend_v1",
         "source_ref": EVIDENCE_CLASS_REGISTRY_REF,
         "interpretation": "claim_boundary_legend_not_score",
-        "authority_boundary": registry.get("authority_boundary"),
-        "anti_claim": registry.get("anti_claim"),
+        "authority_boundary": deepcopy(registry.get("authority_boundary")),
+        "anti_claim": deepcopy(registry.get("anti_claim")),
         "reader_rule": (
             "Each evidence class names what a count can claim and what it cannot "
             "claim. It is a public claim-boundary legend, not a benchmark, release "
@@ -3198,16 +3218,16 @@ def first_screen_composition_card(
         "state_write_boundary": _state_write_boundary(project_label),
         "observatory_landing_frame": _observatory_landing_frame(project_label),
         "drilldowns": _drilldowns(project_label),
-        "omission_receipt": standard["omission_receipt"],
-        "authority_ceiling": standard["authority_ceiling"],
-        "anti_claim": standard["anti_claim"],
+        "omission_receipt": deepcopy(standard["omission_receipt"]),
+        "authority_ceiling": deepcopy(standard["authority_ceiling"]),
+        "anti_claim": deepcopy(standard["anti_claim"]),
         "public_private_boundary": {
-            "allowed_public_inputs": standard["public_private_boundary"][
-                "allowed_public_inputs"
-            ],
-            "forbidden_public_inputs": standard["public_private_boundary"][
-                "forbidden_public_inputs"
-            ],
+            "allowed_public_inputs": deepcopy(
+                standard["public_private_boundary"]["allowed_public_inputs"]
+            ),
+            "forbidden_public_inputs": deepcopy(
+                standard["public_private_boundary"]["forbidden_public_inputs"]
+            ),
         },
         "validator_id": standard["validator_contract"]["validator_id"],
     }

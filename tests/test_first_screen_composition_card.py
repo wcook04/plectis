@@ -1278,6 +1278,30 @@ def test_first_screen_standard_scan_binds_card_to_standard_contract() -> None:
     )
 
 
+def test_first_screen_static_json_loads_are_cached_between_cards() -> None:
+    from microcosm_core import first_screen_composition
+
+    first_screen_composition._load_json_object.cache_clear()
+
+    first_card = first_screen_composition.first_screen_composition_card(
+        MICROCOSM_ROOT,
+        project_label=".",
+    )
+    after_first = first_screen_composition._load_json_object.cache_info()
+
+    second_card = first_screen_composition.first_screen_composition_card(
+        MICROCOSM_ROOT,
+        project_label=".",
+    )
+    after_second = first_screen_composition._load_json_object.cache_info()
+
+    assert first_card["status"] == "pass"
+    assert second_card["status"] == "pass"
+    assert after_first.misses > 0
+    assert after_second.misses == after_first.misses
+    assert after_second.hits > after_first.hits
+
+
 def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     result = subprocess.run(
         [
