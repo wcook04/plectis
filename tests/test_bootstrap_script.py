@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import tomllib
@@ -117,6 +118,40 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
     ]
     assert not argv_log.exists()
     assert not receipt.exists()
+
+
+def test_bootstrap_custom_emit_writes_bound_probe_receipt(tmp_path: Path) -> None:
+    receipt = tmp_path / "cold_clone_probe_custom.json"
+    env = os.environ.copy()
+    env["MICROCOSM_RECEIPT_WRITES"] = "1"
+    env["MICROCOSM_RUNTIME_RECEIPT_WRITES"] = "1"
+
+    result = _run_bootstrap(
+        "--suite",
+        "first-wave",
+        "--emit",
+        str(receipt),
+        env=env,
+    )
+
+    assert result.returncode == 0
+    assert result.stderr == ""
+    assert result.stdout.splitlines() == [
+        "Microcosm cold-clone probe passed",
+        "suite: first-wave",
+        f"receipt: {receipt}",
+        "next: README.md#public-repo-map and README.md#component-map",
+    ]
+    payload = json.loads(receipt.read_text(encoding="utf-8"))
+    assert payload["schema_version"] == "cold_clone_probe_receipt_v1"
+    assert payload["status"] == "pass"
+    assert payload["emit_ref"] == str(receipt)
+    assert payload["receipt_paths"][0] == str(receipt)
+    assert payload["command"] == (
+        f"./bootstrap.sh --suite first-wave --emit {receipt}"
+    )
+    assert payload["secret_exclusion_scan"]["status"] == "pass"
+    assert payload["private_state_scan"]["status"] == "pass"
 
 
 def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:
