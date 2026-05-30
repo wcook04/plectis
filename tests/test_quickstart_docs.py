@@ -31,6 +31,14 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         "--port 8765 --max-requests 6"
     ) in quickstart
     assert "If you are staying source-only" in quickstart
+    assert "- `/workingness-card`" in quickstart
+    assert (
+        "Open `/workingness` only when you need the full per-organ "
+        "failure-envelope map."
+    ) in quickstart
+    assert quickstart.index("- `/workingness-card`") < quickstart.index(
+        "Open `/workingness` only"
+    )
     assert "microcosm first-screen --card ." in compact_smoke
     assert (
         compact_smoke.index("microcosm hello .")

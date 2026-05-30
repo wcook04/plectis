@@ -75,8 +75,11 @@ drilldowns are:
 - `/project/status`
 - `/project/first-screen`
 - `/project/observatory-card`
+- `/workingness-card`
 - `/project/first-screen-full`
 - `/project/observatory`
+
+Open `/workingness` only when you need the full per-organ failure-envelope map.
 
 ## 4. Verify The Public Floor
 

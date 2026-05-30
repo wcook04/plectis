@@ -97,6 +97,8 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "PYTHONPATH=src python3 -m microcosm_core legibility-scorecard",
         "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6",
         "/project/observatory-card",
+        "/workingness-card",
+        "Open `/workingness` only when you need the full per-organ failure-envelope map.",
         "make ci",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
