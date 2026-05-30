@@ -14,6 +14,7 @@ from .private_state_scan import (
 )
 
 BLOCKED_SECRET_EXCLUSION = BLOCKED_PRIVATE
+TEXT_SUFFIXES = frozenset(_legacy.TEXT_SUFFIXES)
 
 
 def _without_legacy_body_fields(row: dict[str, Any]) -> dict[str, Any]:
@@ -140,6 +141,7 @@ __all__ = [
     "BLOCKED_PUBLIC_WRITE",
     "BLOCKED_SECRET_EXCLUSION",
     "PASS",
+    "TEXT_SUFFIXES",
     "classify_public_safe_macro_import",
     "load_forbidden_classes",
     "normalize_secret_exclusion_scan",

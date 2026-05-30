@@ -12,7 +12,7 @@ from microcosm_core.secret_exclusion_scan import (
     scan_paths,
     scan_text,
 )
-from microcosm_core.validators.secret_exclusion_scan import validate_scan
+from microcosm_core.validators.secret_exclusion_scan import _iter_scan_paths, validate_scan
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -218,3 +218,30 @@ def test_secret_exclusion_validator_skips_local_runtime_residue(tmp_path: Path) 
     assert blocked["status"] == BLOCKED_SECRET_EXCLUSION
     assert blocked["secret_exclusion_scan"]["blocking_hit_count"] == 1
     assert blocked["secret_exclusion_scan"]["hits"][0]["path"] == "public_sentinel.txt"
+
+
+def test_secret_exclusion_validator_only_collects_scannable_text_suffixes(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "microcosm-substrate"
+    (root / "src").mkdir(parents=True)
+    (root / "README.md").write_text("scan me\n", encoding="utf-8")
+    (root / "src/module.py").write_text("print('scan me')\n", encoding="utf-8")
+    (root / "image.bin").write_bytes(b"SYNTHETIC_RAW_SEED_BODY_SENTINEL\n")
+    (root / "Makefile").write_text("SYNTHETIC_RAW_SEED_BODY_SENTINEL\n", encoding="utf-8")
+    (root / "config.yaml").write_text(
+        "SYNTHETIC_RAW_SEED_BODY_SENTINEL\n",
+        encoding="utf-8",
+    )
+    (root / "node_modules/pkg").mkdir(parents=True)
+    (root / "node_modules/pkg/index.txt").write_text(
+        "SYNTHETIC_RAW_SEED_BODY_SENTINEL\n",
+        encoding="utf-8",
+    )
+
+    paths = {
+        path.relative_to(root).as_posix()
+        for path in _iter_scan_paths(root)
+    }
+
+    assert paths == {"README.md", "src/module.py"}

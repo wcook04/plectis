@@ -6,7 +6,12 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.receipts import base_receipt, write_receipt
-from microcosm_core.secret_exclusion_scan import PASS, load_forbidden_classes, scan_paths
+from microcosm_core.secret_exclusion_scan import (
+    PASS,
+    TEXT_SUFFIXES,
+    load_forbidden_classes,
+    scan_paths,
+)
 
 
 SKIP_DIRS = {
@@ -50,7 +55,7 @@ def _iter_scan_paths(root: Path) -> list[Path]:
         ]
         for filename in filenames:
             path = current / filename
-            if not _is_local_residue(path, root):
+            if path.suffix in TEXT_SUFFIXES and not _is_local_residue(path, root):
                 paths.append(path)
     return paths
 
