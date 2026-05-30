@@ -115,6 +115,24 @@ def test_public_surfaces_do_not_emit_true_authority_fields_outside_negative_fixt
     assert violations == []
 
 
+def test_committed_receipts_do_not_carry_host_absolute_paths() -> None:
+    forbidden_markers = ("/private/tmp", "/Users/", "src/ai_workflow")
+    violations: list[str] = []
+    receipts_root = MICROCOSM_ROOT / "receipts"
+
+    for path in sorted(receipts_root.rglob("*")):
+        if not path.is_file() or path.suffix not in {".json", ".jsonl"}:
+            continue
+        relative = path.relative_to(MICROCOSM_ROOT)
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            for marker in forbidden_markers:
+                if marker in line:
+                    violations.append(f"{relative}:{line_number}:{marker}")
+
+    assert violations == []
+
+
 def test_secret_exclusion_expected_negative_fixture_does_not_block() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     text = '{"expected_negative_case": true, "body": "SYNTHETIC_RAW_SEED_BODY_SENTINEL"}'

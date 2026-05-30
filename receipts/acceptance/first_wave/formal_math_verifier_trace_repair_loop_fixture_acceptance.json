@@ -36,9 +36,9 @@
   "missing_negative_cases": [],
   "organ_id": "formal_math_verifier_trace_repair_loop",
   "receipt_paths": [
-    "/private/tmp/microcosm-verifier-trace-repair-fixture-body-import/formal_math_verifier_trace_repair_loop_result.json",
-    "/private/tmp/microcosm-verifier-trace-repair-fixture-body-import/verifier_trace_repair_board.json",
-    "/private/tmp/microcosm-verifier-trace-repair-fixture-body-import/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
     "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
   ],
   "schema_version": "formal_math_verifier_trace_repair_loop_fixture_acceptance_v1",
