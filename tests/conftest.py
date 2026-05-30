@@ -14,6 +14,12 @@ TRACKED_RUNTIME_RECEIPTS = (MICROCOSM_ROOT / "receipts/runtime_shell").resolve(
 )
 
 
+def pytest_configure(config: pytest.Config) -> None:
+    basetemp = getattr(config.option, "basetemp", None)
+    if basetemp:
+        Path(basetemp).parent.mkdir(parents=True, exist_ok=True)
+
+
 def _is_tracked_runtime_receipt(path: Path) -> bool:
     try:
         path.resolve(strict=False).relative_to(TRACKED_RUNTIME_RECEIPTS)
