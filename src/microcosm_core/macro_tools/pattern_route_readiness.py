@@ -98,7 +98,7 @@ def _bundle_public_root(input_dir: str | Path) -> Path:
 
 def _receipt_ref(path: Path, public_root: Path) -> str:
     ref = public_relative_path(path, display_root=public_root)
-    if Path(ref).is_absolute() and "receipts" in path.parts:
+    if "receipts" in path.parts:
         receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
         return Path(*path.parts[receipts_index:]).as_posix()
     return ref
@@ -118,31 +118,32 @@ def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     if not path.is_file():
         return rows
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-        stripped = line.strip()
-        if not stripped:
-            continue
-        try:
-            value = json.loads(stripped)
-        except json.JSONDecodeError as exc:
-            rows.append(
-                {
-                    "_invalid_jsonl": True,
-                    "_line_number": line_number,
-                    "_error": str(exc),
-                }
-            )
-            continue
-        if isinstance(value, dict):
-            rows.append(value)
-        else:
-            rows.append(
-                {
-                    "_invalid_jsonl": True,
-                    "_line_number": line_number,
-                    "_error": "jsonl row is not an object",
-                }
-            )
+    with path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            stripped = line.strip()
+            if not stripped:
+                continue
+            try:
+                value = json.loads(stripped)
+            except json.JSONDecodeError as exc:
+                rows.append(
+                    {
+                        "_invalid_jsonl": True,
+                        "_line_number": line_number,
+                        "_error": str(exc),
+                    }
+                )
+                continue
+            if isinstance(value, dict):
+                rows.append(value)
+            else:
+                rows.append(
+                    {
+                        "_invalid_jsonl": True,
+                        "_line_number": line_number,
+                        "_error": "jsonl row is not an object",
+                    }
+                )
     return rows
 
 

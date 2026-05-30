@@ -9,6 +9,7 @@ from typing import Any
 import pytest
 
 from microcosm_core.cold_clone_probe import PATTERN_RECEIPTS, run_probe
+from microcosm_core.macro_tools import pattern_route_readiness
 from microcosm_core.organs import pattern_binding_contract as pattern_binding
 from microcosm_core.organs.pattern_binding_contract import (
     EXPECTED_NEGATIVE_CASES,
@@ -44,6 +45,35 @@ def _walk_keys(payload: object) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_route_readiness_jsonl_reader_streams_without_full_text_read(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    ledger = tmp_path / "pattern_ledger_rows.jsonl"
+    ledger.write_text(
+        json.dumps({"pattern_id": "pat_one"}) + "\n"
+        "\n"
+        '{"malformed"\n'
+        '["not", "object"]\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == ledger:
+            raise AssertionError("_read_jsonl_rows should stream ledger lines")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    rows = pattern_route_readiness._read_jsonl_rows(ledger)
+
+    assert rows[0] == {"pattern_id": "pat_one"}
+    assert rows[1]["_invalid_jsonl"] is True
+    assert rows[1]["_line_number"] == 3
+    assert rows[2]["_invalid_jsonl"] is True
+    assert rows[2]["_error"] == "jsonl row is not an object"
 
 
 def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Path) -> None:

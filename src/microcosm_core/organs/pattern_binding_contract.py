@@ -240,6 +240,13 @@ def _strip_microcosm_prefix(ref: str) -> str:
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
+def _public_receipt_ref(path: Path) -> str:
+    if "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        return Path(*path.parts[receipts_index:]).as_posix()
+    return public_relative_path(path)
+
+
 def _sha256(path: Path) -> str:
     return "sha256:" + _file_sha256(path)
 
@@ -1243,10 +1250,7 @@ def _write_substrate_bundle_receipt(out_dir: str | Path, validation_result: dict
     target.mkdir(parents=True, exist_ok=True)
     path = target / SUBSTRATE_BUNDLE_RESULT_NAME
     payload = dict(validation_result)
-    receipt_path = public_relative_path(path)
-    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
-        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
-        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    receipt_path = _public_receipt_ref(path)
     extra_paths = [
         str(path)
         for path in validation_result.get("receipt_paths", [])
@@ -1289,9 +1293,9 @@ def write_receipts(out_dir: str | Path, validation_result: dict[str, Any]) -> di
         "authority_chain_receipt",
     ):
         result_payload.pop(internal_key, None)
-    result_payload["receipt_paths"] = [public_relative_path(path) for path in paths.values()]
+    result_payload["receipt_paths"] = [_public_receipt_ref(path) for path in paths.values()]
     write_json_atomic(paths["pattern_binding_validation_result"], result_payload)
-    return {key: public_relative_path(path) for key, path in paths.items()}
+    return {key: _public_receipt_ref(path) for key, path in paths.items()}
 
 
 def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
