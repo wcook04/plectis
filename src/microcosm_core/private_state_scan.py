@@ -108,7 +108,7 @@ def public_relative_path(path: str | Path, *, display_root: str | Path | None = 
     inferred_root = _public_root_for_path(raw_path)
     if inferred_root is not None:
         try:
-            return resolved.relative_to(root).as_posix()
+            return resolved.relative_to(inferred_root).as_posix()
         except ValueError:
             pass
     return resolved.as_posix()

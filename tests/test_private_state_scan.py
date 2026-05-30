@@ -135,6 +135,23 @@ def test_public_root_scan_paths_are_public_relative() -> None:
         assert "body" not in hit
 
 
+def test_public_relative_path_falls_back_to_inferred_public_root(
+    tmp_path: Path,
+) -> None:
+    display_root = tmp_path / "microcosm-substrate"
+    display_root.mkdir()
+    source_path = MICROCOSM_ROOT / "src/microcosm_core/private_state_scan.py"
+
+    result = private_state_scan.public_relative_path(
+        source_path,
+        display_root=display_root,
+    )
+
+    assert result == "src/microcosm_core/private_state_scan.py"
+    assert "/Users/" not in result
+    assert "src/ai_workflow" not in result
+
+
 def test_expected_negative_fixture_does_not_block_root_scan() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     text = '{"expected_negative_case": true, "body": "SYNTHETIC_RAW_SEED_BODY_SENTINEL"}'
