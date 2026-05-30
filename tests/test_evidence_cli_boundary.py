@@ -178,6 +178,15 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert len(payload["evidence"]) == 2
 
 
+def test_cli_evidence_list_rejects_negative_limit(capsys) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["evidence", "list", "--limit", "-1"])
+
+    assert excinfo.value.code == 2
+    stderr = capsys.readouterr().err
+    assert "argument --limit: must be >= 0" in stderr
+
+
 def test_project_evidence_list_only_reads_returned_limit(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

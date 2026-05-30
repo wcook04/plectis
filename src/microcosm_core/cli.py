@@ -44,6 +44,15 @@ TEXT_READER_CHOICES = (
     "hiring_reviewer",
     "peer_developer",
 )
+
+
+def _nonnegative_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("must be >= 0")
+    return parsed
+
+
 first_screen_composition = _LazyModule("microcosm_core.first_screen_composition")
 project_substrate = _LazyModule("microcosm_core.project_substrate")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
@@ -1556,7 +1565,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     evidence_list_parser.add_argument(
         "--limit",
-        type=int,
+        type=_nonnegative_int,
         default=25,
         help="maximum rows to print; use 0 for the full list",
     )
