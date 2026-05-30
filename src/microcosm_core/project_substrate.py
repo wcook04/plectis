@@ -2508,8 +2508,14 @@ def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
+    evidence_paths = sorted(_evidence_dir(project).glob("*.json"))
+    returned_paths = (
+        evidence_paths
+        if limit is None
+        else evidence_paths[: max(limit, 0)]
+    )
     rows: list[dict[str, Any]] = []
-    for path in sorted(_evidence_dir(project).glob("*.json")):
+    for path in returned_paths:
         payload = _read_project_json(project, f"{EVIDENCE_DIR}/{path.name}")
         rows.append(
             {
@@ -2525,15 +2531,14 @@ def list_evidence(
                 ),
             }
         )
-    returned_rows = rows if limit is None else rows[: max(limit, 0)]
     return {
         **_base_payload("microcosm_project_evidence_list_v1", project),
         "project_ref": _project_arg_ref(project_path, project),
-        "evidence_count": len(rows),
-        "returned_evidence_count": len(returned_rows),
+        "evidence_count": len(evidence_paths),
+        "returned_evidence_count": len(rows),
         "limit": limit,
-        "truncated": len(returned_rows) < len(rows),
-        "evidence": returned_rows,
+        "truncated": len(rows) < len(evidence_paths),
+        "evidence": rows,
     }
 
 

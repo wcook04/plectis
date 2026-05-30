@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import cli
+from microcosm_core import project_substrate
 
 
 def _payload(capsys) -> dict:
@@ -175,3 +176,43 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert payload["limit"] == 2
     assert payload["truncated"] is True
     assert len(payload["evidence"]) == 2
+
+
+def test_project_evidence_list_only_reads_returned_limit(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "ready-project"
+    evidence_dir = project / ".microcosm" / "evidence"
+    evidence_dir.mkdir(parents=True)
+    for index in range(5):
+        (evidence_dir / f"result_{index}.json").write_text(
+            "{}\n",
+            encoding="utf-8",
+        )
+    read_refs: list[str] = []
+
+    def read_project_json(project_path: Path, rel: str) -> dict[str, object]:
+        read_refs.append(rel)
+        return {
+            "schema_version": "microcosm_project_evidence_v1",
+            "status": "pass",
+            "project_id": project_path.name,
+        }
+
+    monkeypatch.setattr(
+        project_substrate,
+        "_read_project_json",
+        read_project_json,
+    )
+
+    payload = project_substrate.list_evidence(project, limit=2)
+
+    assert payload["status"] == "pass"
+    assert payload["evidence_count"] == 5
+    assert payload["returned_evidence_count"] == 2
+    assert payload["truncated"] is True
+    assert read_refs == [
+        "evidence/result_0.json",
+        "evidence/result_1.json",
+    ]
