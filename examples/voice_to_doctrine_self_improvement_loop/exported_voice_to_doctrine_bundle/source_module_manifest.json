@@ -62,9 +62,9 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 24776,
+      "byte_count": 32649,
       "copy_mode": "exact_file_copy",
-      "line_count": 188,
+      "line_count": 239,
       "material_class": "public_macro_skill_body",
       "module_id": "local_to_general_propagation_skill_body",
       "required_anchors": [
@@ -75,14 +75,14 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "source_sha256": "970793c5f11b6828b91d4cc73ff942e1965ed598adefa0c442fea511d39b9dd7",
+      "source_sha256": "f92f6fdd2dea1fd8aa43565d890b3243cb6658e6d7fdc732fc1c3f391c78727c",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-      "target_sha256": "970793c5f11b6828b91d4cc73ff942e1965ed598adefa0c442fea511d39b9dd7"
+      "target_sha256": "f92f6fdd2dea1fd8aa43565d890b3243cb6658e6d7fdc732fc1c3f391c78727c"
     },
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 33130,
+      "byte_count": 32672,
       "copy_mode": "exact_file_copy",
       "line_count": 179,
       "material_class": "public_macro_skill_body",
@@ -94,9 +94,9 @@
       "required_anchors_present": true,
       "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
-      "source_sha256": "9ac3ef7dc6ad47f4230451af6ce50d94b4465adcad101f294290c684067da411",
+      "source_sha256": "a37189545acfd986e48314119e513cd42f97160694402966539086a20105b8a6",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
-      "target_sha256": "9ac3ef7dc6ad47f4230451af6ce50d94b4465adcad101f294290c684067da411"
+      "target_sha256": "a37189545acfd986e48314119e513cd42f97160694402966539086a20105b8a6"
     },
     {
       "body_copied": true,

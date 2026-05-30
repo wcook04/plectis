@@ -12,10 +12,18 @@ triggers:
   - "A local failure, route miss, repeated workaround, stale projection, or agent confusion might represent a reusable failure class"
   - "An operator gives a pasted snippet, log line, or sibling-agent quote and asks for non-overfit system refinement"
   - "An operator gives a pasted trace capsule, old transcript, or prior-agent trace and asks for generalized system refinement"
+  - "An unverified handoff, route map, or dirty-baseline note needs generalized trace refinement"
   - "A runtime prerequisite, readiness probe, or background launcher blocker needs a generalized receipt boundary"
   - "A trace shows repeated detection or classification while actuator, validator, or generated-builder closure remains unproven"
+  - "A trace shows macro/public mirror copy refresh, exact-copy manifest drift, source-to-target digest drift, or public safety membrane before write"
   - "A trace asks for better Playwright, computer use, frontend control, click/drag modeling, or agent-native actuator integration"
   - "An actuator or UI-control tool should generalize from screenshots into receipt-grade perception and state-change proof"
+  - "A trace expands browser control into Mac/app/VM/background reality control and needs focus-debt, risk-gate, sensor escalation, or adversarial-control receipts"
+  - "A trace closeout reports mission-owned work clean while global closeout, publication, autonomous commits, or foreign dirty clusters remain unsettled"
+  - "A generated public receipt refresh would mix legitimate count changes with volatile local paths, mtimes, or cache refs"
+  - "A closeout scheduler or stop hook keeps selecting moving foreign drain clusters after a mission verdict proves owned work clean"
+  - "A trace builds a foundry, generator, compiler, scaffold, or authoring surface when the operator wanted the object-level outputs it should produce"
+  - "A trace exposes proof handles, code_loci drift, owner-tool fields, auto-stubs, or visible debt count changes"
   - "Mechanism/WorkItem boundary confusion appears: should mechanisms merge with WorkItems, mechanisms describe work, or mechanism pressure should cluster WorkItems"
 focus_paths:
   - codex/doctrine/skills/doctrine/local_to_general_propagation.md
@@ -64,13 +72,52 @@ When the fragment is a long trace capsule or prior-agent transcript, split it be
 
 Do not trust a transcript summary over live state. Before using it as more than historical evidence, check the current owner surface: HEAD/worktree for code claims, route output for navigation claims, tests/checkers for validator claims, and process/readiness receipts for runtime claims.
 
+For advisory handoff traces, do not let embedded domain nouns override latest operator intent. Treat "interpretation not verified", route maps, prior-thread notes, and dirty-baseline language as advisory evidence. Prove live substrate, baseline state, owner surfaces, and sanctioned verifier before continuing; for generalized refinement, patch the propagation/route owner.
+
 For runtime and launcher-shaped snippets, the generalized rule is receipt separation. A missing executable, backend, provider socket, daemon, browser binary, model weight, API key, or local service is not "fixed" until the owning lane distinguishes dependency availability, install/setup attempt, launch attempt, readiness probe, validation state (`passed`, `failed`, `blocked`, or `not_run`), and background-process receipt when work continues detached. Background work that stays alive needs a visible pid/session id, log path, readiness command, and stop/retry command; otherwise close it as blocked/not-run or capture the residual.
 
 If the trace shows repeated detection, throttling, classification, or advisory gating while the problem persists, inspect the actuator lane before adding another detector. The useful owner may be a cleanup command, liveness classifier, persistent local config, readiness probe, or deferred maintenance capture. Cheap relief and heavy maintenance have different receipts; defer heavy work with an exact retry condition when host pressure makes it unsafe.
 
 For validator or authority-gate trace snippets, green happy-path output is not enough when the trace suggests a loosened gate, partial coverage, generated/source mismatch, or positive-overclaim risk. Require at least one negative or adversarial receipt proving forbidden cases fail, distinguish affirmative overclaim prose from negated ceiling language, and land generated artifacts with their builder/source authority or capture the pairing gap.
 
+For proof-handle or lattice traces, separate executable authority from decorative completeness. A cited `code_loci`, path/function, validator, specimen, or receipt is proof only after live owner resolution proves the path and callable/scope; path-only checks do not settle function drift. Classify gaps as hand-curated, owner-tool/generated, projection freshness, checker false positive, or authoring debt. Use owner tools for auto-stubs/back-mirrors/projections; hand-author only bounded exemplars. If repair raises visible debt while closing defects, call it debt exposure and capture the residual.
+
 If the trace says work was "already fixed", "already green", or "ready to commit", the generalized move is not to redo the whole embedded task. Revalidate live state, then choose the narrow action that closes the present intent: commit the coherent owned slice, capture the residual with exact evidence, or refine the propagation/validator/actuator rule that would make the trace shape easier for the next agent to consume.
+
+For capability-scaffold traces, distinguish the surface from the run. A foundry, generator, compiler, planner, authoring lane, synthesis spec, or "create X" affordance is not the object-level output it promises. If the operator asks for outputs, require a run or blocked/not-run receipt, candidate dispositions, validation/readback, and residual capture. Patch only the portable boundary: requested output, scaffold, run state, dispositions, validation, and residuals. Product names and one trace's metaphors are examples unless the selected owner is that lane.
+
+### Mirrored-Substrate Drift-Refresh Traces
+
+When a trace is about copying a "better version" from an authority substrate into a public mirror, fixture bundle, extracted microcosm, generated example, or any source-to-target projection, do not generalize into "copy the named file." The reusable rule is mirror maintenance with source authority, manifest coverage, actuator discipline, and a pre-write safety membrane.
+
+Extract and route these fields before mutating:
+
+1. authority and mirror boundary: source root, target mirror, source-to-target relation, and whether the target is exact-copy, public-light-edit, generated projection, fixture, or runnable substrate;
+2. currentness check: current source hash, recorded source hash, target hash, required anchors, and whether the live owner actuator or manifest reader sees drift;
+3. scout boundary: subagent, transcript, or bespoke scanner output is advisory until rechecked against live files and the owner manifest/actuator;
+4. coverage boundary: verify every encoding the mirror family uses, not only the newest manifest shape or the easiest directory glob;
+5. safety membrane: before any verbatim public write, scan pending source bodies for private paths, credential-shaped tokens, account/session/provider payloads, and other disclosure-class material;
+6. actuator boundary: use the sanctioned refresh/copy/generator lane when it exists, and treat hand-copy as a fallback that must explain why the owner lane cannot cover the row;
+7. validation boundary: a dry-run drift report is not green validation; rerun owner tests/checkers and re-scan until the dry-run is clean or a residual is captured.
+
+If a specialist owner already carries the concrete loop, patch the parent only with the portable mirror rule and route terms, then leave product-specific commands in the child skill or standard. Do not bloat the parent with one mirror's CLI flags.
+
+### Mission-Scoped Closeout / Provenance Traces
+
+When a trace closeout says an owned wave is landed but the broader repo remains dirty, ahead, or blocked, separate receipts by authority before acting. The reusable rule is mission-scoped provenance: prove the current run's owned path set, commit refs, validation refs, and generated-artifact state independently from global dirty-tree, publication, and foreign-owner work.
+
+Extract and route these fields before mutating:
+
+1. owned-slice proof: declared owned paths or prefixes, staged-index state, `HEAD`/commit refs, and the command that proves the owned slice is clean;
+2. commit provenance: distinguish scoped commits, autonomous/background commits, and operator/broad-checkpoint commits; revalidate claims against `HEAD`, diff, log, or pickaxe before citing them;
+3. foreign work boundary: classify dirty clusters, Work Ledger claims, closeout-executor drain lanes, and same-path ownership; do not land or "clean up" foreign clusters under the current mission;
+4. publication boundary: local commit, push/ahead state, remote-ref proof, and publication authorization are separate receipts; a push gate cannot erase a landed local mission, and a local mission does not imply push authority;
+5. volatile receipt boundary: if regenerating a public/generated receipt mixes legitimate count changes with `/tmp`, absolute local paths, mtimes, cache refs, or unrelated cascades, commit only the clean owned projection or capture the regen blocker with exact acceptance criteria;
+6. validation classification: distinguish superseded wrong-runner failures from configured-runner failures, and report each validation as `passed`, `failed`, `blocked`, or `not_run`.
+
+For moving closeout-scheduler traces, re-check the selected drain cluster immediately before treating it as current. A plan-selected cluster is advisory until pathspec status and ownership claims still show it live. Use exact owned path lists when possible; broad directory prefixes such as a whole tests directory can overclaim unrelated sibling tests and turn foreign churn into a false owned blocker. If the exact owned slice is clean and only foreign/global drain or unauthorized publication remains, emit the typed held verdict and stop chasing the global queue as mission work.
+
+Global `closeout_ready=false` is not itself proof that the current mission is incomplete. It becomes actionable only after the closeout packet identifies whether the blocker is owned, foreign, publication-only, volatile-generated-state, or a real same-path hard stop.
 
 ### Agent-Native Control / Perception Traces
 
@@ -88,15 +135,19 @@ Extract and route these fields before mutating:
 
 Screenshot existence is never sufficient control proof. A screenshot can be an artifact inside the receipt, but the action is only usable by future agents when the receipt says what was targeted, why it was safe to act, what happened, what failed or warned, and which next action is supported.
 
+When the trace broadens from browser/frontend control into background Mac/app/VM or "parallel reality" control, the reusable rule is typed reality authority, not hidden host control. Extract the reality handle, sensor stack, actuator stack, isolation level, authority scope, risk gate, focus-debt measurement, performance budget, and adversarial receipts. Prefer semantic no-focus sensors and actuators such as DOM, accessibility, app APIs, or managed browser sessions before region pixels, full screenshots, raw host input, or provider vision. Provider computer-use models may propose `ActionIntent` objects; they are not the authority layer that decides risk, focus, execution, or receipt truth.
+
+Focus claims require measured receipts. A failed focus probe, missing frontmost-app reading, or unknown focus state must not be normalized to `none`; classify it as `unknown` or `warn/fail`. A risk gate that is merely computed but not enforced is a safety failure, not a closeout detail. Receipt fields that echo user input, selected values, secrets, or account/session material must be redacted or summarized. For powerful control planes, run adversarial verification against no-focus claims, risk-denied actions, redaction, reuse/doc claims, and cleanup/leak boundaries before calling the control substrate landed.
+
 ## Mission Propagation Verbs
 
-For autonomous-seed work, `self-propagate`, generalized self-propagation, and pair propagation mean: route the local lesson into the smallest durable owner surface, then patch that surface when the owner is known and the write is safe. Close with `refined_existing_surface`, `workitem_captured`, or a stewardship-proven `nothing_to_refine`. `workitem_captured` is a residual lane, not the default outcome: use it only when the owner surface is unsafe, blocked, not yet discoverable, or the operator explicitly asked for capture/record-only bookkeeping. A null closeout is valid only when the pass checked stewardship and next-best bounded substrate-care lanes, or recorded the exact blocker/follow-up. If the request also mentions the Codex app queue, open `type_a_autonomous_seed_loop` and `std_autonomous_seed_prompt` first so the receiver treats queued prompts as mission delivery, not automation.
+For autonomous-seed work, `self-propagate`, generalized self-propagation, and pair propagation mean: route the lesson to the smallest durable owner, then patch it when known and safe. Close with `refined_existing_surface`, `workitem_captured`, or stewardship-proven `nothing_to_refine`. `workitem_captured` is residual transport, not the default; use it only when the owner is unsafe, blocked, undiscoverable, or capture-only was requested. If the request mentions the Codex app queue, open `type_a_autonomous_seed_loop` and `std_autonomous_seed_prompt` so queued prompts stay mission delivery, not automation.
 
 When the same request asks for subagents or sidecars, use them as bounded evidence scouts or disjoint implementation slices, not as the propagation result. The receiving Type A thread still owns the plane-home decision, path claims, source mutation or already-propagated proof, validation receipt, and closeout wording.
 
 Native worker availability is not a completion gate. If a requested subagent or sidecar is unavailable, saturated, late, or no longer needed after controller-owned validation, continue through the smallest viable Type A/Type B lane and record the condition only when it blocks an owned gate or changes reusable delegation policy. For standards/compliance waves, the scanner, adapter, ledger refresh, and route proof are the deliverables; optional worker scouting must not hold the propagation closeout open.
 
-For standards-compliance propagation, prefer an existing owner check before writing a new rule. If a standard already has a builder/checker pair such as `check_navigation_type_plane()`, project that checker into a read-only compliance adapter and let the ledger surface `stale_projection`, `refresh_needed`, `missing_required_field`, or `schema_violation` findings. Do not duplicate drift logic in the adapter when the owner tool already knows how to rebuild or validate the generated projection. If a standard names a scanner but `compliance_ledger` still reports `baseline_inventory_only`, treat that as a source-to-registry handoff: implement/register the adapter and focused tests, then refresh the generated ledger instead of hand-editing it. A subagent may scout candidate standards and owner checks, but the controller owns the adapter, registry wiring, generated refresh, and route proof.
+For standards-compliance propagation, prefer an existing owner check before writing a new rule. If a standard already has a builder/checker, project it into a read-only compliance adapter and let the ledger surface `stale_projection`, `refresh_needed`, `missing_required_field`, or `schema_violation`. Do not duplicate drift logic the owner tool can rebuild or validate. If a standard names a scanner but `compliance_ledger` reports `baseline_inventory_only`, implement/register the adapter and focused tests, then refresh the generated ledger. Scouts may identify owner checks; the controller owns adapter wiring, refresh, and route proof.
 
 When current governed artifacts contain producer states that the standard forgot to name, refine the standard first rather than forcing historical receipts through a false-negative scanner. Add the observed state, retention boundary, or legacy alias explicitly, then make the adapter validate the full corpus semantics, sibling/back-pointer links, and owner route proof through `compliance_ledger`. Ephemeral or ignored support artifacts should be metadata unless the standard says local retention is authority.
 
