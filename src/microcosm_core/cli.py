@@ -1044,6 +1044,12 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
     proof_lab = payload.get("proof_lab")
     if not isinstance(proof_lab, dict):
         return None
+    current_default_card = _status_card_current_default_proof_lab_card(proof_lab)
+    if current_default_card is not None:
+        proof_lab = _overlay_current_proof_lab_cache_status(
+            proof_lab,
+            current_default_card,
+        )
     safe_to_show = proof_lab.get("safe_to_show")
     if not isinstance(safe_to_show, dict):
         safe_to_show = {}
@@ -1053,6 +1059,7 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
         "endpoint": proof_lab.get("endpoint") or "/proof-lab",
         "route_id": proof_lab.get("route_id"),
         "receipt_ref": proof_lab.get("receipt_ref"),
+        "current_receipt_ref": proof_lab.get("current_receipt_ref"),
         "route_component_count": proof_lab.get("route_component_count")
         or proof_lab.get("proof_lab_route_component_count"),
         "proof_bodies_exported": safe_to_show.get("proof_bodies_exported", False),
@@ -1062,6 +1069,56 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
         if isinstance(proof_lab.get("cache_action"), dict)
         else _proof_lab_cache_action_hint(proof_lab.get("cache_status")),
     }
+
+
+def _overlay_current_proof_lab_cache_status(
+    proof_lab: dict,
+    current_default_card: dict,
+) -> dict:
+    for key in (
+        "status",
+        "endpoint",
+        "route_id",
+        "proof_lab_route_id",
+        "proof_lab_route_component_count",
+        "cache_status",
+        "cache_action",
+        "cached_receipt_ref",
+        "cached_receipt_bytes",
+        "cache_freshness",
+        "live_receipt_rebuild_status",
+        "local_toolchain_status",
+        "fallback_reason",
+    ):
+        if key in current_default_card:
+            proof_lab[key] = current_default_card[key]
+    current_receipt_ref = current_default_card.get("receipt_ref")
+    if isinstance(current_receipt_ref, str) and current_receipt_ref:
+        proof_lab["current_receipt_ref"] = current_receipt_ref
+    return proof_lab
+
+
+def _status_card_current_default_proof_lab_card(proof_lab: dict) -> dict | None:
+    if proof_lab.get("cache_status") != "stale_cached_receipt":
+        return None
+    receipt_path = Path(DEFAULT_PROOF_LAB_OUT) / verifier_lab_kernel.BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    result = _proof_lab_cached_result(
+        str(DEFAULT_PROOF_LAB_INPUT),
+        DEFAULT_PROOF_LAB_OUT,
+    )
+    if result.get("cache_status") in {
+        "stale_cached_receipt",
+        "missing_cached_receipt",
+    }:
+        return None
+    return _proof_lab_first_screen_card(
+        result,
+        input_path=str(DEFAULT_PROOF_LAB_INPUT),
+        out_dir=DEFAULT_PROOF_LAB_OUT,
+        command=_proof_lab_command(str(DEFAULT_PROOF_LAB_INPUT), DEFAULT_PROOF_LAB_OUT),
+    )
 
 
 def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
@@ -1309,9 +1366,26 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "endpoint",
                 "route_id",
                 "receipt_ref",
+                "current_receipt_ref",
                 "route_component_count",
                 "proof_bodies_exported",
                 "proof_correctness_claim",
+                "cache_status",
+                "cache_action",
+            ],
+        )
+    top_level_proof_lab = payload.get("proof_lab")
+    if isinstance(top_level_proof_lab, dict):
+        payload["proof_lab"] = _pick(
+            top_level_proof_lab,
+            [
+                "status",
+                "endpoint",
+                "route_id",
+                "receipt_ref",
+                "current_receipt_ref",
+                "route_component_count",
+                "proof_lab_route_component_count",
                 "cache_status",
                 "cache_action",
             ],

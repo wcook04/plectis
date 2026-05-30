@@ -298,6 +298,7 @@ PROOF_LAB_RECEIPT_REF = (
     "exported_verifier_lab_kernel_bundle_validation_result.json"
 )
 PROOF_LAB_FIRST_SCREEN_COMMAND = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+PROOF_LAB_DEFAULT_OUT_REF = "/tmp/microcosm-proof-lab"
 OBSERVATORY_SERVE_COMMAND = (
     "microcosm serve <project> --host 127.0.0.1 --port 8765"
 )
@@ -1987,6 +1988,25 @@ def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]
     }
 
 
+def _default_proof_lab_receipt_path() -> Path:
+    return Path(PROOF_LAB_DEFAULT_OUT_REF) / Path(PROOF_LAB_RECEIPT_REF).name
+
+
+def _current_default_proof_lab_receipt(
+    root: Path,
+) -> tuple[dict[str, Any], Path, dict[str, Any]] | None:
+    receipt_path = _default_proof_lab_receipt_path()
+    if not receipt_path.is_file():
+        return None
+    cache_freshness = _proof_lab_cache_freshness(root, receipt_path)
+    if cache_freshness.get("status") in {"stale", "missing_cached_receipt"}:
+        return None
+    receipt = _read_json_if_exists(receipt_path)
+    if not receipt:
+        return None
+    return receipt, receipt_path, cache_freshness
+
+
 def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
     created_at = payload.get("created_at")
     if not isinstance(created_at, str):
@@ -2015,6 +2035,20 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
         if cache_freshness.get("status") == "missing_cached_receipt"
         else "cached_receipt_read"
     )
+    receipt_ref = PROOF_LAB_RECEIPT_REF
+    cached_receipt_ref = PROOF_LAB_RECEIPT_REF
+    current_receipt_ref: str | None = None
+    current_default_receipt = _current_default_proof_lab_receipt(root)
+    if (
+        cache_status in {"stale_cached_receipt", "missing_cached_receipt"}
+        and current_default_receipt is not None
+    ):
+        receipt, receipt_path, cache_freshness = current_default_receipt
+        cache_status = "cached_receipt_read"
+        current_receipt_ref = (
+            f"{PROOF_LAB_DEFAULT_OUT_REF}/{Path(PROOF_LAB_RECEIPT_REF).name}"
+        )
+        cached_receipt_ref = current_receipt_ref
     receipt_status = receipt.get("status", "missing")
     metrics = receipt.get("proof_lab_component_metrics")
     if not isinstance(metrics, dict):
@@ -2042,7 +2076,8 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
         "source_lens_endpoint": "/proof-loop-depth",
         "bundle_ref": PROOF_LAB_BUNDLE_REF,
         "route_ref": PROOF_LAB_ROUTE_REF,
-        "receipt_ref": PROOF_LAB_RECEIPT_REF,
+        "receipt_ref": receipt_ref,
+        "current_receipt_ref": current_receipt_ref,
         "cache_status": cache_status,
         "cached_card_status": (
             "stale_cached_receipt"
@@ -2051,7 +2086,7 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
         ),
         "cache_freshness": cache_freshness,
         "cache_action": _proof_lab_cache_action_hint(cache_status),
-        "cached_receipt_ref": PROOF_LAB_RECEIPT_REF,
+        "cached_receipt_ref": cached_receipt_ref,
         "cached_receipt_bytes": (
             receipt_path.stat().st_size if receipt_path.is_file() else 0
         ),
@@ -4911,17 +4946,14 @@ def _runtime_status_card(
         card["front_door"].pop("tour_warning_drilldowns", None)
         card["front_door"].pop("warning_rule", None)
         card["front_door"].pop("route_selection_rule", None)
-    proof_lab_ref = (
-        card.get("proof_lab", {})
-        if isinstance(card.get("proof_lab"), dict)
-        else {}
-    )
+    proof_lab_ref = proof_lab
     card["front_door"]["proof_lab"] = {
         "schema_version": "microcosm_status_card_proof_lab_ref_v1",
         "status": proof_lab_ref.get("status"),
         "endpoint": proof_lab_ref.get("endpoint") or "/proof-lab",
         "route_id": proof_lab_ref.get("route_id"),
         "receipt_ref": proof_lab_ref.get("receipt_ref"),
+        "current_receipt_ref": proof_lab_ref.get("current_receipt_ref"),
         "cache_status": proof_lab_ref.get("cache_status"),
         "cache_action": proof_lab_ref.get("cache_action")
         if isinstance(proof_lab_ref.get("cache_action"), dict)

@@ -2,9 +2,13 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+from microcosm_core import cli
+from microcosm_core import runtime_shell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +47,97 @@ def test_status_card_explains_actionable_proof_lab_cache() -> None:
         return
 
     _assert_public_safe_cache_action(proof_lab["cache_action"])
+
+
+def test_status_card_uses_current_default_proof_lab_receipt(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    out_dir = tmp_path / "microcosm-proof-lab"
+    out_dir.mkdir()
+    receipt = out_dir / cli.verifier_lab_kernel.BUNDLE_RESULT_NAME
+    shutil.copyfile(cli._canonical_proof_lab_receipt_path(), receipt)
+    monkeypatch.setattr(cli, "DEFAULT_PROOF_LAB_OUT", str(out_dir))
+
+    payload = {
+        "proof_lab": {
+            "status": "pass",
+            "endpoint": "/proof-lab",
+            "route_id": "formal_prover_context_strategy_gate",
+            "receipt_ref": cli.PROOF_LAB_RECEIPT_REF,
+            "route_component_count": 9,
+            "safe_to_show": {
+                "proof_bodies_exported": False,
+                "proof_correctness_claim": False,
+            },
+            "cache_status": "stale_cached_receipt",
+            "cache_action": {
+                "status": "actionable",
+                "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+            },
+        },
+        "front_door": {},
+        "front_door_status": {"surface_statuses": {}},
+    }
+
+    updated = cli._attach_status_card_front_door_refs(payload)
+
+    assert updated["proof_lab"]["cache_status"] == "cached_receipt_read"
+    assert updated["front_door"]["proof_lab"]["cache_status"] == "cached_receipt_read"
+    assert updated["front_door"]["proof_lab"]["cache_action"]["status"] == "not_needed"
+    assert "next_commands" not in updated["proof_lab"]
+    assert (
+        updated["front_door_status"]["surface_statuses"]["proof_lab_cache"]
+        == "pass"
+    )
+
+
+def test_runtime_status_card_uses_current_default_proof_lab_receipt(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    out_dir = tmp_path / "microcosm-proof-lab"
+    out_dir.mkdir()
+    receipt = out_dir / cli.verifier_lab_kernel.BUNDLE_RESULT_NAME
+    shutil.copyfile(cli._canonical_proof_lab_receipt_path(), receipt)
+    monkeypatch.setattr(
+        runtime_shell,
+        "_default_proof_lab_receipt_path",
+        lambda: receipt,
+    )
+    original_cache_freshness = runtime_shell._proof_lab_cache_freshness
+    canonical_receipt = MICROCOSM_ROOT / runtime_shell.PROOF_LAB_RECEIPT_REF
+
+    def cache_freshness(root: Path, receipt_path: Path) -> dict:
+        if receipt_path == canonical_receipt:
+            return {
+                "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+                "status": "stale",
+                "input_status": "stale",
+                "input_refs_exported": False,
+            }
+        return original_cache_freshness(root, receipt_path)
+
+    monkeypatch.setattr(runtime_shell, "_proof_lab_cache_freshness", cache_freshness)
+
+    payload = runtime_shell.RuntimeShell(MICROCOSM_ROOT).status_card(
+        ".",
+        project_ref="<project>",
+    )
+
+    assert payload["proof_lab"]["cache_status"] == "cached_receipt_read"
+    assert payload["front_door"]["proof_lab"]["cache_action"]["status"] == "not_needed"
+    assert (
+        payload["front_door"]["proof_lab"]["current_receipt_ref"]
+        == f"{runtime_shell.PROOF_LAB_DEFAULT_OUT_REF}/{receipt.name}"
+    )
+    assert (
+        payload["front_door_status"]["surface_statuses"]["proof_lab_cache"]
+        == "pass"
+    )
+    assert "proof_lab_cache" not in payload["front_door_status"][
+        "actionable_surface_ids"
+    ]
 
 
 def test_tour_card_carries_proof_lab_cache_action_hint() -> None:
