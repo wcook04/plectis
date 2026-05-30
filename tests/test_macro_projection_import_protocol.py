@@ -686,6 +686,19 @@ def _assert_public_safe_verification_mode(row: dict[str, Any]) -> None:
         }
 
 
+def test_macro_projection_import_bundle_manifest_lists_every_source_module_manifest() -> None:
+    bundle_manifest = json.loads(
+        (BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    input_names = set(bundle_manifest["inputs"])
+    source_manifest_names = {
+        path.name for path in BUNDLE_INPUT.glob("*source_module_manifest.json")
+    }
+
+    assert len(bundle_manifest["inputs"]) == len(input_names)
+    assert source_manifest_names <= input_names
+
+
 def _test_target_ref_carries_source_ref(*, target_ref: str, source_ref: str) -> bool:
     normalized_target = target_ref.removeprefix("microcosm-substrate/")
     normalized_source = source_ref.split("::", 1)[0]
@@ -2991,23 +3004,17 @@ def test_work_landing_control_source_modules_body_import_is_unified_under_macro_
         target = public_root / row["target_ref"]
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
         digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
-        verification = row["body_import_verification"]
-        if source_digest == digest:
-            assert verification["verification_mode"] == "exact_source_digest_match"
-            assert verification["source_to_target_relation"] == "exact_copy"
-        else:
-            assert verification["verification_mode"] == "verified_light_edit_recipe"
-            assert verification["source_to_target_relation"] in {
-                "public_light_edit_private_path_redaction",
-                "verified_public_safe_private_path_rewrite",
-            }
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
+        _assert_public_safe_verification_mode(row)
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -3586,16 +3593,17 @@ def test_agent_operating_packet_source_modules_body_import_is_unified_under_macr
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
         digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
         )
+        _assert_public_safe_verification_mode(row)
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
