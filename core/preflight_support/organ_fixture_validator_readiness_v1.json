@@ -1109,6 +1109,24 @@
       ],
       "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
       "status": "ready"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::cognitive_operator_registry::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/cognitive_operator_registry/input/operator_registry.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/operator_standard.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/dogfood_index.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/missing_required_field.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/active_without_dogfood.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/dogfood_missing_delta.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/operator_sprawl_near_duplicate.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/authority_overclaim.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/operator_voice_claim.json",
+        "fixtures/first_wave/cognitive_operator_registry/input/private_source_leakage.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/cognitive_operator_registry.fixture_manifest.json",
+      "organ_id": "cognitive_operator_registry"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"
