@@ -219,6 +219,10 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     assert "\nmicrocosm evidence list .\n" not in installed_path
     assert "http://127.0.0.1:8765/project/first-screen" in browser_path
     assert "/project/first-screen-full" in browser_path
+    assert "http://127.0.0.1:8765/workingness-card" in browser_path
+    assert "/workingness` only when you need the full per-organ failure map" in (
+        browser_path
+    )
     assert "same compact one-screen\nreader map" in browser_path
     assert "microcosm first-screen --card <project>" in browser_path
     assert browser_path.index("/project/first-screen") < browser_path.index(
@@ -226,6 +230,9 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     )
     assert browser_path.index("/project/observatory") < browser_path.index(
         "/project/first-screen-full"
+    )
+    assert browser_path.index("/workingness-card") < browser_path.index(
+        "/workingness` only"
     )
 
 

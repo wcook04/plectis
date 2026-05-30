@@ -235,9 +235,9 @@ exit by itself. The local behavior
 proof is the compact `microcosm tour --card .` JSON: it writes the local
 `.microcosm/` state, names the selected project route id, exposes
 `state_inspection` plus route/work/event/evidence/graph refs, points to the
-status card, workingness map, `microcosm observe <project>` causal-chain
-command, observatory command, proof-lab command, and authority ceiling, and
-keeps route cards plus receipt refs out of the cockpit.
+status card, compact workingness card, `microcosm observe <project>`
+causal-chain command, observatory command, proof-lab command, and authority
+ceiling, and keeps route cards plus receipt refs out of the cockpit.
 Run `microcosm tour .` only when you want the full route-card, endpoint-path,
 and evidence-ref drilldown.
 In that full packet, `route_cards_by_id.status_and_workingness` remains the
@@ -257,7 +257,9 @@ reader map as `microcosm first-screen --card <project>`, then
 ties `state_inspection`, status, route, work, evidence, graph, proof, and
 safe-to-show boundaries together before opening `http://127.0.0.1:8765` or the full
 `/project/observatory` model. Use `/project/first-screen-full` only when you
-want the full first-screen contract behind that compact browser entry. The
+want the full first-screen contract behind that compact browser entry. Use
+`http://127.0.0.1:8765/workingness-card` for the compact browser workingness
+card, and `/workingness` only when you need the full per-organ failure map. The
 output folder is `.microcosm/`.
 
 Use `microcosm status --card <project>` after `tour` or `compile` for the
@@ -823,7 +825,8 @@ runtime spine/intake/reveal bridge in the browser: `/spine`, `/intake`, and
 open-actionable intake count, reveal board, and evidence refs that the CLI
 commands print. `/tour` adds the same ten-minute route compression that
 `microcosm tour <project>` emits. `/authority` adds the same authority-ceiling
-map in browser form, `/workingness` adds the per-organ failure envelope map,
+map in browser form, `/workingness-card` adds the compact workingness card,
+`/workingness` remains the full per-organ failure envelope map,
 `/prediction` adds the synthetic prediction-mechanics
 lens with its no-advice/no-live-data boundary, `/market-boundary` adds the
 market/prediction evidence contract, `/corpus` adds the formal-math
