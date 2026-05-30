@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import builtins
 import json
 import os
 from pathlib import Path
@@ -128,6 +129,42 @@ def test_read_text_prefix_streams_bounded_prefix_without_materializing_file(
     monkeypatch.setattr(Path, "read_text", guarded_read_text)
 
     assert project_substrate._read_text_prefix(source_path, limit=12) == "012345678901"
+
+
+def test_state_ref_status_counts_directory_json_without_materializing_glob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    evidence_dir = project / ".microcosm/evidence"
+    evidence_dir.mkdir(parents=True)
+    for index in range(3):
+        (evidence_dir / f"row_{index}.json").write_text("{}", encoding="utf-8")
+    (evidence_dir / "notes.txt").write_text("not counted", encoding="utf-8")
+
+    original_glob = Path.glob
+    glob_rows = tuple(original_glob(evidence_dir, "*.json"))
+    glob_iterable = None
+
+    def guarded_glob(self: Path, pattern: str):
+        if self == evidence_dir and pattern == "*.json":
+            nonlocal glob_iterable
+            glob_iterable = (path for path in glob_rows)
+            return glob_iterable
+        return original_glob(self, pattern)
+
+    original_list = builtins.list
+
+    def guarded_list(value=(), /):
+        if value is glob_iterable:
+            raise AssertionError("_state_ref_status should stream JSON counts")
+        return original_list(value)
+
+    monkeypatch.setattr(Path, "glob", guarded_glob)
+    monkeypatch.setattr(builtins, "list", guarded_list)
+
+    status = project_substrate._state_ref_status(project, ".microcosm/evidence/")
+
+    assert status["json_count"] == 3
 
 
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(

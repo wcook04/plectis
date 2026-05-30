@@ -2541,6 +2541,10 @@ def _bounded_sorted_paths(
     return count, selected
 
 
+def _count_paths(paths: Iterable[Path]) -> int:
+    return sum(1 for _ in paths)
+
+
 def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
@@ -2686,7 +2690,7 @@ def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     if path.is_file():
         row["bytes"] = path.stat().st_size
     elif path.is_dir():
-        row["json_count"] = len(list(path.glob("*.json")))
+        row["json_count"] = _count_paths(path.glob("*.json"))
     return row
 
 
@@ -2988,7 +2992,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
             selected_work_status=selected_work.get("status") if selected_work else None,
             event_count=len(events),
             evidence_count=(
-                len(list(_evidence_dir(project).glob("*.json")))
+                _count_paths(_evidence_dir(project).glob("*.json"))
                 if _evidence_dir(project).is_dir()
                 else 0
             ),
@@ -3032,7 +3036,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         }
         if last_event
         else None,
-        "evidence_count": len(list(_evidence_dir(project).glob("*.json")))
+        "evidence_count": _count_paths(_evidence_dir(project).glob("*.json"))
         if _evidence_dir(project).is_dir()
         else 0,
         "graph_summary": graph_summary,
