@@ -478,13 +478,14 @@ def _mission_control_source_paths(input_dir: Path) -> list[Path]:
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        if not stripped:
-            continue
-        payload = json.loads(stripped)
-        if isinstance(payload, dict):
-            rows.append(payload)
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            payload = json.loads(stripped)
+            if isinstance(payload, dict):
+                rows.append(payload)
     return rows
 
 
@@ -551,7 +552,8 @@ def _file_sha256(path: Path) -> str:
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    with path.open("r", encoding="utf-8") as handle:
+        return sum(1 for _ in handle)
 
 
 def _load_optional_json_document(

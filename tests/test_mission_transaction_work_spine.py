@@ -10,6 +10,8 @@ from microcosm_core.organs.mission_transaction_work_spine import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     ORDERED_CONTROLLER_ACTION_IDS,
+    _line_count,
+    _load_jsonl,
     run,
     run_mission_transaction_bundle,
 )
@@ -304,6 +306,43 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_mission_transaction_jsonl_loader_streams_without_materializing_file(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    jsonl_path = tmp_path / "task_ledger_events.jsonl"
+    jsonl_path.write_text(
+        '{"id": "event_1"}\n\n["skip", "non-dict"]\n{"id": "event_2"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def fail_for_target(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == jsonl_path:
+            raise AssertionError("JSONL loader should stream file rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", fail_for_target)
+
+    assert _load_jsonl(jsonl_path) == [{"id": "event_1"}, {"id": "event_2"}]
+
+
+def test_mission_transaction_line_count_streams_without_materializing_file(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    source_path = tmp_path / "source_module.py"
+    source_path.write_text("first\nsecond\nthird", encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def fail_for_target(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == source_path:
+            raise AssertionError("line count should stream file rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", fail_for_target)
+
+    assert _line_count(source_path) == 3
 
 
 def test_mission_transaction_work_spine_observes_required_negative_cases(
