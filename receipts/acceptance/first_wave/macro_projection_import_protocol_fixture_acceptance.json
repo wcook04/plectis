@@ -21,7 +21,7 @@
   "blocked_projection_cell_count": 0,
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input /Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out /Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
   "created_at": "2026-05-31T06:46:15+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",

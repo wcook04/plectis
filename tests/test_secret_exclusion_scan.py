@@ -10,6 +10,7 @@ from microcosm_core.secret_exclusion_scan import (
     classify_public_safe_macro_import,
     is_text_scan_candidate,
     load_forbidden_classes,
+    public_relative_path,
     scan_paths,
     scan_text,
 )
@@ -278,4 +279,6 @@ def test_secret_exclusion_scan_paths_catches_extensionless_public_text(
     assert is_text_scan_candidate(makefile)
     assert result["status"] == BLOCKED_SECRET_EXCLUSION
     assert result["scanned_path_count"] == 1
-    assert result["hits"][0]["path"] == str(makefile)
+    assert result["hits"][0]["path"] == public_relative_path(makefile)
+    assert "/Users/" not in result["hits"][0]["path"]
+    assert "/home/" not in result["hits"][0]["path"]
