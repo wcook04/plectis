@@ -21,8 +21,8 @@
   "blocked_projection_cell_count": 0,
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-29T05:45:25+00:00",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input /Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out /Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
+  "created_at": "2026-05-31T06:46:15+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -106,7 +106,7 @@
   "input_mode": "first_wave_fixture",
   "live_source_drift_count": 0,
   "live_source_drift_rows": [],
-  "macro_origin_ref_count": 292,
+  "macro_origin_ref_count": 305,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -132,20 +132,20 @@
   },
   "organ_id": "macro_projection_import_protocol",
   "organ_lifecycle_coverage_counts": {
-    "acceptance_plan_organ_count": 47,
-    "accepted_organ_count": 47,
+    "acceptance_plan_organ_count": 49,
+    "accepted_organ_count": 49,
     "demoted_drilldown_organ_count": 4,
-    "evidence_class_row_count": 47,
-    "fixture_check_count": 47,
-    "organ_authority_row_count": 43,
-    "public_authority_expected_organ_count": 43,
-    "runtime_step_count": 47,
+    "evidence_class_row_count": 49,
+    "fixture_check_count": 49,
+    "organ_authority_row_count": 45,
+    "public_authority_expected_organ_count": 45,
+    "runtime_step_count": 49,
     "surface_authority_row_count": 45
   },
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "verified_macro_projection_cleaning_policy_v1",
-  "projection_cell_count": 64,
+  "projection_cell_count": 65,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
@@ -192,6 +192,7 @@
     "nvidia_nim_provider_boundary_source_modules_import",
     "observe_runtime_source_modules_import",
     "operator_handoff_linkage_source_modules_import",
+    "orchestration_overnight_control_source_modules_import",
     "projection_protocol_self_host",
     "prompt_shelf_movement_source_modules_import",
     "prompt_shelf_runs_index_source_modules_import",
@@ -214,7 +215,7 @@
   ],
   "projection_import_boundary": "verified_body_import_or_secret_exclusion_only",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 188,
+  "public_runtime_ref_count": 189,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -274,6 +275,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
@@ -295,10 +297,14 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
@@ -328,6 +334,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
@@ -352,6 +359,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/shared_worktree_guard.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
@@ -387,6 +395,9 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_surface_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_movement_index.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_uppropagation_digest.py",
@@ -506,14 +517,14 @@
     "standards/std_microcosm_macro_projection_import_protocol.json",
     "standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
-  "public_safe_body_import_count": 190,
+  "public_safe_body_import_count": 199,
   "public_safe_body_import_routes": {
     "direct_verified_public": 3,
-    "verified_light_edit": 187
+    "verified_light_edit": 196
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 190,
-  "ready_projection_cell_count": 64,
+  "public_safe_body_material_count": 199,
+  "ready_projection_cell_count": 65,
   "receipt_id": "macro_projection_import_protocol_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -546,20 +557,20 @@
       "anti_claim": "This check proves runtime severance consumed the preflight lifecycle receipt. It is not a substitute for an imported macro body, provider execution, or proof of organ semantics.",
       "body_in_receipt": false,
       "coverage_counts": {
-        "acceptance_plan_organ_count": 47,
-        "accepted_organ_count": 47,
+        "acceptance_plan_organ_count": 49,
+        "accepted_organ_count": 49,
         "demoted_drilldown_organ_count": 4,
-        "evidence_class_row_count": 47,
-        "fixture_check_count": 47,
-        "organ_authority_row_count": 43,
-        "public_authority_expected_organ_count": 43,
-        "runtime_step_count": 47,
+        "evidence_class_row_count": 49,
+        "fixture_check_count": 49,
+        "organ_authority_row_count": 45,
+        "public_authority_expected_organ_count": 45,
+        "runtime_step_count": 49,
         "surface_authority_row_count": 45
       },
       "defect_count": 0,
       "defects": [],
       "dependency_preflight_status": "pass",
-      "expected_accepted_organ_count": 47,
+      "expected_accepted_organ_count": 49,
       "findings": [],
       "organ_lifecycle_coverage_status": "pass",
       "receipt_ref": "receipts/preflight/dependency_preflight.json",
@@ -578,7 +589,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 292,
+    "macro_origin_ref_count": 305,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       ".claude/hooks/runtime_hook.py",
@@ -597,8 +608,10 @@
       "codex/doctrine/paper_modules/controller_heartbeat.md",
       "codex/doctrine/paper_modules/macro_projection_import_protocol.md",
       "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+      "codex/doctrine/paper_modules/overnight_autonomous_operation.md",
       "codex/doctrine/paper_modules/prompt_shelf.md",
       "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+      "codex/doctrine/paper_modules/system_control_runtime_orchestration.md",
       "codex/doctrine/routing_hologram.json",
       "codex/doctrine/routing_hologram.json::situation_rows",
       "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
@@ -616,6 +629,7 @@
       "codex/standards/std_microcosm.json#direct_import_with_verification",
       "codex/standards/std_navigation_contract.json",
       "codex/standards/std_navigation_rosetta_grammar.json",
+      "codex/standards/std_orchestration_state.json",
       "codex/standards/std_prompt_ledger.json",
       "codex/standards/std_provider_adapter.json",
       "codex/standards/std_provider_navigation_transform_receipt.json",
@@ -666,6 +680,7 @@
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json",
@@ -696,6 +711,9 @@
       "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
       "microcosm-substrate/standards/std_microcosm_executable_doctrine_grammar.json",
       "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+      "overnight_control.py",
+      "pipeline_advance.py",
+      "pipeline_overnight.py",
       "run_git.py",
       "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
       "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
@@ -727,6 +745,7 @@
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+      "system/control/orchestration.py",
       "system/lib/active_execution_constellation.py",
       "system/lib/agent_bootstrap_projection.py",
       "system/lib/agent_entrypoint_audit.py",
@@ -759,6 +778,7 @@
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
       "system/lib/kernel/commands/navigate.py",
       "system/lib/kernel/config.py",
+      "system/lib/kernel/pulse_cache.py",
       "system/lib/kernel/state.py",
       "system/lib/kind_atlas.py",
       "system/lib/markdown_routing.py",
@@ -785,6 +805,7 @@
       "system/lib/shared_worktree_guard.py",
       "system/lib/standard_option_surface.py",
       "system/lib/standards_registry.py",
+      "system/lib/strict_json.py",
       "system/lib/task_ledger_events.py",
       "system/lib/task_ledger_priority.py",
       "system/lib/task_ledger_priority.py::priority_constellation",
@@ -825,6 +846,9 @@
       "system/server/tests/test_navigation_surface_audit.py",
       "system/server/tests/test_navigation_trace.py",
       "system/server/tests/test_operator_handoff_linkage.py",
+      "system/server/tests/test_overnight_control.py",
+      "system/server/tests/test_pipeline_advance.py",
+      "system/server/tests/test_pipeline_overnight.py",
       "system/server/tests/test_prompt_shelf_movement_index.py",
       "system/server/tests/test_prompt_shelf_runs_index.py",
       "system/server/tests/test_prompt_shelf_uppropagation_digest.py",
@@ -877,33 +901,33 @@
     "macro_origin_refs_runtime_required": false,
     "macro_runtime_dependency_count": 0,
     "organ_lifecycle_coverage_counts": {
-      "acceptance_plan_organ_count": 47,
-      "accepted_organ_count": 47,
+      "acceptance_plan_organ_count": 49,
+      "accepted_organ_count": 49,
       "demoted_drilldown_organ_count": 4,
-      "evidence_class_row_count": 47,
-      "fixture_check_count": 47,
-      "organ_authority_row_count": 43,
-      "public_authority_expected_organ_count": 43,
-      "runtime_step_count": 47,
+      "evidence_class_row_count": 49,
+      "fixture_check_count": 49,
+      "organ_authority_row_count": 45,
+      "public_authority_expected_organ_count": 45,
+      "runtime_step_count": 49,
       "surface_authority_row_count": 45
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 64,
+    "projection_cell_count": 65,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 13,
       "public_macro_standard_body": 4,
-      "public_macro_tool_body": 169
+      "public_macro_tool_body": 178
     },
-    "public_safe_body_import_count": 190,
+    "public_safe_body_import_count": 199,
     "public_safe_body_import_routes": {
       "direct_verified_public": 3,
-      "verified_light_edit": 187
+      "verified_light_edit": 196
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 64,
+    "ready_projection_cell_count": 65,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -911,6 +935,20 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict",
+        "ref": "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
+        "ref": "microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
         "status": "pass"
       },
       {
@@ -1023,6 +1061,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
         "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
+        "ref": "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
         "status": "pass"
       },
       {
@@ -1511,6 +1556,20 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -1987,6 +2046,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
         "status": "pass"
@@ -2400,6 +2466,27 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "status": "pass"
@@ -2423,6 +2510,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
         "status": "pass"
       },
       {
@@ -2631,6 +2725,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "status": "pass"
@@ -2794,6 +2895,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
         "status": "pass"
       },
       {
@@ -3032,6 +3140,27 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
         "status": "pass"
       },
       {
@@ -3877,6 +4006,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
         "status": "pass"
@@ -3982,8 +4118,29 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
         "status": "pass"
       },
       {
@@ -4178,6 +4335,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "status": "pass"
@@ -4313,6 +4477,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
         "status": "pass"
       },
       {
@@ -5557,6 +5728,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "status": "pass"
@@ -5704,6 +5882,27 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
         "status": "pass"
@@ -5727,6 +5926,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
         "status": "pass"
       },
       {
@@ -5935,6 +6141,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
         "status": "pass"
@@ -6098,6 +6311,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
         "status": "pass"
       },
       {
@@ -6343,6 +6563,27 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
         "status": "pass"
       },
       {
@@ -7727,6 +7968,20 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -8196,6 +8451,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -8446,7 +8708,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 1077,
+    "runtime_dependency_count": 1111,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -8506,6 +8768,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
@@ -8527,10 +8790,14 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
@@ -8560,6 +8827,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
@@ -8584,6 +8852,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/shared_worktree_guard.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
@@ -8619,6 +8888,9 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_surface_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_movement_index.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_uppropagation_digest.py",
@@ -8709,6 +8981,8 @@
       "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+      "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict",
+      "microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
@@ -8726,6 +9000,7 @@
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+      "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
@@ -8795,6 +9070,8 @@
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_sources_compile_and_preserve_terminal_cluster_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
@@ -8863,6 +9140,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -9001,7 +9279,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 252,
+  "source_ref_count": 261,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -9009,6 +9287,7 @@
     "tools/meta/control/work_landing.py",
     "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "system/lib/agent_session_attribution.py",
     "system/lib/continuation_packet.py",
     "codex/doctrine/paper_modules/agent_session_attribution.md",
@@ -9254,10 +9533,18 @@
     "codex/standards/std_provider_navigation_transform_receipt.json",
     "tools/meta/factory/reduce_prover_provider_receipts.py",
     "codex/standards/std_transform_job.json",
-    "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json"
+    "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+    "system/control/orchestration.py",
+    "pipeline_advance.py",
+    "pipeline_overnight.py",
+    "overnight_control.py",
+    "system/server/tests/test_pipeline_advance.py",
+    "system/server/tests/test_pipeline_overnight.py",
+    "system/server/tests/test_overnight_control.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
   ],
   "status": "pass",
-  "validation_ref_count": 195,
+  "validation_ref_count": 198,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -9346,6 +9633,8 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_sources_compile_and_preserve_terminal_cluster_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
@@ -9415,6 +9704,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine",

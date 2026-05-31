@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    utc_now,
+    write_local_state_json_atomic as write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -259,7 +263,10 @@ _DEFAULT_KERNEL = {
             "input": "runtime operations",
             "output": ".microcosm/events.jsonl",
             "state_ref": ".microcosm/events.jsonl",
-            "runtime_commands": ["microcosm observe <project>"],
+            "runtime_commands": [
+                "microcosm observe --card <project>",
+                "microcosm observe <project>",
+            ],
             "endpoint_refs": ["/project/status"],
             "event_span": "project.* / work.*",
             "evidence_relation": ".microcosm/events.jsonl",
@@ -338,17 +345,39 @@ def read_json_if_exists(path: Path) -> dict[str, Any]:
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    return list(_iter_jsonl_dict_rows(path))
+
+
+def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
     if not path.is_file():
-        return []
-    rows: list[dict[str, Any]] = []
+        return
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
             if not line.strip():
                 continue
             payload = json.loads(line)
             if isinstance(payload, dict):
-                rows.append(payload)
-    return rows
+                yield payload
+
+
+def _read_explanation_event_refs(path: Path, *, limit: int = 12) -> list[dict[str, Any]]:
+    if limit <= 0:
+        return []
+    spans = {"project.route", "project.explain", "work.create", "work.run"}
+    refs: list[dict[str, Any]] = []
+    for row in _iter_jsonl_dict_rows(path):
+        if row.get("span") not in spans:
+            continue
+        refs.append(
+            {
+                "event_id": row.get("event_id"),
+                "span": row.get("span"),
+                "status": row.get("status"),
+            }
+        )
+        if len(refs) > limit:
+            refs.pop(0)
+    return refs
 
 
 def _dedupe_strings(items: list[Any]) -> list[str]:
@@ -383,6 +412,21 @@ def _dedupe_event_refs(items: list[Any]) -> list[dict[str, Any]]:
     return out
 
 
+def _public_work_transaction_is_closed(row: dict[str, Any]) -> bool:
+    return (
+        isinstance(row.get("work_id"), str)
+        and row.get("status") in {"closed", PASS}
+        and row.get("source_files_mutated") is not True
+    )
+
+
+def _select_public_work_transaction(work_items: list[dict[str, Any]]) -> dict[str, Any]:
+    return next(
+        (row for row in work_items if _public_work_transaction_is_closed(row)),
+        work_items[-1] if work_items else {},
+    )
+
+
 def load_kernel_manifest(root: str | Path | None = None) -> dict[str, Any]:
     root_path = Path(root).resolve(strict=False) if root is not None else public_root()
     manifest = read_json_if_exists(root_path / "core/architecture_kernel.json")
@@ -410,7 +454,10 @@ def load_standard_pressure_surface(root: str | Path | None = None) -> dict[str, 
 
 
 def standard_pressure_contract(root: str | Path | None = None) -> dict[str, Any]:
-    surface = load_standard_pressure_surface(root)
+    return _standard_pressure_contract_from_surface(load_standard_pressure_surface(root))
+
+
+def _standard_pressure_contract_from_surface(surface: dict[str, Any]) -> dict[str, Any]:
     rows = surface.get("rows", [])
     row_count = len([row for row in rows if isinstance(row, dict)]) if isinstance(rows, list) else 0
     return {
@@ -427,7 +474,11 @@ def standard_pressure_contract(root: str | Path | None = None) -> dict[str, Any]
 
 
 def standard_pressure_rows(root: str | Path | None = None) -> list[dict[str, Any]]:
-    rows = load_standard_pressure_surface(root).get("rows", [])
+    return _standard_pressure_rows_from_surface(load_standard_pressure_surface(root))
+
+
+def _standard_pressure_rows_from_surface(surface: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = surface.get("rows", [])
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
 
 
@@ -472,13 +523,16 @@ def _pattern_bindings(pattern_payload: dict[str, Any], pattern_refs: list[str]) 
     return bindings
 
 
-def standard_pressure_refs_for_route(route: dict[str, Any]) -> list[str]:
+def standard_pressure_refs_for_route(
+    route: dict[str, Any], *, rows: list[dict[str, Any]] | None = None
+) -> list[str]:
     route_id = str(route.get("route_id") or route.get("row_id") or "")
     refs = route.get("standard_pressure_refs", [])
     if isinstance(refs, list) and refs:
         return [str(ref) for ref in refs if ref is not None and str(ref)]
     selected: list[str] = []
-    for row in standard_pressure_rows():
+    source_rows = rows if rows is not None else standard_pressure_rows()
+    for row in source_rows:
         row_refs = row.get("route_refs", [])
         if row_refs == ["*"] or route_id in row_refs:
             standard_id = row.get("standard_id")
@@ -487,15 +541,21 @@ def standard_pressure_refs_for_route(route: dict[str, Any]) -> list[str]:
     return selected
 
 
-def _standard_pressure_bindings(route: dict[str, Any]) -> list[dict[str, Any]]:
+def _standard_pressure_bindings(
+    route: dict[str, Any],
+    *,
+    rows: list[dict[str, Any]] | None = None,
+    contract: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    source_rows = rows if rows is not None else standard_pressure_rows()
     rows_by_id = {
         str(row.get("standard_id")): row
-        for row in standard_pressure_rows()
+        for row in source_rows
         if row.get("standard_id")
     }
-    contract = standard_pressure_contract()
+    contract = contract if contract is not None else standard_pressure_contract()
     bindings: list[dict[str, Any]] = []
-    for standard_id in standard_pressure_refs_for_route(route):
+    for standard_id in standard_pressure_refs_for_route(route, rows=source_rows):
         row = rows_by_id.get(standard_id)
         bindings.append(
             {
@@ -585,18 +645,45 @@ def _base(project: Path, schema_version: str) -> dict[str, Any]:
     }
 
 
-def _count_json_children(path: Path) -> int:
+def _iter_json_children(path: Path) -> Iterator[Path]:
+    if not path.is_dir():
+        return
     try:
-        return sum(1 for _ in path.glob("*.json"))
-    except FileNotFoundError:
-        return 0
+        with os.scandir(path) as entries:
+            for entry in entries:
+                try:
+                    if entry.is_file(follow_symlinks=False) and entry.name.endswith(
+                        ".json"
+                    ):
+                        yield Path(entry.path)
+                    elif entry.is_dir(follow_symlinks=False):
+                        yield from _iter_json_children(Path(entry.path))
+                except OSError:
+                    continue
+    except OSError:
+        return
 
 
-def build_state_index(project_path: str | Path) -> dict[str, Any]:
+def _count_json_children(path: Path) -> int:
+    return sum(1 for _ in _iter_json_children(path))
+
+
+def build_state_index(
+    project_path: str | Path,
+    *,
+    pattern_surface: dict[str, Any] | None = None,
+    standard_pressure: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
-    pattern_surface = pattern_surface_contract()
-    standard_pressure = standard_pressure_contract()
+    pattern_surface = (
+        pattern_surface if pattern_surface is not None else pattern_surface_contract()
+    )
+    standard_pressure = (
+        standard_pressure
+        if standard_pressure is not None
+        else standard_pressure_contract()
+    )
     assets = [
         ("project", "project_manifest.json", "project root manifest"),
         ("architecture", "architecture.json", "public architecture kernel projection"),
@@ -650,14 +737,27 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
     return payload
 
 
-def build_graph(project_path: str | Path) -> dict[str, Any]:
+def build_graph(
+    project_path: str | Path,
+    *,
+    pattern_surface: dict[str, Any] | None = None,
+    standard_pressure_surface: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
     routes = read_json_if_exists(state / "routes.json").get("routes", [])
     work_items = read_json_if_exists(state / "work_items.json").get("work_items", [])
     patterns = read_json_if_exists(state / "patterns.json").get("patterns", [])
-    pattern_surface = pattern_surface_contract()
-    standard_pressure = standard_pressure_contract()
+    pattern_surface = (
+        pattern_surface if pattern_surface is not None else pattern_surface_contract()
+    )
+    standard_pressure_surface = (
+        standard_pressure_surface
+        if standard_pressure_surface is not None
+        else load_standard_pressure_surface()
+    )
+    standard_pressure = _standard_pressure_contract_from_surface(standard_pressure_surface)
+    standard_rows = _standard_pressure_rows_from_surface(standard_pressure_surface)
     nodes: list[dict[str, Any]] = [
         {"node_id": "project", "kind": "primitive", "label": "Project"},
         {"node_id": "catalog", "kind": "primitive", "label": "Catalog"},
@@ -698,7 +798,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
                     "state_ref": ref,
                 }
             )
-    for row in standard_pressure_rows():
+    for row in standard_rows:
         standard_id = row.get("standard_id")
         if standard_id:
             nodes.append(
@@ -756,7 +856,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
             )
     if isinstance(assimilation_ref, str) and assimilation_ref:
         edges.append({"from": "pattern_surface", "to": "assimilation_policy", "relation": "closed_by"})
-    for row in standard_pressure_rows():
+    for row in standard_rows:
         standard_id = row.get("standard_id")
         if standard_id:
             edges.append(
@@ -776,7 +876,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
                         "relation": "supports",
                     }
                 )
-            for standard_id in standard_pressure_refs_for_route(row):
+            for standard_id in standard_pressure_refs_for_route(row, rows=standard_rows):
                 edges.append(
                     {
                         "from": f"standard_pressure:{standard_id}",
@@ -816,6 +916,9 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
     manifest = dict(load_kernel_manifest())
     pattern_surface = pattern_surface_contract()
     standard_pressure = load_standard_pressure_surface()
+    standard_pressure_contract_payload = _standard_pressure_contract_from_surface(
+        standard_pressure
+    )
     payload = {
         **_base(project, "microcosm_project_architecture_v1"),
         "kernel": manifest,
@@ -861,8 +964,16 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
         },
     }
     write_json_atomic(state / "architecture.json", payload)
-    build_graph(project)
-    build_state_index(project)
+    build_graph(
+        project,
+        pattern_surface=pattern_surface,
+        standard_pressure_surface=standard_pressure,
+    )
+    build_state_index(
+        project,
+        pattern_surface=pattern_surface,
+        standard_pressure=standard_pressure_contract_payload,
+    )
     return payload
 
 
@@ -872,7 +983,6 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
     routes_payload = read_json_if_exists(state / "routes.json")
     pattern_payload = read_json_if_exists(state / "patterns.json")
     work_payload = read_json_if_exists(state / "work_items.json")
-    events = read_jsonl(state / EVENT_STREAM)
     routes = routes_payload.get("routes", [])
     route = next(
         (
@@ -892,7 +1002,16 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         }
     pattern_refs = _route_pattern_refs(route)
     pattern_bindings = _pattern_bindings(pattern_payload, pattern_refs)
-    standard_bindings = _standard_pressure_bindings(route)
+    standard_pressure_surface = load_standard_pressure_surface()
+    standard_rows = _standard_pressure_rows_from_surface(standard_pressure_surface)
+    standard_pressure_contract_payload = _standard_pressure_contract_from_surface(
+        standard_pressure_surface
+    )
+    standard_bindings = _standard_pressure_bindings(
+        route,
+        rows=standard_rows,
+        contract=standard_pressure_contract_payload,
+    )
     patterns = [row["pattern"] for row in pattern_bindings if isinstance(row.get("pattern"), dict)]
     pattern_surface = pattern_surface_contract()
     work_items = [
@@ -900,15 +1019,7 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         for row in work_payload.get("work_items", [])
         if isinstance(row, dict) and row.get("route_id") == route.get("route_id")
     ]
-    event_refs = [
-        {
-            "event_id": row.get("event_id"),
-            "span": row.get("span"),
-            "status": row.get("status"),
-        }
-        for row in events
-        if row.get("span") in {"project.route", "project.explain", "work.create", "work.run"}
-    ][-12:]
+    event_refs = _read_explanation_event_refs(state / EVENT_STREAM)
     work_event_refs = _dedupe_event_refs(
         [
             item
@@ -939,7 +1050,7 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         ]
     )
     causal_event_refs = _dedupe_event_refs([*event_refs, *work_event_refs])
-    selected_work = work_items[-1] if work_items else {}
+    selected_work = _select_public_work_transaction(work_items)
     selected_state_history = (
         [
             str(row.get("state"))
@@ -987,8 +1098,11 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             "evidence",
             "explanation",
         ],
-        "standard_pressure_surface": standard_pressure_contract(),
-        "standard_pressure_refs": standard_pressure_refs_for_route(route),
+        "standard_pressure_surface": standard_pressure_contract_payload,
+        "standard_pressure_refs": standard_pressure_refs_for_route(
+            route,
+            rows=standard_rows,
+        ),
         "standard_bindings": standard_bindings,
         "standard_pressure": [
             row["standard"]

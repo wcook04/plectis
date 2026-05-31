@@ -42,6 +42,9 @@ CODEX_ROLLOUT_COMMAND_LIMIT = 12
 CODEX_ROLLOUT_PATH_LIMIT = 40
 OVERLAP_TITLE_INLINE_BYTE_LIMIT = 1024
 OVERLAP_TITLE_PREVIEW_CHARS = 240
+TASK_LEDGER_EVENTS_REL = Path("state/task_ledger/events.jsonl")
+TASK_LEDGER_RECENT_WRITER_TAIL_LIMIT = 200
+TASK_LEDGER_RECENT_WRITER_WINDOW_MINUTES = 10
 SERIAL_MUTATION_HELP = (
     "Mutation ordering: do not launch Work Ledger lifecycle or claim mutations "
     "in parallel for the same session. Use session-preflight to bootstrap and "
@@ -807,7 +810,7 @@ def cmd_session_status(args: argparse.Namespace) -> int:
                     "bounded_alternatives": [
                         "./repo-python tools/meta/factory/work_ledger.py session-status --overview --cards-only --limit "
                         + str(raw_limit),
-                        "./repo-python tools/meta/factory/work_ledger.py session-status --overview --limit "
+                        "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit "
                         + str(raw_limit),
                         "./repo-python tools/meta/factory/work_ledger.py session-status --session-id <session_id> --full --limit "
                         + str(raw_limit),
@@ -860,7 +863,7 @@ def cmd_session_status(args: argparse.Namespace) -> int:
         _compact_session_status_overview(
             overview,
             limit=limit,
-            include_rows=not bool(getattr(args, "cards_only", False)),
+            include_rows=False,
         )
     )
 
@@ -985,7 +988,131 @@ def _claim_preview(values: List[str], *, limit: int = 5) -> List[str]:
     return sorted(seen)[:limit]
 
 
-def _compact_claim_session_summary_cards(snapshot: Mapping[str, Any], *, limit: int) -> Dict[str, Any]:
+def _recent_task_ledger_writer_summary(
+    repo_root: Path,
+    *,
+    window_minutes: int = TASK_LEDGER_RECENT_WRITER_WINDOW_MINUTES,
+    tail_limit: int = TASK_LEDGER_RECENT_WRITER_TAIL_LIMIT,
+    limit: int = 5,
+) -> Dict[str, Any]:
+    path = repo_root / TASK_LEDGER_EVENTS_REL
+    if not path.exists():
+        return {
+            "schema": "task_ledger_recent_writer_summary_v0",
+            "status": "source_missing",
+            "event_path": str(TASK_LEDGER_EVENTS_REL),
+            "window_minutes": window_minutes,
+            "tail_limit": tail_limit,
+            "recent_event_count": 0,
+            "writer_count": 0,
+            "writer_cards": [],
+        }
+
+    lines: deque[str] = deque(maxlen=max(1, int(tail_limit or 1)))
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if line.strip():
+                    lines.append(line)
+    except OSError as exc:
+        return {
+            "schema": "task_ledger_recent_writer_summary_v0",
+            "status": "read_failed",
+            "event_path": str(TASK_LEDGER_EVENTS_REL),
+            "window_minutes": window_minutes,
+            "tail_limit": tail_limit,
+            "error": str(exc),
+            "recent_event_count": 0,
+            "writer_count": 0,
+            "writer_cards": [],
+        }
+
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(minutes=max(1, int(window_minutes or 1)))
+    recent_events: List[Dict[str, Any]] = []
+    for line in lines:
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(event, Mapping):
+            continue
+        created_at = _parse_optional_datetime(event.get("created_at"))
+        if not created_at or created_at < cutoff:
+            continue
+        source = event.get("source") if isinstance(event.get("source"), Mapping) else {}
+        recent_events.append(
+            {
+                "created_at": created_at.isoformat(),
+                "event_id": event.get("event_id"),
+                "event_type": event.get("event_type"),
+                "created_by": event.get("created_by"),
+                "agent_run_id": event.get("agent_run_id"),
+                "subject_id": event.get("subject_id"),
+                "source_kind": source.get("kind"),
+            }
+        )
+
+    groups: Dict[tuple[str, str, str], Dict[str, Any]] = {}
+    for event in recent_events:
+        key = (
+            str(event.get("agent_run_id") or ""),
+            str(event.get("created_by") or "unknown"),
+            str(event.get("source_kind") or "unknown"),
+        )
+        group = groups.setdefault(
+            key,
+            {
+                "agent_run_id": event.get("agent_run_id"),
+                "created_by": event.get("created_by") or "unknown",
+                "source_kind": event.get("source_kind") or "unknown",
+                "event_count": 0,
+                "latest_created_at": event.get("created_at"),
+                "latest_event_id": event.get("event_id"),
+                "subjects_preview": [],
+            },
+        )
+        group["event_count"] += 1
+        created_at_text = str(event.get("created_at") or "")
+        if created_at_text >= str(group.get("latest_created_at") or ""):
+            group["latest_created_at"] = created_at_text
+            group["latest_event_id"] = event.get("event_id")
+        subject_id = str(event.get("subject_id") or "").strip()
+        if (
+            subject_id
+            and subject_id not in group["subjects_preview"]
+            and len(group["subjects_preview"]) < 5
+        ):
+            group["subjects_preview"].append(subject_id)
+
+    writer_cards = sorted(
+        groups.values(),
+        key=lambda row: (
+            int(row.get("event_count") or 0),
+            str(row.get("latest_created_at") or ""),
+        ),
+        reverse=True,
+    )
+    safe_limit = max(0, int(limit or 0))
+    return {
+        "schema": "task_ledger_recent_writer_summary_v0",
+        "status": "recent_writers" if recent_events else "no_recent_writers",
+        "event_path": str(TASK_LEDGER_EVENTS_REL),
+        "window_minutes": window_minutes,
+        "tail_limit": tail_limit,
+        "recent_event_count": len(recent_events),
+        "writer_count": len(writer_cards),
+        "writer_cards": writer_cards[:safe_limit] if safe_limit else [],
+        "writers_omitted": max(0, len(writer_cards) - safe_limit),
+    }
+
+
+def _compact_claim_session_summary_cards(
+    snapshot: Mapping[str, Any],
+    *,
+    limit: int,
+    repo_root: Path = REPO_ROOT,
+) -> Dict[str, Any]:
     safe_limit = max(0, int(limit or 0))
     session_rows: Dict[str, Dict[str, Any]] = {}
     active_claims = [
@@ -1071,14 +1198,36 @@ def _compact_claim_session_summary_cards(snapshot: Mapping[str, Any], *, limit: 
     truncation = (
         snapshot.get("truncation") if isinstance(snapshot.get("truncation"), Mapping) else {}
     )
+    recent_task_ledger_writers = _recent_task_ledger_writer_summary(
+        repo_root,
+        limit=min(max(safe_limit, 1), 5),
+    )
+    counts = dict(snapshot.get("counts") or {})
+    recent_task_ledger_event_count = int(
+        recent_task_ledger_writers.get("recent_event_count") or 0
+    )
+    active_claim_count = int(counts.get("active_claims") or 0)
+    coordination_gap_hint = (
+        "task_ledger_source_recently_moved_without_active_claims"
+        if recent_task_ledger_event_count and active_claim_count == 0
+        else None
+    )
     return {
         "schema": "work_ledger_active_claim_session_summary_v1",
         "generated_at": snapshot.get("generated_at"),
         "status": snapshot.get("status"),
         "counts": {
-            **dict(snapshot.get("counts") or {}),
+            **counts,
             "claim_sessions_total": len(session_cards),
             "claim_sessions_emitted": len(compact_cards),
+        },
+        "recent_task_ledger_writers": {
+            **recent_task_ledger_writers,
+            **(
+                {"coordination_gap_hint": coordination_gap_hint}
+                if coordination_gap_hint
+                else {}
+            ),
         },
         "claim_session_cards": compact_cards,
         "claim_sessions_omitted": max(0, len(session_cards) - len(compact_cards)),
@@ -1320,6 +1469,38 @@ def _awareness_repair_summary(
     }
 
 
+def _awareness_claim_summary(
+    claim_refs: List[Mapping[str, Any]],
+    *,
+    session_id: str | None,
+) -> Dict[str, Any]:
+    paths = [str(row.get("path") or "") for row in claim_refs if row.get("path")]
+    td_ids = [str(row.get("td_id") or "") for row in claim_refs if row.get("td_id")]
+    work_item_ids = [
+        str(row.get("work_item_id") or "") for row in claim_refs if row.get("work_item_id")
+    ]
+    scope_kinds = sorted(
+        {str(row.get("scope_kind")) for row in claim_refs if row.get("scope_kind")}
+    )
+    drilldown = "./repo-python tools/meta/factory/work_ledger.py session-status --full"
+    if session_id:
+        drilldown = (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            f"session-status --session-id {shlex.quote(session_id)} --full"
+        )
+    return {
+        "claim_count": len(claim_refs),
+        "scope_kinds": scope_kinds[:4],
+        "path_count": len(paths),
+        "td_id_count": len(td_ids),
+        "work_item_id_count": len(work_item_ids),
+        "paths_preview": paths[:2],
+        "td_ids_preview": td_ids[:2],
+        "work_item_ids_preview": work_item_ids[:2],
+        "drilldown": drilldown,
+    }
+
+
 def _compact_awareness_card(
     row: Mapping[str, Any],
     *,
@@ -1327,6 +1508,8 @@ def _compact_awareness_card(
 ) -> Dict[str, Any]:
     card: Dict[str, Any] = {}
     for key in _AWARENESS_CARD_KEYS:
+        if key == "claim_refs" and not include_repair_rows:
+            continue
         value = row.get(key)
         if isinstance(value, Mapping):
             card[key] = dict(value)
@@ -1334,6 +1517,15 @@ def _compact_awareness_card(
             card[key] = list(value)
         else:
             card[key] = value
+
+    claim_refs = [
+        dict(item) for item in list(row.get("claim_refs") or []) if isinstance(item, Mapping)
+    ]
+    if claim_refs and not include_repair_rows:
+        card["claim_summary"] = _awareness_claim_summary(
+            claim_refs,
+            session_id=str(row.get("session_id") or "") or None,
+        )
 
     repair_rows = [
         dict(item) for item in list(row.get("repair_rows") or []) if isinstance(item, Mapping)
@@ -1347,6 +1539,26 @@ def _compact_awareness_card(
             repair_rows,
             session_id=str(row.get("session_id") or "") or None,
         )
+    return card
+
+
+def _compact_monitor_card(
+    row: Mapping[str, Any],
+    *,
+    include_repair_rows: bool,
+) -> Dict[str, Any]:
+    card = dict(row)
+    repair_rows = [
+        dict(item) for item in list(row.get("repair_rows") or []) if isinstance(item, Mapping)
+    ]
+    if repair_rows and not include_repair_rows:
+        card.pop("repair_rows", None)
+        card["repair_summary"] = _awareness_repair_summary(
+            repair_rows,
+            session_id=None,
+        )
+        if row.get("drilldown"):
+            card["repair_summary"]["drilldown"] = row.get("drilldown")
     return card
 
 
@@ -1365,7 +1577,14 @@ def _cohort_speed_summary(
         {
             str(card.get("session_id"))
             for card in awareness_cards
-            if card.get("session_id") and card.get("claim_refs")
+            if card.get("session_id")
+            and (
+                card.get("claim_refs")
+                or (
+                    isinstance(card.get("claim_summary"), Mapping)
+                    and int(card["claim_summary"].get("claim_count") or 0) > 0
+                )
+            )
         }
     )
     return {
@@ -1558,7 +1777,11 @@ def _compact_session_status_overview(
         "mode": "compact_overview" if include_rows else "cards_only_overview",
         "orphan_after_seconds": overview.get("orphan_after_seconds"),
         "counts": overview.get("counts") or {},
-        "monitor_cards": list(overview.get("monitor_cards") or []),
+        "monitor_cards": [
+            _compact_monitor_card(row, include_repair_rows=include_rows)
+            for row in list(overview.get("monitor_cards") or [])
+            if isinstance(row, Mapping)
+        ],
         "awareness_cards": awareness_cards,
         "heartbeat_participation": dict(overview.get("heartbeat_participation") or {}),
         "repair_rows": repair_rows,
@@ -1605,12 +1828,14 @@ def _compact_session_status_overview(
                 "active_session_rows",
                 "effective_active_session_rows",
                 "orphaned_active_session_rows",
+                "monitor_card_repair_rows",
                 "per_awareness_card_repair_rows",
+                "per_awareness_card_claim_refs",
             ],
             "reason": "cards-only overview preserves monitor cards, awareness cards, repair summaries, and counts for routine status checks; row evidence remains behind drilldowns.",
             "drilldown": (
                 "./repo-python tools/meta/factory/work_ledger.py "
-                f"session-status --overview --limit {safe_limit}"
+                f"session-status --overview --with-session-cards --limit {safe_limit}"
             ),
         }
     return payload
@@ -1735,7 +1960,7 @@ def _compact_session_lifecycle_payload(
         "drilldown_commands": {
             "compact_overview": (
                 "./repo-python tools/meta/factory/work_ledger.py "
-                f"session-status --overview --limit {int(limit or 0)}"
+                f"session-status --overview --cards-only --limit {int(limit or 0)}"
             ),
             "full_runtime": "./repo-python tools/meta/factory/work_ledger.py session-status --full",
         },
@@ -4183,7 +4408,7 @@ def build_parser() -> argparse.ArgumentParser:
     session_status.add_argument(
         "--overview",
         action="store_true",
-        help="Print the compact multi-agent session overview. This is the default.",
+        help="Print the cards-only multi-agent session overview. This is the default.",
     )
     session_status.add_argument(
         "--full",
@@ -4198,7 +4423,7 @@ def build_parser() -> argparse.ArgumentParser:
     session_status.add_argument(
         "--cards-only",
         action="store_true",
-        help="Omit session row arrays from compact overview; keep counts, monitor cards, and drilldown commands.",
+        help="Compatibility no-op; default overview already omits session row arrays.",
     )
     session_status.add_argument(
         "--seed-speed",

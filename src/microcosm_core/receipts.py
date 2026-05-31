@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.schemas import StrictJsonError, read_json_strict
+
 
 AUTHORITY_CEILING = "command_receipt_evidence_not_runtime_product_completeness"
 ANTI_CLAIM = (
@@ -20,6 +22,10 @@ PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 TRACKED_RECEIPTS_ROOT = (PACKAGE_ROOT / "receipts").resolve(strict=False)
 
 
+def _normalize_env_flag(value: str) -> str:
+    return value.strip().lower()
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
@@ -28,24 +34,42 @@ def receipt_writes_enabled() -> bool:
     value = os.environ.get("MICROCOSM_RECEIPT_WRITES")
     if value is None:
         value = os.environ.get("MICROCOSM_RUNTIME_RECEIPT_WRITES", "1")
-    return value.lower() not in FALSE_ENV_VALUES
+    return _normalize_env_flag(value) not in FALSE_ENV_VALUES
 
 
 def _env_flag_true(name: str) -> bool:
     value = os.environ.get(name)
-    return value is not None and value.lower() in TRUE_ENV_VALUES
+    return value is not None and _normalize_env_flag(value) in TRUE_ENV_VALUES
 
 
 def tracked_receipt_writes_enabled() -> bool:
     return _env_flag_true("MICROCOSM_TRACKED_RECEIPT_WRITES")
 
 
-def is_tracked_receipt_path(path: str | Path) -> bool:
+def _lexical_absolute(path: str | Path) -> Path:
+    return Path(os.path.abspath(os.fspath(path)))
+
+
+def _path_is_relative_to(path: Path, root: Path) -> bool:
     try:
-        Path(path).resolve(strict=False).relative_to(TRACKED_RECEIPTS_ROOT)
+        path.relative_to(root)
     except ValueError:
         return False
     return True
+
+
+def is_tracked_receipt_path(path: str | Path) -> bool:
+    tracked_root = _lexical_absolute(TRACKED_RECEIPTS_ROOT)
+    candidate = _lexical_absolute(path)
+    if _path_is_relative_to(candidate, tracked_root):
+        return True
+
+    raw_path = Path(path).expanduser()
+    parent_resolved_candidate = raw_path.parent.resolve(strict=False) / raw_path.name
+    return _path_is_relative_to(
+        parent_resolved_candidate,
+        Path(TRACKED_RECEIPTS_ROOT).resolve(strict=False),
+    )
 
 
 def tracked_receipt_write_blocked_under_pytest(path: str | Path) -> bool:
@@ -58,8 +82,8 @@ def tracked_receipt_write_blocked(path: str | Path) -> bool:
 
 def _read_json_object_if_exists(path: Path) -> dict[str, Any]:
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        data = read_json_strict(path)
+    except (FileNotFoundError, StrictJsonError, OSError):
         return {}
     return data if isinstance(data, dict) else {}
 
@@ -88,10 +112,8 @@ def _payload_with_stable_created_at(
     return stable_payload
 
 
-def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
+def _write_json_atomic_unchecked(path: str | Path, payload: dict[str, Any]) -> None:
     target = Path(path)
-    if not receipt_writes_enabled() or tracked_receipt_write_blocked(target):
-        return
     payload_to_write = _payload_with_stable_created_at(target, payload)
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{target.name}.", dir=str(target.parent))
@@ -106,6 +128,20 @@ def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
         except OSError:
             pass
         raise
+
+
+def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
+    target = Path(path)
+    if not receipt_writes_enabled() or tracked_receipt_write_blocked(target):
+        return
+    _write_json_atomic_unchecked(target, payload)
+
+
+def write_local_state_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
+    target = Path(path)
+    if tracked_receipt_write_blocked(target):
+        return
+    _write_json_atomic_unchecked(target, payload)
 
 
 def base_receipt(organ_id: str, fixture_id: str, command: str | None = None) -> dict[str, Any]:

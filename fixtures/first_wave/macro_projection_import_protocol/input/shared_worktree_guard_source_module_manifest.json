@@ -34,9 +34,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 180130,
+      "byte_count": 205516,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4907,
+      "line_count": 5544,
       "material_class": "public_macro_tool_body",
       "material_id": "shared_worktree_guard_test_body_import",
       "module_id": "shared_worktree_guard_test_body_import",
@@ -45,15 +45,15 @@
         "test_shared_worktree_guard_blocks_destructive_git_in_dirty_tree",
         "test_shared_worktree_guard_allows_read_only_git_status_in_dirty_tree",
         "test_shared_worktree_guard_detects_shell_chained_stash_apply",
-        "shared dirty worktree"
+        "shared dirty or artifact-bearing worktree"
       ],
       "sha256_match": true,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_git_index_dirty_worktree_payload_live_ledger_provider_payload_browser_hud_or_account_session_state",
       "source_ref": "system/server/tests/test_work_ledger_core.py",
       "source_role": "Work Ledger regression suite containing the live shared-worktree git-risk tests for session preflight, destructive git refusal, read-only git allowance, and chained stash detection.",
-      "source_sha256": "a5f10bf41612934581c6d641c24f60c162b36d6ca4ef32b86d5d96da6f63d0e8",
+      "source_sha256": "5dfa3fda976d3cadcb9c6cdb0122c5035676245d76ea959502e457da4574414f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
-      "target_sha256": "a5f10bf41612934581c6d641c24f60c162b36d6ca4ef32b86d5d96da6f63d0e8"
+      "target_sha256": "5dfa3fda976d3cadcb9c6cdb0122c5035676245d76ea959502e457da4574414f"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and static source-boundary checks; copied source modules are body evidence, not authority to mutate git state, inspect live dirty-path payloads, append ledgers, push or publish, call providers, inspect browser/HUD state, or claim release authority.",

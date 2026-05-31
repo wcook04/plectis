@@ -2632,6 +2632,18 @@ def _seed_speed_choose_disjoint_lane_action(
     }
 
 
+def _seed_speed_no_active_claims_action() -> Dict[str, Any]:
+    return {
+        "kind": "no_active_claims",
+        "action": (
+            "No active Work Ledger claims; run task entry for the intended task, "
+            "then claim owned paths before editing."
+        ),
+        "command": './repo-python kernel.py --entry "<task>" --context-budget 12000',
+        "ref": "entry.control_replacement.task_ledger",
+    }
+
+
 def _seed_speed_dirty_pressure_focus(
     dirty_tree_pressure: Mapping[str, Any] | None,
     *,
@@ -3992,8 +4004,11 @@ def build_seed_speed_status(
         )
         first_action_ref = "fast_paths.heartbeat"
     else:
-        first_action_kind = "choose_disjoint_write_lane"
-        first_action = "Use the seed claim session cards to choose the disjoint write lane."
+        no_claims_action = _seed_speed_no_active_claims_action()
+        first_action_kind = str(no_claims_action.get("kind") or "no_active_claims")
+        first_action = str(no_claims_action.get("action") or "")
+        first_action_command = str(no_claims_action.get("command") or "").strip() or None
+        first_action_ref = str(no_claims_action.get("ref") or "").strip() or None
 
     heartbeat_first_action: Dict[str, Any] | None = None
 
@@ -4506,7 +4521,7 @@ def _dirty_path_owner_hint(path: str) -> Dict[str, str]:
             "owner_surface": "microcosm_runtime_receipt_state",
             "recommended_action": (
                 "cd microcosm-substrate && "
-                "PYTHONPATH=src .venv/bin/python -m microcosm_core runtime-shell --help"
+                "PYTHONPATH=src .venv/bin/python -m microcosm_core.runtime_shell --help"
             ),
         }
     if path.startswith("receipts/"):

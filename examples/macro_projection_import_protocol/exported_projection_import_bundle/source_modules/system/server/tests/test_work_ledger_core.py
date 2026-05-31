@@ -769,6 +769,116 @@ def test_write_family_projections_reuses_family_reduction_across_stale_buckets(
     assert all(row["counts"]["events"] == len(events) for row in result)
 
 
+def test_project_phase_target_only_leaves_sibling_bucket_untouched(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    for phase_id in ("09_35", "09_36"):
+        work_ledger.bootstrap_phase_bucket(tmp_path, phase_id=phase_id, family_id="09")
+        work_ledger.open_thread(
+            tmp_path,
+            actor="codex",
+            actor_session_id=f"sess_{phase_id}",
+            phase_id=phase_id,
+            family_id="09",
+            title=f"Target-only projection {phase_id}",
+        )
+
+    target_index = tmp_path / "codex/ledger/09_35/work_ledger_index.json"
+    sibling_index = tmp_path / "codex/ledger/09_36/work_ledger_index.json"
+    sibling_before = sibling_index.read_text(encoding="utf-8")
+    stale_target = json.loads(target_index.read_text(encoding="utf-8"))
+    stale_target["counts"]["events"] = 0
+    target_index.write_text(json.dumps(stale_target, indent=2) + "\n", encoding="utf-8")
+
+    payload = work_ledger.project_phase(
+        tmp_path,
+        phase_id="09_35",
+        family_id="09",
+        target_only=True,
+    )
+
+    assert payload["target_only"] is True
+    assert [row["phase_id"] for row in payload["projection_results"]] == ["09_35"]
+    assert [row["phase_id"] for row in payload["deferred_projection_results"]] == ["09_36"]
+    assert payload["deferred_projection_results"][0]["reason"] == "target_only_projection_mode"
+    assert payload["deferred_projection_results"][0]["refresh_command"].endswith("--target-only")
+    assert sibling_index.read_text(encoding="utf-8") == sibling_before
+    refreshed_target = json.loads(target_index.read_text(encoding="utf-8"))
+    assert refreshed_target["counts"]["events"] == 2
+
+
+def test_cli_project_target_only_compacts_projection_payload(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    for phase_id in ("09_35", "09_36"):
+        work_ledger.bootstrap_phase_bucket(tmp_path, phase_id=phase_id, family_id="09")
+        work_ledger.open_thread(
+            tmp_path,
+            actor="codex",
+            actor_session_id=f"sess_{phase_id}",
+            phase_id=phase_id,
+            family_id="09",
+            title=f"Target-only compact CLI {phase_id}",
+        )
+
+    payload = work_ledger.project_phase(
+        tmp_path,
+        phase_id="09_35",
+        family_id="09",
+        target_only=True,
+    )
+
+    compact = work_ledger_cli._compact_target_only_project_payload(payload)
+
+    assert "projection" not in compact
+    assert compact["projection_results"] == payload["projection_results"]
+    assert compact["deferred_projection_results"] == payload["deferred_projection_results"]
+    assert compact["projection_summary"]["phase_id"] == "09_35"
+    assert compact["projection_summary"]["family_id"] == "09"
+    assert compact["projection_summary"]["counts"] == payload["projection"]["counts"]
+    assert compact["projection_summary"]["thread_count"] == len(payload["projection"]["threads"])
+    assert compact["omission_receipt"]["omitted"] == ["projection"]
+    assert "--full" in compact["omission_receipt"]["drilldown"]
+
+
+def test_project_check_target_only_ignores_stale_sibling_bucket(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    for phase_id in ("09_35", "09_36"):
+        work_ledger.bootstrap_phase_bucket(tmp_path, phase_id=phase_id, family_id="09")
+        work_ledger.open_thread(
+            tmp_path,
+            actor="codex",
+            actor_session_id=f"sess_{phase_id}",
+            phase_id=phase_id,
+            family_id="09",
+            title=f"Target-only check {phase_id}",
+        )
+    work_ledger.project_phase(tmp_path, phase_id="09_35", family_id="09", target_only=True)
+
+    sibling_index = tmp_path / "codex/ledger/09_36/work_ledger_index.json"
+    stale_sibling = json.loads(sibling_index.read_text(encoding="utf-8"))
+    stale_sibling["counts"]["events"] = 0
+    sibling_index.write_text(json.dumps(stale_sibling, indent=2) + "\n", encoding="utf-8")
+
+    target_only = work_ledger.check_project_phase(
+        tmp_path,
+        phase_id="09_35",
+        family_id="09",
+        target_only=True,
+    )
+    fanout = work_ledger.check_project_phase(tmp_path, phase_id="09_35", family_id="09")
+
+    assert target_only["ok"] is True
+    assert target_only["family_projection_fresh"] is None
+    assert [row["phase_id"] for row in target_only["projection_results"]] == ["09_35"]
+    assert [row["phase_id"] for row in target_only["deferred_projection_results"]] == ["09_36"]
+    assert target_only["deferred_projection_results"][0]["freshness_check_command"].endswith(
+        "--target-only"
+    )
+    assert "projection_fanout_diagnostics" not in target_only
+    assert fanout["selected_phase_fresh"] is True
+    assert fanout["family_projection_fresh"] is False
+    assert fanout["projection_fanout_diagnostics"][0]["stale_phase_ids"] == ["09_36"]
+
+
 def test_mixed_phase_family_projection_paths_are_disambiguated(tmp_path: Path) -> None:
     _seed_phase_family(tmp_path)
     shared_phase = "09_35"
@@ -982,6 +1092,102 @@ def test_phase_project_check_passes_when_selected_phase_is_fresh(tmp_path: Path)
     assert diagnostics[0]["broad_check_command"] == (
         "./repo-python tools/meta/factory/work_ledger.py project --check --all"
     )
+
+
+def test_targeted_family_projection_refresh_updates_only_requested_phase(tmp_path: Path) -> None:
+    _seed_phase_family(tmp_path)
+    buckets = ["09_35", "09_36", "09_37"]
+    for index, phase_id in enumerate(buckets):
+        work_ledger.append_event(
+            tmp_path,
+            {
+                "schema": work_ledger.WORK_LEDGER_SCHEMA,
+                "event_id": f"wle_targeted{index:08d}",
+                "td_id": f"td_targeted{index:09d}",
+                "event_kind": "todo_open",
+                "actor": "codex",
+                "actor_session_id": "sess_projection",
+                "phase_id": phase_id,
+                "family_id": "09",
+                "created_at": f"2026-05-11T00:0{index}:00+00:00",
+                "valid_at": f"2026-05-11T00:0{index}:00+00:00",
+                "title": f"Baseline bucket {phase_id}",
+            },
+            projection_mode="family",
+        )
+
+    work_ledger.open_thread(
+        tmp_path,
+        actor="codex",
+        actor_session_id="sess_projection",
+        phase_id="09_37",
+        family_id="09",
+        title="Append that stales sibling projections",
+    )
+
+    before = {
+        row["phase_id"]: row
+        for row in work_ledger.check_family_projections(
+            tmp_path,
+            family_id="09",
+            include_phase_id="09_37",
+        )
+    }
+    assert before["09_35"]["fresh"] is False
+    assert before["09_36"]["fresh"] is False
+    assert before["09_37"]["fresh"] is True
+
+    results = work_ledger.write_family_projection_targets(
+        tmp_path,
+        family_id="09",
+        phase_ids=["09_35"],
+    )
+
+    assert [row["phase_id"] for row in results] == ["09_35"]
+    assert results[0]["targeted"] is True
+    after = {
+        row["phase_id"]: row
+        for row in work_ledger.check_family_projections(
+            tmp_path,
+            family_id="09",
+            include_phase_id="09_37",
+        )
+    }
+    assert after["09_35"]["fresh"] is True
+    assert after["09_36"]["fresh"] is False
+    assert after["09_37"]["fresh"] is True
+
+
+def test_targeted_family_projection_refresh_can_skip_existing_compare(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.open_thread(
+        tmp_path,
+        actor="codex",
+        actor_session_id="sess_projection",
+        phase_id="09_35",
+        family_id="09",
+        title="Seed targeted projection",
+    )
+
+    def fail_existing_read(path: Path) -> dict:
+        raise AssertionError("known-stale targeted refresh should not read existing indexes")
+
+    monkeypatch.setattr(work_ledger, "_safe_read_json", fail_existing_read)
+
+    results = work_ledger.write_family_projection_targets(
+        tmp_path,
+        family_id="09",
+        phase_ids=["09_35"],
+        compare_existing=False,
+    )
+
+    assert [row["phase_id"] for row in results] == ["09_35"]
+    assert results[0]["targeted"] is True
+    assert results[0]["compare_existing"] is False
+    assert Path(tmp_path / results[0]["index_path"]).exists()
 
 
 def test_progress_append_updates_only_touched_projection_and_defers_siblings(tmp_path: Path) -> None:
@@ -1719,6 +1925,175 @@ def test_session_finalize_append_exempt_repairs_ended_stale_session(
     assert status["triggers"]["stale_session_ready"] is False
 
 
+def test_cohort_overview_stale_append_repair_triages_ended_no_append_session() -> None:
+    now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
+    old = now - timedelta(hours=8)
+    status = {
+        "generated_at": now.isoformat(),
+        "sessions": {
+            "ended_stale": {
+                "session_id": "ended_stale",
+                "actor": "codex",
+                "phase_id": "09_35",
+                "family_id": "09",
+                "read_receipt_id": "wlr_ended_stale",
+                "bootstrapped_at": old.isoformat(),
+                "last_activity_at": old.isoformat(),
+                "ended_at": (old + timedelta(minutes=5)).isoformat(),
+                "end_action": "auto_orphan_sweep",
+                "touched_work": True,
+                "touched_work_item_ids": ["cap_demo"],
+                "session_had_ledger_append": False,
+                "append_exempt": False,
+                "stale": True,
+                "stale_reason": "session touched work after bootstrap but ended without append",
+            }
+        },
+    }
+
+    overview = work_ledger_runtime.build_session_cohort_overview(status, now=now)
+
+    assert overview["contention"]["risk_level"] == "clear"
+    assert "stale_session_backlog" not in overview["contention"]["signals"]
+    assert overview["contention"]["historical_signals"] == ["stale_session_backlog"]
+    stale_repair = next(
+        row
+        for row in overview["repair_rows"]
+        if row["failure_class"] == "stale_append_or_finalize"
+    )
+    assert stale_repair["owning_surface"] == "work_ledger.session_status"
+    assert stale_repair["safe_next_command"] == (
+        "./repo-python tools/meta/factory/work_ledger.py "
+        "session-status --session-id ended_stale --full"
+    )
+    assert stale_repair["details"]["sample_repair_state"] == (
+        "ended_without_append_or_exemption"
+    )
+    assert "--summary" not in stale_repair["residual_capture_route"]
+    assert "--title 'Work Ledger residual: stale_append_obligation'" in stale_repair[
+        "residual_capture_route"
+    ]
+    assert "--statement '<residual>'" in stale_repair["residual_capture_route"]
+    assert "--read-receipt-id wlr_ended_stale" in stale_repair["details"][
+        "append_exempt_template_command"
+    ]
+    stale_card = next(
+        card
+        for card in overview["monitor_cards"]
+        if card["card_id"] == "stale_append_obligations"
+    )
+    assert stale_card["status"] == "watch"
+    assert stale_card["repair_rows"][0]["safe_next_command"] == stale_repair[
+        "safe_next_command"
+    ]
+
+
+def test_cohort_overview_demotes_claim_only_stale_sessions() -> None:
+    now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
+    old = now - timedelta(hours=8)
+    status = {
+        "generated_at": now.isoformat(),
+        "counts": {"stale_sessions": 1},
+        "sessions": {
+            "claim_only": {
+                "session_id": "claim_only",
+                "actor": "codex",
+                "phase_id": "09_35",
+                "family_id": "09",
+                "read_receipt_id": "wlr_claim_only",
+                "bootstrapped_at": old.isoformat(),
+                "last_activity_at": old.isoformat(),
+                "ended_at": (old + timedelta(minutes=5)).isoformat(),
+                "end_action": "auto_orphan_sweep",
+                "touched_work": True,
+                "claims": [
+                    {
+                        "claim_id": "wlc_claim_only",
+                        "scope_kind": "path",
+                        "scope_id": "tools/meta/factory/work_ledger.py",
+                        "path": "tools/meta/factory/work_ledger.py",
+                        "leased_until": old.isoformat(),
+                        "expired_at": old.isoformat(),
+                        "release_reason": "lease_expired",
+                    }
+                ],
+                "session_had_ledger_append": False,
+                "append_exempt": False,
+                "stale": True,
+                "stale_reason": "auto-swept path-only claim",
+            }
+        },
+    }
+
+    overview = work_ledger_runtime.build_session_cohort_overview(status, now=now)
+
+    assert overview["counts"]["stale_sessions"] == 1
+    assert overview["counts"]["stale_append_obligations"] == 0
+    assert overview["counts"]["stale_claim_only_sessions"] == 1
+    assert "stale_session_backlog" not in overview["contention"]["signals"]
+    assert overview["contention"]["risk_level"] == "clear"
+    assert "stale_append_or_finalize" not in {
+        row["failure_class"] for row in overview["repair_rows"]
+    }
+    stale_card = next(
+        card
+        for card in overview["monitor_cards"]
+        if card["card_id"] == "stale_append_obligations"
+    )
+    assert stale_card["status"] == "clear"
+    assert stale_card["count"] == 0
+    assert stale_card["details"]["stale_sessions"] == 1
+    assert stale_card["details"]["stale_claim_only_sessions"] == 1
+    assert overview["stale_claim_only_sessions"][0]["session_id"] == "claim_only"
+
+
+def test_rebuild_runtime_status_tracks_claim_only_stale_separately() -> None:
+    now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
+    old = now - timedelta(hours=8)
+    rebuilt = work_ledger_runtime.rebuild_runtime_status(
+        {
+            "generated_at": now.isoformat(),
+            "sessions": {
+                "claim_only": {
+                    "session_id": "claim_only",
+                    "actor": "codex",
+                    "phase_id": "09_35",
+                    "family_id": "09",
+                    "read_receipt_id": "wlr_claim_only",
+                    "bootstrapped_at": old.isoformat(),
+                    "last_activity_at": old.isoformat(),
+                    "ended_at": (old + timedelta(minutes=5)).isoformat(),
+                    "end_action": "auto_orphan_sweep",
+                    "has_activity": True,
+                    "touched_work": True,
+                    "claims": [
+                        {
+                            "claim_id": "wlc_claim_only",
+                            "scope_kind": "path",
+                            "scope_id": "tools/meta/factory/work_ledger.py",
+                            "path": "tools/meta/factory/work_ledger.py",
+                            "leased_until": old.isoformat(),
+                            "expired_at": old.isoformat(),
+                            "release_reason": "lease_expired",
+                        }
+                    ],
+                    "session_had_ledger_append": False,
+                    "append_exempt": False,
+                    "stale": True,
+                    "stale_reason": "auto-swept path-only claim",
+                }
+            },
+        }
+    )
+
+    assert rebuilt["counts"]["stale_sessions"] == 1
+    assert rebuilt["counts"]["stale_append_obligations"] == 0
+    assert rebuilt["counts"]["stale_claim_only_sessions"] == 1
+    assert rebuilt["counts"]["session_had_no_ledger_append"] == 1
+    assert rebuilt["triggers"]["stale_session_ready"] is False
+    assert rebuilt["cohort_overview"]["contention"]["risk_level"] == "clear"
+
+
 def test_runtime_status_projects_multi_agent_cohort_overview(tmp_path: Path) -> None:
     _seed_phase_family(tmp_path)
     work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
@@ -1933,6 +2308,19 @@ def test_cohort_overview_does_not_compact_ended_history_for_live_pressure(
 def test_cohort_overview_flags_unbound_topic_mission_focus() -> None:
     now = datetime(2026, 4, 21, 12, 0, tzinfo=timezone.utc)
     recent = (now - timedelta(minutes=5)).isoformat()
+
+    def live_heartbeat(pass_id: str, line: str) -> dict:
+        return {
+            "schema": work_ledger_runtime.PASS_HEARTBEAT_SCHEMA,
+            "pass_id": pass_id,
+            "pass_seq": 1,
+            "pass_state": "editing",
+            "current_pass_line": line,
+            "updated_at": recent,
+            "expires_at": (now + timedelta(hours=4)).isoformat(),
+            "source": "manual_cli",
+        }
+
     status = {
         "generated_at": now.isoformat(),
         "counts": {"active_sessions": 3, "stale_sessions": 0},
@@ -1946,6 +2334,10 @@ def test_cohort_overview_flags_unbound_topic_mission_focus() -> None:
                 "last_activity_at": recent,
                 "external_observed": True,
                 "external_title": "frontend graph proof pass",
+                "pass_heartbeat": live_heartbeat(
+                    "wlp_codex_frontend",
+                    "Inspecting frontend graph proof pass.",
+                ),
             },
             "claude_frontend": {
                 "session_id": "claude_frontend",
@@ -1956,6 +2348,10 @@ def test_cohort_overview_flags_unbound_topic_mission_focus() -> None:
                 "last_activity_at": recent,
                 "external_observed": True,
                 "external_title": "frontend graph visual audit",
+                "pass_heartbeat": live_heartbeat(
+                    "wlp_claude_frontend",
+                    "Inspecting frontend graph visual audit.",
+                ),
             },
             "claimed_backend": {
                 "session_id": "claimed_backend",
@@ -2014,6 +2410,16 @@ def test_cohort_overview_adds_monitor_cards_and_compacts_host_titles() -> None:
                         "available": True,
                         "recent_commands": [long_command],
                     }
+                },
+                "pass_heartbeat": {
+                    "schema": work_ledger_runtime.PASS_HEARTBEAT_SCHEMA,
+                    "pass_id": "wlp_codex_long",
+                    "pass_seq": 1,
+                    "pass_state": "editing",
+                    "current_pass_line": "Inspecting a long externally observed pass.",
+                    "updated_at": recent,
+                    "expires_at": (now + timedelta(hours=4)).isoformat(),
+                    "source": "manual_cli",
                 },
             },
             "claude_short": {
@@ -2077,11 +2483,13 @@ def test_cli_session_status_overview_prints_compact_payload(
 
     assert payload["schema"] == "work_ledger_session_cohort_overview_v1"
     assert "sessions" not in payload
-    assert payload["mode"] == "compact_overview"
-    assert len(payload["active_session_rows"]) == 1
-    assert "external_metadata" not in payload["active_session_rows"][0]
+    assert payload["mode"] == "cards_only_overview"
+    assert "active_session_rows" not in payload
     assert "active_sessions" not in payload
     assert payload["counts"]["active_sessions"] == 2
+    assert payload["omission_receipt"]["drilldown"].endswith(
+        "--overview --with-session-cards --limit 1"
+    )
 
     assert work_ledger_cli.cmd_session_status(
         SimpleNamespace(overview=True, full=False, with_session_cards=True, limit=1)
@@ -2112,12 +2520,21 @@ def test_cli_session_status_defaults_to_compact_and_full_is_explicit(
     ) == 0
     compact_payload = json.loads(capsys.readouterr().out)
     assert compact_payload["schema"] == "work_ledger_session_cohort_overview_v1"
-    assert compact_payload["mode"] == "compact_overview"
+    assert compact_payload["mode"] == "cards_only_overview"
     assert "sessions" not in compact_payload
     assert "active_sessions" not in compact_payload
 
     assert work_ledger_cli.cmd_session_status(
         SimpleNamespace(overview=False, full=True, with_session_cards=False, limit=1)
+    ) == 2
+    guard_payload = json.loads(capsys.readouterr().out)
+    assert guard_payload["schema"] == "work_ledger_session_status_limit_guard_v0"
+    assert guard_payload["status"] == "refused"
+    assert guard_payload["requested_limit"] == 1
+    assert "sessions" not in guard_payload
+
+    assert work_ledger_cli.cmd_session_status(
+        SimpleNamespace(overview=False, full=True, with_session_cards=False, limit=None)
     ) == 0
     full_payload = json.loads(capsys.readouterr().out)
     assert full_payload["schema"] == "work_ledger_runtime_status_v1"
@@ -2151,8 +2568,10 @@ def test_external_codex_observation_creates_runtime_only_session(tmp_path: Path)
     assert session["external_title"] == "Build runtime tracker"
     assert session["external_metadata"]["tokens_used"] == 1234
     assert session["touched_work"] is False
-    assert status["cohort_overview"]["actors"]["codex"]["effective_active_sessions"] == 1
-    compact = status["cohort_overview"]["effective_active_sessions"][0]
+    assert status["cohort_overview"]["actors"]["codex"]["active_sessions"] == 1
+    assert status["cohort_overview"]["actors"]["codex"]["effective_active_sessions"] == 0
+    assert status["cohort_overview"]["counts"]["passive_external_observed_sessions"] == 1
+    compact = status["cohort_overview"]["passive_external_observed_sessions"][0]
     assert compact["external_observed"] is True
     assert compact["external_title"] == "Build runtime tracker"
     assert compact["external_metadata"]["tokens_used"] == 1234
@@ -2508,12 +2927,89 @@ def test_session_preflight_accepts_common_shorthand_aliases() -> None:
             "tools/meta/factory/work_ledger.py",
             "--limit",
             "4",
+            "--heartbeat-now",
+            "Inspecting alias coverage.",
+            "--heartbeat-done",
+            "Claimed alias scopes.",
+            "--heartbeat-state",
+            "validation",
+            "--heartbeat-scope-ref",
+            "tools/meta/factory/work_ledger.py",
         ]
     )
 
     assert args.td_id == ["cap_alias"]
     assert args.path == ["tools/meta/factory/work_ledger.py"]
     assert args.overview_limit == 4
+    assert args.heartbeat_current_pass_line == "Inspecting alias coverage."
+    assert args.heartbeat_last_pass_result_line == "Claimed alias scopes."
+    assert args.heartbeat_state == "validation"
+    assert args.heartbeat_scope_ref == ["tools/meta/factory/work_ledger.py"]
+
+
+def test_cli_session_preflight_can_publish_initial_heartbeat(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    assert work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_preflight_heartbeat",
+            session_slug="meta",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=["cap_live_concurrency_transactional_workitems"],
+            path=["tools/meta/factory/work_ledger.py"],
+            lease_minutes=30,
+            note="bounded preflight heartbeat test",
+            require_exclusive=True,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=False,
+            heartbeat_current_pass_line="Adding preflight heartbeat support.",
+            heartbeat_last_pass_result_line="Claimed setup scopes.",
+            heartbeat_state="editing",
+            heartbeat_scope_ref=[],
+            heartbeat_source="manual_cli",
+        )
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    initial = payload["initial_heartbeat"]
+    assert initial["status"] == "written"
+    assert initial["scope_ref_policy"] == "claimed_scopes"
+    heartbeat = initial["pass_heartbeat"]
+    assert heartbeat["pass_state"] == "editing"
+    assert heartbeat["current_pass_line"] == "Adding preflight heartbeat support."
+    assert heartbeat["last_pass_result_line"] == "Claimed setup scopes."
+    assert heartbeat["source"] == "manual_cli"
+    assert [row["ref"] for row in heartbeat["scope_refs"]] == [
+        "cap_live_concurrency_transactional_workitems",
+        "tools/meta/factory/work_ledger.py",
+    ]
+    assert payload["overview_summary"]["heartbeat_participation"]["projected_unknown_count"] == 0
+    assert payload["overview_summary"]["heartbeat_participation"]["explicit_session_ids"] == [
+        "codex_preflight_heartbeat"
+    ]
+
+    status = work_ledger_runtime.load_runtime_status(tmp_path)
+    session = status["sessions"]["codex_preflight_heartbeat"]
+    assert session["pass_heartbeat"]["current_pass_line"] == (
+        "Adding preflight heartbeat support."
+    )
+    assert session["last_activity_action"] == "session-heartbeat"
 
 
 def test_cli_session_preflight_imports_codex_peers_before_bootstrap(
@@ -2994,7 +3490,7 @@ def test_cli_session_preflight_flags_shared_worktree_git_stash(
     assert risks[0]["risk"] == "shared_git_stash"
     assert risks[0]["session_id"] == "codex:peer-stash"
     assert "git stash push" in risks[0]["command"]
-    assert "shared dirty worktree" in risks[0]["advice"]
+    assert "shared dirty or artifact-bearing worktree" in risks[0]["advice"]
 
 
 def test_shared_worktree_guard_blocks_destructive_git_in_dirty_tree() -> None:
@@ -3546,8 +4042,56 @@ def test_cli_session_yield_request_appends_owner_visible_bus(
     assert payload["session_yield_request"]["schema"] == work_admission.SESSION_YIELD_REQUEST_SCHEMA
     assert payload["session_yield_request"]["request_id"] == payload["request_id"]
     assert payload["session_pressure_rank"]["rows"][0]["candidate_action"] == "ask_release_tool_lease"
+    assert (
+        payload["session_pressure_rank"]["rows"][0]["explicit_request"]["requested_action"]
+        == "release_tool_lease"
+    )
+    assert payload["session_pressure_rank"]["rows"][0]["explicit_request"]["rank_candidate_preserved"] is True
     assert rows[0]["session_yield_request"]["target_id"] == "codex-session"
     assert rows[0]["safety"]["no_active_session_terminated"] is True
+
+
+def test_cli_session_yield_request_echoes_requested_action_when_rank_keeps_session(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    request_path = tmp_path / "state/performance/session_yield_requests.jsonl"
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_REQUESTS", request_path)
+
+    rc = work_ledger_cli.cmd_session_yield_request(
+        SimpleNamespace(
+            target_session_id="codex-session",
+            request_id="syr_manual",
+            target_class="low_progress_session",
+            requested_action="lower_poll_rate",
+            owner_status="active_session",
+            pressure_mode="degraded",
+            result="requested",
+            helper_rss_mb=0.0,
+            recent_progress_units=0.0,
+            idle_age_s=0.0,
+            last_heartbeat_age_s=0.0,
+            active_claim_count=4,
+            operator_priority_hint=None,
+            result_note=None,
+            dry_run=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+    rank_row = payload["session_pressure_rank"]["rows"][0]
+
+    assert rc == 0
+    assert rank_row["candidate_action"] == "keep"
+    assert rank_row["explicit_request"] == {
+        "request_id": "syr_manual",
+        "requested_action": "lower_poll_rate",
+        "target_class": "low_progress_session",
+        "result": "requested",
+        "rank_candidate_preserved": True,
+        "reason": "explicit_owner_visible_request",
+    }
 
 
 def test_cli_session_yield_request_dry_run_does_not_write_unknown_owner(
@@ -4627,6 +5171,8 @@ def test_cohort_overview_surfaces_active_claims_and_claim_collisions(tmp_path: P
     assert "safe_next_command" in td_repair
     assert "proof_route" in td_repair
     assert "residual_capture_route" in td_repair
+    assert "--summary" not in td_repair["residual_capture_route"]
+    assert "--statement '<residual>'" in td_repair["residual_capture_route"]
     collision = overview["contention"]["claim_collisions"][0]
     assert collision["td_id"] == "td_contested"
     assert collision["claim_count"] == 2
@@ -4641,6 +5187,8 @@ def test_cohort_overview_surfaces_active_claims_and_claim_collisions(tmp_path: P
     assert compact_cards["claims"]["repair_rows"][0]["failure_class"] == "td_claim_collision"
     assert compact_preview["collision_count"] == 1
     assert compact_preview["items"][0]["td_id"] == "td_contested"
+    assert "--with-session-cards" not in json.dumps(compact_overview)
+    assert compact_cards["mission_focus"]["drilldown"].endswith("--seed-speed --limit 12")
     assert {claim["session_id"] for claim in compact_preview["items"][0]["active_claims_preview"]} == {
         "claude_claim",
         "codex_claim",
@@ -4649,6 +5197,105 @@ def test_cohort_overview_surfaces_active_claims_and_claim_collisions(tmp_path: P
         "claim collisions" in action.lower()
         for action in overview["recommended_actions"]
     )
+
+
+def test_session_claim_summary_surfaces_recent_task_ledger_writers_without_claims(
+    tmp_path: Path,
+) -> None:
+    events_path = tmp_path / "state/task_ledger/events.jsonl"
+    events_path.parent.mkdir(parents=True, exist_ok=True)
+    now = datetime.now(timezone.utc)
+    rows = [
+        {
+            "event_type": "work_item.captured",
+            "created_by": "codex",
+            "agent_run_id": "codex_recent",
+            "subject_id": "cap_recent_one",
+            "source": {"kind": "quick_capture"},
+            "event_id": "wie_recent_one",
+            "created_at": (now - timedelta(minutes=2)).isoformat(),
+        },
+        {
+            "event_type": "work_item.retired",
+            "created_by": "codex",
+            "agent_run_id": "codex_recent",
+            "subject_id": "cap_recent_two",
+            "source": {"kind": "quick_capture"},
+            "event_id": "wie_recent_two",
+            "created_at": (now - timedelta(minutes=1)).isoformat(),
+        },
+        {
+            "event_type": "work_item.captured",
+            "created_by": "codex",
+            "agent_run_id": "codex_old",
+            "subject_id": "cap_old",
+            "source": {"kind": "quick_capture"},
+            "event_id": "wie_old",
+            "created_at": (now - timedelta(minutes=30)).isoformat(),
+        },
+    ]
+    events_path.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    snapshot = {
+        "generated_at": now.isoformat(),
+        "status": "fresh",
+        "counts": {
+            "active_sessions": 0,
+            "effective_active_sessions": 0,
+            "active_claims": 0,
+            "claim_collisions": 0,
+        },
+        "active_claims": [],
+        "truncation": {
+            "limit": 5000,
+            "active_claims_total": 0,
+            "active_claims_emitted": 0,
+        },
+        "source_freshness": {"status": "fresh", "policy": "test"},
+    }
+
+    compact = work_ledger_cli._compact_claim_session_summary_cards(
+        snapshot,
+        limit=12,
+        repo_root=tmp_path,
+    )
+
+    writers = compact["recent_task_ledger_writers"]
+    assert writers["status"] == "recent_writers"
+    assert writers["recent_event_count"] == 2
+    assert writers["coordination_gap_hint"] == "task_ledger_source_recently_moved_without_active_claims"
+    assert writers["writer_cards"] == [
+        {
+            "agent_run_id": "codex_recent",
+            "created_by": "codex",
+            "source_kind": "quick_capture",
+            "event_count": 2,
+            "latest_created_at": (now - timedelta(minutes=1)).isoformat(),
+            "latest_event_id": "wie_recent_two",
+            "subjects_preview": ["cap_recent_one", "cap_recent_two"],
+        }
+    ]
+
+
+def _duplicate_active_claims_for_session(
+    root: Path,
+    *,
+    session_id: str,
+    claim_id_prefix: str = "wlc_legacy_duplicate",
+) -> None:
+    status = work_ledger_runtime.load_runtime_status(root)
+    session = dict(status["sessions"][session_id])
+    claims = [dict(claim) for claim in session.get("claims") or []]
+    duplicates = []
+    for index, claim in enumerate(claims):
+        duplicate = dict(claim)
+        duplicate["claim_id"] = f"{claim_id_prefix}_{index}"
+        duplicates.append(duplicate)
+    session["claims"] = claims + duplicates
+    status["sessions"][session_id] = session
+    work_ledger_runtime._write_runtime_status(root, status)
 
 
 def test_cohort_overview_emits_duplicate_same_session_claim_repair_row(tmp_path: Path) -> None:
@@ -4667,12 +5314,7 @@ def test_cohort_overview_emits_duplicate_same_session_claim_repair_row(tmp_path:
         td_id="td_duplicate",
         lease_minutes=30,
     )
-    work_ledger_runtime.claim_work_thread(
-        tmp_path,
-        session_id="codex_duplicate",
-        td_id="td_duplicate",
-        lease_minutes=30,
-    )
+    _duplicate_active_claims_for_session(tmp_path, session_id="codex_duplicate")
 
     overview = work_ledger_runtime.load_runtime_status(tmp_path)["cohort_overview"]
     row = next(
@@ -4708,12 +5350,7 @@ def test_duplicate_same_session_claim_dedupe_converges_beyond_preview_limit(
             path=path,
             lease_minutes=30,
         )
-        work_ledger_runtime.claim_work_path(
-            tmp_path,
-            session_id=session_id,
-            path=path,
-            lease_minutes=30,
-        )
+    _duplicate_active_claims_for_session(tmp_path, session_id=session_id)
 
     dry_run = work_ledger_runtime.dedupe_duplicate_same_session_claims(
         tmp_path,

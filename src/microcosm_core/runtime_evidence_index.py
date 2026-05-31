@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from bisect import insort
-from collections.abc import Iterable
-import json
+import os
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
+
+from microcosm_core.bounded_paths import bounded_sorted_paths as _bounded_sorted_paths
+from microcosm_core.schemas import StrictJsonError, read_json_strict
 
 
 PASS = "pass"
@@ -15,8 +17,8 @@ INDEX_MODE = "compact_runtime_evidence_index_v1"
 
 def _read_json_object(path: Path) -> dict[str, Any]:
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        payload = read_json_strict(path)
+    except (OSError, StrictJsonError):
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -93,25 +95,21 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
-def _bounded_sorted_paths(
-    rows: Iterable[Path], limit: int | None
-) -> tuple[int, list[Path]]:
-    if limit is None:
-        sorted_rows = sorted(rows)
-        return len(sorted_rows), sorted_rows
-    row_limit = max(limit, 0)
-    if row_limit == 0:
-        return sum(1 for _ in rows), []
-    selected: list[Path] = []
-    count = 0
-    for row in rows:
-        count += 1
-        if len(selected) < row_limit:
-            insort(selected, row)
-        elif row < selected[-1]:
-            selected.pop()
-            insort(selected, row)
-    return count, selected
+def _iter_json_files(root: Path) -> Iterator[Path]:
+    try:
+        with os.scandir(root) as entries:
+            for entry in entries:
+                try:
+                    if entry.is_dir(follow_symlinks=False):
+                        yield from _iter_json_files(Path(entry.path))
+                    elif entry.is_file(follow_symlinks=False) and entry.name.endswith(
+                        ".json"
+                    ):
+                        yield Path(entry.path)
+                except OSError:
+                    continue
+    except OSError:
+        return
 
 
 def list_runtime_evidence(
@@ -119,7 +117,7 @@ def list_runtime_evidence(
 ) -> dict[str, Any]:
     root_path = Path(root).expanduser().resolve(strict=False)
     receipt_count, returned_receipts = _bounded_sorted_paths(
-        (root_path / "receipts").rglob("*.json"),
+        _iter_json_files(root_path / "receipts"),
         limit,
     )
     returned_evidence = [
