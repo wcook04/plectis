@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 225921,
+      "byte_count": 226458,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5185,
+      "line_count": 5192,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_source_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace builder that turns observable Claude/Codex tool-call records into span, route-compliance, bottleneck, and compactness ledgers while excluding prompt bodies, hidden reasoning, and raw tool-output bodies.",
-      "source_sha256": "cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+      "source_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3"
+      "target_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611"
     },
     {
       "anchor_count": 5,

@@ -3634,10 +3634,12 @@ def _git_metadata_write_capability(repo_root: Path) -> dict[str, Any]:
             ],
             "probes": [],
         }
+    git_common_dir = _resolved_git_common_dir(repo_root, git_dir)
+    git_objects_dir = git_common_dir / "objects"
     worktree_probe = _git_metadata_write_probe(repo_root, purpose="repo_worktree_control")
     probes = [
         _git_metadata_write_probe(git_dir, purpose="git_dir_index_lock_parent"),
-        _git_metadata_write_probe(git_dir / "objects", purpose="git_object_database"),
+        _git_metadata_write_probe(git_objects_dir, purpose="git_object_database"),
     ]
     blocked = [row for row in probes if row.get("status") != "ok"]
     lockfiles = _git_metadata_lockfiles(repo_root, git_dir)
@@ -3659,9 +3661,12 @@ def _git_metadata_write_capability(repo_root: Path) -> dict[str, Any]:
         "same_context_required": True,
         "worktree_write_probe": worktree_probe,
         "git_dir": _normalize_path(repo_root, str(git_dir)),
+        "git_common_dir": _normalize_path(repo_root, str(git_common_dir)),
+        "git_objects_dir": _normalize_path(repo_root, str(git_objects_dir)),
         "protected_metadata_path": _is_protected_git_metadata_path(repo_root, git_dir),
         "git_dir_permissions": _directory_permission_summary(git_dir),
-        "git_objects_permissions": _directory_permission_summary(git_dir / "objects"),
+        "git_common_dir_permissions": _directory_permission_summary(git_common_dir),
+        "git_objects_permissions": _directory_permission_summary(git_objects_dir),
         "lockfiles": lockfiles,
         "git_gc_maintenance": _git_gc_maintenance_advisory(repo_root, git_dir),
         "owner_repair_commands": _git_metadata_owner_repair_commands(failure_class),
@@ -3676,6 +3681,17 @@ def _resolved_git_dir(repo_root: Path) -> Path | None:
     raw = proc.stdout.strip()
     if not raw:
         return None
+    path = Path(raw)
+    if not path.is_absolute():
+        path = repo_root / path
+    return path
+
+
+def _resolved_git_common_dir(repo_root: Path, git_dir: Path) -> Path:
+    proc = _run_git(repo_root, ["rev-parse", "--git-common-dir"])
+    raw = proc.stdout.strip() if proc.returncode == 0 else ""
+    if not raw:
+        return git_dir
     path = Path(raw)
     if not path.is_absolute():
         path = repo_root / path

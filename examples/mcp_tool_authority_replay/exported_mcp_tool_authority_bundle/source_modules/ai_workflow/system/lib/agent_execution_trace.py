@@ -70,6 +70,13 @@ PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION = "process_summary_v1"
 PROCESS_SUMMARY_IDENTITY_SCOPE_SCHEMA_VERSION = "process_summary_identity_scope_v1"
 PROCESS_SUMMARY_OWNER_SURFACE = "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
 PROCESS_TRACE_OWNER_SURFACE = "./repo-python kernel.py --process-trace <session_id>"
+PROCESS_TRACE_CACHE_CHECK_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py --cached-summary --limit 6"
+PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py --limit 6"
+PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND = (
+    "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+    "--host-pressure-compact --host-pressure-event-limit 500"
+)
+PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND = "./repo-python kernel.py --process-bottlenecks --limit 6"
 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND = "./repo-python kernel.py --process-bottlenecks --force"
 PROCESS_TRACE_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
 PROCESS_METADATA_PRIVACY_BOUNDARY = "process packets expose command/status/timing/output-size metadata, not raw task-output bodies"

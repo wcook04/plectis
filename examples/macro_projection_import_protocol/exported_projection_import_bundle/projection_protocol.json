@@ -328,7 +328,7 @@
         "bound claim to public trace-store replay not live provider, browser, account, credential, or recipient-send authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:f50ff2f04b82aac14e9696e6fe22e9e48be19411bd19bf9571f09245acf2fef9",
+      "body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -344,8 +344,8 @@
           "system/lib/agent_observability.py::_compact_event_if_oversized"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:f50ff2f04b82aac14e9696e6fe22e9e48be19411bd19bf9571f09245acf2fef9",
-        "target_line_count": 1023,
+        "target_body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
+        "target_line_count": 1017,
         "target_symbol_refs": [
           "microcosm_core.macro_tools.agent_observability_store::AgentEvent",
           "microcosm_core.macro_tools.agent_observability_store::AgentTraceStore",
@@ -356,7 +356,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1023,
+      "body_line_count": 1017,
       "claim_ceiling": "public agent-observability trace-store body import only; not live session-log parsing, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, source mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -1541,24 +1541,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:4474a21d0646f478f680991276342983b966373d30b4c7bf653f634283240e02",
+      "body_digest": "sha256:ca012db5df52b8a6573441bfc37a2aab269d6c313facdc744823144c7beb5c45",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:4474a21d0646f478f680991276342983b966373d30b4c7bf653f634283240e02",
-        "source_line_count": 9052,
+        "source_body_digest": "sha256:ca012db5df52b8a6573441bfc37a2aab269d6c313facdc744823144c7beb5c45",
+        "source_line_count": 9068,
         "source_ref": "system/lib/mission_transaction_landing_preflight.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:4474a21d0646f478f680991276342983b966373d30b4c7bf653f634283240e02",
-        "target_line_count": 9052,
+        "target_body_digest": "sha256:ca012db5df52b8a6573441bfc37a2aab269d6c313facdc744823144c7beb5c45",
+        "target_line_count": 9068,
         "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 9052,
+      "body_line_count": 9068,
       "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -6979,25 +6979,25 @@
         "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
       ],
       "body_copied": true,
-      "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+      "body_digest": "sha256:bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
-        "source_line_count": 5185,
+        "source_body_digest": "sha256:bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
+        "source_line_count": 5192,
         "source_ref": "system/lib/agent_execution_trace.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
-        "target_line_count": 5185,
+        "target_body_digest": "sha256:bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
+        "target_line_count": 5192,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 5185,
+      "body_line_count": 5192,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -7224,37 +7224,38 @@
     },
     {
       "applied_edits": [
-        "exact_copy_macro_agent_observability_sources_into_public_projection_bundle",
-        "bind_agent_observability_source_and_test_to_macro_projection_body_floor",
-        "preserve_append_only_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material",
-        "upstream_examples_use_public_example_home_placeholder_no_light_edit_required"
+        "source_faithful_public_light_edit_macro_agent_observability_test_into_public_projection_bundle",
+        "bind_agent_observability_test_to_macro_projection_body_floor_with_private_path_redaction",
+        "preserve_append_only_observability_test_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material",
+        "operator_absolute_path_prefixes_redacted_to_/Users/example"
       ],
       "body_copied": true,
-      "body_digest": "sha256:d1089f5a70e4e74178fe705f0f1a7b7c8ce041e7c6219ab0b99803703ab0b63c",
+      "body_digest": "sha256:d062f9b435740c1ce032e60fe27527f58b2ab422607a2b405c515c46ad6e04e3",
       "body_import_verification": {
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_sources_compile_and_preserve_payload_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:d1089f5a70e4e74178fe705f0f1a7b7c8ce041e7c6219ab0b99803703ab0b63c",
-        "source_line_count": 659,
+        "source_body_digest": "sha256:ecb1138277a33e5174b3337ab3dddbef67924b686924a359ec2da12943957cfa",
+        "source_line_count": 637,
         "source_ref": "system/server/tests/test_agent_observability.py",
         "source_symbol_refs": [
           "system/server/tests/test_agent_observability.py"
         ],
-        "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:d1089f5a70e4e74178fe705f0f1a7b7c8ce041e7c6219ab0b99803703ab0b63c",
-        "target_line_count": 659,
+        "source_to_target_relation": "public_light_edit_private_path_redaction",
+        "target_body_digest": "sha256:d062f9b435740c1ce032e60fe27527f58b2ab422607a2b405c515c46ad6e04e3",
+        "target_line_count": 637,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
         "target_symbol_refs": [
           "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py"
         ],
-        "verification_mode": "exact_source_digest_match",
+        "verification_mode": "verified_light_edit_recipe",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 659,
+      "body_line_count": 637,
       "body_text_in_receipt": false,
       "claim_ceiling": "public agent-observability source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -7272,7 +7273,7 @@
         "system/server/tests/test_agent_observability.py",
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json"
       ],
-      "source_to_target_relation": "exact_copy",
+      "source_to_target_relation": "public_light_edit_private_path_redaction",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
       "validation_refs": [
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_source_manifest_matches_exact_macro_sources",
