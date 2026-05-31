@@ -548,12 +548,23 @@ def _stable_hash(payload: object) -> str:
 
 
 def _file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _file_size_bytes(path: Path) -> int:
+    return path.stat().st_size
 
 
 def _line_count(path: Path) -> int:
+    line_count = 0
     with path.open("r", encoding="utf-8") as handle:
-        return sum(1 for _ in handle)
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _load_optional_json_document(
@@ -674,7 +685,7 @@ def validate_task_ledger_source_import(input_dir: Path, public_root: Path) -> di
             text = module_path.read_text(encoding="utf-8")
             actual_sha = _file_sha256(module_path)
             actual_line_count = _line_count(module_path)
-            actual_byte_count = len(module_path.read_bytes())
+            actual_byte_count = _file_size_bytes(module_path)
             missing_anchors = [
                 str(anchor)
                 for anchor in module.get("required_anchors", [])
@@ -862,7 +873,7 @@ def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> di
             text = module_path.read_text(encoding="utf-8")
             actual_sha = _file_sha256(module_path)
             actual_line_count = _line_count(module_path)
-            actual_byte_count = len(module_path.read_bytes())
+            actual_byte_count = _file_size_bytes(module_path)
             missing_anchors = [
                 str(anchor)
                 for anchor in module.get("required_anchors", [])
@@ -1050,7 +1061,7 @@ def validate_checkpoint_source_import(input_dir: Path, public_root: Path) -> dic
             text = module_path.read_text(encoding="utf-8")
             actual_sha = _file_sha256(module_path)
             actual_line_count = _line_count(module_path)
-            actual_byte_count = len(module_path.read_bytes())
+            actual_byte_count = _file_size_bytes(module_path)
             missing_anchors = [
                 str(anchor)
                 for anchor in module.get("required_anchors", [])
@@ -1240,7 +1251,7 @@ def validate_mission_control_source_import(input_dir: Path, public_root: Path) -
             text = module_path.read_text(encoding="utf-8")
             actual_sha = _file_sha256(module_path)
             actual_line_count = _line_count(module_path)
-            actual_byte_count = len(module_path.read_bytes())
+            actual_byte_count = _file_size_bytes(module_path)
             missing_anchors = [
                 str(anchor)
                 for anchor in module.get("required_anchors", [])

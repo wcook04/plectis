@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -9,6 +10,8 @@ from microcosm_core.organs.mission_transaction_work_spine import (
     EXPORTED_MISSION_TRANSACTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    _file_sha256,
+    _file_size_bytes,
     ORDERED_CONTROLLER_ACTION_IDS,
     _line_count,
     _load_jsonl,
@@ -332,17 +335,39 @@ def test_mission_transaction_line_count_streams_without_materializing_file(
     tmp_path: Path, monkeypatch: Any
 ) -> None:
     source_path = tmp_path / "source_module.py"
+    empty_source_path = tmp_path / "empty_source_module.py"
     source_path.write_text("first\nsecond\nthird", encoding="utf-8")
+    empty_source_path.write_text("", encoding="utf-8")
     original_read_text = Path.read_text
 
     def fail_for_target(self: Path, *args: Any, **kwargs: Any) -> str:
-        if self == source_path:
+        if self in {source_path, empty_source_path}:
             raise AssertionError("line count should stream file rows")
         return original_read_text(self, *args, **kwargs)
 
     monkeypatch.setattr(Path, "read_text", fail_for_target)
 
     assert _line_count(source_path) == 3
+    assert _line_count(empty_source_path) == 1
+
+
+def test_mission_transaction_source_module_metadata_helpers_stream_without_read_bytes(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    source_bytes = (b"first line\nsecond line\n" * 128) + b"tail"
+    source_path = tmp_path / "source_module.py"
+    source_path.write_bytes(source_bytes)
+    original_read_bytes = Path.read_bytes
+
+    def fail_for_target(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source_path:
+            raise AssertionError("source module metadata helpers should avoid read_bytes")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", fail_for_target)
+
+    assert _file_sha256(source_path) == hashlib.sha256(source_bytes).hexdigest()
+    assert _file_size_bytes(source_path) == len(source_bytes)
 
 
 def test_mission_transaction_work_spine_observes_required_negative_cases(
