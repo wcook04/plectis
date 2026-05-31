@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import deque
 import json
 import os
 from pathlib import Path
@@ -364,7 +365,7 @@ def _read_explanation_event_refs(path: Path, *, limit: int = 12) -> list[dict[st
     if limit <= 0:
         return []
     spans = {"project.route", "project.explain", "work.create", "work.run"}
-    refs: list[dict[str, Any]] = []
+    refs: deque[dict[str, Any]] = deque(maxlen=limit)
     for row in _iter_jsonl_dict_rows(path):
         if row.get("span") not in spans:
             continue
@@ -375,9 +376,7 @@ def _read_explanation_event_refs(path: Path, *, limit: int = 12) -> list[dict[st
                 "status": row.get("status"),
             }
         )
-        if len(refs) > limit:
-            refs.pop(0)
-    return refs
+    return list(refs)
 
 
 def _dedupe_strings(items: list[Any]) -> list[str]:
