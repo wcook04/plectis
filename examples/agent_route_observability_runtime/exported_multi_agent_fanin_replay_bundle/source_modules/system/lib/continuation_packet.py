@@ -833,5 +833,11 @@ def write_continuation_packet(
     target_rel = _string(built.get("continuation_packet_path")) or default_continuation_packet_path(artifact_dir_rel)
     target = repo_root / target_rel
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(built, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    text = json.dumps(built, indent=2, ensure_ascii=False) + "\n"
+    try:
+        if target.is_file() and target.read_text(encoding="utf-8") == text:
+            return target_rel, built
+    except OSError:
+        pass
+    target.write_text(text, encoding="utf-8")
     return target_rel, built

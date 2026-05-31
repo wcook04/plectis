@@ -34,6 +34,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from microcosm_core.schemas import read_json_strict
+
 
 PASS = "pass"
 BLOCKED = "blocked"
@@ -226,7 +228,7 @@ def _walk_keys(payload: object) -> list[str]:
 
 
 def _load_json(path: Path) -> object:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return read_json_strict(path)
 
 
 def _bundle_finding(

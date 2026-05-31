@@ -1,17 +1,18 @@
 {
-  "schema_version": "agent_route_observability_runtime_multi_agent_fanin_source_module_manifest_v1",
-  "bundle_id": "public_multi_agent_fanin_replay_runtime_example",
-  "source_import_class": "copied_non_secret_macro_body",
+  "body_copied_material_count": 1,
   "body_in_receipt": false,
+  "bundle_id": "public_multi_agent_fanin_replay_runtime_example",
   "module_count": 1,
   "modules": [
     {
-      "source_ref": "system/lib/continuation_packet.py",
-      "path": "source_modules/system/lib/continuation_packet.py",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/continuation_packet.py",
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 40356,
+      "line_count": 843,
       "material_class": "public_macro_tool_body",
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_role": "Continuation packet owner that builds durable Codex wake/resume context across pipeline_signal, resume_contract, and mission_controller waits.",
+      "path": "source_modules/system/lib/continuation_packet.py",
       "required_anchors": [
         "CONTINUATION_PACKET_KIND = \"continuation_packet\"",
         "WAIT_KINDS = frozenset({\"pipeline_signal\", \"resume_contract\", \"mission_controller\"})",
@@ -19,23 +20,22 @@
         "def render_codex_resume_prompt(",
         "def write_continuation_packet("
       ],
-      "line_count": 837,
-      "sha256": "a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
-      "byte_count": 40185,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "body_text_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
-      "source_sha256": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
-      "target_sha256": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+      "sha256": "ce4e39591a8f7e488ced3a317089d9a26fbb01df27c6762b1b8f6a4b8e93d2d0",
       "sha256_match": true,
-      "anchor_count": 5,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_ref": "system/lib/continuation_packet.py",
+      "source_role": "Continuation packet owner that builds durable Codex wake/resume context across pipeline_signal, resume_contract, and mission_controller waits.",
+      "source_sha256": "sha256:ce4e39591a8f7e488ced3a317089d9a26fbb01df27c6762b1b8f6a4b8e93d2d0",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/continuation_packet.py",
+      "target_sha256": "sha256:ce4e39591a8f7e488ced3a317089d9a26fbb01df27c6762b1b8f6a4b8e93d2d0",
       "validation_refs": [
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_receipt_is_public_safe"
       ]
     }
   ],
-  "body_copied_material_count": 1,
+  "schema_version": "agent_route_observability_runtime_multi_agent_fanin_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
   "validation_ref_count": 2
 }

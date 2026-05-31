@@ -15,7 +15,9 @@ import hashlib
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping, Sequence, cast
+
+from microcosm_core.schemas import read_json_strict
 
 
 PASS = "pass"
@@ -434,7 +436,7 @@ def suggestion_message(suggestion: RouteRepairSuggestion) -> str:
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return cast(dict[str, Any], read_json_strict(path))
 
 
 def load_public_agent_trace_route_repair_bundle(input_dir: str | Path) -> dict[str, dict[str, Any]]:

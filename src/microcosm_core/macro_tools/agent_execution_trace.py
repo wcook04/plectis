@@ -6,7 +6,9 @@ import json
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
+
+from microcosm_core.schemas import read_json_strict
 
 PASS = "pass"
 BLOCKED = "blocked"
@@ -96,7 +98,7 @@ class PublicTraceSpan:
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return cast(dict[str, Any], read_json_strict(path))
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:

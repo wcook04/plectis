@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 226458,
+      "byte_count": 229460,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5192,
+      "line_count": 5256,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_source_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace builder that turns observable Claude/Codex tool-call records into span, route-compliance, bottleneck, and compactness ledgers while excluding prompt bodies, hidden reasoning, and raw tool-output bodies.",
-      "source_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
+      "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611"
+      "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
     },
     {
       "anchor_count": 5,
@@ -57,9 +57,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 47570,
+      "byte_count": 49875,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 664,
+      "line_count": 678,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_standard_body_import",
       "required_anchors": [
@@ -73,9 +73,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Formal standard for the agent-execution trace observability boundary, source authority ladder, trace projections, and frontend API surface.",
-      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053"
+      "target_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic privacy-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",

@@ -248,6 +248,14 @@ COMMAND_NODE_CACHE_BODY_MATERIAL_IDS = [
     "command_node_cache_body_import",
     "command_node_cache_test_body_import",
 ]
+WORK_ADMISSION_SOURCE_BODY_MATERIAL_IDS = [
+    "work_admission_body_import",
+    "work_admission_test_body_import",
+]
+REFRESHED_EXACT_COPY_DEPENDENCY_BODY_MATERIAL_IDS = [
+    "pulse_cache_body_import",
+    "strict_json_source_body_import",
+]
 NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS = [
     "navigation_clusterability_body_import",
     "navigation_clusterability_test_body_import",
@@ -384,6 +392,15 @@ BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS = [
 ]
 AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS = [
     "agent_route_fanin_continuation_source_body_import",
+]
+ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS = [
+    "orchestration_control_body_import",
+    "pipeline_advance_control_body_import",
+    "pipeline_overnight_control_body_import",
+    "overnight_control_launcher_body_import",
+    "pipeline_advance_test_body_import",
+    "pipeline_overnight_test_body_import",
+    "orchestration_control_test_body_import",
 ]
 AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS = [
     "agent_route_session_attribution_source_body_import",
@@ -791,7 +808,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 190
+    assert result["public_safe_body_material_count"] == 203
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -827,10 +844,10 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 190
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 203
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
         "direct_verified_public": 3,
-        "verified_light_edit": 187,
+        "verified_light_edit": 200,
     }
     by_material = {
         row["material_id"]: row
@@ -1699,8 +1716,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 243
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 243
+    assert result["public_safe_body_material_count"] == 254
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 254
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1737,12 +1754,14 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *BOOTSTRAP_ROUTE_SURFACE_BODY_MATERIAL_IDS,
         *AGENT_OPERATING_PACKET_BODY_MATERIAL_IDS,
         *ACTIVE_EXECUTION_CONSTELLATION_BODY_MATERIAL_IDS,
-        *TASK_LEDGER_STARTUP_PRESSURE_BODY_MATERIAL_IDS,
-        *NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS,
-        *NAVIGATION_METABOLISM_LEDGER_BODY_MATERIAL_IDS,
-        *NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS,
-        *COMMAND_NODE_CACHE_BODY_MATERIAL_IDS,
-        *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
+            *TASK_LEDGER_STARTUP_PRESSURE_BODY_MATERIAL_IDS,
+            *NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS,
+            *NAVIGATION_METABOLISM_LEDGER_BODY_MATERIAL_IDS,
+            *NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS,
+            *COMMAND_NODE_CACHE_BODY_MATERIAL_IDS,
+            *WORK_ADMISSION_SOURCE_BODY_MATERIAL_IDS,
+            *REFRESHED_EXACT_COPY_DEPENDENCY_BODY_MATERIAL_IDS,
+            *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
         *ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
         *ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
         *ENTRYPOINT_HEALTH_BODY_MATERIAL_IDS,
@@ -1767,11 +1786,12 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *PROMPT_SHELF_MOVEMENT_SOURCE_BODY_MATERIAL_IDS,
         *PROMPT_SHELF_UPPROPAGATION_SOURCE_BODY_MATERIAL_IDS,
         *PROMPT_SHELF_UPPROPAGATION_DIGEST_SOURCE_BODY_MATERIAL_IDS,
-        *PROMPT_SHELF_RUNS_INDEX_SOURCE_BODY_MATERIAL_IDS,
-        *STANDARD_OPTION_SURFACE_SOURCE_BODY_MATERIAL_IDS,
-        *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
-        *AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
-        *AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
+            *PROMPT_SHELF_RUNS_INDEX_SOURCE_BODY_MATERIAL_IDS,
+            *STANDARD_OPTION_SURFACE_SOURCE_BODY_MATERIAL_IDS,
+            *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
+            *AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
+            *ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS,
+            *AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
         *SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS,
@@ -1791,7 +1811,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 243
+    assert result["public_safe_body_digest_count"] == 254
 
 
 def test_macro_projection_plan_exposes_source_digest_drift(tmp_path: Path) -> None:
@@ -1978,13 +1998,13 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 243
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 254
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 3,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 26,
         "public_macro_standard_body": 4,
-        "public_macro_tool_body": 209,
+            "public_macro_tool_body": 220,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -2505,7 +2525,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 243
+    assert result["public_safe_body_material_count"] == 254
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False

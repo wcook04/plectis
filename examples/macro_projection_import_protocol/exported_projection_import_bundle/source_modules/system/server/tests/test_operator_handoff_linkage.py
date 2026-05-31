@@ -382,7 +382,7 @@ def test_soft_and_curated_dedupe_by_assistant_sha(tmp_path: Path, monkeypatch: p
 
 def test_claude_project_slug_for_repo_cwd() -> None:
     slug = ohl._claude_project_slug_for_cwd(Path("/Users/example/src/ai_workflow"))
-    assert slug == "-Users-willcook-src-ai-workflow"
+    assert slug == "-Users-example-src-ai-workflow"
 
 
 def test_rollout_fallback_filters_non_repo_claude_projects(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

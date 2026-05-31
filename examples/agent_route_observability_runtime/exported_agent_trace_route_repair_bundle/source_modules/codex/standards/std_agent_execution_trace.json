@@ -11,7 +11,7 @@
     "runtime": "system/lib/agent_execution_trace.py",
     "source_of_truth": {
       "observable_action_substrate": [
-        "~/.claude/projects/-Users-willcook-Desktop-ai-workflow/*.jsonl",
+        "~/.claude/projects/-Users-example-src-ai-workflow/*.jsonl",
         "~/.codex/sessions/<YYYY>/<MM>/<DD>/rollout-*.jsonl"
       ],
       "authored_rules": "codex/doctrine/process/trace_rules.json",
@@ -472,6 +472,18 @@
       },
       "role": "Trace-derived context-economy packet that ranks context-yield leaks by active bytes, motif class, owner surface, recovery route, safety gate, and disconfirming check. It uses observable metadata, paths, command tags, and byte counts only; raw command output bodies and prompt bodies stay omitted behind process-trace/session drilldowns."
     },
+    "TraceImprovementSurface": {
+      "required_fields": ["schema_version", "status", "purpose", "live_vs_finished_boundary", "summary", "self_propagation_contract", "rows", "cap_alignment", "privacy_boundary"],
+      "schema_version": "session_trace_improvement_surface_v0",
+      "row_required_fields": ["row_id", "priority", "severity", "symptom_family", "title", "evidence", "owner_surface", "next_command", "candidate_patch", "source_lenses", "cap_refs", "action_contract"],
+      "action_contract_required_fields": ["schema_version", "mode", "owner_type", "first_drilldown", "supporting_drilldowns", "receipt_needed", "disconfirming_check", "raw_body_policy", "cap_policy", "self_propagation_rule"],
+      "action_contract_optional_fields": ["cap_ref_kinds", "full_drilldown", "summary_first_reason", "runtime_readiness_contract", "claim_contention_policy", "claim_contention_boundary_contract", "typed_route_replacement_contract"],
+      "action_contract_schema_version": "trace_summary_owner_action_contract_v1",
+      "typed_route_replacement_contract_schema_version": "ladder_skip_typed_route_replacement_contract_v0",
+      "typed_route_replacement_contract_required_fields": ["schema_version", "classify_as", "evidence_drilldown", "avoid_before_owner_route", "replacement_order", "receipt_fields"],
+      "self_propagation_contract_schema_version": "trace_summary_self_propagation_contract_v0",
+      "role": "Concise finished-session trace summary layer. It lets agents read recent Codex and Claude trace summaries, select one owner-action candidate, run the first drilldown, patch or block the named owner, and prove retirement without opening raw session bodies first."
+    },
     "TraceFrictionBoardRow": {
       "required_fields": ["row_id", "symptom_family", "mode", "evidence_refs", "recurrence", "impact", "candidate_owner", "candidate_mutation", "disconfirming_check", "next_command", "receipt_needed"],
       "optional_fields": ["runtime_focus", "runtime_scoped_commands", "episode_family", "command_efficiency_action"],
@@ -483,6 +495,7 @@
         "recovery_friction": "Interruptions or repeated tool-error signatures indicate missing guard, hint, or owner-command repair.",
         "experience_friction": "Agent-visible repair episodes such as claim contention, payload rejection, metadata settlement detours, compaction recovery, closeout ambiguity, or command-contract mismatch indicate an owner surface should absorb the lesson.",
         "cap_pressure": "Trace-related CAP/WorkItem rows already exist and should be shaped, linked, retired, or blocked before creating parallel backlog.",
+        "context_yield": "Live process-bottleneck context-yield attribution shows raw bodies, broad shell output, or re-callable tool results entering context before an existing compact owner route is used.",
         "live_stall": "Live or recent process rows show action-kind latency or throughput pressure.",
         "handoff_loss": "Work Ledger claim or orphan pressure makes trace-to-owner handoff ambiguous.",
         "evidence_gap": "A live/current trace claim lacks fresh read-model or projection authority."
@@ -512,10 +525,11 @@
       "required_fields": ["kind", "schema_version", "generated_at", "source_windows", "board", "top_symptom_families", "cap_refs", "owner_candidates", "command_efficiency_actions", "compactness_metrics", "trace_board_quality_gate", "drilldown_commands", "privacy_omission_receipts", "validation_receipts"],
       "schema_version": "trace_observatory_projection_v0",
       "board_schema_version": "trace_friction_board_v0",
-      "source_windows": ["finished session diagnostics", "live process summary", "process bottlenecks", "Task Ledger CAP views", "Work Ledger active claims"],
+      "source_windows": ["finished session diagnostics", "live process summary", "process bottlenecks", "process context-yield attribution", "Task Ledger CAP views", "Work Ledger active claims"],
+      "live_trace_readiness_contract": "When the live process-summary read model is missing, stale, advisory, or source_freshness.ok=false, the projection must carry a cached probe, runtime-scoped force-live commands, a refresh command, and receipt fields before live rows can become source-patch authority.",
       "privacy_contract": "Projection carries counts, ids, paths, owner surfaces, and receipt commands only. Raw provider traces, prompt bodies, operator text, tool stdout/stderr bodies, and hidden reasoning remain behind owner drilldowns.",
       "promotion_rule": "Treat as an owner-surface continuation under agent_session_diagnostics until recurrence is verified across at least two independent trace surfaces; only then promote to a wider HUD/control primitive.",
-      "role": "Generated Trace Friction Board projection that aggregates trace_improvement_surface, live process authority, CAP refs, Work Ledger claim context, command-efficiency action packets, compactness metrics, and evaluator receipts."
+      "role": "Generated Trace Friction Board projection that aggregates trace_improvement_surface, live process authority/readiness, process context-yield route-substitution pressure, CAP refs, Work Ledger claim context, command-efficiency action packets, compactness metrics, and evaluator receipts."
     },
     "TraceBoardQualityGate": {
       "required_fields": ["schema_version", "status", "checks", "thresholds", "findings", "retirement_delta"],

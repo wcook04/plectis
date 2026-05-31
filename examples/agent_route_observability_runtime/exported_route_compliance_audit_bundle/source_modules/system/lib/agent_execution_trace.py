@@ -45,6 +45,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Mapping
 
+from system.lib.strict_json import StrictJsonError, loads_json_strict, read_json_strict
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STANDARD_PATH = REPO_ROOT / "codex" / "standards" / "std_agent_execution_trace.json"
 TRACE_RULES_PATH = REPO_ROOT / "codex" / "doctrine" / "process" / "trace_rules.json"
@@ -70,15 +72,19 @@ PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION = "process_summary_v1"
 PROCESS_SUMMARY_IDENTITY_SCOPE_SCHEMA_VERSION = "process_summary_identity_scope_v1"
 PROCESS_SUMMARY_OWNER_SURFACE = "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
 PROCESS_TRACE_OWNER_SURFACE = "./repo-python kernel.py --process-trace <session_id>"
-PROCESS_TRACE_CACHE_CHECK_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py --cached-summary --limit 6"
-PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py --limit 6"
-PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND = (
-    "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
-    "--host-pressure-compact --host-pressure-event-limit 500"
-)
-PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND = "./repo-python kernel.py --process-bottlenecks --limit 6"
 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND = "./repo-python kernel.py --process-bottlenecks --force"
 PROCESS_TRACE_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
+PROCESS_TRACE_CACHE_CHECK_COMMAND = (
+    "./repo-python tools/meta/factory/build_agent_execution_trace.py --cached-summary --limit 6"
+)
+PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND = (
+    "./repo-python tools/meta/factory/build_agent_execution_trace.py --limit 6"
+)
+PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND = "./repo-python kernel.py --process-bottlenecks --limit 6"
+PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND = (
+    "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-compact --host-pressure-event-limit 500"
+)
+PROCESS_TRACE_MATERIALIZE_COMMAND = PROCESS_TRACE_REFRESH_COMMAND
 PROCESS_METADATA_PRIVACY_BOUNDARY = "process packets expose command/status/timing/output-size metadata, not raw task-output bodies"
 CONTEXT_YIELD_ATTRIBUTION_SCHEMA_VERSION = "context_yield_attribution_packet_v0"
 CONTEXT_YIELD_LARGE_OUTPUT_BYTES = 32000
@@ -366,8 +372,8 @@ def _relpath(path: Path, *, repo_root: Path) -> str:
 
 def _safe_read_json(path: Path) -> Any:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        return read_json_strict(path)
+    except (OSError, StrictJsonError):
         return None
 
 
@@ -2111,13 +2117,13 @@ def _is_read_shape_tool(tool_name: str) -> bool:
 def _iter_jsonl(path: Path) -> Iterator[dict[str, Any]]:
     try:
         with path.open("r", encoding="utf-8") as fh:
-            for line in fh:
+            for line_number, line in enumerate(fh, start=1):
                 line = line.strip()
                 if not line:
                     continue
                 try:
-                    yield json.loads(line)
-                except json.JSONDecodeError:
+                    yield loads_json_strict(line, source=f"{path}:{line_number}")
+                except StrictJsonError:
                     continue
     except OSError:
         return
@@ -2380,8 +2386,8 @@ def parse_codex_session(
                 args_raw = call_payload.get("arguments") or ""
                 if isinstance(args_raw, str):
                     try:
-                        parsed = json.loads(args_raw)
-                    except (json.JSONDecodeError, TypeError):
+                        parsed = loads_json_strict(args_raw, source=f"{path}:{call_id}:arguments")
+                    except (StrictJsonError, TypeError):
                         parsed = {"__raw": args_raw}
                     args = parsed if isinstance(parsed, dict) else {"__raw": parsed}
                 elif isinstance(args_raw, dict):
@@ -2433,8 +2439,8 @@ def parse_codex_session(
                 output_raw = payload.get("output")
                 if isinstance(output_raw, str):
                     try:
-                        parsed_output = json.loads(output_raw)
-                    except (json.JSONDecodeError, TypeError):
+                        parsed_output = loads_json_strict(output_raw, source=f"{path}:{call_id}:output")
+                    except (StrictJsonError, TypeError):
                         parsed_output = {"content": output_raw}
                     output_payload = parsed_output if isinstance(parsed_output, dict) else {"content": str(parsed_output)}
                 elif isinstance(output_raw, dict):
@@ -4575,11 +4581,41 @@ def load_process_bottleneck_summary_cache(
     summary = _safe_read_json(summary_path)
     status = "available"
     ok = True
+    session_count = 0
     if not isinstance(summary, Mapping):
         status = "missing_or_malformed_projection"
         ok = False
-        warnings.append("Process summary projection is missing or malformed; run the refresh command.")
+        warnings.append(
+            "Process summary projection is missing or malformed; use the cache-check command for cheap proof, "
+            "then materialize the read model when host pressure allows."
+        )
         summary = {}
+    else:
+        payload_summary = summary.get("summary")
+        top_bottlenecks = summary.get("top_bottlenecks")
+        top_output_producers = summary.get("top_output_producers")
+        malformed_summary_scalar = False
+        if isinstance(payload_summary, Mapping):
+            try:
+                session_count = int(payload_summary.get("session_count") or 0)
+            except (TypeError, ValueError):
+                malformed_summary_scalar = True
+            if session_count < 0:
+                malformed_summary_scalar = True
+        if (
+            not isinstance(payload_summary, Mapping)
+            or not isinstance(top_bottlenecks, list)
+            or (top_output_producers is not None and not isinstance(top_output_producers, list))
+            or malformed_summary_scalar
+        ):
+            status = "missing_or_malformed_projection"
+            ok = False
+            session_count = 0
+            warnings.append(
+                "Process summary projection has an invalid shape; use the cache-check command for cheap proof, "
+                "then materialize the read model when host pressure allows."
+            )
+            summary = {}
 
     source_mtimes = []
     for path in source_paths:
@@ -4597,7 +4633,8 @@ def load_process_bottleneck_summary_cache(
     if source_mtimes and projection_mtime:
         static_source_status = "current" if projection_mtime >= max(source_mtimes) else "stale_static_sources"
         if static_source_status != "current":
-            status = "stale_static_sources"
+            if ok:
+                status = "stale_static_sources"
             warnings.append("Static trace rules or standard changed after the process summary projection.")
 
     row_limit = None
@@ -4613,17 +4650,33 @@ def load_process_bottleneck_summary_cache(
         json.dumps(source_receipts, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
     elapsed_ms = round((time.perf_counter() - started) * 1000.0, 3)
+    probe = {
+        "schema_version": "process_bottleneck_summary_probe_v0",
+        "probe_ok": True,
+        "read_model_available": ok,
+        "read_model_status": status,
+        "default_cli_exit_code": 0,
+        "check_cli_exit_code": 0 if ok else 1,
+        "pressure_policy": "cache_check_before_live_rebuild",
+        "meaning": (
+            "The cached-summary command is a cheap probe. probe_ok=true means "
+            "the probe completed without parsing live rollouts; ok/read_model_available "
+            "state whether the cached read model can support bottleneck ranking."
+        ),
+    }
     return {
         "kind": "agent_execution_trace_cached_bottleneck_summary",
         "schema_version": CACHED_BOTTLENECK_SUMMARY_SCHEMA_VERSION,
         "generated_at": _utc_iso(),
         "ok": ok,
+        "probe_ok": True,
+        "probe": probe,
         "status": status,
         "query": {"limit": row_limit},
         "summary": {
             "row_count": len(rows),
             "source_row_count": len(summary.get("top_bottlenecks") or []),
-            "session_count": int((summary.get("summary") or {}).get("session_count") or 0),
+            "session_count": session_count,
             "wall_ms": elapsed_ms,
             "static_source_status": static_source_status,
             "dynamic_rollout_status": "not_revalidated_cached_projection_read",
@@ -4642,9 +4695,20 @@ def load_process_bottleneck_summary_cache(
             "dynamic_rollouts_revalidated": False,
         },
         "refresh": {
-            "command": PROCESS_TRACE_REFRESH_COMMAND,
-            "live_kernel_command": "./repo-python kernel.py --process-bottlenecks",
-            "why": "Use refresh when the caller needs authoritative live rollout parsing instead of a cached projection read.",
+            "command": PROCESS_TRACE_MATERIALIZE_COMMAND,
+            "materialize_read_model_command": PROCESS_TRACE_MATERIALIZE_COMMAND,
+            "bounded_materialize_read_model_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
+            "bounded_status_command": PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
+            "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "pressure_safe_first_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+            "status_kernel_command": "./repo-python kernel.py --process-bottlenecks",
+            "live_kernel_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            "force_live_kernel_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            "why": (
+                "Use cache/status commands under host pressure; materialize the read model when pressure allows; "
+                "force live only when the decision requires authoritative current rankings."
+            ),
         },
         "warnings": warnings,
     }

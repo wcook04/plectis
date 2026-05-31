@@ -8,7 +8,9 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping, Sequence, cast
+
+from microcosm_core.schemas import read_json_strict
 
 PASS = "pass"
 BLOCKED = "blocked"
@@ -729,7 +731,7 @@ def build_public_bridge_dispatch_yield_resume_view(
 def load_public_bridge_dispatch_yield_resume_bundle(input_dir: str | Path) -> dict[str, Any]:
     root = Path(input_dir)
     return {
-        path.stem: json.loads(path.read_text(encoding="utf-8"))
+        path.stem: cast(dict[str, Any], read_json_strict(path))
         for path in (root / name for name in INPUT_NAMES)
     }
 

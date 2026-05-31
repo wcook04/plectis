@@ -5077,7 +5077,7 @@
     }
   ],
   "last_refined_at": "2026-05-27T13:50:40Z",
-  "last_refreshed_at": "2026-05-27T15:15:57.620138+00:00",
+  "last_refreshed_at": "2026-05-30T20:58:00.685314+00:00",
   "load_bearing_cluster_roots": [
     {
       "cluster_id": "pattern_deliverables_registry",
@@ -5685,10 +5685,10 @@
           "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --check --json"
         ],
         "generated_artifacts_receipts": [
-          "state/embeddings/doctrine.json",
           "state/embeddings/standards_json.json",
-          "state/embeddings/annex_notes.json",
-          "state/semantic_routing/route_graph.json",
+          "state/semantic_routing/route_status.json",
+          "state/semantic_routing/route_drift.json",
+          "state/semantic_routing/route_evidence_summary.json",
           "state/semantic_routing/route_status.json",
           "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json::foundation_binding_and_grammar_rows",
           "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json::route_card_root_binding_and_grammar",
@@ -9594,9 +9594,7 @@
           "./repo-python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime"
         ],
         "generated_artifacts_receipts": [
-          "codex/hologram/process/ledger.json::route_compliance",
-          "codex/hologram/process/audit.json::route_non_compliance",
-          "codex/hologram/process/patterns.json::anti_pattern_detected",
+          "codex/hologram/compliance/ledger.json::route_compliance",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::agent_route_observability_runtime",
           "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/bundle_manifest.json",
           "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json"
@@ -10159,7 +10157,6 @@
           "./repo-python kernel.py --routing-metabolism-status"
         ],
         "generated_artifacts": [
-          "state/semantic_routing/route_graph.json",
           "state/semantic_routing/route_status.json",
           "state/semantic_routing/route_drift.json",
           "state/semantic_routing/route_evidence_summary.json",
@@ -10220,7 +10217,6 @@
         ],
         "state_ledgers_receipts": [
           "codex/ledger/semantic_routing/route_evidence.jsonl",
-          "state/semantic_routing/route_graph.json",
           "state/semantic_routing/route_status.json",
           "state/semantic_routing/route_drift.json",
           "state/semantic_routing/route_evidence_summary.json",

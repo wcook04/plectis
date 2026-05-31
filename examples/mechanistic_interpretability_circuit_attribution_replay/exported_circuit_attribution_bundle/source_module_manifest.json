@@ -185,9 +185,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 226458,
+      "byte_count": 229460,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5192,
+      "line_count": 5256,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_tool_body_import",
       "required_anchors": [
@@ -201,18 +201,18 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro trace-capsule and agent execution trace body that turns observable agent work into span-ledger, audit, navigation-cache, and process-pattern artifacts without hidden reasoning bodies.",
-      "source_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611",
+      "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "bda2776cebe88817d0762778d0368e26031966f5d8519ccd9d99de9baa941611"
+      "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 47570,
+      "byte_count": 49875,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 664,
+      "line_count": 678,
       "material_class": "public_macro_proof_body",
       "module_id": "std_agent_execution_trace_standard_body_import",
       "required_anchors": [
@@ -226,9 +226,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro standard body for agent execution traces, trace ontology, privacy boundaries, and process-observability projections.",
-      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053"
+      "target_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559"
     },
     {
       "anchor_count": 5,

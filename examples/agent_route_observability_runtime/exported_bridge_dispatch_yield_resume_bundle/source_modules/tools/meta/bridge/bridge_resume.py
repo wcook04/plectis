@@ -158,7 +158,7 @@ __all__ = [
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_INBOX_DIR = REPO_ROOT / "tools/meta/bridge/injector_inbox"
 DEFAULT_LEDGER_PATH = REPO_ROOT / "tools/meta/bridge/resume_ledger.jsonl"
-DEFAULT_PROJECTS_DIR = Path.home() / ".claude/projects/-Users-willcook-Desktop-ai-workflow"
+DEFAULT_PROJECTS_DIR = Path.home() / ".claude/projects/-Users-example-src-ai-workflow"
 DEFAULT_SENTINEL_PREFIX = "[bridge resume]"
 
 RESUME_MODES = ("none", "manual", "auto_inject")
