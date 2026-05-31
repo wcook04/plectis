@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import os
+from collections.abc import Iterable, Iterator
+from itertools import islice
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +14,19 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 CHECKER_ID = "checker.microcosm.validators.launch_compression"
+PRIVATE_HIT_NEEDLES = (
+    "/Users/",
+    "src/ai_workflow",
+    "Library/Application Support/Google/" + "Chrome",
+    "sk" + "-",
+)
+RECEIPT_FORWARD_NEEDLES = (
+    "receipt",
+    "adapter",
+    "truth index",
+    "organ registry",
+    "reconstruction",
+)
 
 
 def _public_relative(root: Path, path: Path) -> str:
@@ -22,7 +37,10 @@ def _public_relative(root: Path, path: Path) -> str:
 
 
 def _first_lines(path: Path, count: int) -> str:
-    return "\n".join(path.read_text(encoding="utf-8").splitlines()[:count])
+    if count <= 0:
+        return ""
+    with path.open("r", encoding="utf-8") as fh:
+        return "\n".join(line.rstrip("\r\n") for line in islice(fh, count))
 
 
 def _without_fenced_code_blocks(text: str) -> str:
@@ -38,16 +56,7 @@ def _without_fenced_code_blocks(text: str) -> str:
 
 
 def _private_hits(text: str) -> list[str]:
-    return [
-        needle
-        for needle in [
-            "/Users/",
-            "src/ai_workflow",
-            "Library/Application Support/Google/" + "Chrome",
-            "sk" + "-",
-        ]
-        if needle in text
-    ]
+    return [needle for needle in PRIVATE_HIT_NEEDLES if needle in text]
 
 
 def _has_private_hits(text: str) -> bool:
@@ -67,7 +76,7 @@ def _jsonable_has_private_hits(value: Any) -> bool:
     return False
 
 
-def _state_files_have_private_hits(paths: list[Path]) -> bool:
+def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
     for path in paths:
         if path.suffix not in {".json", ".jsonl"}:
             continue
@@ -80,11 +89,13 @@ def _state_files_have_private_hits(paths: list[Path]) -> bool:
     return False
 
 
-def _walk_state_files(project: Path) -> list[Path]:
+def _walk_state_files(project: Path) -> Iterator[Path]:
     state = project / project_substrate.STATE_DIR
     if not state.is_dir():
-        return []
-    return [path for path in sorted(state.rglob("*")) if path.is_file()]
+        return
+    for path in state.rglob("*"):
+        if path.is_file():
+            yield path
 
 
 def validate_launch_compression(
@@ -100,7 +111,7 @@ def validate_launch_compression(
     readme_path = public_root / "README.md"
     pyproject_path = public_root / "pyproject.toml"
     readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
-    readme_first_screen = "\n".join(readme_text.splitlines()[:45])
+    readme_first_screen = _first_lines(readme_path, 45) if readme_path.is_file() else ""
     launch_intro = readme_text.split("## Public Repo Map", 1)[0]
     pyproject_text = pyproject_path.read_text(encoding="utf-8") if pyproject_path.is_file() else ""
 
@@ -139,7 +150,6 @@ def validate_launch_compression(
     first_screen_lower = readme_first_screen.lower()
     readme_lower = readme_text.lower()
     launch_intro_lower = _without_fenced_code_blocks(launch_intro).lower()
-    receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
     private_hit_payloads = (
         compiled,
         tour,
@@ -176,7 +186,7 @@ def validate_launch_compression(
         "try_it_on_your_repo_present": "try it on your repo" in readme_lower
         or "start with one compact local command" in first_screen_lower,
         "first_screen_not_receipt_forward": not any(
-            needle in launch_intro_lower for needle in receipt_forward_needles
+            needle in launch_intro_lower for needle in RECEIPT_FORWARD_NEEDLES
         ),
         "pyproject_description_compressed": "repo" in pyproject_text
         and ".microcosm" in pyproject_text,
