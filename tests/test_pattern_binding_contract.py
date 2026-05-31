@@ -106,6 +106,54 @@ def test_pattern_binding_jsonl_reader_streams_without_full_text_read(
     ]
 
 
+def test_pattern_binding_append_tree_files_streams_without_path_rglob(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    bundle_root = tmp_path / "bundle"
+    nested = bundle_root / "source_modules/system/lib"
+    nested.mkdir(parents=True)
+    (bundle_root / "bundle_manifest.json").write_text("{}", encoding="utf-8")
+    (nested / "pattern_runtime.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (nested / "pattern_runtime.json").write_text("{}", encoding="utf-8")
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == bundle_root:
+            raise AssertionError("pattern bundle tree scan should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    paths: list[Path] = []
+    pattern_binding._append_tree_files(paths, bundle_root)
+
+    assert [path.relative_to(bundle_root).as_posix() for path in sorted(paths)] == [
+        "bundle_manifest.json",
+        "source_modules/system/lib/pattern_runtime.json",
+        "source_modules/system/lib/pattern_runtime.py",
+    ]
+
+
+def test_pattern_binding_file_sha256_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source_file = tmp_path / "pattern_ledger_rows.jsonl"
+    line = b'{"pattern_id":"pat_streaming","binding_posture":"direct_public"}\n'
+    body = line * ((pattern_binding.HASH_CHUNK_SIZE // len(line)) + 1)
+    source_file.write_bytes(body)
+    expected = hashlib.sha256(body).hexdigest()
+
+    def fail_read_bytes(self: Path) -> bytes:
+        raise AssertionError("_file_sha256 should stream bytes instead of materializing")
+
+    monkeypatch.setattr(Path, "read_bytes", fail_read_bytes)
+
+    assert pattern_binding._file_sha256(source_file) == expected
+    assert pattern_binding._sha256(source_file) == f"sha256:{expected}"
+
+
 def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Path) -> None:
     out_dir = tmp_path / "receipts"
 

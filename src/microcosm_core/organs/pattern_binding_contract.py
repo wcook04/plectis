@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from collections import Counter, defaultdict
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -77,6 +79,7 @@ EXPECTED_NEGATIVE_CASES = {
 }
 
 VALID_POSTURES = {"direct_public", "synthetic_only", "schema_only", "forbidden"}
+HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _canonical_sha256(value: object) -> str:
@@ -90,7 +93,11 @@ def _json_digest(value: Any) -> str:
 
 
 def _file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _finding(code: str, message: str, *, case_id: str | None = None, pattern_id: str | None = None) -> dict[str, Any]:
@@ -322,9 +329,20 @@ def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
 
 def _append_tree_files(paths: list[Path], path: Path) -> None:
     if path.is_dir():
-        paths.extend(sorted(candidate for candidate in path.rglob("*") if candidate.is_file()))
+        paths.extend(sorted(_iter_tree_files(path)))
     else:
         paths.append(path)
+
+
+def _iter_tree_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        entry_rows = list(entries)
+    for entry in entry_rows:
+        child = path / entry.name
+        if entry.is_dir(follow_symlinks=False):
+            yield from _iter_tree_files(child)
+        elif entry.is_file():
+            yield child
 
 
 def _substrate_bundle_input_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
