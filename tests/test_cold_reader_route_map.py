@@ -137,6 +137,72 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
     assert "body_redacted" not in _walk_keys(result)
 
 
+def test_cold_reader_line_count_streams_without_materializing_file(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    empty_source = tmp_path / "empty_source.py"
+    source.write_text("one\n\ntwo", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
+    guarded_paths = {source, empty_source}
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in guarded_paths:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert cold_reader_route_map._line_count(source) == 3
+    assert cold_reader_route_map._line_count(empty_source) == 1
+
+
+def test_cold_reader_sha256_streams_without_materializing_file(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    marker = b"cold-reader-route-map-source-module\n"
+    body = (
+        marker * (cold_reader_route_map.HASH_CHUNK_SIZE // len(marker) + 2)
+    ) + b"tail\n"
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == source:
+            raise AssertionError("digest should stream source-module input")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert cold_reader_route_map._sha256(source) == hashlib.sha256(body).hexdigest()
+
+
+def test_cold_reader_source_module_import_reuses_anchor_text_for_line_count(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    def fail_line_count(_path: Path) -> int:
+        raise AssertionError("source-module line count should reuse anchor text")
+
+    monkeypatch.setattr(cold_reader_route_map, "_line_count", fail_line_count)
+
+    result = run_route_map_bundle(
+        BUNDLE_INPUT,
+        tmp_path / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert all(
+        row["target_line_count"] == row["source_line_count"]
+        for row in result["source_module_results"]
+    )
+
+
 def test_cold_reader_source_manifest_matches_exact_macro_sources() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
 

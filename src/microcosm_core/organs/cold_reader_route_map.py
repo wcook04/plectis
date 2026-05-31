@@ -41,6 +41,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "anti_claim",
     "authority_ceiling",
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 REAL_BODY_MATERIAL_STATUS = (
     "copied_non_secret_macro_cold_entry_route_substrate_with_provenance"
 )
@@ -166,12 +167,23 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _line_count_from_text(text: str) -> int:
+    return text.count("\n") + (0 if text.endswith("\n") else 1)
 
 
 def _line_count(path: Path) -> int:
-    text = path.read_text(encoding="utf-8")
-    return text.count("\n") + (0 if text.endswith("\n") else 1)
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_target_path(
@@ -542,6 +554,7 @@ def _source_module_import_result(
             if isinstance(anchor, str) and anchor
         ]
         text = target.read_text(encoding="utf-8") if target_exists else ""
+        target_line_count = _line_count_from_text(text) if target_exists else None
         missing_anchors = [
             anchor for anchor in required_anchors if anchor not in text
         ]
@@ -563,7 +576,7 @@ def _source_module_import_result(
                 row.get("source_to_target_relation") or "exact_copy"
             ),
             "source_line_count": row.get("line_count"),
-            "target_line_count": _line_count(target) if target_exists else None,
+            "target_line_count": target_line_count,
             "body_in_receipt": False,
             "body_material_status": REAL_BODY_MATERIAL_STATUS,
         }
