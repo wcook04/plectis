@@ -4,6 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from microcosm_core import private_state_scan
+from microcosm_core.validators import private_state_scan as private_state_scan_validator
 from microcosm_core.private_state_scan import (
     BLOCKED_PRIVATE,
     BLOCKED_PUBLIC_WRITE,
@@ -12,6 +13,9 @@ from microcosm_core.private_state_scan import (
     load_forbidden_classes,
     scan_paths,
     scan_text,
+)
+from microcosm_core.validators.private_state_scan import (
+    validate_scan as validate_private_state_scan,
 )
 
 
@@ -119,6 +123,56 @@ def test_scan_paths_reuses_inferred_display_root_across_files(
     assert calls == 1
 
 
+def test_scan_paths_streams_generator_when_display_root_is_known(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    public_root = tmp_path / "microcosm-substrate"
+    public_root.mkdir()
+    first = public_root / "first.txt"
+    second = public_root / "second.txt"
+    first.write_text("public body first\n", encoding="utf-8")
+    second.write_text("public body second\n", encoding="utf-8")
+    first_scanned = False
+    original_scan_path_with_terms = private_state_scan._scan_path_with_terms
+
+    def counted_scan_path_with_terms(path, *args, **kwargs):
+        nonlocal first_scanned
+        result = original_scan_path_with_terms(path, *args, **kwargs)
+        if path == first:
+            first_scanned = True
+        return result
+
+    def fail_infer_display_root(paths):
+        raise AssertionError("display_root should bypass path-list inference")
+
+    def candidate_paths():
+        yield first
+        assert first_scanned, "scan_paths must stream known-root path iterables"
+        yield second
+
+    monkeypatch.setattr(
+        private_state_scan,
+        "_scan_path_with_terms",
+        counted_scan_path_with_terms,
+    )
+    monkeypatch.setattr(
+        private_state_scan,
+        "_infer_display_root",
+        fail_infer_display_root,
+    )
+
+    result = scan_paths(
+        candidate_paths(),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+    assert result["status"] == PASS
+    assert result["scanned_path_count"] == 2
+
+
 def test_scanner_blocks_unreadable_text_candidate_without_body(tmp_path: Path) -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     fixture = tmp_path / "bad.txt"
@@ -188,6 +242,52 @@ def test_expected_negative_fixture_does_not_block_root_scan() -> None:
     assert result["status"] == PASS
     assert result["scan_scope"]["does_not_certify_absence_of_secrets"] is True
     assert result["hits"][0]["expected_negative_case"] is True
+
+
+def test_private_state_validator_skips_local_runtime_residue(tmp_path: Path) -> None:
+    root = tmp_path / "microcosm-substrate"
+    (root / "core").mkdir(parents=True)
+    (root / "core/private_state_forbidden_classes.json").write_text(
+        POLICY_PATH.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    (root / "README.md").write_text("real substrate only\n", encoding="utf-8")
+    for residue_path in (
+        ".DS_Store",
+        ".microcosm/project_manifest.json",
+        ".microcosm/test-tmp/pytest/copied/microcosm-substrate/README.md",
+        ".pytest_cache/README.md",
+        ".venv/pyvenv.cfg",
+        "build/lib.txt",
+        "dist/microcosm.whl",
+        "microcosm-substrate/.microcosm/events.jsonl",
+        "node_modules/package/index.js",
+        "src/microcosm_substrate.egg-info/PKG-INFO",
+    ):
+        path = root / residue_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("SYNTHETIC_RAW_SEED_BODY_SENTINEL\n", encoding="utf-8")
+
+    iterator = private_state_scan_validator._iter_scan_paths(root)
+
+    assert not isinstance(iterator, list)
+
+    receipt = validate_private_state_scan(root)
+
+    assert receipt["status"] == PASS
+    assert receipt["private_state_scan"]["blocking_hit_count"] == 0
+    assert receipt["private_state_scan"]["scanned_path_count"] == 2
+
+    (root / "public_sentinel.txt").write_text(
+        "SYNTHETIC_RAW_SEED_BODY_SENTINEL\n",
+        encoding="utf-8",
+    )
+
+    blocked = validate_private_state_scan(root)
+
+    assert blocked["status"] == BLOCKED_PRIVATE
+    assert blocked["private_state_scan"]["blocking_hit_count"] == 1
+    assert blocked["private_state_scan"]["hits"][0]["path"] == "public_sentinel.txt"
 
 
 def test_public_root_is_allowed_as_target_and_blocked_as_source() -> None:

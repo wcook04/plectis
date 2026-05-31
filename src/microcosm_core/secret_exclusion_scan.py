@@ -104,15 +104,6 @@ def scan_text(
     )
 
 
-def _has_public_root_ancestor(path: Path) -> bool:
-    resolved = path.resolve(strict=False)
-    start = resolved if path.is_dir() else resolved.parent
-    for candidate in (start, *start.parents):
-        if candidate.name == _legacy.PUBLIC_ROOT_DIR_NAME or _legacy._looks_like_public_root(candidate):
-            return True
-    return False
-
-
 def scan_paths(
     paths: list[str | Path],
     *,
@@ -126,23 +117,7 @@ def scan_paths(
         source_context=source_context,
         display_root=display_root,
     )
-    scan = normalize_secret_exclusion_scan(raw_scan)
-    if display_root is None:
-        absolute_paths = {
-            _legacy.public_relative_path(Path(raw_path), display_root=None): str(
-                Path(raw_path).resolve(strict=False)
-            )
-            for raw_path in paths
-            if Path(raw_path).is_absolute()
-            and not _has_public_root_ancestor(Path(raw_path))
-        }
-        scan["hits"] = [
-            {**hit, "path": absolute_paths.get(str(hit.get("path")), hit.get("path"))}
-            if isinstance(hit, dict)
-            else hit
-            for hit in scan.get("hits", [])
-        ]
-    return scan
+    return normalize_secret_exclusion_scan(raw_scan)
 
 
 def scan_json_payload(

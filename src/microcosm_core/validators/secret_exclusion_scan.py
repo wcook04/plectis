@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Iterator
 import os
 from pathlib import Path
 from typing import Any
@@ -44,8 +45,7 @@ def _is_local_residue(path: Path, root: Path) -> bool:
     )
 
 
-def _iter_scan_paths(root: Path) -> list[Path]:
-    paths: list[Path] = []
+def _iter_scan_paths(root: Path) -> Iterator[Path]:
     for dirpath, dirnames, filenames in os.walk(root):
         current = Path(dirpath)
         dirnames[:] = [
@@ -56,8 +56,7 @@ def _iter_scan_paths(root: Path) -> list[Path]:
         for filename in filenames:
             path = current / filename
             if is_text_scan_candidate(path) and not _is_local_residue(path, root):
-                paths.append(path)
-    return paths
+                yield path
 
 
 def validate_scan(root: str | Path, policy: str | Path | None = None) -> dict[str, Any]:

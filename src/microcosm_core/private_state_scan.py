@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 import json
 from pathlib import Path
 from typing import Any
@@ -121,7 +122,7 @@ def public_relative_path(path: str | Path, *, display_root: str | Path | None = 
     return resolved.as_posix()
 
 
-def _infer_display_root(paths: list[Path]) -> Path | None:
+def _infer_display_root(paths: Iterable[Path]) -> Path | None:
     for path in paths:
         root = _public_root_for_path(path)
         if root is not None:
@@ -573,7 +574,7 @@ def _scan_path_with_terms(
 
 
 def scan_paths(
-    paths: list[str | Path],
+    paths: Iterable[str | Path],
     *,
     forbidden_classes: dict[str, Any],
     source_context: str = "target",
@@ -581,14 +582,15 @@ def scan_paths(
 ) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
     scanned = 0
-    scan_paths = [Path(raw_path) for raw_path in paths]
-    root = (
-        Path(display_root).resolve(strict=False)
-        if display_root is not None
-        else _infer_display_root(scan_paths)
-    )
+    candidate_paths = (Path(raw_path) for raw_path in paths)
+    if display_root is not None:
+        root = Path(display_root).resolve(strict=False)
+        paths_to_scan = candidate_paths
+    else:
+        paths_to_scan = list(candidate_paths)
+        root = _infer_display_root(paths_to_scan)
     terms = _terms(forbidden_classes)
-    for path in scan_paths:
+    for path in paths_to_scan:
         if not path.is_file() or not is_text_scan_candidate(path):
             continue
         scanned += 1
@@ -615,4 +617,9 @@ def scan_json_payload(
     source_context: str = "target",
 ) -> dict[str, Any]:
     text = json.dumps(payload, ensure_ascii=True, sort_keys=True)
-    return scan_text(text, path=path, forbidden_classes=forbidden_classes, source_context=source_context)
+    return scan_text(
+        text,
+        path=path,
+        forbidden_classes=forbidden_classes,
+        source_context=source_context,
+    )

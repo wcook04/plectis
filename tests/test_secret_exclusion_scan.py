@@ -259,10 +259,11 @@ def test_secret_exclusion_validator_collects_scannable_text_files(
         encoding="utf-8",
     )
 
-    paths = {
-        path.relative_to(root).as_posix()
-        for path in _iter_scan_paths(root)
-    }
+    iterator = _iter_scan_paths(root)
+
+    assert not isinstance(iterator, list)
+
+    paths = {path.relative_to(root).as_posix() for path in iterator}
 
     assert paths == {"Makefile", "README.md", "src/module.py"}
 

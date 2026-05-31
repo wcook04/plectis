@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Iterator
+import os
 from pathlib import Path
 from typing import Any
 
@@ -8,24 +10,63 @@ from microcosm_core.private_state_scan import PASS, load_forbidden_classes, scan
 from microcosm_core.receipts import base_receipt, write_receipt
 
 
-SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".venv"}
+SKIP_DIRS = {
+    ".git",
+    ".microcosm",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+    "build",
+    "dist",
+    "microcosm-substrate",
+    "node_modules",
+}
+SKIP_FILE_SUFFIXES = {".pyc", ".pyo"}
 
 
-def _iter_scan_paths(root: Path) -> list[Path]:
-    paths: list[Path] = []
-    for path in root.rglob("*"):
-        if any(part in SKIP_DIRS for part in path.parts):
-            continue
-        if path.is_file():
-            paths.append(path)
-    return paths
+def _is_local_residue(path: Path, root: Path) -> bool:
+    try:
+        rel = path.relative_to(root)
+    except ValueError:
+        rel = path
+    parts = rel.parts
+    return (
+        any(part in SKIP_DIRS for part in parts)
+        or any(part.endswith(".egg-info") for part in parts)
+        or path.suffix in SKIP_FILE_SUFFIXES
+        or path.name == ".DS_Store"
+    )
+
+
+def _iter_scan_paths(root: Path) -> Iterator[Path]:
+    for dirpath, dirnames, filenames in os.walk(root):
+        current = Path(dirpath)
+        dirnames[:] = [
+            dirname
+            for dirname in dirnames
+            if not _is_local_residue(current / dirname, root)
+        ]
+        for filename in filenames:
+            path = current / filename
+            if not _is_local_residue(path, root):
+                yield path
 
 
 def validate_scan(root: str | Path, policy: str | Path | None = None) -> dict[str, Any]:
     root_path = Path(root)
-    policy_path = Path(policy) if policy is not None else root_path / "core/private_state_forbidden_classes.json"
+    policy_path = (
+        Path(policy)
+        if policy is not None
+        else root_path / "core/private_state_forbidden_classes.json"
+    )
     forbidden_classes = load_forbidden_classes(policy_path)
-    scan = scan_paths(_iter_scan_paths(root_path), forbidden_classes=forbidden_classes)
+    scan = scan_paths(
+        _iter_scan_paths(root_path),
+        forbidden_classes=forbidden_classes,
+        display_root=root_path,
+    )
     receipt = base_receipt("private_state_scan", "first_wave")
     receipt.update(
         {
