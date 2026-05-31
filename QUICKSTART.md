@@ -71,8 +71,10 @@ entry point:
 PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 --port 8765 --max-requests 6
 ```
 
-Open `http://127.0.0.1:8765` while the server is running. The compact JSON
-drilldowns are:
+Open `http://127.0.0.1:8765` while the server is running. Browser visits to
+the drilldowns show readable HTML pages with the JSON payload embedded; clients
+that request `application/json` receive the raw JSON. The compact drilldowns
+are:
 
 - `/project/status`
 - `/project/first-screen`
