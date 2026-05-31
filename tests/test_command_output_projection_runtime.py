@@ -17,6 +17,12 @@ from microcosm_core.macro_tools.command_output_projection import (
     make_omission_receipt,
     make_validation_contract,
 )
+from microcosm_core.macro_tools.command_output_read import (
+    KIND as COMMAND_OUTPUT_READ_KIND,
+    body_import_verification as command_output_read_body_import_verification,
+    main as command_output_read_main,
+    read_command_output,
+)
 from microcosm_core.macro_tools.command_output_sidecar import (
     ENV_VAR,
     RECEIPT_KIND,
@@ -263,6 +269,111 @@ def test_command_output_sidecar_macro_tool_writes_bounded_receipt(
     assert sidecar_path.parent.parent == tmp_path / SIDECAR_ROOT
     assert json.loads(sidecar_path.read_text(encoding="utf-8")) == payload
     assert all("--command-output" in command for command in receipt["read_next"])
+
+
+def test_public_command_output_read_refactor_preserves_summary_card_and_full_bands(
+    tmp_path: Path,
+) -> None:
+    sidecar = tmp_path / "state/command_outputs/run/demo.json"
+    sidecar.parent.mkdir(parents=True)
+    payload = {
+        "kind": "public_command_output_fixture",
+        "schema_version": "public_command_output_fixture_v0",
+        "summary": {"row_count": 2},
+        "rows": [{"id": "a"}, {"id": "b"}],
+        "extra": {"kept_for_card": True},
+        "ninth": "truncated in card band",
+    }
+    sidecar.write_text(json.dumps(payload), encoding="utf-8")
+    rel = "state/command_outputs/run/demo.json"
+
+    summary = read_command_output(tmp_path, rel, band="summary")
+    assert summary["kind"] == COMMAND_OUTPUT_READ_KIND
+    assert summary["payload_kind"] == "public_command_output_fixture"
+    assert summary["payload_summary"] == {"row_count": 2}
+    assert "rows" in summary["top_keys"]
+
+    card = read_command_output(tmp_path, rel, band="card")
+    assert card["payload"]["rows"] == [{"id": "a"}, {"id": "b"}]
+    assert card["truncated_keys"] == []
+
+    full = read_command_output(tmp_path, sidecar, band="full")
+    assert full["payload"] == payload
+
+
+def test_public_command_output_read_refactor_rejects_unsafe_or_invalid_inputs(
+    tmp_path: Path,
+) -> None:
+    outside = tmp_path / "outside.json"
+    outside.write_text("{}", encoding="utf-8")
+    invalid = tmp_path / "state/command_outputs/invalid.json"
+    invalid.parent.mkdir(parents=True)
+    invalid.write_text("{not json", encoding="utf-8")
+
+    assert read_command_output(tmp_path, "")["status"] == "missing_path"
+    assert read_command_output(tmp_path, outside)["status"] == (
+        "path_outside_command_outputs"
+    )
+    assert read_command_output(tmp_path, "state/command_outputs/missing.json")[
+        "status"
+    ] == "not_found"
+    assert read_command_output(tmp_path, invalid)["status"] == "invalid_json"
+    assert read_command_output(
+        tmp_path,
+        invalid,
+        band="everything",
+    )["status"] == "unsupported_band"
+
+
+def test_public_command_output_read_refactor_cli_emits_json_and_exit_codes(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    sidecar = tmp_path / "state/command_outputs/run/demo.json"
+    sidecar.parent.mkdir(parents=True)
+    sidecar.write_text(
+        json.dumps({"kind": "fixture", "summary": {"row_count": 1}}),
+        encoding="utf-8",
+    )
+
+    assert command_output_read_main(
+        [
+            "--root",
+            str(tmp_path),
+            "state/command_outputs/run/demo.json",
+            "--band",
+            "summary",
+        ]
+    ) == 0
+    success = json.loads(capsys.readouterr().out)
+    assert success["kind"] == COMMAND_OUTPUT_READ_KIND
+    assert success["payload_summary"] == {"row_count": 1}
+
+    assert command_output_read_main(
+        [
+            "--root",
+            str(tmp_path),
+            "state/command_outputs/missing.json",
+        ]
+    ) == 2
+    failure = json.loads(capsys.readouterr().out)
+    assert failure["status"] == "not_found"
+
+
+def test_public_command_output_read_refactor_carries_body_import_verification() -> None:
+    verification = command_output_read_body_import_verification()
+
+    assert verification["verification_mode"] == "verified_light_edit_recipe"
+    assert verification["source_to_target_relation"] == (
+        "source_faithful_public_light_edit"
+    )
+    assert verification["source_ref"] == "system/lib/kernel/commands/navigate.py"
+    assert verification["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/command_output_read.py"
+    )
+    assert verification["target_body_digest"].startswith("sha256:")
+    assert "cmd_command_output_read" in verification["source_symbol_refs"][0]
+    assert verification["body_in_receipt"] is False
 
 
 def test_command_output_source_manifest_matches_exact_macro_sources() -> None:
