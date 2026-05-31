@@ -227,6 +227,43 @@ def test_project_evidence_list_only_reads_returned_limit(
     ]
 
 
+def test_project_evidence_list_streams_nested_refs_without_glob(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "ready-project"
+    evidence_dir = project / ".microcosm" / "evidence"
+    nested_dir = evidence_dir / "nested"
+    nested_dir.mkdir(parents=True)
+    (nested_dir / "proof.json").write_text(
+        '{"schema_version": "microcosm_project_evidence_v1", "status": "pass"}\n',
+        encoding="utf-8",
+    )
+    (evidence_dir / "routes.json").write_text(
+        '{"schema_version": "microcosm_project_evidence_v1", "status": "pass"}\n',
+        encoding="utf-8",
+    )
+    (nested_dir / "notes.txt").write_text("not evidence\n", encoding="utf-8")
+
+    original_glob = Path.glob
+
+    def fail_if_globbed(self: Path, pattern: str) -> object:
+        if self == evidence_dir and pattern == "*.json":
+            raise AssertionError("list_evidence should stream evidence discovery")
+        return original_glob(self, pattern)
+
+    monkeypatch.setattr(Path, "glob", fail_if_globbed)
+
+    payload = project_substrate.list_evidence(project)
+
+    assert payload["evidence_count"] == 2
+    assert payload["returned_evidence_count"] == 2
+    assert [row["evidence_ref"] for row in payload["evidence"]] == [
+        ".microcosm/evidence/nested/proof.json",
+        ".microcosm/evidence/routes.json",
+    ]
+
+
 def test_project_evidence_limited_path_selection_preserves_count_and_order(
     tmp_path: Path,
 ) -> None:
