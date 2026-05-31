@@ -10,6 +10,7 @@ from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harne
 from microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _line_count,
     main,
     run,
     run_precision_recall_bundle,
@@ -59,6 +60,24 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_ring2_precision_recall_line_count_streams_source_modules(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    source.write_text("one\n\ntwo\n", encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == source:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _line_count(source) == 3
 
 
 def test_ring2_precision_recall_observes_required_negative_cases(

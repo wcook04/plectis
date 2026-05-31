@@ -360,7 +360,8 @@ def _fresh_precision_recall_bundle_receipt(
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    with path.open("r", encoding="utf-8") as handle:
+        return sum(1 for _ in handle)
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
