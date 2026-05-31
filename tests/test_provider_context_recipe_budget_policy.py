@@ -12,6 +12,7 @@ from microcosm_core.organs.provider_context_recipe_budget_policy import (
     EXPECTED_NEGATIVE_CASES,
     RESULT_NAME,
     _line_count,
+    _sha256,
     main,
     run,
     run_budget_bundle,
@@ -66,6 +67,25 @@ def test_provider_context_line_count_streams_source_modules(
 
     assert _line_count(source) == 3
     assert _line_count(empty_source) == 1
+
+
+def test_provider_context_sha256_streams_source_modules(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    payload = b"provider context body\n" * 4096
+    source.write_bytes(payload)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source:
+            raise AssertionError("sha256 should stream source-module input")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert _sha256(source) == hashlib.sha256(payload).hexdigest()
 
 
 def test_provider_context_recipe_budget_observes_required_negative_cases(
