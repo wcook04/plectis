@@ -2,20 +2,25 @@ from __future__ import annotations
 
 import argparse
 import ast
-from bisect import insort
-from collections.abc import Iterable
+from collections import deque
+from collections.abc import Iterable, Iterator
 import hashlib
 import json
 import os
+import tomllib
 from pathlib import Path
 from typing import Any
 
 from microcosm_core import architecture_kernel
+from microcosm_core.bounded_paths import bounded_sorted_paths as _bounded_sorted_paths
 from microcosm_core.public_payload_boundary import (
     SOURCE_OPEN_BODY_POLICY,
     public_payload_boundary,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    utc_now,
+    write_local_state_json_atomic as write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -26,7 +31,7 @@ EVENT_STREAM = "events.jsonl"
 OBSERVATORY_SERVE_COMMAND = (
     "microcosm serve <project> --host 127.0.0.1 --port 8765"
 )
-OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 6
+OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 7
 OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
     f"{OBSERVATORY_SERVE_COMMAND} "
     f"--max-requests {OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT}"
@@ -35,6 +40,7 @@ OBSERVATORY_BOUNDED_VALIDATION_RULE = (
     "Use bounded_validation_command for first-screen route smokes; use command "
     "for an interactive browser session."
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 IGNORE_DIRS = {
     ".git",
@@ -73,6 +79,8 @@ PYTHON_LENS_SCAN_FULL = "full"
 PYTHON_LENS_SCAN_FIRST_SCREEN = "first_screen_summary"
 PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES = 4096
 PYTHON_LENS_CARD_PREVIEW_LIMIT = 12
+PROJECT_OBSERVE_CARD_COMMAND = "microcosm observe --card <project>"
+PROJECT_OBSERVE_FULL_COMMAND = "microcosm observe <project>"
 COMPILE_STATE_REFS = (
     f"{STATE_DIR}/project_manifest.json",
     f"{STATE_DIR}/architecture.json",
@@ -167,6 +175,63 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _read_event_stream_summary(path: Path, *, tail_limit: int = 20) -> dict[str, Any]:
+    if not path.is_file():
+        return {
+            "event_count": 0,
+            "spans": {},
+            "events": [],
+            "last_event": None,
+        }
+    event_count = 0
+    spans: dict[str, int] = {}
+    events_tail: deque[dict[str, Any]] = deque(maxlen=max(0, tail_limit))
+    with path.open("r", encoding="utf-8") as fh:
+        for line in fh:
+            if not line.strip():
+                continue
+            payload = json.loads(line)
+            if not isinstance(payload, dict):
+                continue
+            event_count += 1
+            span = str(payload.get("span") or "unknown")
+            spans[span] = spans.get(span, 0) + 1
+            events_tail.append(payload)
+    events = list(events_tail)
+    return {
+        "event_count": event_count,
+        "spans": spans,
+        "events": events,
+        "last_event": events[-1] if events else None,
+    }
+
+
+def _iter_files_under(root: Path, *, suffix: str | None = None) -> Iterator[Path]:
+    if not root.is_dir():
+        return
+    pending = [root]
+    while pending:
+        current = pending.pop()
+        try:
+            with os.scandir(current) as entries:
+                for entry in entries:
+                    try:
+                        if entry.is_file(follow_symlinks=False) and (
+                            suffix is None or entry.name.endswith(suffix)
+                        ):
+                            yield Path(entry.path)
+                        elif entry.is_dir(follow_symlinks=False):
+                            pending.append(Path(entry.path))
+                    except OSError:
+                        continue
+        except OSError:
+            continue
+
+
+def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
+    return sum(1 for _ in _iter_files_under(root, suffix=suffix))
+
+
 def _append_event(project: Path, event: dict[str, Any]) -> None:
     event_path = _state_dir(project) / EVENT_STREAM
     event_path.parent.mkdir(parents=True, exist_ok=True)
@@ -186,7 +251,11 @@ def _next_event_number(project: Path) -> int:
 
 
 def _sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> str:
@@ -240,24 +309,38 @@ def _event(project: Path, span: str, status: str, **fields: Any) -> dict[str, An
     return event
 
 
-def _classify_file(rel: str, path: Path) -> str:
-    name = path.name
-    parts = set(path.parts)
+def _classify_file(
+    rel: str,
+    path: Path | None = None,
+    *,
+    name: str | None = None,
+    suffix: str | None = None,
+    parts: set[str] | None = None,
+) -> str:
+    if path is not None:
+        name = path.name
+        suffix = path.suffix
+        parts = set(path.parts)
+    else:
+        normalized = rel.replace(os.sep, "/")
+        name = name or normalized.rsplit("/", 1)[-1]
+        suffix = suffix if suffix is not None else os.path.splitext(name)[1]
+        parts = parts if parts is not None else set(normalized.split("/"))
     if name in README_NAMES:
         return "readme"
     if name in PACKAGE_MANIFESTS:
         return "package_manifest"
-    if name in SCRIPT_NAMES or path.suffix == ".sh":
+    if name in SCRIPT_NAMES or suffix == ".sh":
         return "script"
     if "tests" in parts or "test" in parts or name.startswith("test_") or name.endswith("_test.py"):
         return "test"
-    if "docs" in parts or path.suffix in DOC_SUFFIXES:
+    if "docs" in parts or suffix in DOC_SUFFIXES:
         return "docs"
     if "examples" in parts:
         return "example"
-    if "src" in parts or path.suffix in SOURCE_SUFFIXES:
+    if "src" in parts or suffix in SOURCE_SUFFIXES:
         return "source"
-    if path.suffix in {".toml", ".json", ".yaml", ".yml", ".ini", ".cfg"}:
+    if suffix in {".toml", ".json", ".yaml", ".yml", ".ini", ".cfg"}:
         return "config"
     return "other"
 
@@ -276,17 +359,23 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
             if os.path.islink(full_path):
                 continue
             try:
-                size = Path(full_path).stat().st_size
+                size = os.stat(full_path, follow_symlinks=False).st_size
             except (FileNotFoundError, OSError):
                 continue
             rel = name if rel_dir == "." else f"{rel_dir}/{name}"
             rel = rel.replace(os.sep, "/")
+            suffix = os.path.splitext(name)[1]
             rows.append(
                 {
                     "path": rel,
                     "name": name,
-                    "suffix": Path(name).suffix,
-                    "role": _classify_file(rel, Path(rel)),
+                    "suffix": suffix,
+                    "role": _classify_file(
+                        rel,
+                        name=name,
+                        suffix=suffix,
+                        parts=set(rel.split("/")),
+                    ),
                     "bytes": size,
                 }
             )
@@ -604,6 +693,85 @@ def _python_package_root(rel: str) -> str | None:
     if len(parts) >= 2 and parts[-1] == "__init__.py":
         return parts[0]
     return None
+
+
+def _python_entrypoint_module_name(target: str) -> str | None:
+    module_name = target.split(":", 1)[0].split("[", 1)[0].strip()
+    return module_name or None
+
+
+def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None:
+    module_parts = [part for part in module_name.split(".") if part]
+    if not module_parts:
+        return None
+    src_module_path = Path("src", *module_parts)
+    root_module_path = Path(*module_parts)
+    candidates = [
+        src_module_path.with_suffix(".py").as_posix(),
+        (src_module_path / "__init__.py").as_posix(),
+        root_module_path.with_suffix(".py").as_posix(),
+        (root_module_path / "__init__.py").as_posix(),
+    ]
+    for candidate in candidates:
+        if (project / candidate).is_file():
+            return candidate
+    return None
+
+
+def _python_console_entrypoint_rows(
+    project: Path, pyproject_refs: list[str]
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for pyproject_ref in pyproject_refs:
+        try:
+            payload = tomllib.loads(_read_text_prefix(project / pyproject_ref, limit=None))
+        except tomllib.TOMLDecodeError:
+            continue
+        project_table = payload.get("project") if isinstance(payload, dict) else {}
+        scripts = (
+            project_table.get("scripts", {})
+            if isinstance(project_table, dict)
+            else {}
+        )
+        if not isinstance(scripts, dict):
+            continue
+        for script_name in sorted(str(key) for key in scripts):
+            target = scripts.get(script_name)
+            if not isinstance(target, str) or not target.strip():
+                continue
+            module_name = _python_entrypoint_module_name(target)
+            target_ref = (
+                _python_entrypoint_target_ref(project, module_name)
+                if module_name
+                else None
+            )
+            declaration_ref = f"{pyproject_ref}::project.scripts.{script_name}"
+            rows.append(
+                {
+                    "script_name": script_name,
+                    "declaration_ref": declaration_ref,
+                    "target": target,
+                    "target_module": module_name,
+                    "target_ref": target_ref,
+                    "grounded_refs": _dedupe_refs(
+                        [target_ref] if target_ref else [], declaration_ref
+                    ),
+                    **_source_body_boundary_row(),
+                }
+            )
+    return rows
+
+
+def _python_import_counts(text: str) -> tuple[int, int]:
+    relative_count = 0
+    absolute_count = 0
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("from ."):
+            relative_count += 1
+        elif stripped.startswith("import ") or stripped.startswith("from "):
+            absolute_count += 1
+    return relative_count, absolute_count
 
 
 def _python_route(route_id: str, title: str, refs: list[str], readiness: str) -> dict[str, Any]:
@@ -1319,6 +1487,10 @@ def python_lens(
         rel = str(row.get("path") or "")
         text = ""
         if first_screen_summary:
+            text = _read_text_prefix(
+                project / rel,
+                limit=PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES,
+            )
             span_projection = {
                 "parse_status": "deferred_first_screen_summary",
                 "module_has_docstring": False,
@@ -1337,6 +1509,7 @@ def python_lens(
         parse_error = span_projection.get("parse_error")
         if isinstance(parse_error, dict):
             parse_error_rows.append(parse_error)
+        relative_import_count, absolute_import_count = _python_import_counts(text)
         path_rows.append(
             {
                 "path": rel,
@@ -1345,14 +1518,8 @@ def python_lens(
                 "bytes": row.get("bytes", 0),
                 "parse_status": span_projection["parse_status"],
                 "has_main_guard": "__main__" in text and "__name__" in text,
-                "relative_import_count": sum(
-                    1 for line in text.splitlines() if line.strip().startswith("from .")
-                ),
-                "absolute_import_count": sum(
-                    1
-                    for line in text.splitlines()
-                    if line.strip().startswith("import ") or line.strip().startswith("from ")
-                ),
+                "relative_import_count": relative_import_count,
+                "absolute_import_count": absolute_import_count,
                 **_source_body_boundary_row(),
             }
         )
@@ -1362,13 +1529,32 @@ def python_lens(
         if isinstance(package_refs, list)
         else []
     )
+    console_entrypoint_rows = _python_console_entrypoint_rows(project, pyproject_refs)
+    console_entrypoint_source_refs = [
+        str(row["target_ref"])
+        for row in console_entrypoint_rows
+        if isinstance(row.get("target_ref"), str) and row.get("target_ref")
+    ]
+    console_entrypoint_declaration_refs = [
+        str(row["declaration_ref"])
+        for row in console_entrypoint_rows
+        if isinstance(row.get("declaration_ref"), str) and row.get("declaration_ref")
+    ]
     source_refs = [str(row["path"]) for row in path_rows if row["python_role"] == "source_module"]
     test_refs = [
         str(row["path"])
         for row in path_rows
         if row["python_role"] in {"test_module", "test_support"}
     ]
-    entrypoint_refs = [str(row["path"]) for row in path_rows if row["has_main_guard"]]
+    main_guard_entrypoint_refs = [
+        str(row["path"]) for row in path_rows if row["has_main_guard"]
+    ]
+    entrypoint_refs = _dedupe_refs(
+        main_guard_entrypoint_refs, console_entrypoint_source_refs
+    )
+    entrypoint_visibility_refs = _dedupe_refs(
+        entrypoint_refs, console_entrypoint_declaration_refs
+    )
     package_roots = sorted(
         {
             root
@@ -1394,8 +1580,8 @@ def python_lens(
         },
         {
             "check_id": "python_entrypoint_visible",
-            "status": PASS if entrypoint_refs else "missing",
-            "grounded_refs": entrypoint_refs[:12],
+            "status": PASS if entrypoint_visibility_refs else "missing",
+            "grounded_refs": entrypoint_visibility_refs[:12],
         },
         {
             "check_id": "python_package_roots_visible",
@@ -1424,9 +1610,9 @@ def python_lens(
         ),
         _python_route(
             "python_entrypoint_route",
-            "Inspect Python entrypoint scripts",
-            entrypoint_refs,
-            PASS if entrypoint_refs else "missing",
+            "Inspect Python entrypoint declarations",
+            entrypoint_visibility_refs,
+            PASS if entrypoint_visibility_refs else "missing",
         ),
     ]
     route_probe_tasks = _python_route_probe_tasks(route_rows)
@@ -1623,6 +1809,9 @@ def python_lens(
             "public_refs_are_drilldowns_not_replacements": True,
         },
         "python_file_count": len(path_rows),
+        "console_entrypoint_count": len(console_entrypoint_rows),
+        "console_entrypoint_rows": console_entrypoint_rows,
+        "console_entrypoint_source_refs": console_entrypoint_source_refs,
         "package_roots": package_roots,
         "path_rows": path_rows,
         "symbol_capsule_rows": symbol_capsule_rows,
@@ -2328,7 +2517,7 @@ def _observed_reader_causal_chain_card(
         else {}
     )
     graph = _read_project_json(project, "graph.json")
-    evidence = list_evidence(project)
+    evidence = list_evidence(project, limit=0)
     return _reader_causal_chain_card(
         project,
         route_id=route_id,
@@ -2340,7 +2529,11 @@ def _observed_reader_causal_chain_card(
     )
 
 
-def _project_observe_state_write_proof_card(project: Path) -> dict[str, Any]:
+def _project_observe_state_write_proof_card(
+    project: Path,
+    *,
+    project_ref: str = "<project>",
+) -> dict[str, Any]:
     state_root = _state_dir(project)
     state_ref_statuses: dict[str, bool] = {}
     required_state_refs = [
@@ -2358,11 +2551,7 @@ def _project_observe_state_write_proof_card(project: Path) -> dict[str, Any]:
     missing_state_refs = [
         ref for ref, exists in state_ref_statuses.items() if not exists
     ]
-    state_file_count = (
-        sum(1 for ref in state_root.rglob("*") if ref.is_file())
-        if state_root.is_dir()
-        else 0
-    )
+    state_file_count = _count_files_under(state_root)
     return {
         "schema_version": "microcosm_project_observe_state_write_proof_ref_v1",
         "status": PASS
@@ -2376,18 +2565,18 @@ def _project_observe_state_write_proof_card(project: Path) -> dict[str, Any]:
         "missing_state_refs": missing_state_refs,
         "state_ref_statuses": state_ref_statuses,
         "state_write_result_ref": (
-            "microcosm tour --card <project>::state_write_result"
+            f"microcosm tour --card {project_ref}::state_write_result"
         ),
         "state_write_status_ref": (
-            "microcosm tour --card <project>::front_door_status."
+            f"microcosm tour --card {project_ref}::front_door_status."
             "surface_statuses.state_write"
         ),
         "state_inspection_status_ref": (
-            "microcosm tour --card <project>::front_door_status."
+            f"microcosm tour --card {project_ref}::front_door_status."
             "surface_statuses.state_inspection"
         ),
         "status_card_project_state_ref": (
-            "microcosm status --card <project>::front_door.project_state"
+            f"microcosm status --card {project_ref}::front_door.project_state"
         ),
         "tour_card_writes_microcosm_state": True,
         "observe_writes_microcosm_state": False,
@@ -2413,26 +2602,26 @@ def observe_project(
     project = Path(project_path).expanduser().resolve(strict=False)
     if refresh_architecture:
         architecture_kernel.write_project_architecture(project)
-    events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
-    spans: dict[str, int] = {}
-    for row in events:
-        span = str(row.get("span") or "unknown")
-        spans[span] = spans.get(span, 0) + 1
+    event_summary = _read_event_stream_summary(_state_dir(project) / EVENT_STREAM)
     observed = {
-        "event_count": len(events),
-        "spans": spans,
-        "events": events[-20:],
+        "event_count": event_summary["event_count"],
+        "spans": event_summary["spans"],
+        "events": event_summary["events"],
         "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
         "architecture_ref": f"{STATE_DIR}/architecture.json",
         "state_index_ref": f"{STATE_DIR}/state_index.json",
         "graph_ref": f"{STATE_DIR}/graph.json",
     }
     causal_chain = _observed_reader_causal_chain_card(project, observed=observed)
-    state_write_proof = _project_observe_state_write_proof_card(project)
+    project_ref = _project_arg_ref(project_path, project)
+    state_write_proof = _project_observe_state_write_proof_card(
+        project,
+        project_ref=project_ref,
+    )
     return {
         **_base_payload("microcosm_project_observe_result_v1", project),
         **observed,
-        "project_ref": _project_arg_ref(project_path, project),
+        "project_ref": project_ref,
         "selected_route_id": causal_chain.get("selected_route_id"),
         "state_write_proof": state_write_proof,
         "causal_chain": causal_chain,
@@ -2442,6 +2631,65 @@ def observe_project(
         "evidence_ref_count": causal_chain.get("evidence_ref_count", 0),
         "authority_boundary": causal_chain.get("authority_boundary"),
         "safe_to_show": causal_chain.get("safe_to_show", {}),
+    }
+
+
+def observe_project_card(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
+    observed = observe_project(
+        project_path,
+        refresh_architecture=refresh_architecture,
+    )
+    causal_chain = observed.get("causal_chain") or {}
+    state_write_proof = observed.get("state_write_proof") or {}
+    graph = causal_chain.get("graph") or {}
+    spans = observed.get("spans") or {}
+    return {
+        **_base_payload("microcosm_project_observe_card_v1", Path(project_path)),
+        "card_status": observed.get("status"),
+        "command": f"microcosm observe --card {observed.get('project_ref', '<project>')}",
+        "full_command": f"microcosm observe {observed.get('project_ref', '<project>')}",
+        "endpoint": None,
+        "endpoint_available": False,
+        "full_endpoint": "/project/observe",
+        "selected_route_id": observed.get("selected_route_id"),
+        "event_count": observed.get("event_count", 0),
+        "span_count": len(spans),
+        "spans": spans,
+        "state_write_proof": {
+            "status": state_write_proof.get("status"),
+            "state_dir_exists": state_write_proof.get("state_dir_exists"),
+            "missing_state_refs": state_write_proof.get("missing_state_refs", []),
+            "state_file_count": state_write_proof.get("state_file_count", 0),
+            "tour_card_writes_microcosm_state": state_write_proof.get(
+                "tour_card_writes_microcosm_state"
+            ),
+            "observe_writes_microcosm_state": state_write_proof.get(
+                "observe_writes_microcosm_state"
+            ),
+            "source_files_mutated": state_write_proof.get("source_files_mutated"),
+        },
+        "causal_chain_summary": {
+            "status": causal_chain.get("status"),
+            "selected_work_id": causal_chain.get("selected_work_id"),
+            "selected_work_status": causal_chain.get("selected_work_status"),
+            "work_state_ref": observed.get("work_state_ref"),
+            "route_explanation_ref": observed.get("route_explanation_ref"),
+            "evidence_ref_count": observed.get("evidence_ref_count", 0),
+            "graph": {
+                "node_count": graph.get("node_count", 0),
+                "edge_count": graph.get("edge_count", 0),
+                "graph_ref": graph.get("graph_ref") or observed.get("graph_ref"),
+            },
+        },
+        "reader_drilldowns": observed.get("reader_drilldowns", []),
+        "authority_boundary": observed.get("authority_boundary"),
+        "safe_to_show": observed.get("safe_to_show", {}),
+        "reader_action": (
+            "Use this compact card to confirm state refs, selected route, spans, "
+            "and authority boundary; run full_command for event rows."
+        ),
     }
 
 
@@ -2520,27 +2768,6 @@ def explain_route(
     return explanation
 
 
-def _bounded_sorted_paths(
-    rows: Iterable[Path], limit: int | None
-) -> tuple[int, list[Path]]:
-    if limit is None:
-        sorted_rows = sorted(rows)
-        return len(sorted_rows), sorted_rows
-    row_limit = max(limit, 0)
-    if row_limit == 0:
-        return sum(1 for _ in rows), []
-    selected: list[Path] = []
-    count = 0
-    for row in rows:
-        count += 1
-        if len(selected) < row_limit:
-            insort(selected, row)
-        elif row < selected[-1]:
-            selected.pop()
-            insort(selected, row)
-    return count, selected
-
-
 def _count_paths(paths: Iterable[Path]) -> int:
     return sum(1 for _ in paths)
 
@@ -2549,16 +2776,24 @@ def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
+    evidence_dir = _evidence_dir(project)
     evidence_count, returned_paths = _bounded_sorted_paths(
-        _evidence_dir(project).glob("*.json"),
+        _iter_files_under(evidence_dir, suffix=".json"),
         limit,
     )
     rows: list[dict[str, Any]] = []
     for path in returned_paths:
-        payload = _read_project_json(project, f"{EVIDENCE_DIR}/{path.name}")
+        try:
+            evidence_rel = path.resolve(strict=False).relative_to(
+                evidence_dir.resolve(strict=False)
+            ).as_posix()
+        except ValueError:
+            evidence_rel = path.name
+        evidence_ref = f"{STATE_DIR}/{EVIDENCE_DIR}/{evidence_rel}"
+        payload = _read_project_json(project, f"{EVIDENCE_DIR}/{evidence_rel}")
         rows.append(
             {
-                "evidence_ref": f"{STATE_DIR}/{EVIDENCE_DIR}/{path.name}",
+                "evidence_ref": evidence_ref,
                 "schema_version": payload.get("schema_version"),
                 "status": payload.get("status", "unknown"),
                 "project_id": payload.get("project_id", _project_name(project)),
@@ -2690,7 +2925,7 @@ def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     if path.is_file():
         row["bytes"] = path.stat().st_size
     elif path.is_dir():
-        row["json_count"] = _count_paths(path.glob("*.json"))
+        row["json_count"] = _count_files_under(path, suffix=".json")
     return row
 
 
@@ -2846,7 +3081,8 @@ def _truth_readiness_surface(
         "route_explanation_status": route_explanation_status,
         "truth_accounting": checks,
         "observatory_surface": {
-            "project_observe_command": "microcosm observe <project>",
+            "project_observe_command": PROJECT_OBSERVE_CARD_COMMAND,
+            "project_observe_full_command": PROJECT_OBSERVE_FULL_COMMAND,
             "command": OBSERVATORY_SERVE_COMMAND,
             "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
             "bounded_validation_request_count": OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT,
@@ -2938,7 +3174,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         (row for row in work_rows if row.get("route_id") == route_id),
         work_rows[0] if work_rows else {},
     )
-    events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
+    event_summary = _read_event_stream_summary(_state_dir(project) / EVENT_STREAM)
     state_ref_status = [_state_ref_status(project, ref) for ref in COMPILE_STATE_REFS]
     missing_state_refs_all = [
         str(row.get("ref")) for row in state_ref_status if row.get("exists") is not True
@@ -2970,7 +3206,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         if status == "stale_cached_state"
         else "missing_cached_state"
     )
-    last_event = events[-1] if events else {}
+    last_event = event_summary["last_event"]
     graph_summary = {
         "node_count": graph.get("node_count", 0),
         "edge_count": graph.get("edge_count", 0),
@@ -2982,6 +3218,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "missing_state_refs": missing_state_refs,
         "optional_missing_state_refs": optional_missing_state_refs,
     }
+    evidence_dir = _evidence_dir(project)
+    evidence_count = _count_files_under(evidence_dir, suffix=".json")
     truth_readiness = _read_project_json(project, TRUTH_READINESS_STATE)
     if not truth_readiness:
         truth_readiness = _truth_readiness_surface(
@@ -2990,12 +3228,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
             route_explanation_status=route_explanation_status,
             selected_work_id=selected_work.get("work_id") if selected_work else None,
             selected_work_status=selected_work.get("status") if selected_work else None,
-            event_count=len(events),
-            evidence_count=(
-                _count_paths(_evidence_dir(project).glob("*.json"))
-                if _evidence_dir(project).is_dir()
-                else 0
-            ),
+            event_count=event_summary["event_count"],
+            evidence_count=evidence_count,
             graph_summary=graph_summary,
             source_files_mutated=False,
             state_ref_status_summary=state_ref_status_summary,
@@ -3028,7 +3262,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "selected_work_id": selected_work.get("work_id") if selected_work else None,
         "selected_work_status": selected_work.get("status") if selected_work else None,
         "work_item_count": len(work_rows),
-        "event_count": len(events),
+        "event_count": event_summary["event_count"],
         "last_event": {
             "event_id": last_event.get("event_id"),
             "span": last_event.get("span"),
@@ -3036,9 +3270,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         }
         if last_event
         else None,
-        "evidence_count": _count_paths(_evidence_dir(project).glob("*.json"))
-        if _evidence_dir(project).is_dir()
-        else 0,
+        "evidence_count": evidence_count,
         "graph_summary": graph_summary,
         "truth_readiness_ref": f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
         "truth_readiness_surface": truth_readiness,
@@ -3116,7 +3348,7 @@ def compile_project(
         explain_route(project, route_id, refresh_architecture=False) if route_id else {}
     )
     observed = observe_project(project, refresh_architecture=False)
-    evidence = list_evidence(project)
+    evidence = list_evidence(project, limit=0)
     architecture = architecture_kernel.write_project_architecture(project)
     graph = _read_project_json(project, "graph.json")
     work_id = work_result.get("work_id")
@@ -3362,6 +3594,11 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("project")
     run_parser.add_argument("--work-id")
     observe_parser = subparsers.add_parser("observe")
+    observe_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit compact observe card instead of full event rows",
+    )
     observe_parser.add_argument("project")
     evidence_parser = subparsers.add_parser("evidence")
     evidence_sub = evidence_parser.add_subparsers(dest="evidence_command")
@@ -3406,6 +3643,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.work_command == "run":
             return _print_json(run_work(args.project, args.work_id))
     if args.command == "observe":
+        if args.card:
+            return _print_json(
+                observe_project_card(args.project, refresh_architecture=False)
+            )
         return _print_json(observe_project(args.project, refresh_architecture=False))
     if args.command == "evidence":
         if args.evidence_command == "list":

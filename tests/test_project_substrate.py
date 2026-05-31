@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import builtins
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -43,16 +44,16 @@ def test_project_index_skips_file_that_disappears_during_walk(
     )
     transient.parent.mkdir(parents=True)
     transient.write_text("{}", encoding="utf-8")
-    original_stat = Path.stat
+    original_stat = os.stat
 
     def stat_with_disappearing_file(
-        self: Path, *args: Any, **kwargs: Any
+        path: str | os.PathLike[str], *args: Any, **kwargs: Any
     ) -> os.stat_result:
-        if self == transient:
-            raise FileNotFoundError(self)
-        return original_stat(self, *args, **kwargs)
+        if os.fspath(path) == os.fspath(transient):
+            raise FileNotFoundError(path)
+        return original_stat(path, *args, **kwargs)
 
-    monkeypatch.setattr(Path, "stat", stat_with_disappearing_file)
+    monkeypatch.setattr(os, "stat", stat_with_disappearing_file)
 
     index_result = project_substrate.index_project(project)
     catalog_paths = {
@@ -65,6 +66,50 @@ def test_project_index_skips_file_that_disappears_during_walk(
         "receipts/runtime_shell/workingness_failure_map.json.disappearing"
         not in catalog_paths
     )
+
+
+def test_project_walk_passes_precomputed_classification_metadata(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    original_classify = project_substrate._classify_file
+    calls: list[dict[str, Any]] = []
+
+    def classify_spy(rel: str, path=None, **kwargs: Any) -> str:
+        calls.append({"rel": rel, "path": path, **kwargs})
+        return original_classify(rel, path, **kwargs)
+
+    monkeypatch.setattr(project_substrate, "_classify_file", classify_spy)
+
+    catalog = project_substrate._project_catalog_payload(project)
+
+    assert catalog["file_count"] == 4
+    assert calls
+    assert all(call["path"] is None for call in calls)
+    assert all(call["name"] and call["suffix"] is not None for call in calls)
+    assert any(call["parts"] == {"src", "scratch_app", "__init__.py"} for call in calls)
+
+
+def test_python_lens_counts_relative_and_absolute_imports_separately(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    (project / "src/scratch_app/helpers.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "src/scratch_app/imports.py").write_text(
+        "from . import helpers\n"
+        "from .helpers import VALUE\n"
+        "import os\n"
+        "from pathlib import Path\n",
+        encoding="utf-8",
+    )
+
+    lens = project_substrate.python_lens(project, write_state=False)
+    imports_row = next(
+        row for row in lens["path_rows"] if row["path"] == "src/scratch_app/imports.py"
+    )
+
+    assert imports_row["relative_import_count"] == 2
+    assert imports_row["absolute_import_count"] == 2
 
 
 def test_event_id_allocation_counts_existing_lines_without_decoding_history(
@@ -115,6 +160,184 @@ def test_read_jsonl_streams_dict_rows_without_materializing_file(
     ]
 
 
+def test_observe_project_counts_evidence_without_materializing_payloads(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = tmp_path / "project"
+    state = project / ".microcosm"
+    route_id = "readme_onboarding_route"
+    (state / "explanations").mkdir(parents=True)
+    (state / "evidence").mkdir()
+    (state / "routes.json").write_text(
+        json.dumps({"routes": [{"route_id": route_id}]}) + "\n",
+        encoding="utf-8",
+    )
+    (state / "work_items.json").write_text(
+        json.dumps(
+            {
+                "work_items": [
+                    {
+                        "work_id": "work_0001",
+                        "route_id": route_id,
+                        "status": "closed",
+                        "state_history": [{"state": "closed"}],
+                    }
+                ]
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (state / "explanations" / f"{route_id}.json").write_text(
+        json.dumps(
+            {
+                "status": "pass",
+                "route_id": route_id,
+                "causal_chain_proof": {
+                    "status": "pass",
+                    "selected_work_id": "work_0001",
+                    "selected_work_status": "closed",
+                },
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (state / "graph.json").write_text(
+        json.dumps({"node_count": 1, "edge_count": 0}) + "\n",
+        encoding="utf-8",
+    )
+    (state / "state_index.json").write_text(
+        json.dumps({"status": "pass"}) + "\n",
+        encoding="utf-8",
+    )
+    (state / "events.jsonl").write_text(
+        json.dumps({"event_id": "evt_0001", "span": "work.run", "status": "pass"})
+        + "\n",
+        encoding="utf-8",
+    )
+    observed_limits: list[int | None] = []
+
+    def list_evidence_count_only(
+        _project: str | Path,
+        *,
+        limit: int | None = None,
+    ) -> dict[str, object]:
+        if limit is None:
+            raise AssertionError("observe should request count-only evidence listing")
+        observed_limits.append(limit)
+        return {
+            "status": "pass",
+            "evidence_count": 42,
+            "returned_evidence_count": 0,
+            "limit": limit,
+            "truncated": True,
+            "evidence": [],
+        }
+
+    monkeypatch.setattr(project_substrate, "list_evidence", list_evidence_count_only)
+
+    observed = project_substrate.observe_project(project, refresh_architecture=False)
+
+    assert observed_limits == [0]
+    assert observed["evidence_ref_count"] == 42
+    assert observed["causal_chain"]["evidence_ref_count"] == 42
+
+
+def test_compile_project_counts_evidence_without_materializing_payloads(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    observed_limits: list[int | None] = []
+
+    def list_evidence_count_only(
+        _project: str | Path,
+        *,
+        limit: int | None = None,
+    ) -> dict[str, object]:
+        if limit is None:
+            raise AssertionError("compile should request count-only evidence listing")
+        observed_limits.append(limit)
+        return {
+            "status": "pass",
+            "evidence_count": 42,
+            "returned_evidence_count": 0,
+            "limit": limit,
+            "truncated": True,
+            "evidence": [],
+        }
+
+    monkeypatch.setattr(project_substrate, "list_evidence", list_evidence_count_only)
+
+    compiled = project_substrate.compile_project(project)
+
+    assert observed_limits == [0, 0]
+    assert compiled["evidence_count"] == 42
+    assert "wrote 42 evidence refs" in compiled["what_happened"]
+
+
+def test_event_stream_summary_streams_counts_and_bounded_tail(
+    tmp_path: Path, monkeypatch
+) -> None:
+    jsonl_path = tmp_path / "events.jsonl"
+    jsonl_path.write_text(
+        "".join(
+            f'{{"event_id":"evt_{index:04d}","span":"span_{index % 2}"}}\n'
+            for index in range(1, 26)
+        )
+        + '["skip non-object rows"]\n'
+        + "\n",
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == jsonl_path:
+            raise AssertionError("_read_event_stream_summary should stream JSONL rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    summary = project_substrate._read_event_stream_summary(jsonl_path, tail_limit=3)
+
+    assert summary["event_count"] == 25
+    assert summary["spans"] == {"span_0": 12, "span_1": 13}
+    assert [row["event_id"] for row in summary["events"]] == [
+        "evt_0023",
+        "evt_0024",
+        "evt_0025",
+    ]
+    assert summary["last_event"]["event_id"] == "evt_0025"
+
+
+def test_observe_project_streams_event_summary_without_full_jsonl_list(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    event_path = project / ".microcosm/events.jsonl"
+    event_path.parent.mkdir()
+    event_path.write_text(
+        "".join(
+            f'{{"event_id":"evt_{index:04d}","span":"span_{index % 3}"}}\n'
+            for index in range(1, 26)
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_read_jsonl(_path: Path) -> list[dict[str, Any]]:
+        raise AssertionError("observe_project should use the streaming event summary")
+
+    monkeypatch.setattr(project_substrate, "_read_jsonl", fail_read_jsonl)
+
+    observed = project_substrate.observe_project(project, refresh_architecture=False)
+
+    assert observed["event_count"] == 25
+    assert observed["spans"] == {"span_0": 8, "span_1": 9, "span_2": 8}
+    assert len(observed["events"]) == 20
+    assert observed["events"][0]["event_id"] == "evt_0006"
+    assert observed["events"][-1]["event_id"] == "evt_0025"
+
+
 def test_architecture_kernel_read_jsonl_streams_without_materializing_file(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -141,6 +364,62 @@ def test_architecture_kernel_read_jsonl_streams_without_materializing_file(
     ]
 
 
+def test_route_explanation_streams_event_refs_without_materializing_file(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    RuntimeShell(MICROCOSM_ROOT).tour_card(project)
+    events_path = project / ".microcosm" / "events.jsonl"
+    with events_path.open("a", encoding="utf-8") as handle:
+        for index in range(1, 16):
+            handle.write(
+                json.dumps(
+                    {
+                        "event_id": f"evt_stream_{index:04d}",
+                        "span": "project.route",
+                        "status": "pass",
+                    }
+                )
+                + "\n"
+            )
+            handle.write(
+                json.dumps(
+                    {
+                        "event_id": f"evt_skip_{index:04d}",
+                        "span": "ignore.this",
+                        "status": "pass",
+                    }
+                )
+                + "\n"
+            )
+
+    def fail_read_jsonl(_path: Path) -> list[dict[str, Any]]:
+        raise AssertionError("route explanations should stream bounded event refs")
+
+    standard_surface_calls = 0
+    original_load_standard_surface = architecture_kernel.load_standard_pressure_surface
+
+    def counted_load_standard_surface(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        nonlocal standard_surface_calls
+        standard_surface_calls += 1
+        return original_load_standard_surface(*args, **kwargs)
+
+    monkeypatch.setattr(architecture_kernel, "read_jsonl", fail_read_jsonl)
+    monkeypatch.setattr(
+        architecture_kernel,
+        "load_standard_pressure_surface",
+        counted_load_standard_surface,
+    )
+
+    explanation = architecture_kernel.explain_route(project, "readme_onboarding_route")
+
+    assert standard_surface_calls == 1
+    assert [row["event_id"] for row in explanation["event_refs"]] == [
+        f"evt_stream_{index:04d}" for index in range(4, 16)
+    ]
+    assert {row["span"] for row in explanation["event_refs"]} == {"project.route"}
+
+
 def test_read_text_prefix_streams_bounded_prefix_without_materializing_file(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -156,6 +435,30 @@ def test_read_text_prefix_streams_bounded_prefix_without_materializing_file(
     monkeypatch.setattr(Path, "read_text", guarded_read_text)
 
     assert project_substrate._read_text_prefix(source_path, limit=12) == "012345678901"
+
+
+def test_sha256_file_streams_without_materializing_body(
+    tmp_path: Path, monkeypatch
+) -> None:
+    source_path = tmp_path / "large_evidence.json"
+    body = (
+        b'{"payload":"'
+        + (b"x" * (project_substrate.HASH_CHUNK_SIZE + 17))
+        + b'"}'
+    )
+    source_path.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == source_path:
+            raise AssertionError("_sha256_file should stream file bodies")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert project_substrate._sha256_file(source_path) == (
+        hashlib.sha256(body).hexdigest()
+    )
 
 
 def test_state_ref_status_counts_directory_json_without_materializing_glob(
@@ -200,47 +503,116 @@ def test_architecture_state_index_counts_asset_json_without_materializing_glob(
     project = _scratch_project(tmp_path)
     evidence_dir = project / ".microcosm/evidence"
     explanation_dir = project / ".microcosm/explanations"
+    nested_evidence_dir = evidence_dir / "nested"
+    nested_explanation_dir = explanation_dir / "nested"
     evidence_dir.mkdir(parents=True)
     explanation_dir.mkdir(parents=True)
+    nested_evidence_dir.mkdir()
+    nested_explanation_dir.mkdir()
     for index in range(2):
         (evidence_dir / f"receipt_{index}.json").write_text("{}", encoding="utf-8")
+    (nested_evidence_dir / "receipt_nested.json").write_text("{}", encoding="utf-8")
     (explanation_dir / "route.json").write_text("{}", encoding="utf-8")
+    (nested_explanation_dir / "route_nested.json").write_text("{}", encoding="utf-8")
     (explanation_dir / "notes.txt").write_text("not counted", encoding="utf-8")
+    (nested_evidence_dir / "notes.txt").write_text("not counted", encoding="utf-8")
 
     original_glob = Path.glob
-    glob_iterables: dict[Path, Any] = {}
 
     def guarded_glob(self: Path, pattern: str):
         if self in {evidence_dir, explanation_dir} and pattern == "*.json":
-            glob_rows = tuple(original_glob(self, pattern))
-            glob_iterables[self] = (path for path in glob_rows)
-            return glob_iterables[self]
+            raise AssertionError("build_state_index should stream JSON asset counts")
         return original_glob(self, pattern)
 
-    class GuardedListMeta(type):
-        def __call__(cls, value=(), /):  # noqa: N805
-            if value in glob_iterables.values():
-                raise AssertionError("build_state_index should stream JSON asset counts")
-            return builtins.list(value)
-
-        def __instancecheck__(cls, instance: object) -> bool:  # noqa: N805
-            return isinstance(instance, builtins.list)
-
     monkeypatch.setattr(Path, "glob", guarded_glob)
-    monkeypatch.setattr(
-        architecture_kernel,
-        "list",
-        GuardedListMeta("GuardedList", (), {}),
-        raising=False,
-    )
 
     state_index = architecture_kernel.build_state_index(project)
     item_counts = {
         row["asset_id"]: row.get("item_count") for row in state_index["assets"]
     }
 
-    assert item_counts["evidence"] == 2
-    assert item_counts["explanation"] == 1
+    assert item_counts["evidence"] == 3
+    assert item_counts["explanation"] == 2
+
+
+def test_architecture_graph_reuses_standard_pressure_surface_per_build(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    state_dir = project / ".microcosm"
+    state_dir.mkdir(parents=True)
+    (state_dir / "routes.json").write_text(
+        json.dumps(
+            {
+                "routes": [
+                    {"route_id": "readme_onboarding_route", "title": "Readme"},
+                    {"route_id": "docs_route", "title": "Docs"},
+                    {"route_id": "test_behavior_route", "title": "Tests"},
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    (state_dir / "patterns.json").write_text(
+        json.dumps(
+            {"patterns": [{"pattern_id": "repo_has_readme", "title": "Readme"}]}
+        ),
+        encoding="utf-8",
+    )
+    (state_dir / "work_items.json").write_text(
+        json.dumps({"work_items": []}),
+        encoding="utf-8",
+    )
+    standard_surface_calls = 0
+    original_load_standard_surface = architecture_kernel.load_standard_pressure_surface
+
+    def counted_load_standard_surface(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        nonlocal standard_surface_calls
+        standard_surface_calls += 1
+        return original_load_standard_surface(*args, **kwargs)
+
+    monkeypatch.setattr(
+        architecture_kernel,
+        "load_standard_pressure_surface",
+        counted_load_standard_surface,
+    )
+
+    graph = architecture_kernel.build_graph(project)
+
+    assert standard_surface_calls == 1
+    assert graph["standard_pressure_surface"]["row_count"] >= 1
+    assert any(edge["relation"] == "constrains" for edge in graph["edges"])
+
+
+def test_observe_state_write_proof_counts_files_without_rglob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = tmp_path / "scratch_project"
+    state_dir = project / ".microcosm"
+    (state_dir / "nested").mkdir(parents=True)
+    (state_dir / "routes.json").write_text("{}", encoding="utf-8")
+    (state_dir / "work_items.json").write_text("{}", encoding="utf-8")
+    (state_dir / "events.jsonl").write_text("{}\n", encoding="utf-8")
+    (state_dir / "evidence").mkdir()
+    (state_dir / "evidence" / "index.json").write_text("{}", encoding="utf-8")
+    (state_dir / "graph.json").write_text("{}", encoding="utf-8")
+    (state_dir / "state_index.json").write_text("{}", encoding="utf-8")
+    (state_dir / "nested" / "extra.json").write_text("{}", encoding="utf-8")
+
+    original_rglob = Path.rglob
+
+    def fail_if_rglobbed(self: Path, *_args: object, **_kwargs: object) -> object:
+        if self == state_dir:
+            raise AssertionError("observe state-write proof should stream file counting")
+        return original_rglob(self, *_args, **_kwargs)
+
+    monkeypatch.setattr(Path, "rglob", fail_if_rglobbed)
+
+    proof = project_substrate._project_observe_state_write_proof_card(project)
+
+    assert proof["status"] == "pass"
+    assert proof["state_file_count"] == 7
+    assert proof["missing_state_refs"] == []
 
 
 def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
@@ -599,7 +971,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["source_files_mutated"] is False
     assert "microcosm serve <project>" in compiled["open_observatory"]
     assert compiled["bounded_observatory_validation"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     truth_surface = compiled["truth_readiness_surface"]
     assert compiled["truth_readiness_ref"] == ".microcosm/truth_readiness.json"
@@ -623,6 +995,12 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert truth_surface["observatory_surface"]["compact_endpoint"] == (
         "/project/observatory-card"
     )
+    assert truth_surface["observatory_surface"]["project_observe_command"] == (
+        "microcosm observe --card <project>"
+    )
+    assert truth_surface["observatory_surface"]["project_observe_full_command"] == (
+        "microcosm observe <project>"
+    )
     assert truth_surface["authority_ceiling"]["release_authorized"] is False
     reader_chain = compiled["reader_causal_chain"]
     assert reader_chain["status"] == "pass"
@@ -638,9 +1016,9 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert reader_chain["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert reader_chain["observatory"]["expanded_endpoint"] == "/project/observatory"
     assert reader_chain["observatory"]["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
-    assert reader_chain["observatory"]["bounded_validation_request_count"] == 6
+    assert reader_chain["observatory"]["bounded_validation_request_count"] == 7
     assert reader_chain["proof_lab"]["endpoint"] == "/proof-lab"
     assert ".microcosm/evidence/work_create_work_0001.json" in reader_chain["evidence_refs"]
     assert ".microcosm/evidence/work_run_work_0001.json" in reader_chain["evidence_refs"]
@@ -676,6 +1054,62 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in sorted((project / ".microcosm").rglob("*.json")))
     assert tmp_path.as_posix() not in state_text
     assert "/Users/" not in state_text
+
+
+def test_python_lens_counts_pyproject_console_scripts_as_entrypoints(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    (project / "pyproject.toml").write_text(
+        "[project]\n"
+        "name = \"scratch-project\"\n"
+        "version = \"0.1.0\"\n\n"
+        "[project.scripts]\n"
+        "scratch = \"scratch_app.cli:main\"\n",
+        encoding="utf-8",
+    )
+    (project / "src/scratch_app/cli.py").write_text(
+        "def main() -> int:\n"
+        "    return 0\n",
+        encoding="utf-8",
+    )
+
+    python_lens = project_substrate.python_lens(project, write_state=False)
+    check_by_id = {row["check_id"]: row for row in python_lens["readiness_checks"]}
+    route_by_id = {row["route_id"]: row for row in python_lens["route_rows"]}
+    task_by_id = {
+        row["task_id"]: row
+        for row in python_lens["route_utility_curriculum"]["tasks"]
+    }
+
+    assert check_by_id["python_entrypoint_visible"] == {
+        "check_id": "python_entrypoint_visible",
+        "status": "pass",
+        "grounded_refs": [
+            "src/scratch_app/cli.py",
+            "pyproject.toml::project.scripts.scratch",
+        ],
+    }
+    assert python_lens["console_entrypoint_count"] == 1
+    assert python_lens["console_entrypoint_source_refs"] == ["src/scratch_app/cli.py"]
+    assert python_lens["console_entrypoint_rows"][0]["target_ref"] == (
+        "src/scratch_app/cli.py"
+    )
+    assert python_lens["console_entrypoint_rows"][0]["source_bodies_exported"] is False
+    assert route_by_id["python_entrypoint_route"]["readiness"] == "pass"
+    assert route_by_id["python_entrypoint_route"]["grounded_refs"] == [
+        "src/scratch_app/cli.py",
+        "pyproject.toml::project.scripts.scratch",
+    ]
+    assert python_lens["missing_check_count"] == 0
+    assert python_lens["ready_route_count"] == 4
+    assert task_by_id["route_utility:entrypoint_source_span"]["correctness"] == "pass"
+    assert task_by_id["route_utility:entrypoint_source_span"]["expected_file_card"] == (
+        "src/scratch_app/cli.py"
+    )
+    assert task_by_id["route_utility:entrypoint_source_span"]["expected_source_span"] == (
+        "src/scratch_app/cli.py::main"
+    )
 
 
 def test_compile_project_runs_work_for_selected_readme_route_when_old_work_exists(
