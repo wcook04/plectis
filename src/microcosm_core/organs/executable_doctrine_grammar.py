@@ -118,6 +118,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "bundle_inputs",
     "freshness_basis",
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -153,7 +154,11 @@ def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _sha256_file(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _json_digest(payload: Any) -> str:
@@ -515,15 +520,15 @@ def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
     return safe
 
 
-def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
-    return [_receipt_ref(path, public_root=public_root) for path in paths.values()]
-
-
-def _receipt_ref(path: Path, *, public_root: Path) -> str:
+def _receipt_relative_path(path: Path, public_root: Path) -> str:
     if "receipts" in path.parts:
         receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
         return Path(*path.parts[receipts_index:]).as_posix()
     return public_relative_path(path, display_root=public_root)
+
+
+def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    return [_receipt_relative_path(path, public_root) for path in paths.values()]
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
@@ -645,7 +650,7 @@ def write_receipts(
     write_json_atomic(paths["standards_validation_report"], standards_report)
     write_json_atomic(paths["fixture_acceptance"], acceptance)
 
-    return {key: public_relative_path(path, display_root=public_root) for key, path in paths.items()}
+    return {key: _receipt_relative_path(path, public_root) for key, path in paths.items()}
 
 
 def _write_standards_bundle_receipt(
@@ -660,7 +665,7 @@ def _write_standards_bundle_receipt(
     target.mkdir(parents=True, exist_ok=True)
     public_root = Path(public_root).resolve(strict=False)
     path = target / STANDARDS_BUNDLE_RESULT_NAME
-    receipt_path = _receipt_ref(path, public_root=public_root)
+    receipt_path = _receipt_relative_path(path, public_root)
     payload = _common_receipt(
         validation_result,
         schema_version="executable_doctrine_grammar_exported_standards_bundle_validation_v1",
@@ -1264,7 +1269,7 @@ def _write_metabolism_bundle_receipt(
         target = Path.cwd() / target
     target.mkdir(parents=True, exist_ok=True)
     path = target / METABOLISM_BUNDLE_RESULT_NAME
-    receipt_path = _receipt_ref(path, public_root=public_root)
+    receipt_path = _receipt_relative_path(path, public_root)
     payload = _common_receipt(
         validation_result,
         schema_version="executable_doctrine_grammar_metabolism_bundle_validation_v1",

@@ -230,6 +230,27 @@ def test_executable_doctrine_grammar_source_modules_are_exact_macro_imports() ->
         assert module["line_count"] == len(source_path.read_text(encoding="utf-8").splitlines())
 
 
+def test_executable_doctrine_grammar_sha256_streams_without_materializing_file(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.json"
+    body = b'{"payload":"' + (b"x" * (executable_grammar.HASH_CHUNK_SIZE + 17)) + b'"}\n'
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == source:
+            raise AssertionError("digest helper should stream instead of materializing file")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert executable_grammar._sha256_file(source) == (
+        "sha256:" + hashlib.sha256(body).hexdigest()
+    )
+
+
 def test_executable_doctrine_grammar_source_module_digest_tamper_blocks_bundle(
     tmp_path: Path,
 ) -> None:
