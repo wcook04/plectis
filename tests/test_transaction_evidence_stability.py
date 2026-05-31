@@ -72,6 +72,109 @@ def test_state_artifact_semantics_checks_json_presence_without_materializing_glo
     assert yielded == ["first"]
 
 
+def test_transaction_evidence_stability_state_files_stream_without_path_rglob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = tmp_path / "scratch_project"
+    state = project / ".microcosm"
+    nested = state / "nested"
+    nested.mkdir(parents=True)
+    (state / "events.jsonl").write_text('{"event_id":"evt_0001"}\n', encoding="utf-8")
+    (nested / "artifact.json").write_text("{}", encoding="utf-8")
+    (nested / "ignored.txt").write_text("not state json", encoding="utf-8")
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == state:
+            raise AssertionError("transaction state scan should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    assert [
+        path.relative_to(state).as_posix()
+        for path in transaction_evidence_stability._state_files(project)
+    ] == ["events.jsonl", "nested/artifact.json"]
+
+
+def test_transaction_evidence_stability_state_file_walk_recurses_without_entry_list(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = tmp_path / "scratch_project"
+    state = project / ".microcosm"
+    nested = state / "nested"
+    nested.mkdir(parents=True)
+    (state / "root.json").write_text("{}", encoding="utf-8")
+    (nested / "artifact.json").write_text("{}", encoding="utf-8")
+
+    original_scandir = transaction_evidence_stability.os.scandir
+    nested_opened = False
+
+    class FakeEntry:
+        def __init__(self, name: str, *, is_dir: bool, is_file: bool) -> None:
+            self.name = name
+            self._is_dir = is_dir
+            self._is_file = is_file
+
+        def is_dir(self, *, follow_symlinks: bool = False) -> bool:
+            return self._is_dir
+
+        def is_file(self, *, follow_symlinks: bool = False) -> bool:
+            return self._is_file
+
+    class ScandirRows:
+        def __init__(
+            self, rows: list[FakeEntry], *, guarded_parent: bool = False
+        ) -> None:
+            self._rows = rows
+            self._guarded_parent = guarded_parent
+            self._index = 0
+
+        def __enter__(self) -> "ScandirRows":
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def __iter__(self) -> "ScandirRows":
+            return self
+
+        def __next__(self) -> FakeEntry:
+            nonlocal nested_opened
+            if self._index >= len(self._rows):
+                raise StopIteration
+            if self._guarded_parent and self._index == 1 and not nested_opened:
+                raise AssertionError(
+                    "state file scan should recurse before pulling sibling entries"
+                )
+            row = self._rows[self._index]
+            self._index += 1
+            return row
+
+    def guarded_scandir(path: Path):
+        nonlocal nested_opened
+        if path == state:
+            return ScandirRows(
+                [
+                    FakeEntry("nested", is_dir=True, is_file=False),
+                    FakeEntry("root.json", is_dir=False, is_file=True),
+                ],
+                guarded_parent=True,
+            )
+        if path == nested:
+            nested_opened = True
+            return ScandirRows([FakeEntry("artifact.json", is_dir=False, is_file=True)])
+        return original_scandir(path)
+
+    monkeypatch.setattr(transaction_evidence_stability.os, "scandir", guarded_scandir)
+
+    assert [
+        path.relative_to(state).as_posix()
+        for path in transaction_evidence_stability._state_files(project)
+    ] == ["nested/artifact.json", "root.json"]
+    assert nested_opened is True
+
+
 def test_transaction_evidence_stability_read_jsonl_streams_without_materializing_file(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -140,6 +243,26 @@ def test_transaction_evidence_stability_validator_proves_resolved_chain(tmp_path
     }
     assert semantics[".microcosm/events.jsonl"] == "append_only_event_history"
     assert semantics[".microcosm/evidence/*.json"] == "stable_ref_latest_body_with_replacement_metadata"
+
+
+def test_transaction_evidence_stability_validator_streams_event_summary(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    _run_causal_loop(project)
+    out = tmp_path / "transaction_evidence_stability.json"
+
+    def fail_read_jsonl(_path: Path) -> list[dict[str, Any]]:
+        raise AssertionError("transaction stability validator should stream event summaries")
+
+    monkeypatch.setattr(transaction_evidence_stability, "_read_jsonl", fail_read_jsonl)
+
+    receipt = validate_stability(MICROCOSM_ROOT, project, out, command="pytest")
+
+    assert receipt["status"] == "pass"
+    assert receipt["event_count"] >= 1
+    assert receipt["consistency_summary"]["events_reference_existing_evidence"] is True
+    assert receipt["consistency_summary"]["work_event_evidence_refs_resolve"] is True
 
 
 def test_cli_transaction_evidence_stability_command(capsys, tmp_path: Path) -> None:

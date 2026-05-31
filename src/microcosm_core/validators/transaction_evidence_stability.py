@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -33,17 +35,53 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    return list(_iter_jsonl_dict_rows(path))
+
+
+def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
     if not path.is_file():
-        return []
-    rows: list[dict[str, Any]] = []
+        return
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
             if not line.strip():
                 continue
             payload = json.loads(line)
             if isinstance(payload, dict):
-                rows.append(payload)
-    return rows
+                yield payload
+
+
+def _event_stream_summary(
+    path: Path,
+    *,
+    evidence_ref_set: set[str],
+) -> dict[str, Any]:
+    event_count = 0
+    event_ids: set[str] = set()
+    duplicate_event_ids: set[str] = set()
+    event_findings: list[dict[str, Any]] = []
+    for event in _iter_jsonl_dict_rows(path):
+        event_count += 1
+        event_id = event.get("event_id")
+        if event_id:
+            event_id_str = str(event_id)
+            if event_id_str in event_ids:
+                duplicate_event_ids.add(event_id_str)
+            event_ids.add(event_id_str)
+        evidence_ref = event.get("evidence_ref")
+        if evidence_ref and str(evidence_ref) not in evidence_ref_set:
+            event_findings.append(
+                {
+                    "event_id": event.get("event_id"),
+                    "span": event.get("span"),
+                    "unresolved_evidence_ref": evidence_ref,
+                }
+            )
+    return {
+        "event_count": event_count,
+        "event_ids": event_ids,
+        "duplicate_event_ids": sorted(duplicate_event_ids),
+        "event_findings": event_findings,
+    }
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
@@ -78,23 +116,25 @@ def _duplicate_ids(rows: list[dict[str, Any]], key: str) -> list[str]:
     return sorted(duplicate)
 
 
+def _iter_state_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_state_files(child)
+            elif entry.is_file():
+                yield child
+
+
 def _state_files(project: Path) -> list[Path]:
     state = project / STATE_DIR
     if not state.is_dir():
         return []
     return sorted(
         path
-        for path in state.rglob("*")
-        if path.is_file() and path.suffix in {".json", ".jsonl"}
+        for path in _iter_state_files(state)
+        if path.suffix in {".json", ".jsonl"}
     )
-
-
-def _event_index(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    return {
-        str(row.get("event_id")): row
-        for row in events
-        if row.get("event_id")
-    }
 
 
 def _evidence_refs(project: Path) -> set[str]:
@@ -179,7 +219,6 @@ def validate_stability(
     routes_payload = _read_json(state / "routes.json")
     work_payload = _read_json(state / "work_items.json")
     graph_payload = _read_json(state / "graph.json")
-    events = _read_jsonl(state / EVENT_STREAM)
     pattern_rows = _rows(patterns_payload, "patterns")
     route_rows = _rows(routes_payload, "routes")
     work_rows = _rows(work_payload, "work_items")
@@ -190,8 +229,9 @@ def validate_stability(
         for row in architecture_kernel.standard_pressure_rows(public_root)
         if row.get("standard_id")
     }
-    event_by_id = _event_index(events)
     evidence_ref_set = _evidence_refs(project_path)
+    event_summary = _event_stream_summary(state / EVENT_STREAM, evidence_ref_set=evidence_ref_set)
+    event_ids = event_summary["event_ids"]
 
     for rel in [
         "patterns.json",
@@ -210,7 +250,7 @@ def validate_stability(
 
     duplicate_patterns = _duplicate_ids(pattern_rows, "pattern_id")
     duplicate_routes = _duplicate_ids(route_rows, "route_id")
-    duplicate_events = _duplicate_ids(events, "event_id")
+    duplicate_events = event_summary["duplicate_event_ids"]
     if duplicate_patterns:
         blocking_codes.append("PROJECT_DUPLICATE_PATTERN_IDS")
         findings.append({"finding_id": "project_duplicate_pattern_ids", "pattern_ids": duplicate_patterns})
@@ -317,7 +357,7 @@ def validate_stability(
                 missing.append("closeout.evidence_ref_resolves")
         if not isinstance(event_refs, list) or not event_refs:
             missing.append("event_refs")
-        elif any(str(item.get("event_id") or "") not in event_by_id for item in event_refs if isinstance(item, dict)):
+        elif any(str(item.get("event_id") or "") not in event_ids for item in event_refs if isinstance(item, dict)):
             missing.append("event_refs_resolve")
         if not isinstance(evidence_refs, list) or not evidence_refs:
             missing.append("evidence_refs")
@@ -331,17 +371,7 @@ def validate_stability(
         blocking_codes.append("PROJECT_WORK_TRANSACTION_REFS_UNSTABLE")
         findings.append({"finding_id": "project_work_transaction_refs_unstable", "work_items": work_findings})
 
-    event_findings: list[dict[str, Any]] = []
-    for event in events:
-        evidence_ref = event.get("evidence_ref")
-        if evidence_ref and str(evidence_ref) not in evidence_ref_set:
-            event_findings.append(
-                {
-                    "event_id": event.get("event_id"),
-                    "span": event.get("span"),
-                    "unresolved_evidence_ref": evidence_ref,
-                }
-            )
+    event_findings = event_summary["event_findings"]
     if event_findings:
         blocking_codes.append("PROJECT_EVENT_EVIDENCE_REFS_UNSTABLE")
         findings.append({"finding_id": "project_event_evidence_refs_unstable", "events": event_findings})
@@ -416,7 +446,7 @@ def validate_stability(
         "route_count": len(route_rows),
         "pattern_count": len(pattern_rows),
         "work_item_count": len(work_rows),
-        "event_count": len(events),
+        "event_count": event_summary["event_count"],
         "evidence_count": len(evidence_ref_set),
         "state_artifact_semantics": _state_artifact_semantics(project_path),
         "findings": findings,
