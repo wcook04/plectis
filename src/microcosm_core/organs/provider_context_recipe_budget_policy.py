@@ -295,8 +295,11 @@ def _sha256(path: Path) -> str:
 
 
 def _line_count(path: Path) -> int:
-    text = path.read_text(encoding="utf-8")
-    return text.count("\n") + (0 if text.endswith("\n") else 1)
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_target_refs(input_dir: Path) -> list[str]:
