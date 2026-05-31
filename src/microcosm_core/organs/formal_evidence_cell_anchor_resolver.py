@@ -59,6 +59,7 @@ SOURCE_MODULE_BODY_MATERIAL_STATUS = (
     "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_"
     "with_digest_provenance"
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -175,12 +176,19 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 
 def _sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _line_count(path: Path) -> int:
-    text = path.read_text(encoding="utf-8")
-    return len(text.splitlines())
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
