@@ -42,6 +42,83 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def test_mcp_tool_authority_source_module_digests_stream_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    input_dir = (
+        public_root
+        / "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle"
+    )
+    target = input_dir / "source_modules/tools/meta/example_tool.py"
+    target.parent.mkdir(parents=True)
+    body = b"def enforce_tool_authority():\n    return 'public'\n"
+    target.write_bytes(body)
+    expected_digest = "sha256:" + hashlib.sha256(body).hexdigest()
+    manifest = {
+        "source_import_class": mcp_tool_authority_replay.SOURCE_IMPORT_CLASS,
+        "module_count": 1,
+        "body_in_receipt": False,
+        "modules": [
+            {
+                "module_id": "example_tool_authority",
+                "source_ref": "tools/meta/example_tool.py",
+                "target_ref": "source_modules/tools/meta/example_tool.py",
+                "source_import_class": mcp_tool_authority_replay.SOURCE_IMPORT_CLASS,
+                "material_class": sorted(
+                    mcp_tool_authority_replay.PUBLIC_SAFE_SOURCE_BODY_CLASSES
+                )[0],
+                "body_copied": True,
+                "body_in_receipt": False,
+                "body_text_in_receipt": False,
+                "sha256": expected_digest,
+                "source_sha256": expected_digest,
+                "target_sha256": expected_digest,
+                "required_anchors": ["enforce_tool_authority"],
+            }
+        ],
+    }
+    (input_dir / "source_module_manifest.json").write_text(
+        json.dumps(manifest),
+        encoding="utf-8",
+    )
+    guarded_paths = {target}
+    original_read_bytes = Path.read_bytes
+
+    def fail_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self in guarded_paths:
+            raise AssertionError("MCP source-module digests should stream bytes")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", fail_read_bytes)
+
+    module_result = mcp_tool_authority_replay._source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=True,
+    )
+    freshness = mcp_tool_authority_replay._freshness_basis(
+        input_dir,
+        include_negative=False,
+    )
+
+    assert mcp_tool_authority_replay._sha256(target) == expected_digest
+    assert module_result["status"] == "pass"
+    assert module_result["verified_module_count"] == 1
+    assert module_result["source_module_import_status"] == SOURCE_MODULE_IMPORT_STATUS
+    target_ref = mcp_tool_authority_replay.public_relative_path(
+        target,
+        display_root=public_root,
+    )
+    freshness_rows = {
+        row["path"]: row
+        for row in freshness["inputs"]
+        if isinstance(row, dict) and "path" in row
+    }
+    assert freshness_rows[target_ref]["sha256"] == expected_digest
+
+
 def test_mcp_tool_authority_replay_observes_negative_cases(tmp_path: Path) -> None:
     result = run(
         FIXTURE_INPUT,

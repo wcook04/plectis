@@ -65,6 +65,7 @@ PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
         "public_macro_control_plane_body",
     }
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -194,7 +195,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
