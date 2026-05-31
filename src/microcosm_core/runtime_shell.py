@@ -981,16 +981,23 @@ def _read_json_if_exists(path: Path) -> dict[str, Any]:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    return list(_iter_jsonl_dict_rows(path))
+
+
+def _iter_jsonl_dict_rows(path: Path):
     if not path.is_file():
-        return []
-    rows: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        payload = json.loads(line)
-        if isinstance(payload, dict):
-            rows.append(payload)
-    return rows
+        return
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            payload = json.loads(line)
+            if isinstance(payload, dict):
+                yield payload
+
+
+def _count_jsonl_dict_rows(path: Path) -> int:
+    return sum(1 for _row in _iter_jsonl_dict_rows(path))
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
@@ -1003,6 +1010,30 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
     state_path = project_path / ref.rstrip("/")
     return state_path.is_dir() if ref.endswith("/") else state_path.is_file()
+
+
+def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
+    if not root.is_dir():
+        return 0
+    count = 0
+    stack = [root]
+    while stack:
+        current = stack.pop()
+        try:
+            with os.scandir(current) as entries:
+                for entry in entries:
+                    try:
+                        if entry.is_file(follow_symlinks=False) and (
+                            suffix is None or entry.name.endswith(suffix)
+                        ):
+                            count += 1
+                        elif entry.is_dir(follow_symlinks=False):
+                            stack.append(Path(entry.path))
+                    except OSError:
+                        continue
+        except OSError:
+            continue
+    return count
 
 
 def _project_state_inspection_card(
@@ -2255,12 +2286,49 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         route_rows[0] if route_rows else {},
     )
     route_id = str(selected_route.get("route_id") or "")
+    cache_freshness = project_substrate._compile_source_freshness(
+        project_path,
+        catalog,
+    )
+    freshness_status = cache_freshness.get("status")
+    if freshness_status not in {"current", "missing_cache_marker"}:
+        return {
+            "schema_version": "microcosm_project_compile_fast_cached_card_v1",
+            "status": (
+                "stale_cached_state"
+                if freshness_status == "stale"
+                else "missing_cached_state"
+            ),
+            "card_id": "compile_fast_cached_state",
+            "headline": "repo -> .microcosm",
+            "command": "microcosm compile --card <project>",
+            "full_command": "microcosm compile <project>",
+            "cache_status": (
+                "stale_cached_state"
+                if freshness_status == "stale"
+                else "missing_cache"
+            ),
+            "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
+            "cache_freshness": cache_freshness,
+            "state_ref": project_substrate.STATE_DIR,
+            "selected_route_id": route_id or None,
+            "source_files_mutated": False,
+            "safe_to_show": {
+                "project_local_state_refs_visible": True,
+                "route_metadata_visible": True,
+                "receipt_refs_visible": True,
+                "source_files_mutated": False,
+                "provider_calls_authorized": False,
+                "release_authorized": False,
+                "proof_correctness_claim": False,
+                "freshness_certified": False,
+            },
+        }
     work_rows = project_substrate._load_work_items(project_path)
     selected_work = next(
         (row for row in work_rows if row.get("route_id") == route_id),
         work_rows[0] if work_rows else {},
     )
-    events = _read_jsonl(state / "events.jsonl")
     evidence_dir = state / project_substrate.EVIDENCE_DIR
     return {
         "schema_version": "microcosm_project_compile_fast_cached_card_v1",
@@ -2271,6 +2339,7 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         "full_command": "microcosm compile <project>",
         "cache_status": "cached_state_read",
         "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
+        "cache_freshness": cache_freshness,
         "state_ref": project_substrate.STATE_DIR,
         "file_count": catalog.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
@@ -2292,10 +2361,8 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         ),
         "work_id": selected_work.get("work_id") if selected_work else None,
         "work_item_count": len(work_rows),
-        "event_count": len(events),
-        "evidence_count": len(list(evidence_dir.glob("*.json")))
-        if evidence_dir.is_dir()
-        else 0,
+        "event_count": _count_jsonl_dict_rows(state / "events.jsonl"),
+        "evidence_count": _count_files_under(evidence_dir, suffix=".json"),
         "graph_summary": {
             "node_count": graph.get("node_count", 0),
             "edge_count": graph.get("edge_count", 0),
