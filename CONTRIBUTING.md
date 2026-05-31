@@ -1,9 +1,22 @@
 # Contributing
 
-Start by proving the public entry path from `microcosm-substrate/`:
+Start by proving the source-root boundary from `microcosm-substrate/` before
+installing or running the broader validation floor:
+
+```bash
+./bootstrap.sh
+```
+
+The probe writes ignored `.microcosm/cold_clone_probe.json` evidence and checks
+the first-wave fixture boundary without refreshing tracked receipts. Use
+`./bootstrap.sh --dry-run` when you need the exact source-root command without
+writing the ignored receipt.
+
+Then prove the public entry path:
 
 ```bash
 make smoke
+make package-smoke
 make test
 make ci
 ```
@@ -20,7 +33,9 @@ The smoke target is the no-install public sanity check. It writes ignored
 `.microcosm/` route state through `tour --card`, stores command outputs under
 `.microcosm/smoke/`, then checks the compact public authority, workingness,
 legibility, version, and stripping-boundary surfaces without dumping the full
-cards into CI logs:
+cards into CI logs. A healthy terminal summary includes
+`Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`, and
+`served status: pass`:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
@@ -35,6 +50,11 @@ PYTHONPATH=src python3 -m microcosm_core stripping-guard
 
 `make clean` removes the smoke receipt directory and the shared pytest scratch
 root while leaving the rest of project-local `.microcosm/` state alone.
+
+The package smoke target installs this source tree into a fresh temporary venv
+and runs the installed `microcosm` console command through the compact cards.
+Use it when the question is package installability rather than source-form
+runtime behavior.
 
 The test target creates a repository-local `.venv`, installs the test extra
 there, and then runs pytest, so a clean clone does not need pytest preinstalled
@@ -59,7 +79,8 @@ directories still write by default; tracked `receipts/**` snapshots are the
 opt-in refresh surface. It uses the same outside-checkout pytest
 scratch parent as `make test`; any generated output that needs to change still
 belongs in its owner lane, not disposable temp state.
-The default `make test` path and `make ci` are the standalone public verification floor.
+The default `make test`, `make package-smoke`, and `make ci` are the
+standalone public verification floor.
 
 After install, the fuller first-screen route is:
 
@@ -72,11 +93,18 @@ After install, the fuller first-screen route is:
 .venv/bin/microcosm legibility-scorecard
 ```
 
-If editable install is not available, use the source form:
+If editable install is not available, keep the same first-screen route in
+source form:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+PYTHONPATH=src python3 -m microcosm_core status --card .
 ```
+
+That is the source-only minimum: map, behavior proof, then status card. The
+smoke section above lists the fuller source-form check set when you need the
+authority, workingness, legibility, version, and stripping-boundary cards too.
 
 ## Standalone Candidate Export
 
@@ -143,7 +171,8 @@ For the repository verification path used by GitHub Actions, use:
 make ci
 ```
 
-For a broad cold-clone smoke, use:
+For the bounded cold-clone probe that checks fixture availability, secret
+exclusion, and pattern-binding receipts, use:
 
 ```bash
 ./bootstrap.sh
