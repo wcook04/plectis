@@ -225,13 +225,14 @@ def _public_root_for_bundle(input_dir: str | Path) -> Path:
 
 def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        if not isinstance(row, dict):
-            raise ValueError(f"{path.as_posix()}:{line_number} is not a JSON object")
-        rows.append(row)
+    with path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if not isinstance(row, dict):
+                raise ValueError(f"{path.as_posix()}:{line_number} is not a JSON object")
+            rows.append(row)
     return rows
 
 

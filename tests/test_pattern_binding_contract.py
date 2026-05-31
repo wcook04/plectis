@@ -76,6 +76,36 @@ def test_route_readiness_jsonl_reader_streams_without_full_text_read(
     assert rows[2]["_error"] == "jsonl row is not an object"
 
 
+def test_pattern_binding_jsonl_reader_streams_without_full_text_read(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    ledger = tmp_path / "pattern_ledger_rows.jsonl"
+    ledger.write_text(
+        "\n".join(
+            [
+                json.dumps({"pattern_id": "pat_one"}),
+                "",
+                json.dumps({"pattern_id": "pat_two"}),
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == ledger:
+            raise AssertionError("pattern binding JSONL reader should stream ledger lines")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert pattern_binding._read_jsonl_rows(ledger) == [
+        {"pattern_id": "pat_one"},
+        {"pattern_id": "pat_two"},
+    ]
+
+
 def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Path) -> None:
     out_dir = tmp_path / "receipts"
 
