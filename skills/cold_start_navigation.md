@@ -2,11 +2,26 @@
 
 Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 
+## Source-Root Probe
+
+Before installing the console script or bringing an external project folder,
+run the bounded source-root probe:
+
+```bash
+./bootstrap.sh
+```
+
+It writes ignored `.microcosm/cold_clone_probe.json` evidence, validates the
+first-wave fixture boundary, and points back to the README map. Use
+`./bootstrap.sh --dry-run` when you need the copyable source-root command
+without writing the ignored receipt.
+
 ## First-Screen Route Contract
 
-Bring a folder first. The authoritative route card is
-`atlas/entry_packet.json::local_first_screen_route`; use it before the cold
-clone probe, paper modules, or raw receipt trees.
+Bring a folder first for the behavior route. Bring a folder after the source-root probe,
+then use the authoritative route card:
+`atlas/entry_packet.json::local_first_screen_route`; use it before paper
+modules or raw receipt trees.
 
 The human first screen is:
 
@@ -43,10 +58,11 @@ The compact behavioral path is:
    checks and explicit no-release/no-reader-guarantee boundaries.
 6. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
-7. `microcosm observe <project>` opens the selected route's compact causal
+7. `microcosm observe --card <project>` opens the selected route's compact causal
    chain over route, work, event, evidence, graph, status, proof, and
-   observatory refs.
-8. `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`
+   observatory refs; use `microcosm observe <project>` only when full event
+   rows are needed.
+8. `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7`
    opens the bounded local observatory smoke and exits after the requested
    hits; check `/project/observatory-card` before the expanded
    `/project/observatory`. The compact card must carry `state_inspection`
@@ -76,11 +92,10 @@ Empty/non-README folders can select `missing_tests_route`, including
 and workingness route, not the first screen.
 
 For the standalone cold-clone health probe, run `./bootstrap.sh` from the
-repository root after the first-screen behavior is visible. A passing run prints
-`Microcosm cold-clone probe passed`, `suite: <suite>`, and
-`receipt: <receipt path>`. Treat that terminal summary as the receipt locator;
-open the JSON receipt only after the local route card and authority ceiling are
-readable.
+repository root before install. A passing run prints `Microcosm cold-clone probe
+passed`, `suite: <suite>`, and `receipt: <receipt path>`. Treat that terminal
+summary as the receipt locator; open the JSON receipt only as a drilldown after
+the README map and authority ceiling are readable.
 
 If you need a standalone review artifact, run:
 
@@ -115,9 +130,10 @@ reader branches after the shared `microcosm tour --card <project>` card:
   endpoint parity, local behavior, and explicit no-release/no-reader-success
   boundaries.
 - Peer developer: run `microcosm tour --card <project>`, then
-  `microcosm observe <project>`; read `.microcosm/` state refs, the selected
-  route id, the route/work/event/evidence graph chain, and
-  `source_files_mutated=false`.
+  `microcosm observe --card <project>`; read `.microcosm/` state refs, the
+  selected route id, the compact route/work/event/evidence graph chain, and
+  `source_files_mutated=false`. Use `microcosm observe <project>` for full
+  event rows.
 
 ## Concept And Mechanism Drilldown
 
@@ -161,9 +177,11 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
 1. Read `README.md`.
 2. Read `AGENTS.md`.
    Use `atlas/entry_packet.json::local_first_screen_route` as the
-   machine-readable card for the bring-a-folder path; `first_command` and
-   `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
-   after first-screen behavior is visible.
+   machine-readable card for the bring-a-folder path; run
+   `atlas/entry_packet.json::cold_clone_probe_route` through `./bootstrap.sh`
+   before install, then use `first_command` for the no-write reader card. The
+   cold-clone probe writes ignored `.microcosm/cold_clone_probe.json` evidence,
+   not a tracked receipt.
 3. Run `microcosm hello <project>` or
    `PYTHONPATH=src python3 -m microcosm_core hello <project>` to read the
    no-write first-screen text before building `.microcosm/`.
@@ -184,14 +202,16 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    `PYTHONPATH=src python3 -m microcosm_core proof-lab --out
    /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
    card from `atlas/entry_packet.json::proof_lab_route`.
-7. Run `microcosm observe <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core observe <project>` to inspect
-   the compact route/work/event/evidence/graph causal-chain lens selected by
-   the first-screen route id.
+7. Run `microcosm observe --card <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core observe --card <project>` to
+   inspect the compact route/work/event/evidence/graph causal-chain lens
+   selected by the first-screen route id. Use `microcosm observe <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core observe <project>` only when full
+   event rows are needed.
 8. Run
-   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`
+   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7`
    or
-   `PYTHONPATH=src python3 -m microcosm_core serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`,
+   `PYTHONPATH=src python3 -m microcosm_core serve <project> --host 127.0.0.1 --port 8765 --max-requests 7`,
    then open `/project/observatory-card` before `/project/observatory` when
    the question is how the local browser/read-model ties `.microcosm` state,
    route, work, evidence, graph, status, and proof surfaces together. Omit
@@ -477,7 +497,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out
    receipts/runtime_shell/demo_project/organs/cold_reader_route_map` when you
    want the executable first-run route map.
-32. Open bounded `microcosm serve <project> --max-requests 6` when you want a
+32. Open bounded `microcosm serve <project> --max-requests 7` when you want a
    local observatory route smoke; omit the limit only for an intentional
    interactive server.
 33. Inspect `core/organ_registry.json` for accepted organs and validator
@@ -560,7 +580,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.launch_compression --root . --project <project> --out receipts/first_wave/launch_compression.json
-./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
+./bootstrap.sh
 ```
 
 ## Anti-Claim

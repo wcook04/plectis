@@ -57,7 +57,7 @@
     "verification_mode": "exact_source_digest_line_byte_and_anchor_match"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "3cb52e69ddf20e82b8aaf991ce078701fcde440a73c0464bfafa32a767311267",
+  "bundle_fingerprint": "5073eea644699845e2ee85351236ccb30255f1037133d62fecaff3b0f8e8b005",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
   "command": "microcosm run examples/runtime_shell/demo_project",
@@ -66,7 +66,7 @@
     "lease_public_observability_runtime"
   ],
   "copied_macro_source_count": 7,
-  "created_at": "2026-05-28T09:19:40+00:00",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {
@@ -92,13 +92,13 @@
   "exact_source_body_import": {
     "body_in_receipt": false,
     "source_body_digests": [
-      "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "sha256:9ebe5544a03e40db1a3f0bc5bf19fbda87f59bcdc54ba2e425333b0020e5b5fb",
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
-      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-      "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
-      "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
+      "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+      "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc"
     ],
     "source_refs": [
       "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -111,13 +111,13 @@
     ],
     "source_to_target_relation": "exact_copy",
     "target_body_digests": [
-      "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "sha256:9ebe5544a03e40db1a3f0bc5bf19fbda87f59bcdc54ba2e425333b0020e5b5fb",
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
-      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-      "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
-      "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
+      "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+      "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc"
     ],
     "target_refs": [
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -136,7 +136,7 @@
   "fixture_id": "first_wave.agent_route_observability_runtime.exported_observability_bundle",
   "fixture_regression_required_elsewhere": true,
   "freshness_basis": {
-    "basis_digest": "sha256:90212ad76501c8a28612a754972bfb45a7d7aa197ae5d65c000d4a2b32ca7951",
+    "basis_digest": "sha256:6eea07f0b4e0efbf52d02f7ec5cb54e8b6818aad3b3ac408bee8780fb46b27d8",
     "card_schema_version": "agent_route_observability_runtime_observability_bundle_card_v1",
     "input_count": 18,
     "inputs": [
@@ -147,8 +147,8 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
-        "sha256": "sha256:e00e17c8862788e51e4e92c7762cb6e3c7dd759934a39f2f095a145ca25f45d8",
-        "size_bytes": 8289
+        "sha256": "sha256:41b329c01a78425e80282f87b65a3d11fa7e92e9401b90e21e381354b15bbb26",
+        "size_bytes": 16076
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/route_events.json",
@@ -197,8 +197,8 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-        "size_bytes": 47570
+        "sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+        "size_bytes": 49875
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
@@ -207,23 +207,23 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
-        "sha256": "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
-        "size_bytes": 29828
+        "sha256": "sha256:9ebe5544a03e40db1a3f0bc5bf19fbda87f59bcdc54ba2e425333b0020e5b5fb",
+        "size_bytes": 39544
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "size_bytes": 224689
+        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "size_bytes": 229460
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
-        "sha256": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
-        "size_bytes": 17443
+        "sha256": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
+        "size_bytes": 17452
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
-        "sha256": "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
-        "size_bytes": 243510
+        "sha256": "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+        "size_bytes": 252787
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -401,15 +401,15 @@
     "body_in_receipt": false,
     "copied_macro_source_count": 7,
     "findings": [],
-    "module_count": 7,
+    "module_count": 8,
     "observed_modules": [
       {
         "body_in_receipt": false,
-        "byte_count": 29828,
-        "line_count": 424,
+        "byte_count": 39544,
+        "line_count": 742,
         "material_class": "public_macro_pattern_body",
         "path": "source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
-        "sha256": "e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+        "sha256": "9ebe5544a03e40db1a3f0bc5bf19fbda87f59bcdc54ba2e425333b0020e5b5fb",
         "source_ref": "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json"
       },
@@ -425,11 +425,11 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 47570,
-        "line_count": 664,
+        "byte_count": 49875,
+        "line_count": 678,
         "material_class": "public_standard_body",
         "path": "source_modules/codex/standards/std_agent_execution_trace.json",
-        "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "source_ref": "codex/standards/std_agent_execution_trace.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
       },
@@ -445,31 +445,31 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 224689,
-        "line_count": 5158,
+        "byte_count": 229460,
+        "line_count": 5256,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "source_ref": "system/lib/agent_execution_trace.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 243510,
-        "line_count": 5240,
+        "byte_count": 252787,
+        "line_count": 5465,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
-        "sha256": "05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+        "sha256": "2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
         "source_ref": "system/lib/navigation_metabolism_ledger.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 17443,
+        "byte_count": 17452,
         "line_count": 348,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/navigation_route_intervention.py",
-        "sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "sha256": "27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
         "source_ref": "system/lib/navigation_route_intervention.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py"
       }
@@ -482,6 +482,7 @@
     "agent_route_observability_runtime",
     "agent_route_compliance_audit",
     "agent_session_attribution",
+    "agent_harness_configuration_audit",
     "agent_trace_to_route_repair_observability_compound",
     "agent_principle_lens",
     "entry_payload_admission_nonnegotiable_floor",

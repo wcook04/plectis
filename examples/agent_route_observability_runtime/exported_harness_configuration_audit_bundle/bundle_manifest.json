@@ -1,0 +1,31 @@
+{
+  "schema_version": "agent_route_observability_runtime_exported_harness_configuration_audit_bundle_v1",
+  "bundle_id": "public_agent_harness_configuration_audit_runtime_example",
+  "generated_at": "2026-05-30T20:39:00Z",
+  "input_mode": "exported_harness_configuration_audit_bundle",
+  "source_refs": [
+    "tools/meta/audit/harness_audit.py",
+    "codex/standards/std_agent_entrypoint_audit.json",
+    "codex/doctrine/paper_modules/agent_harness_configuration_audit.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_harness_configuration_audit"
+  ],
+  "target_refs": [
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::run_harness_configuration_audit_bundle",
+    "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_harness_configuration_audit_bundle_validation_result.json"
+  ],
+  "positive_inputs": [
+    "harness_snapshots.json",
+    "harness_policy.json",
+    "expected_harness_summary.json",
+    "source_module_manifest.json"
+  ],
+  "body_import_verification": {
+    "verification_mode": "exact_source_digest_match",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_in_receipt": false,
+    "private_fixture_boundary": "synthetic_metadata_only_no_live_local_settings_or_hook_bodies"
+  },
+  "anti_claim": "This bundle validates synthetic harness configuration drift metadata and exact copied public macro source bodies; it does not read live local settings, publish hook/skill bodies, install hooks, mutate source, prove hidden agent behavior, or authorize release."
+}

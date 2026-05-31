@@ -1,0 +1,10 @@
+{
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep"
+    }
+  ],
+  "expected_negative_case_id": "missing_text",
+  "kind": "routing_anti_patterns",
+  "version": 1
+}

@@ -73,7 +73,7 @@
   "evidence_class_counts": {
     "algorithmic_projection": 23,
     "external_subprocess_witness": 3,
-    "semantic_validator": 17,
+    "semantic_validator": 18,
     "verified_macro_body_import": 1
   },
   "evidence_class_registry": {
@@ -82,7 +82,7 @@
     "explicit_coverage": true,
     "extra_organs": [],
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 48,
+    "organ_evidence_class_count": 49,
     "real_substrate_progress_buckets": [
       "copied_non_secret_macro_body",
       "real_import_validation",
@@ -152,8 +152,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1780044064648439708,
-      "receipt_mtime_ns": 1780109700284315312,
+      "latest_input_mtime_ns": 1780167798758127657,
+      "receipt_mtime_ns": 1780169206432975028,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -161,7 +161,7 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 35066,
+    "cached_receipt_bytes": 34335,
     "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -183,6 +183,7 @@
     "current_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "endpoint": "/proof-lab",
     "evidence_class": "semantic_validator",
+    "fresh_receipt_required": false,
     "lean_compiled_declaration_count": 8,
     "lean_lake_return_code": 0,
     "organ_id": "verifier_lab_kernel",
@@ -222,7 +223,8 @@
       "status": "pass"
     },
     "source_lens_endpoint": "/proof-loop-depth",
-    "status": "pass"
+    "status": "pass",
+    "status_scope": "route_presence_and_cache_freshness"
   },
   "hard_boundaries": [
     {
@@ -326,7 +328,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ad72022bdd8056d0f24297d7a56cb93547ebcf59bd9dce688ca7403b5e0318d4",
+        "body_digest": "sha256:87f1c371b0956c4c2ae31c28680a66a989719ac76d9caa59dbbee5e3b9e31c96",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -349,7 +351,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:ef3078f0b26faebe65d2e92cd39064eeebd7aa0a9abc9827438098df3ed08c89",
+        "body_digest": "sha256:2f973d5daffb348ca89e6a211edaf441080feeebc92783bcbd1aab6ddefcf23e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -375,7 +377,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
+        "body_digest": "sha256:c07b9be6367f9b6583870bf0f047207668c69d80278ce443cc4a9dc6c5766f44",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -463,7 +465,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
+        "body_digest": "sha256:d6193981b4407b7ea0c024160a1cebd1c4f0daded4ba1d586cfee04cb311e228",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -484,7 +486,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
+        "body_digest": "sha256:c15ca9cfae7f77cb41d0ac1e9bb994226eb3f9b5280faf02f91a5e7c4be9fbef",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -570,7 +572,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:50f97b839d19c500a606129271b991cef7e1afeb23392088deb109829a4a78b9",
+        "body_digest": "sha256:69b1ca9d6aa00c4e597bca074a4c0ec6b05fd0e1ec4f303656cdbf5170293a83",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -596,7 +598,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:e16c410e372aab197dc9b1b19d886b404003f23da646057f959b801144816e63",
+        "body_digest": "sha256:541b0f35cdfac89c84eedf869421273bd8f725357e114b069eef7d2745c7334e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -831,7 +833,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:323a3fa9867e2de9aad083f2d07f47608dfd4b1cac19567a71091bf74937c380",
+        "body_digest": "sha256:a510d811086b73faa20faad08b7b052ee6f6fa67cfb876688798cbecefad414b",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -915,7 +917,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:06181ae8d0e98ca5fca590efa2d9ed96dc7b67246b2d09e8dae71dd63c639f24",
+        "body_digest": "sha256:39700b50fb5b96a0601927141de9f610f2d664a5811c52449c0368d4052d764c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -999,7 +1001,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:45425bb801908f9018e8ddde9533e2229e9f5bb775888ea7afe7d31834862d42",
+        "body_digest": "sha256:df0a33399c212fdd57a9c926c9fef9daa2571d2021bf591e0fa7cd5010585ad2",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1041,7 +1043,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2980a9e798c78931c5ca48a2f966398bcc888b9162ce3484c16a6e63aacb8e02",
+        "body_digest": "sha256:a7530faf92390e23424acf2ea3360b37fff9fc714948abfd0ef322a2f939e12a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1062,7 +1064,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d45b7c77b5bf39cc3797c57457e22867e0c2a290ed3116c83f528e47aa148aa9",
+        "body_digest": "sha256:8740aea04de0409bedc0beac526c5ebd32811e5d07e1d704a07a377d3dfaf22a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1269,7 +1271,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
+        "body_digest": "sha256:d6193981b4407b7ea0c024160a1cebd1c4f0daded4ba1d586cfee04cb311e228",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1290,7 +1292,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
+        "body_digest": "sha256:c15ca9cfae7f77cb41d0ac1e9bb994226eb3f9b5280faf02f91a5e7c4be9fbef",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1605,7 +1607,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3c6236fd2ffdeae0f01b47565bae67095041b4254e8ea4aba471aba49a52c53d",
+        "body_digest": "sha256:a63931faf5503cbad0832262c9b7b4825b00c5521ddd12dfacd1bd7dc2a4c5b4",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1626,7 +1628,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cdebc81f736c584cdf1a371e1f54b0c61f8673c349bb9afaf7dcb2fe757b5223",
+        "body_digest": "sha256:6f6a6384c412ce36f645dc16956cb28543248d865823426abdb22814a172f0e8",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1689,7 +1691,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:791db9fb5f63350016974cece2f5206fc1eeda3636de161bb7dda70841d27553",
+        "body_digest": "sha256:39e5f3c8a6f8ccaefa151f9f2cd5773726f52033df091e1fbb24839fb57c805c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1731,7 +1733,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e61f316ea5da9492aa58e6f6984de35021396489ef7d81239c1743884dfa0da9",
+        "body_digest": "sha256:912e7d37ad7cffee5ff0c173c1c713db3d759875d5554a89b9a771b4c9a3d5eb",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1752,7 +1754,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:5608589d4630672f080707c8ffe516036f11770bca65a250ecce9c9fcdf6d4a9",
+        "body_digest": "sha256:912aa56d189c9b0d641a7f732f5f1713b065315eccebcfc2ecd6f15e2f2eacb8",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1773,7 +1775,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:88cf1f48c50c00e0deafc1eb688183f3b9a0ae2d2a5bb2a0cbb88c3c7d3f5f45",
+        "body_digest": "sha256:480469dac1bce955d6b52c68f89ef2234d8a7ded7a3ec1b12039fe220b97ece2",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1794,7 +1796,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3cc058fa287d05f847cd715013643337b25593b6a6e4e250250bec6dff397087",
+        "body_digest": "sha256:2320c6dd4c6b808fedf27b8ad746963fc52d7fac2112d3c0188bb87d35e1995a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1815,7 +1817,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24",
+        "body_digest": "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1836,7 +1838,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031",
+        "body_digest": "sha256:8eb9bed3b61e327ce05ae23a99af551a7015323e49236a88d780c8dc76d7921a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1941,6 +1943,27 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:a4c74c098eb6fe559c62bb7702e569b231c37a00643218375c0cb47ad3f724e1",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "pulse_cache_body_import",
+        "source_refs": [
+          "system/lib/kernel/pulse_cache.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:cf90e7b9cfd10e6d889fc548eb04d09fd8aa5804b1426aab0b8371bc8c98d78a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
@@ -1958,6 +1981,48 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:a74259ff3b599d79fe8a2f15ee259d9576c3382845ddce54479fcc31d598a15c",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "work_admission_body_import",
+        "source_refs": [
+          "system/lib/work_admission.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/work_admission.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_sources_compile_and_carry_admission_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:b873628bf5855f37512fb5c7d6f328f7a56f1880dd2315777968b10a98d7ee72",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "work_admission_test_body_import",
+        "source_refs": [
+          "system/server/tests/test_work_admission.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_admission.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_sources_compile_and_carry_admission_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
         "verification_mode": "exact_source_digest_match"
       },
@@ -2739,7 +2804,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2760,7 +2825,28 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:15554aaef995730c692a7cf0b04a73b0a6539fdb5cdf8c474241ca4980bac49e",
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:9d0bcdcff55c542a5e195c711a595681f2880a76bde6c696969bfdd1da96be98",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2781,7 +2867,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2823,7 +2909,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d062f9b435740c1ce032e60fe27527f58b2ab422607a2b405c515c46ad6e04e3",
+        "body_digest": "sha256:a45b6fb2cd54c8870e793f77cb45c84755ad70a6ccc32077a28c2809f1097b86",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2832,7 +2918,7 @@
           "system/server/tests/test_agent_observability.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json"
         ],
-        "source_to_target_relation": "public_light_edit_private_path_redaction",
+        "source_to_target_relation": "exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
@@ -2841,7 +2927,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_sources_compile_and_preserve_payload_boundary_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "verified_light_edit_recipe"
+        "verification_mode": "exact_source_digest_match"
       },
       {
         "body_digest": "sha256:db78bdeca879e50328a439ce5d84d3bd642c6f8ab67667212014ee282f0bde45",
@@ -3033,7 +3119,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:aa7eeac9c7df3fdd999e21201cd0f59c17c24b7fd42aa73e2ad27e4bbe75061a",
+        "body_digest": "sha256:13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3042,7 +3128,7 @@
           "tools/meta/observability/operator_handoff_linkage.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
         ],
-        "source_to_target_relation": "public_light_edit_private_path_redaction",
+        "source_to_target_relation": "exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
@@ -3051,7 +3137,7 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "verified_light_edit_recipe"
+        "verification_mode": "exact_source_digest_match"
       },
       {
         "body_digest": "sha256:70e163e19e73c5e69dbe48d790f3f85dd6826d30696acd082d9ddcd89dbdeef2",
@@ -3075,7 +3161,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ed3f2736c5d4fc0969a20be898bb497ced35339808a09a7739f6dfbee18e7678",
+        "body_digest": "sha256:f5da360d0c69335f464c84d0c793ed1f9558d948429eb1f900aec1260a55faef",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3084,7 +3170,7 @@
           "system/server/tests/test_operator_handoff_linkage.py",
           "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
         ],
-        "source_to_target_relation": "public_light_edit_private_path_redaction",
+        "source_to_target_relation": "exact_copy",
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
@@ -3093,10 +3179,10 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "verification_mode": "verified_light_edit_recipe"
+        "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "body_digest": "sha256:359ae136bb0e0344a231f2dac88e915915bbee11bea32fc535e792fa1bea0099",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3138,7 +3224,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+        "body_digest": "sha256:ce4e39591a8f7e488ced3a317089d9a26fbb01df27c6762b1b8f6a4b8e93d2d0",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3326,7 +3412,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d8004347dd03381219211e11ede91d10ad72b36a297224add78fde582f625dd8",
+        "body_digest": "sha256:f217322df235431c91a0bc6e0fe750905e240fda98de48f8a9878baafbceb277",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4541,7 +4627,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3bcdb31fbfb29a069e558989c35d437572f07304361b7fd31fe58e8972411c3a",
+        "body_digest": "sha256:88802eb50545d45a41e2e4ab57bf5b1b92e9378364e724bd6775b965d281f57c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4562,7 +4648,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:88c845851a38373448b0fe3a5b9173f93f0d5727b11a4952c9711538442e7cbf",
+        "body_digest": "sha256:e87e339be7de6d7a57c8198e5d2ebaddb6dd701a94f0bb19babf203993c7a204",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4583,7 +4669,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d25b3693e6e190ee9be804ba13c00471a175cb3a8c48621028caa9f59561b63e",
+        "body_digest": "sha256:b1e8026a6b7f5803e13f041fa5ebd70e713ce575c91a30a7b93a5cdbdb2b9231",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4625,7 +4711,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2cf7dc2100db5eef39901ca6464771129226bcec8fd3da60032b09178984b4b9",
+        "body_digest": "sha256:a6b1c4c8366efcfcef6bc72d06d0f01efc0f222e54ceab7d7bb1f4b7957ff188",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5125,7 +5211,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+        "body_digest": "sha256:ce4e39591a8f7e488ced3a317089d9a26fbb01df27c6762b1b8f6a4b8e93d2d0",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5161,6 +5247,153 @@
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:abec6b89a4f688e58e1fb0e4fbada115314ccc7d06e222d1fad07e923032c345",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "orchestration_control_body_import",
+        "source_refs": [
+          "system/control/orchestration.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:adc99ddfedc35368e2978eef93db5c7b2d5914b9f407293cf5855d2fa7855dd9",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "pipeline_advance_control_body_import",
+        "source_refs": [
+          "pipeline_advance.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:b08aa317822f51e8bf5d758aac03399d8946a22252d4ca0ccaf902d6a41089a7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "pipeline_overnight_control_body_import",
+        "source_refs": [
+          "pipeline_overnight.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:635941bed348a219e4178e0fa3f23099386c029ab3cce377ecc95f959d7d561d",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "overnight_control_launcher_body_import",
+        "source_refs": [
+          "overnight_control.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:91926470d8e4a3c8991207543321edc9bc93d9fb7d19280cef93e1149584c22f",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "pipeline_advance_test_body_import",
+        "source_refs": [
+          "system/server/tests/test_pipeline_advance.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:d5f440c72d24903cf2a31e6ab4f95170923d340a9a268e645765beaebaa6d147",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "pipeline_overnight_test_body_import",
+        "source_refs": [
+          "system/server/tests/test_pipeline_overnight.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:6b9818adc00887eda4d73356a8da4ff1803523a57ca1b3d04b63768ed2b8d577",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "projection_protocol",
+        "material_class": "public_macro_tool_body",
+        "material_id": "orchestration_control_test_body_import",
+        "source_refs": [
+          "system/server/tests/test_overnight_control.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
         "verification_mode": "exact_source_digest_match"
       },
@@ -5396,7 +5629,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5539,7 +5772,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5560,7 +5793,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5581,7 +5814,28 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/strict_json.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:359ae136bb0e0344a231f2dac88e915915bbee11bea32fc535e792fa1bea0099",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5602,7 +5856,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5623,7 +5877,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5636,6 +5890,27 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
@@ -5665,6 +5940,46 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_standard_body",
+        "material_id": "std_agent_entrypoint_audit",
+        "source_refs": [
+          "codex/standards/std_agent_entrypoint_audit.json",
+          "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_receipt_is_public_safe"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "harness_audit",
+        "source_refs": [
+          "tools/meta/audit/harness_audit.py",
+          "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_receipt_is_public_safe"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -5685,7 +6000,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5745,7 +6060,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5785,7 +6100,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24",
+        "body_digest": "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5798,6 +6113,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
@@ -5825,7 +6160,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5845,7 +6180,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5865,7 +6200,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:88cf1f48c50c00e0deafc1eb688183f3b9a0ae2d2a5bb2a0cbb88c3c7d3f5f45",
+        "body_digest": "sha256:480469dac1bce955d6b52c68f89ef2234d8a7ded7a3ec1b12039fe220b97ece2",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5885,7 +6220,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+        "body_digest": "sha256:9bf9f9b93414ae8962b5325cd5d9b2af6c586de8510f2221e59b0f977e8f60af",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5938,6 +6273,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
@@ -6005,7 +6360,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6038,6 +6393,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
@@ -6085,7 +6460,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6118,6 +6493,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agentic_vulnerability_discovery_patch_proof_replay.py::test_agentic_vulnerability_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_agentic_vulnerability_discovery_patch_proof_replay.py::test_agentic_vulnerability_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_agentic_vulnerability_discovery_patch_proof_replay.py::test_agentic_vulnerability_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_agentic_vulnerability_discovery_patch_proof_replay.py::test_agentic_vulnerability_exported_bundle_validates_runtime_shape"
@@ -6165,7 +6560,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6198,6 +6593,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -6482,7 +6897,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
+        "body_digest": "sha256:c15ca9cfae7f77cb41d0ac1e9bb994226eb3f9b5280faf02f91a5e7c4be9fbef",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7178,7 +7593,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7191,6 +7606,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
@@ -7445,7 +7880,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -7458,6 +7893,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -8042,6 +8497,23 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
+        "body_digest": "sha256:a451576122ddcd00163c014741d59afc559433ae0610a95a3001c3d8bc8d356f",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_pattern_body",
+        "material_id": "routing_anti_patterns_macro_registry_body_import",
+        "source_refs": [
+          "codex/doctrine/routing_anti_patterns.json",
+          "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_modules/codex/doctrine/routing_anti_patterns.json",
+        "validation_refs": [],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -8122,7 +8594,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cc5166d5695bf8c7df29bc2c95568ba158fb9b33a342493ba9f146b506b285d3",
+        "body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8142,7 +8614,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -8155,6 +8627,26 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "strict_json_source_body_import",
+        "source_refs": [
+          "system/lib/strict_json.py",
+          "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/system/lib/strict_json.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -8584,7 +9076,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
+        "body_digest": "sha256:c45db767b6c8ac5a680a69961fb2608c199751e76bb4dd7b49d9973f6acc41a1",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8684,7 +9176,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:43f96d0d0b913e8066b221d50e56bd7417a616396b0118bff4d225a92f0e39da",
+        "body_digest": "sha256:e74b5584ebc4517bd87998978f5d912daa6d7f77abdd64a84c79002ce570b4e2",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8704,7 +9196,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:8379200b453ae6cf238a61aa486a3bedae548ec6d75d6a07578990970a9ab4a9",
+        "body_digest": "sha256:8613d7850e561bf2b31723649726f84d1b1d7cf874d62ad7b6079fdc721487ba",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8724,7 +9216,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0393760edb21e8c56faa9d388ec5ca6f0f6c34180b6ac303232779ee799d108d",
+        "body_digest": "sha256:e006177eef2d61fe737ef38a2466680538d8339ced2986d1bf4a4b4c4f86466e",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8744,7 +9236,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:af6129eca56d2a3b69daaa63b572bf914379747059b9aa94917f0b4e6b5f5cd5",
+        "body_digest": "sha256:298d267e9a24e2c258c383c5c7e1c299913322f0f28452d1c2ed8c956c423c2d",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8804,7 +9296,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ac819a00f86e0b45a793824ba0feaf258cc55fb2519592630e9b2f650e845516",
+        "body_digest": "sha256:8be21044072c613e418168004b692d7e46bc4c50b95a6ff2990aca095e5b4efd",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8824,7 +9316,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:24d202998e8b185f7c4a96e914a4ce031d27e5ad56b6591314e89b987da60a5f",
+        "body_digest": "sha256:03e0833f1fe92ad7608c07be459be0791155c49f89cac59c0a695f6133e714ec",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8864,7 +9356,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:318ba487256b359f5cec7d1fbee8e2bb0742f759d7a97823717413b740a5db1a",
+        "body_digest": "sha256:5fdeacc13ae869afca03d523a91627454e1c54bfdb549549fa0f23d27b0043c6",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8885,11 +9377,11 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 425,
+    "copied_non_secret_macro_body_material_count": 449,
     "defect_count": 0,
     "defects": [],
-    "direct_source_module_manifest_count": 39,
-    "direct_source_module_manifest_material_count": 181,
+    "direct_source_module_manifest_count": 41,
+    "direct_source_module_manifest_material_count": 194,
     "direct_source_module_manifest_refs": [
       "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
@@ -8899,6 +9391,7 @@
       "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
+      "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json",
       "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
@@ -8924,6 +9417,7 @@
       "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
       "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
       "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+      "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
       "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
       "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
       "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json",
@@ -9008,7 +9502,10 @@
         "navigation_surface_contracts_body_import",
         "navigation_surface_audit_test_body_import",
         "command_node_cache_body_import",
+        "pulse_cache_body_import",
         "command_node_cache_test_body_import",
+        "work_admission_body_import",
+        "work_admission_test_body_import",
         "navigation_clusterability_body_import",
         "navigation_clusterability_test_body_import",
         "annex_routing_coverage_body_import",
@@ -9047,6 +9544,7 @@
         "observe_assets_body_import",
         "standards_registry_body_import",
         "agent_execution_trace_source_body_import",
+        "strict_json_source_body_import",
         "agent_execution_trace_test_body_import",
         "agent_execution_trace_standard_body_import",
         "agent_observability_source_body_import",
@@ -9140,27 +9638,42 @@
         "reaction_wiring_proof_cli_body_import",
         "agent_route_fanin_continuation_source_body_import",
         "agent_route_session_attribution_source_body_import",
+        "orchestration_control_body_import",
+        "pipeline_advance_control_body_import",
+        "pipeline_overnight_control_body_import",
+        "overnight_control_launcher_body_import",
+        "pipeline_advance_test_body_import",
+        "pipeline_overnight_test_body_import",
+        "orchestration_control_test_body_import",
         "agent_memory_macro_agent_execution_trace_tool_body_import",
         "agent_observability",
         "agent_observability_classification",
         "route_repair_suggestion_source_body_import",
         "agent_execution_trace_source_body_import",
+        "strict_json_source_body_import",
         "bridge_resume",
         "agent_execution_trace",
+        "strict_json_source_body_import",
         "controller_heartbeat",
+        "harness_audit",
         "agent_execution_trace_source_body_import",
         "navigation_route_intervention_source_body_import",
         "navigation_metabolism_ledger_source_body_import",
+        "strict_json_source_body_import",
         "agent_execution_trace_source_body_import",
         "navigation_coverage_matrix_source_body_import",
         "agent_execution_trace_builder_source_body_import",
         "extracted_pattern_substrate_bindings_builder_source_body_import",
+        "strict_json_source_body_import",
         "agent_execution_trace_runtime_body_import",
         "extracted_pattern_route_readiness_tool_body_import",
+        "strict_json_source_body_import",
         "agent_execution_trace_runtime_body_import",
         "mission_transaction_preflight_wrapper_body_import",
+        "strict_json_source_body_import",
         "agent_execution_trace_runtime_body_import",
         "extracted_pattern_route_readiness_tool_body_import",
+        "strict_json_source_body_import",
         "period_noncollapse_strike_runner_body_import",
         "period_noncollapse_lakefile_body_import",
         "period_noncollapse_toolchain_body_import",
@@ -9188,12 +9701,14 @@
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import",
         "agent_execution_trace_runtime_body_import",
+        "strict_json_source_body_import",
         "materials_lab_evolve_failure_replay_specimen_body_import",
         "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
         "tools_meta_factory_reduce_prover_provider_receipts_py_body_import",
         "system_server_tests_test_prover_graph_benchmark_harness_py_body_import",
         "system_server_tests_test_prover_provider_strategy_classification_reducer_py_body_import",
         "agent_execution_trace_runtime_body_import",
+        "strict_json_source_body_import",
         "macro_pattern_autonomy_process_contract_body_import",
         "pattern_binding_route_readiness_validator_tool_body_import",
         "prediction_oracle_contract_cross_corr_v1_body_import",
@@ -9209,6 +9724,7 @@
         "prediction_oracle_tool_truth_diff_equity_body_import",
         "public_reveal_public_substrate_boundary_policy_body_import",
         "agent_execution_trace_runtime_body_import",
+        "strict_json_source_body_import",
         "standards_meta_diagnostics_macro_generator_body_import",
         "standards_meta_diagnostics_macro_test_body_import",
         "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
@@ -9252,7 +9768,7 @@
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
       "status": "pass"
     },
-    "non_lean_tool_body_material_count": 301,
+    "non_lean_tool_body_material_count": 323,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -9260,16 +9776,16 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 425,
+    "public_safe_body_material_count": 449,
     "public_safe_body_material_counts_by_class": {
       "public_macro_frontend_body": 6,
       "public_macro_packet_compiler_body": 2,
       "public_macro_packet_compiler_test_body": 1,
-      "public_macro_pattern_body": 38,
+      "public_macro_pattern_body": 39,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 63,
-      "public_macro_tool_body": 301,
-      "public_standard_body": 6
+      "public_macro_tool_body": 323,
+      "public_standard_body": 7
     },
     "route_readiness": {
       "readiness_id": "root_binding_and_executable_grammar",
@@ -9307,11 +9823,13 @@
           "family_id": "exported_sleeper_memory_poisoning_bundle",
           "manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_execution_trace_runtime_body_import"
+            "agent_execution_trace_runtime_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -9440,8 +9958,8 @@
       "source_module_family_spotlight_count": 1,
       "source_module_family_spotlights": [
         {
-          "family_count": 9,
-          "module_count": 16,
+          "family_count": 10,
+          "module_count": 21,
           "notable_family_ids": [
             "exported_agent_observability_store_bundle",
             "exported_agent_trace_route_repair_bundle",
@@ -9836,11 +10354,13 @@
           "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json",
           "material_ids": [
             "command_node_cache_body_import",
+            "pulse_cache_body_import",
             "command_node_cache_test_body_import"
           ],
-          "module_count": 2,
+          "module_count": 3,
           "source_refs": [
             "system/lib/command_node_cache.py",
+            "system/lib/kernel/pulse_cache.py",
             "system/server/tests/test_command_node_cache.py"
           ],
           "status": "pass",
@@ -9848,6 +10368,27 @@
             "tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
             "tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
+          "family_id": "work_admission",
+          "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json",
+          "material_ids": [
+            "work_admission_body_import",
+            "work_admission_test_body_import"
+          ],
+          "module_count": 2,
+          "source_refs": [
+            "system/lib/work_admission.py",
+            "system/server/tests/test_work_admission.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_command_output_projection_runtime.py::test_work_admission_source_manifest_matches_exact_macro_sources",
+            "tests/test_command_output_projection_runtime.py::test_work_admission_sources_compile_and_carry_admission_contract",
+            "tests/test_macro_projection_import_protocol.py::test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
           "verification_mode": "exact_source_digest_match"
         },
@@ -10203,12 +10744,14 @@
           "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
           "material_ids": [
             "agent_execution_trace_source_body_import",
+            "strict_json_source_body_import",
             "agent_execution_trace_test_body_import",
             "agent_execution_trace_standard_body_import"
           ],
-          "module_count": 3,
+          "module_count": 4,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py",
             "system/server/tests/test_agent_execution_trace.py",
             "codex/standards/std_agent_execution_trace.json"
           ],
@@ -10233,20 +10776,13 @@
             "system/lib/agent_observability.py",
             "system/server/tests/test_agent_observability.py"
           ],
-          "source_to_target_relations": [
-            "exact_copy",
-            "public_light_edit_private_path_redaction"
-          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_agent_observability_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_agent_observability_sources_compile_and_preserve_payload_boundary_contract",
             "tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_modes": [
-            "exact_source_digest_match",
-            "verified_light_edit_recipe"
-          ]
+          "verification_mode": "exact_source_digest_match"
         },
         {
           "body_text_in_receipt": false,
@@ -10346,20 +10882,13 @@
             "tools/meta/observability/prompt_shelf_fingerprints.py",
             "system/server/tests/test_operator_handoff_linkage.py"
           ],
-          "source_to_target_relations": [
-            "public_light_edit_private_path_redaction",
-            "exact_copy"
-          ],
           "status": "pass",
           "validation_refs": [
             "tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
             "tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
             "tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "verification_modes": [
-            "verified_light_edit_recipe",
-            "exact_source_digest_match"
-          ]
+          "verification_mode": "exact_source_digest_match"
         },
         {
           "body_text_in_receipt": false,
@@ -10991,6 +11520,37 @@
         },
         {
           "body_text_in_receipt": false,
+          "family_id": "orchestration_overnight_control",
+          "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+          "material_ids": [
+            "orchestration_control_body_import",
+            "pipeline_advance_control_body_import",
+            "pipeline_overnight_control_body_import",
+            "overnight_control_launcher_body_import",
+            "pipeline_advance_test_body_import",
+            "pipeline_overnight_test_body_import",
+            "orchestration_control_test_body_import"
+          ],
+          "module_count": 7,
+          "source_refs": [
+            "system/control/orchestration.py",
+            "pipeline_advance.py",
+            "pipeline_overnight.py",
+            "overnight_control.py",
+            "system/server/tests/test_pipeline_advance.py",
+            "system/server/tests/test_pipeline_overnight.py",
+            "system/server/tests/test_overnight_control.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+            "tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+            "tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
           "family_id": "frontend_cockpit",
           "manifest_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json",
           "material_ids": [
@@ -11082,12 +11642,14 @@
           "manifest_ref": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json",
           "material_ids": [
             "route_repair_suggestion_source_body_import",
-            "agent_execution_trace_source_body_import"
+            "agent_execution_trace_source_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 2,
+          "module_count": 3,
           "source_refs": [
             "system/lib/navigation_route_intervention.py",
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11121,11 +11683,13 @@
           "family_id": "exported_computer_use_action_trace_bundle",
           "manifest_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_execution_trace"
+            "agent_execution_trace",
+            "strict_json_source_body_import"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11156,18 +11720,38 @@
         },
         {
           "body_text_in_receipt": false,
+          "family_id": "exported_harness_configuration_audit_bundle",
+          "manifest_ref": "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json",
+          "material_ids": [
+            "harness_audit"
+          ],
+          "module_count": 1,
+          "source_refs": [
+            "tools/meta/audit/harness_audit.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_harness_configuration_exported_bundle_receipt_is_public_safe"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
           "family_id": "exported_observability_bundle",
           "manifest_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
           "material_ids": [
             "agent_execution_trace_source_body_import",
             "navigation_route_intervention_source_body_import",
-            "navigation_metabolism_ledger_source_body_import"
+            "navigation_metabolism_ledger_source_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 3,
+          "module_count": 4,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
             "system/lib/navigation_route_intervention.py",
-            "system/lib/navigation_metabolism_ledger.py"
+            "system/lib/navigation_metabolism_ledger.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11184,14 +11768,16 @@
             "agent_execution_trace_source_body_import",
             "navigation_coverage_matrix_source_body_import",
             "agent_execution_trace_builder_source_body_import",
-            "extracted_pattern_substrate_bindings_builder_source_body_import"
+            "extracted_pattern_substrate_bindings_builder_source_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 4,
+          "module_count": 5,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
             "system/lib/navigation_coverage_matrix.py",
             "tools/meta/factory/build_agent_execution_trace.py",
-            "tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
+            "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11206,12 +11792,14 @@
           "manifest_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
           "material_ids": [
             "agent_execution_trace_runtime_body_import",
-            "extracted_pattern_route_readiness_tool_body_import"
+            "extracted_pattern_route_readiness_tool_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 2,
+          "module_count": 3,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
-            "tools/meta/factory/check_extracted_pattern_route_readiness.py"
+            "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11226,12 +11814,14 @@
           "manifest_ref": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json",
           "material_ids": [
             "agent_execution_trace_runtime_body_import",
-            "mission_transaction_preflight_wrapper_body_import"
+            "mission_transaction_preflight_wrapper_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 2,
+          "module_count": 3,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
-            "tools/meta/control/mission_transaction_preflight.py"
+            "tools/meta/control/mission_transaction_preflight.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11246,12 +11836,14 @@
           "manifest_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
           "material_ids": [
             "agent_execution_trace_runtime_body_import",
-            "extracted_pattern_route_readiness_tool_body_import"
+            "extracted_pattern_route_readiness_tool_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 2,
+          "module_count": 3,
           "source_refs": [
             "system/lib/agent_execution_trace.py",
-            "tools/meta/factory/check_extracted_pattern_route_readiness.py"
+            "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11418,11 +12010,13 @@
           "family_id": "exported_prompt_injection_flow_bundle",
           "manifest_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_execution_trace_runtime_body_import"
+            "agent_execution_trace_runtime_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11479,11 +12073,13 @@
           "family_id": "exported_mcp_tool_authority_bundle",
           "manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_execution_trace_runtime_body_import"
+            "agent_execution_trace_runtime_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11588,11 +12184,13 @@
           "family_id": "exported_sleeper_memory_poisoning_bundle",
           "manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_execution_trace_runtime_body_import"
+            "agent_execution_trace_runtime_body_import",
+            "strict_json_source_body_import"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_execution_trace.py"
+            "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11716,7 +12314,7 @@
           "verification_mode": "exact_source_digest_match"
         }
       ],
-      "verified_source_module_family_count": 99
+      "verified_source_module_family_count": 102
     },
     "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
     "status": "pass",
@@ -12769,6 +13367,29 @@
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "derived routing anti-pattern registry contract and copied non-secret macro body diagnostics",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+      "evidence_class": "semantic_validator",
+      "evidence_strength_disclosed": true,
+      "evidence_strength_rank": 5,
+      "generated_receipt_count": 4,
+      "input_mode": "exported_routing_anti_patterns_bundle",
+      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+      "ordinal": 45,
+      "organ_id": "routing_anti_patterns_registry",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
+      "verdict_source": "validator_computation"
     }
   ],
   "payload_boundary": {
@@ -13010,6 +13631,13 @@
     {
       "action_required": false,
       "cell_id": "command_node_cache_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "work_admission_source_modules_import",
       "cell_state": "consumed_verified_import",
       "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
       "projection_status": "public_runtime_import_landed"
@@ -13348,6 +13976,13 @@
       "cell_id": "agent_route_session_attribution_source_modules_import",
       "cell_state": "consumed_verified_import",
       "next_runtime_surface": "microcosm agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "orchestration_overnight_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
       "projection_status": "public_runtime_import_landed"
     }
   ],
@@ -14065,14 +14700,14 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 1,
-    "copied_non_secret_macro_body_material_count": 425,
+    "copied_non_secret_macro_body_material_count": 449,
     "hard_boundary_count": 6,
     "mixed_public_safe_macro_import_assay_status": "pass",
     "non_progress_organ_count": 0,
-    "organ_authority_count": 44,
+    "organ_authority_count": 45,
     "organ_evidence_class_count": 4,
-    "projection_cell_count": 78,
-    "real_substrate_progress_count": 44,
+    "projection_cell_count": 80,
+    "real_substrate_progress_count": 45,
     "regression_negative_fixture_count": 0,
     "safe_local_exception_count": 3,
     "surface_authority_count": 45
@@ -14086,9 +14721,9 @@
     "legacy_adapter_or_synthetic_placeholder_count": 0,
     "non_progress_organ_count": 0,
     "non_progress_organs": [],
-    "real_import_validation_count": 17,
+    "real_import_validation_count": 18,
     "real_runtime_receipt_count": 3,
-    "real_substrate_progress_count": 44,
+    "real_substrate_progress_count": 45,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -14133,7 +14768,8 @@
       "materials_chemistry_closed_loop_lab_safety_replay",
       "certificate_kernel_execution_lab",
       "voice_to_doctrine_self_improvement_loop",
-      "cognitive_operator_registry"
+      "cognitive_operator_registry",
+      "routing_anti_patterns_registry"
     ],
     "regression_negative_fixture_count": 0,
     "scaffold_or_debt_count": 0,
@@ -14142,7 +14778,7 @@
     "source_faithful_refactor_count": 23,
     "truth_accounting_bucket_counts": {
       "copied_non_secret_macro_body": 1,
-      "real_import_validation": 17,
+      "real_import_validation": 18,
       "real_runtime_receipt": 3,
       "source_faithful_refactor": 23
     }

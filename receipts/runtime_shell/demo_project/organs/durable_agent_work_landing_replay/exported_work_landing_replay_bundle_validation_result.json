@@ -14,13 +14,13 @@
   "body_copied_material_count": 6,
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:40+00:00",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.durable_agent_work_landing_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:907dda8bf120d35ff60f8eda91526fe46b43f63137146f95854b88be4a27c331",
+    "basis_digest": "sha256:ce6b75104631fdc712111cd011e721770eb88ec384eb0420632762811f847195",
     "card_schema_version": "durable_agent_work_landing_replay_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -47,8 +47,8 @@
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
-        "sha256": "fe26b017aee228b286d534b0b7815d1a2a44af36248674d5a7841af8feaeffb1",
-        "size_bytes": 10660
+        "sha256": "69c7defb1c969ac1b1b54721dc94062a9b9f7d8941ef5131ba8bbd368fea7dfa",
+        "size_bytes": 11920
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/workitem_runtime_entrypoint.py",
@@ -57,13 +57,13 @@
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py",
-        "sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
-        "size_bytes": 143081
+        "sha256": "efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
+        "size_bytes": 152486
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py",
-        "sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
-        "size_bytes": 6476
+        "sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+        "size_bytes": 6587
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
@@ -72,13 +72,13 @@
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py",
-        "sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
-        "size_bytes": 55059
+        "sha256": "85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
+        "size_bytes": 58119
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
-        "sha256": "497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
-        "size_bytes": 175121
+        "sha256": "df0a33399c212fdd57a9c926c9fef9daa2571d2021bf591e0fa7cd5010585ad2",
+        "size_bytes": 187717
       }
     ],
     "missing_inputs": [],
@@ -208,23 +208,23 @@
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/workitem_runtime_entrypoint.py"
       },
       {
-        "actual_sha256": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "actual_sha256": "sha256:efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
         "body_in_receipt": false,
-        "line_count": 3553,
+        "line_count": 3770,
         "material_class": "public_macro_ledger_body",
         "module_id": "work_landing_status_source_body_import",
-        "sha256": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "sha256": "sha256:efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
         "source_ref": "system/lib/work_landing_status.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py"
       },
       {
-        "actual_sha256": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "actual_sha256": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
         "body_in_receipt": false,
-        "line_count": 187,
+        "line_count": 190,
         "material_class": "public_macro_tool_body",
         "module_id": "work_landing_cli_source_body_import",
-        "sha256": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "sha256": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
         "source_ref": "tools/meta/control/work_landing.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py"
@@ -241,23 +241,23 @@
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
       },
       {
-        "actual_sha256": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "actual_sha256": "sha256:85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
         "body_in_receipt": false,
-        "line_count": 1422,
+        "line_count": 1515,
         "material_class": "public_macro_transaction_body",
         "module_id": "scoped_commit_private_index_source_body_import",
-        "sha256": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "sha256": "sha256:85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
         "source_ref": "tools/meta/control/scoped_commit.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py"
       },
       {
-        "actual_sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+        "actual_sha256": "sha256:df0a33399c212fdd57a9c926c9fef9daa2571d2021bf591e0fa7cd5010585ad2",
         "body_in_receipt": false,
-        "line_count": 4345,
+        "line_count": 4667,
         "material_class": "public_macro_ledger_body",
         "module_id": "work_ledger_runtime_claims_source_body_import",
-        "sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+        "sha256": "sha256:df0a33399c212fdd57a9c926c9fef9daa2571d2021bf591e0fa7cd5010585ad2",
         "source_ref": "tools/meta/factory/work_ledger.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py"

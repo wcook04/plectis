@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .resource_root import microcosm_root
+from .schemas import StrictJsonError, read_json_strict
 
 MICROCOSM_ROOT = microcosm_root()
 STANDARD_REF = Path("standards/std_microcosm_first_screen_composition_root.json")
@@ -68,6 +69,7 @@ OBSERVATORY_LANDING_ENDPOINTS = {
     "full_observatory_model": "/project/observatory",
     "project_observe": "/project/observe",
 }
+BOUNDED_OBSERVATORY_REQUEST_COUNT = 7
 
 
 def _observatory_serve_command(project_label: str) -> str:
@@ -75,7 +77,10 @@ def _observatory_serve_command(project_label: str) -> str:
 
 
 def _bounded_observatory_serve_command(project_label: str) -> str:
-    return f"{_observatory_serve_command(project_label)} --max-requests 6"
+    return (
+        f"{_observatory_serve_command(project_label)} "
+        f"--max-requests {BOUNDED_OBSERVATORY_REQUEST_COUNT}"
+    )
 
 
 def _json_cache_key(path: Path) -> tuple[str, int, int]:
@@ -86,7 +91,7 @@ def _json_cache_key(path: Path) -> tuple[str, int, int]:
 @lru_cache(maxsize=128)
 def _load_json_object(path_ref: str, mtime_ns: int, size: int) -> Any:
     del mtime_ns, size
-    return json.loads(Path(path_ref).read_text(encoding="utf-8"))
+    return read_json_strict(Path(path_ref))
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
@@ -311,7 +316,7 @@ def _standard_backed_first_screen_scan(
 def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
     try:
         payload = _load_json_object(*_json_cache_key(root / ref))
-    except (json.JSONDecodeError, OSError):
+    except (StrictJsonError, OSError):
         return {}
     if not isinstance(payload, dict):
         return {}
@@ -352,6 +357,25 @@ def _positive_count(row: Any) -> bool:
         and not isinstance(row.get("count"), bool)
         and row["count"] > 0
     )
+
+
+def _source_checkout_command(command: str, project_label: str) -> str:
+    return f"PYTHONPATH=src python3 -m microcosm_core {command} {project_label}"
+
+
+def _source_checkout_commands(project_label: str) -> dict[str, str]:
+    return {
+        "schema_version": "microcosm_source_checkout_commands_v1",
+        "purpose": "keep_the_no_install_entry_path_copyable_after_hello",
+        "hello": _source_checkout_command("hello", project_label),
+        "behavior_proof": _source_checkout_command("tour --card", project_label),
+        "status_card": _source_checkout_command("status --card", project_label),
+        "first_screen_card": _source_checkout_command(
+            "first-screen --card",
+            project_label,
+        ),
+        "authority": "source_checkout_fallback_not_package_install_or_release_claim",
+    }
 
 
 def _reader_routes(project_label: str) -> list[dict[str, Any]]:
@@ -404,7 +428,7 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "first_question": "Can I clone it, run it, and understand the first useful path in an hour?",
             "next_commands": [
                 f"microcosm tour --card {project_label}",
-                f"microcosm observe {project_label}",
+                f"microcosm observe --card {project_label}",
             ],
             "evidence_focus": [
                 "folder-local .microcosm state",
@@ -431,7 +455,9 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
         "packets": [
             {
                 "reader_route_id": "public_github_visitor",
-                "first_action": f"Run `microcosm hello {project_label}`.",
+                "first_action": (
+                    f"Run `microcosm tour --card {project_label}` after this card."
+                ),
                 "proof_surface": f"`microcosm tour --card {project_label}`",
                 "success_criterion": (
                     "Can find the first runnable local command and name the "
@@ -442,7 +468,10 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             },
             {
                 "reader_route_id": "safety_evals_engineer",
-                "first_action": f"Run `microcosm status --card {project_label}`.",
+                "first_action": (
+                    f"Run `microcosm tour --card {project_label}` first, then "
+                    f"`microcosm status --card {project_label}`."
+                ),
                 "proof_surface": (
                     "`microcosm authority --card` plus `microcosm workingness --card`"
                 ),
@@ -456,9 +485,13 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "hiring_reviewer",
                 "first_action": (
-                    f"Run `microcosm hello {project_label}` before the longer tour."
+                    "Run `microcosm legibility-scorecard`, then "
+                    f"`microcosm tour --card {project_label}`."
                 ),
-                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "proof_surface": (
+                    "`microcosm legibility-scorecard` plus "
+                    f"`microcosm tour --card {project_label}`"
+                ),
                 "success_criterion": (
                     "Can distinguish runnable local behavior from the claims this "
                     "public card explicitly refuses to make."
@@ -469,12 +502,12 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
             {
                 "reader_route_id": "peer_developer",
                 "first_action": f"Run `microcosm tour --card {project_label}`.",
-                "proof_surface": f"`microcosm observe {project_label}`",
+                "proof_surface": f"`microcosm observe --card {project_label}`",
                 "success_criterion": (
                     "Can inspect folder-local .microcosm state and follow the "
                     "route/work/event/evidence chain without provider calls."
                 ),
-                "next_drilldown": "paper_modules/cold_reader_route_map.md",
+                "next_drilldown": f"microcosm observe {project_label}",
                 "authority": "inspection_order_only_not_integration_guarantee",
             },
         ],
@@ -507,7 +540,9 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     "microcosm first-screen --format text "
                     f"--reader public_github_visitor {project_label}"
                 ),
-                "first_action": f"Run `microcosm hello {project_label}`.",
+                "first_action": (
+                    f"Run `microcosm tour --card {project_label}` after this card."
+                ),
                 "proof_surface": f"`microcosm tour --card {project_label}`",
                 "exit_check": "find the first runnable local command and anti-claims",
                 "not_a_claim": "publication_or_reader_success_ready",
@@ -523,7 +558,10 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     "microcosm first-screen --format text "
                     f"--reader safety_evals_engineer {project_label}"
                 ),
-                "first_action": f"Run `microcosm status --card {project_label}`.",
+                "first_action": (
+                    f"Run `microcosm tour --card {project_label}` first, then "
+                    f"`microcosm status --card {project_label}`."
+                ),
                 "proof_surface": (
                     "`microcosm authority --card` plus `microcosm workingness --card`"
                 ),
@@ -542,9 +580,13 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     f"--reader hiring_reviewer {project_label}"
                 ),
                 "first_action": (
-                    f"Run `microcosm hello {project_label}` before the longer tour."
+                    "Run `microcosm legibility-scorecard`, then "
+                    f"`microcosm tour --card {project_label}`."
                 ),
-                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "proof_surface": (
+                    "`microcosm legibility-scorecard` plus "
+                    f"`microcosm tour --card {project_label}`"
+                ),
                 "exit_check": "separate runnable behavior from refused claims",
                 "not_a_claim": "candidate_assessed_or_interview_ready",
                 "authority": "focused_projection_only_not_candidate_assessment",
@@ -560,7 +602,7 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     f"--reader peer_developer {project_label}"
                 ),
                 "first_action": f"Run `microcosm tour --card {project_label}`.",
-                "proof_surface": f"`microcosm observe {project_label}`",
+                "proof_surface": f"`microcosm observe --card {project_label}`",
                 "exit_check": "follow the route/work/event/evidence chain locally",
                 "not_a_claim": "integration_complete",
                 "authority": "focused_projection_only_not_integration_guarantee",
@@ -617,13 +659,32 @@ def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
     }
 
 
+def _pre_install_probe_packet() -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_pre_install_probe_v1",
+        "command": "./bootstrap.sh",
+        "dry_run_command": "./bootstrap.sh --dry-run",
+        "receipt_ref": ".microcosm/cold_clone_probe.json",
+        "writes_ignored_local_state": True,
+        "runs_before_install": True,
+        "authority": "bounded_cold_clone_probe_not_release_or_behavior_proof_authority",
+        "safe_to_show": {
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+        },
+    }
+
+
 def _first_run_ladder(project_label: str) -> dict[str, Any]:
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     status_card_command = f"microcosm status --card {project_label}"
+    source_checkout_commands = _source_checkout_commands(project_label)
     return {
         "schema_version": "microcosm_first_run_ladder_v1",
         "purpose": "make_first_screen_run_order_copyable_without_long_quickstart",
+        "pre_install_probe": _pre_install_probe_packet(),
         "one_screen_rule": (
             "The first screen gives a copyable run order before the long command "
             "inventory: map, behavior proof, state confirmation, then reader branch."
@@ -632,6 +693,7 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
             {
                 "step_id": "map",
                 "command": human_first_command,
+                "source_checkout_command": source_checkout_commands["hello"],
                 "writes_microcosm_state": False,
                 "expected_surface": "terminal_text_projection",
                 "success_read": "one_screen_map_visible",
@@ -640,6 +702,7 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
             {
                 "step_id": "behavior_proof",
                 "command": shared_first_command,
+                "source_checkout_command": source_checkout_commands["behavior_proof"],
                 "writes_microcosm_state": True,
                 "expected_surface": ".microcosm state plus compact route card",
                 "success_read": (
@@ -650,6 +713,7 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
             {
                 "step_id": "status_confirmation",
                 "command": status_card_command,
+                "source_checkout_command": source_checkout_commands["status_card"],
                 "writes_microcosm_state": False,
                 "expected_surface": "front door state, route proof, and gap preview",
                 "success_read": "project_state visible and source_files_mutated=false",
@@ -870,7 +934,8 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
 def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
     shared_first_command = f"microcosm tour --card {project_label}"
     status_card_command = f"microcosm status --card {project_label}"
-    observe_command = f"microcosm observe {project_label}"
+    observe_command = f"microcosm observe --card {project_label}"
+    observe_full_command = f"microcosm observe {project_label}"
     proof_lab_command = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
     return {
         "schema_version": "microcosm_first_contact_surface_refs_v1",
@@ -910,7 +975,8 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
             "events": {
                 "command": observe_command,
                 "state_ref": ".microcosm/events.jsonl",
-                "status_ref": "microcosm observe <project>::spans",
+                "status_ref": "microcosm observe --card <project>::spans",
+                "full_drilldown": observe_full_command,
             },
             "evidence": {
                 "command": observe_command,
@@ -921,14 +987,17 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
             "graph": {
                 "command": observe_command,
                 "state_ref": ".microcosm/graph.json",
-                "status_ref": "microcosm observe <project>::causal_chain.graph",
+                "status_ref": (
+                    "microcosm observe --card <project>::causal_chain_summary.graph"
+                ),
+                "full_drilldown": observe_full_command,
             },
             "observatory": {
                 "command": _observatory_serve_command(project_label),
                 "bounded_validation_command": _bounded_observatory_serve_command(
                     project_label
                 ),
-                "bounded_validation_request_count": 6,
+                "bounded_validation_request_count": BOUNDED_OBSERVATORY_REQUEST_COUNT,
                 "compact_endpoint": OBSERVATORY_LANDING_ENDPOINTS[
                     "compact_observatory_card"
                 ],
@@ -1076,7 +1145,7 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                     "Can find .microcosm state refs and follow the "
                     "route/work/event/evidence chain."
                 ),
-                "next_if_not_met": f"microcosm observe {project_label}",
+                "next_if_not_met": f"microcosm observe --card {project_label}",
                 "not_a_claim": "integration_complete",
             },
         ],
@@ -1125,7 +1194,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
             {
                 "beat_id": "show_route_chain",
                 "timebox_seconds": 10,
-                "visible_surface": f"microcosm observe {project_label}",
+                "visible_surface": f"microcosm observe --card {project_label}",
                 "reader_takeaway": "route, work, event, evidence, and graph refs join",
                 "proof_ref": ".microcosm/events.jsonl + .microcosm/graph.json",
             },
@@ -1980,7 +2049,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         "behavioral_proof_command": shared_first_command,
         "serve_command": serve_command,
         "bounded_validation_command": bounded_serve_command,
-        "bounded_validation_request_count": 6,
+        "bounded_validation_request_count": BOUNDED_OBSERVATORY_REQUEST_COUNT,
         "bounded_validation_rule": (
             "Use bounded_validation_command for first-screen route smokes; use "
             "serve_command for an interactive browser session."
@@ -3092,7 +3161,8 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             == _observatory_serve_command(str(payload.get("project_label")))
             and observatory_landing_frame.get("bounded_validation_command")
             == _bounded_observatory_serve_command(str(payload.get("project_label")))
-            and observatory_landing_frame.get("bounded_validation_request_count") == 6
+            and observatory_landing_frame.get("bounded_validation_request_count")
+            == BOUNDED_OBSERVATORY_REQUEST_COUNT
             and observatory_landing_frame.get("browser_landing_reuse", {}).get(
                 "serve_command"
             )
@@ -3176,17 +3246,27 @@ def first_screen_composition_card(
 ) -> dict[str, Any]:
     root = Path(root)
     standard = _load_standard(root)
+    source_checkout_commands = _source_checkout_commands(project_label)
+    pre_install_probe = _pre_install_probe_packet()
     payload: dict[str, Any] = {
         "schema_version": "microcosm_first_screen_composition_card_v1",
         "project_label": project_label,
         "composition_root_id": standard["kind_id"],
         "source_standard_ref": str(STANDARD_REF),
+        "pre_install_probe": pre_install_probe,
         "human_first_command": f"microcosm hello {project_label}",
         "shared_first_command": f"microcosm tour --card {project_label}",
+        "source_checkout_commands": source_checkout_commands,
         "text_projection": {
             "command": f"microcosm hello {project_label}",
+            "pre_install_probe_command": pre_install_probe["command"],
+            "pre_install_probe_receipt": pre_install_probe["receipt_ref"],
+            "source_checkout_command": source_checkout_commands["hello"],
             "writes_microcosm_state": False,
             "behavioral_proof_command": f"microcosm tour --card {project_label}",
+            "source_checkout_behavioral_proof_command": source_checkout_commands[
+                "behavior_proof"
+            ],
             "authority": "terminal_text_projection_only_not_behavior_proof",
             "reader_rule": (
                 "Use this command to view the first-screen card; run the "
@@ -3282,6 +3362,7 @@ def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
                 for key in (
                     "step_id",
                     "command",
+                    "source_checkout_command",
                     "expected_surface",
                     "writes_microcosm_state",
                     "authority",
@@ -3345,6 +3426,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
         "compact_projection_of": payload.get("schema_version"),
         "status": payload.get("status"),
         "project_label": project_label,
+        "pre_install_probe": payload.get("pre_install_probe"),
         "human_first_command": payload.get("human_first_command"),
         "shared_first_command": payload.get("shared_first_command"),
         "output_policy": {
@@ -3363,12 +3445,14 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
             "shared_behavior_command": route_menu.get("shared_behavior_command")
             if isinstance(route_menu, dict)
             else None,
+            "source_checkout_commands": payload.get("source_checkout_commands"),
             "machine_card_command": compact_card_command,
             "default_json_command": default_json_command,
             "routes": _compact_reader_routes(payload),
         },
         "first_run_ladder": {
             "purpose": "show_the_first_runnable_path_before_deep_contract_json",
+            "pre_install_probe": payload.get("pre_install_probe"),
             "steps": _compact_first_run_steps(payload),
         },
         "evidence_context": {
@@ -3514,16 +3598,70 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     human_first_command = payload.get(
         "human_first_command", "microcosm hello <project>"
     )
+    source_checkout_commands = payload.get("source_checkout_commands", {})
+    pre_install_probe = payload.get("pre_install_probe", {})
+    pre_install_command = (
+        pre_install_probe.get("command")
+        if isinstance(pre_install_probe, dict)
+        else None
+    )
+    pre_install_receipt = (
+        pre_install_probe.get("receipt_ref")
+        if isinstance(pre_install_probe, dict)
+        else None
+    )
+    source_behavior_command = (
+        source_checkout_commands.get("behavior_proof")
+        if isinstance(source_checkout_commands, dict)
+        else None
+    )
+    source_hello_command = (
+        source_checkout_commands.get("hello")
+        if isinstance(source_checkout_commands, dict)
+        else None
+    )
+    source_status_command = (
+        source_checkout_commands.get("status_card")
+        if isinstance(source_checkout_commands, dict)
+        else None
+    )
+    source_card_prefix = (
+        f"Source-only card: {source_hello_command} | "
+        if source_hello_command
+        else ""
+    )
+    source_behavior_suffix = (
+        f" | Source-only first run: {source_behavior_command}"
+        if source_behavior_command
+        else ""
+    )
+    check_state_suffix = "Trail: catalog -> routes -> events -> evidence -> graph."
+    check_state_line = (
+        f"Check state: microcosm status --card {payload['project_label']} | "
+        f"Source-only status: {source_status_command} | "
+        f"{check_state_suffix}"
+        if source_status_command
+        else (
+            f"Check state: microcosm status --card {payload['project_label']} | "
+            f"{check_state_suffix}"
+        )
+    )
+    pre_install_summary = (
+        f"Pre-install probe: {pre_install_command} -> {pre_install_receipt}"
+        if pre_install_command and pre_install_receipt
+        else "Pre-install probe: see QUICKSTART.md"
+    )
     lines = [
         "Microcosm first screen",
         (
-            f"Open card: {human_first_command} | "
-            f"First run: {payload['shared_first_command']}"
+            f"{pre_install_summary} | {source_card_prefix}"
+            f"Open card: {human_first_command}"
         ),
         (
-            f"Check state: microcosm status --card {payload['project_label']} | "
-            "Trail: catalog -> routes -> events -> evidence -> graph."
+            f"First run: {payload['shared_first_command']}"
+            f"{source_behavior_suffix}"
         ),
+        check_state_line,
         "",
         "What it is:",
         "  A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
@@ -3545,13 +3683,13 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             "  observatory: "
             f"{_bounded_observatory_serve_command(str(payload['project_label']))} "
             "-> /project/first-screen -> /project/observatory-card; artifact fit: "
-            "terminal/README/browser/JSON/video project this card; problem map binds the gaps."
+            "terminal, README, browser, JSON, and video reuse this card; "
+            "problem map names the gaps."
         ),
         "  authority/workingness: microcosm authority --card / microcosm workingness --card",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
         "Authority ceiling: No release, hosted publication, provider-call, source-mutation, private-equivalence, score-progress, or whole-system-correctness authority.",
-        "",
         f"Omission receipt: deeper evidence remains behind {payload['omission_receipt']['drilldown']}.",
     ]
     if len(lines) > TEXT_CARD_MAX_LINES:

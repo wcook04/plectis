@@ -251,7 +251,11 @@
     "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_result.json",
     "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_board.json",
     "receipts/first_wave/cognitive_operator_registry/cognitive_operator_registry_validation_receipt.json",
-    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/cognitive_operator_registry_fixture_acceptance.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
   ],
   "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1"
 }

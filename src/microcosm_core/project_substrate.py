@@ -2517,7 +2517,7 @@ def _observed_reader_causal_chain_card(
         else {}
     )
     graph = _read_project_json(project, "graph.json")
-    evidence = list_evidence(project, limit=0)
+    evidence = list_evidence(project)
     return _reader_causal_chain_card(
         project,
         route_id=route_id,
@@ -3348,7 +3348,7 @@ def compile_project(
         explain_route(project, route_id, refresh_architecture=False) if route_id else {}
     )
     observed = observe_project(project, refresh_architecture=False)
-    evidence = list_evidence(project, limit=0)
+    evidence = list_evidence(project)
     architecture = architecture_kernel.write_project_architecture(project)
     graph = _read_project_json(project, "graph.json")
     work_id = work_result.get("work_id")

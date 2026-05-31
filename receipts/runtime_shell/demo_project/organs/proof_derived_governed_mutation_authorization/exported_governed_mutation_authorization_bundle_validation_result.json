@@ -67,13 +67,13 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:01+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
   "freshness_basis": {
-    "basis_digest": "sha256:5b927c83a89907675805df8eba2e255962a9c29e72e6cb98bf4852eb8778d3e2",
+    "basis_digest": "sha256:7d8dbe4a9c7360cd5202e90d460b5e9c0002fc84d0e618fdbce2d2d7033e81a5",
     "card_schema_version": "governed_mutation_authorization_command_card_v1",
     "include_negative": false,
     "input_count": 18,
@@ -125,7 +125,7 @@
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
-        "sha256": "sha256:7515f890841ca5a0b100f33387ba98297822ee248fc65d7271a3cf900e679fc9",
+        "sha256": "sha256:3be0b0f00fd2e1a1c3114a12d7b18041734be43217d8bd2412f84577937286a1",
         "size_bytes": 15380
       },
       {
@@ -145,18 +145,18 @@
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
-        "sha256": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
-        "size_bytes": 55059
+        "sha256": "sha256:85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
+        "size_bytes": 58119
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
-        "sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
-        "size_bytes": 175121
+        "sha256": "sha256:df0a33399c212fdd57a9c926c9fef9daa2571d2021bf591e0fa7cd5010585ad2",
+        "size_bytes": 187717
       },
       {
         "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/system/lib/work_landing_status.py",
-        "sha256": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
-        "size_bytes": 143081
+        "sha256": "sha256:efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
+        "size_bytes": 152486
       },
       {
         "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",

@@ -53,7 +53,7 @@
     "source_ref": "core/organ_evidence_classes.json",
     "registry_id": "microcosm_organ_evidence_classes",
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 48,
+    "organ_evidence_class_count": 49,
     "class_profile_count": 6,
     "reader_action": "Read accepted_current_authority together with each row evidence_class, claim_ceiling, and truth_accounting_bucket; status alone is receipt inventory, not evidence strength.",
     "row_fields_projected": [
@@ -114,19 +114,18 @@
         "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
         "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
         "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
-        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
-        "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
+        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
       ],
       "organ_id": "proof_diagnostic_evidence_spine",
       "runner": "microcosm_core.organs.proof_diagnostic_evidence_spine",
       "status": "accepted_current_authority",
-      "evidence_class": "verified_macro_body_import",
+      "evidence_class": "algorithmic_projection",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[proof_diagnostic_evidence_spine]",
-      "evidence_strength_rank": 5,
-      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "evidence_strength_rank": 3,
+      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "truth_accounting_bucket": "source_faithful_refactor",
       "counts_as_real_substrate_progress": true,
-      "classification_basis": "validates copied public-safe Ring2 diagnostic runtime artifacts by target existence, digest provenance, light-edit receipts, secret-exclusion checks, and authority ceilings; proof verdict rows remain non-authoritative diagnostics",
+      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
       "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
     },
     {
@@ -1039,6 +1038,26 @@
       "counts_as_real_substrate_progress": true,
       "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
       "validator_command": "python -m microcosm_core.organs.cognitive_operator_registry run --input fixtures/first_wave/cognitive_operator_registry/input --out receipts/first_wave/cognitive_operator_registry"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+        "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+        "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
+        "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
+      ],
+      "organ_id": "routing_anti_patterns_registry",
+      "runner": "microcosm_core.organs.routing_anti_patterns_registry",
+      "status": "accepted_current_authority",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[routing_anti_patterns_registry]",
+      "evidence_strength_rank": 5,
+      "claim_ceiling": "validates declared public contract only",
+      "truth_accounting_bucket": "real_import_validation",
+      "counts_as_real_substrate_progress": true,
+      "classification_basis": "derived routing anti-pattern registry contract and copied non-secret macro body diagnostics",
+      "validator_command": "python -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out receipts/first_wave/routing_anti_patterns_registry"
     }
   ],
   "registry_status": "accepted_runtime_spine_verifier_lab_kernel_bound",

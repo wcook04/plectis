@@ -1,0 +1,12 @@
+{
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "private_source_body": "redacted operator-local routing note",
+      "text": "Private body should fail."
+    }
+  ],
+  "expected_negative_case_id": "private_source_leakage",
+  "kind": "routing_anti_patterns",
+  "version": 1
+}

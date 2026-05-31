@@ -1,0 +1,22 @@
+{
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "bundle_id": "public_routing_anti_patterns_runtime_example",
+  "input_mode": "exported_routing_anti_patterns_bundle",
+  "organ_id": "routing_anti_patterns_registry",
+  "provider_calls_authorized": false,
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/routing_anti_patterns.json",
+    "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
+    "paper_modules/routing_anti_patterns_registry.md"
+  ],
+  "release_authorized": false,
+  "schema_version": "routing_anti_patterns_registry_bundle_v1",
+  "source_refs": [
+    "codex/doctrine/routing_anti_patterns.json"
+  ],
+  "whole_system_correctness_claim": false
+}

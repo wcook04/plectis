@@ -43,7 +43,7 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:40+00:00",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -166,7 +166,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "freshness_basis": {
-    "basis_digest": "sha256:3ff8b332d29a67c1a1da183c9baf65262acd00db8ea6738555c62ac96b648f44",
+    "basis_digest": "sha256:897f92baf8ad415961be49d5c32b71e801c6eac3fb25377e9795f68de55ce940",
     "card_schema_version": "world_model_projection_drift_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -193,18 +193,18 @@
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
-        "sha256": "sha256:860769ad4d64d3a2e1e5bbcc6794c9f99222a40e3f95eaff9d9cfe9125c0513b",
+        "sha256": "sha256:e2eb833810b96c9f2c01d199489762206ba02dfaa709de63bf79ba4de52b323b",
         "size_bytes": 7061
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/world_model.py",
-        "sha256": "sha256:8c9cbe8e76a93087ec5177393e2381b075c99df03932b2eb6232272eec109ff4",
-        "size_bytes": 749511
+        "sha256": "sha256:46033b432195144ee2d29c9e3306e36a55b09079bf8b0aac22785e19c5038e92",
+        "size_bytes": 816038
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
-        "sha256": "sha256:21fbf5036b2af69b8bb16ac1b1c966a181e8983d5fda2d62e2b5f72535944858",
-        "size_bytes": 359862
+        "sha256": "sha256:2e977c52a2f85f833e843e68507fc28239acefdca40ffc6def3f3a864cd7abae",
+        "size_bytes": 388757
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/tools/meta/observability/view_quality_census.py",

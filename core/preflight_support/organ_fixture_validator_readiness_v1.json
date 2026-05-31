@@ -1127,6 +1127,20 @@
       ],
       "fixture_manifest": "core/fixture_manifests/cognitive_operator_registry.fixture_manifest.json",
       "organ_id": "cognitive_operator_registry"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::routing_anti_patterns_registry::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/routing_anti_patterns_registry/input/routing_anti_patterns.json",
+        "fixtures/first_wave/routing_anti_patterns_registry/input/missing_kind.json",
+        "fixtures/first_wave/routing_anti_patterns_registry/input/duplicate_id.json",
+        "fixtures/first_wave/routing_anti_patterns_registry/input/missing_text.json",
+        "fixtures/first_wave/routing_anti_patterns_registry/input/authority_overclaim.json",
+        "fixtures/first_wave/routing_anti_patterns_registry/input/private_source_leakage.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/routing_anti_patterns_registry.fixture_manifest.json",
+      "organ_id": "routing_anti_patterns_registry"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

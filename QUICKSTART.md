@@ -6,6 +6,21 @@ After the smoke path passes, use the [README Component Map](README.md#component-
 before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
 
+## 0. Run The Bounded Cold-Clone Probe
+
+If you want one command before installing the console script, run the public
+bootstrap probe:
+
+```bash
+./bootstrap.sh
+```
+
+It validates the first-wave fixture and boundary floor, writes ignored
+`.microcosm/cold_clone_probe.json` evidence, and points back to the README map.
+Use `./bootstrap.sh --dry-run` to see the exact probe command without writing a
+receipt. Do not use `--emit` for tracked receipts unless you intentionally own
+a receipt refresh.
+
 ## 1. Install The Local Command
 
 From this directory:
@@ -61,14 +76,14 @@ ceilings before sending you into full receipt drilldowns.
 ## 3. Inspect The Browser Surface
 
 ```bash
-microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6
+microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7
 ```
 
 If you are staying source-only, run the same bounded server through the module
 entry point:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 --port 8765 --max-requests 6
+PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 --port 8765 --max-requests 7
 ```
 
 Open `http://127.0.0.1:8765` while the server is running. Browser visits to
@@ -83,6 +98,12 @@ are:
 - `/project/first-screen-full`
 - `/project/observatory`
 
+Treat `/project/observatory-card` as the compact Demo To Scale bridge: it
+joins local `.microcosm/` state and status with the runtime bridge summary:
+intake, reveal, proof-lab, and evidence endpoints; projection status counts;
+open/closed intake-cell counts; and authority-safe receipt refs. Use
+`/project/observatory` only when you need the expanded model.
+
 Open `/workingness` only when you need the full per-organ failure-envelope map.
 
 ## 4. Verify The Public Floor
@@ -91,8 +112,15 @@ Open `/workingness` only when you need the full per-organ failure-envelope map.
 make ci
 ```
 
-`make ci` is the GitHub Actions floor: install, public tests, and smoke. For a
-review artifact outside this checkout, run:
+`make ci` is the GitHub Actions floor: editable install, public tests,
+source-form smoke, and package-install smoke. To run only the fresh-venv
+package check:
+
+```bash
+make package-smoke
+```
+
+For a review artifact outside this checkout, run:
 
 ```bash
 make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export

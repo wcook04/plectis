@@ -26,7 +26,7 @@ The accepted path is:
 6. `microcosm legibility-scorecard`
 7. Read `selected_route_id` from the compact tour or status card.
 8. `microcosm explain <project> <selected_route_id>`
-9. `microcosm observe <project>`
+9. `microcosm observe --card <project>`
 10. `microcosm cold-reader-route-map run-route-map-bundle`
 
 Full drilldowns stay available after the compact path is visible:
@@ -52,10 +52,10 @@ chooses a drilldown. Honest counters are not progress badges:
 - A hiring reviewer follows the first-screen card and legibility scorecard
   first. The useful question is whether small verified counts are framed as
   honest proof boundaries instead of hidden or inflated.
-- A peer developer follows `microcosm tour --card`, `microcosm observe`, and
-  then `microcosm compile` or `microcosm explain` as drilldowns. The useful
-  question is whether a fresh clone can reproduce the route/work/event/evidence
-  chain locally.
+- A peer developer follows `microcosm tour --card`, `microcosm observe --card`,
+  and then full `microcosm observe`, `microcosm compile`, or `microcosm explain`
+  as drilldowns. The useful question is whether a fresh clone can reproduce the
+  route/work/event/evidence chain locally without opening full event rows first.
 
 The route map must therefore preserve both the command order and the evidence
 interpretation order: command, receipt ref, evidence class, anti-claim,

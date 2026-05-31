@@ -411,7 +411,7 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "body_copied_material_count": 10,
+  "body_copied_material_count": 11,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -447,8 +447,8 @@
   },
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
-  "command": "microcosm circuit-attribution",
-  "created_at": "2026-05-28T16:12:39+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "features": [
     {
       "body_in_receipt": false,
@@ -508,10 +508,10 @@
   "finding_count": 0,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:a0b2644c766790cef4f0e3863c35158f96e8f625916020d272364f079e44b261",
+    "basis_digest": "sha256:5ad1fceb2ccd54542dee757732c7e2ba9fa16e44e23655a8a40fc990b1fc523b",
     "card_schema_version": "mechanistic_interpretability_circuit_attribution_replay_command_card_v1",
     "include_negative": false,
-    "input_count": 17,
+    "input_count": 18,
     "inputs": [
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_protocol.json",
@@ -535,8 +535,8 @@
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
-        "sha256": "sha256:bbfaa46374b039c6f2c3b46561a0b9e2344e377cf2d0dccec34172f6f517c9f0",
-        "size_bytes": 15455
+        "sha256": "sha256:29e6c777ebaf483ae92dd4941996f6ebe95e2201b274be146362b933edd543ac",
+        "size_bytes": 16855
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/bundle_manifest.json",
@@ -580,18 +580,23 @@
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "size_bytes": 224689
+        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "size_bytes": 229460
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-        "size_bytes": 47570
+        "sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+        "size_bytes": 49875
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_extracted_pattern_route_readiness.json",
         "sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
         "size_bytes": 7644
+      },
+      {
+        "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/strict_json.py",
+        "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "size_bytes": 10373
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -652,7 +657,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 16,
+    "scanned_path_count": 17,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -679,7 +684,7 @@
       "public_macro_proof_body",
       "public_macro_tool_body"
     ],
-    "module_count": 10,
+    "module_count": 11,
     "module_ids": [
       "oracle_attribution_legacy_node_body_import",
       "oracle_attribution_substrate_node_body_import",
@@ -690,7 +695,8 @@
       "mission_transaction_preflight_tool_body_import",
       "agent_execution_trace_tool_body_import",
       "std_agent_execution_trace_standard_body_import",
-      "std_extracted_pattern_route_readiness_standard_body_import"
+      "std_extracted_pattern_route_readiness_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "modules": [
       {
@@ -852,7 +858,7 @@
         "body_copied": true,
         "body_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
-        "line_count": 5158,
+        "line_count": 5256,
         "material_class": "public_macro_tool_body",
         "module_id": "agent_execution_trace_tool_body_import",
         "required_anchors": [
@@ -863,18 +869,18 @@
           "privacy_boundary"
         ],
         "source_ref": "system/lib/agent_execution_trace.py",
-        "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "status": "pass",
-        "target_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "target_body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
         "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a"
+        "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
       },
       {
         "anchor_count": 5,
         "body_copied": true,
         "body_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
-        "line_count": 664,
+        "line_count": 678,
         "material_class": "public_macro_proof_body",
         "module_id": "std_agent_execution_trace_standard_body_import",
         "required_anchors": [
@@ -885,11 +891,11 @@
           "privacy_boundary"
         ],
         "source_ref": "codex/standards/std_agent_execution_trace.json",
-        "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "source_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "status": "pass",
-        "target_body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "target_body_digest": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053"
+        "target_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559"
       },
       {
         "anchor_count": 5,
@@ -912,6 +918,28 @@
         "target_body_digest": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
         "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_extracted_pattern_route_readiness.json",
         "target_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 260,
+        "material_class": "public_macro_tool_body",
+        "module_id": "strict_json_source_body_import",
+        "required_anchors": [
+          "class StrictJsonError",
+          "class DuplicateJsonKeyError",
+          "def loads_json_strict(",
+          "def read_json_strict(",
+          "def strict_json_artifact_report("
+        ],
+        "source_ref": "system/lib/strict_json.py",
+        "source_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "status": "pass",
+        "target_body_digest": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/strict_json.py",
+        "target_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7"
       }
     ],
     "public_safe_body_material_ids": [
@@ -924,10 +952,11 @@
       "mission_transaction_preflight_tool_body_import",
       "agent_execution_trace_tool_body_import",
       "std_agent_execution_trace_standard_body_import",
-      "std_extracted_pattern_route_readiness_standard_body_import"
+      "std_extracted_pattern_route_readiness_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "status": "pass",
-    "verified_module_count": 10
+    "verified_module_count": 11
   },
   "source_open_body_imports": {
     "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
@@ -944,7 +973,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 10,
+    "body_material_count": 11,
     "body_material_ids": [
       "oracle_attribution_legacy_node_body_import",
       "oracle_attribution_substrate_node_body_import",
@@ -955,7 +984,8 @@
       "mission_transaction_preflight_tool_body_import",
       "agent_execution_trace_tool_body_import",
       "std_agent_execution_trace_standard_body_import",
-      "std_extracted_pattern_route_readiness_standard_body_import"
+      "std_extracted_pattern_route_readiness_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_macro_body_landed",
     "body_text_exported_in_receipts": false,

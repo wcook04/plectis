@@ -86,13 +86,13 @@
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json"
     },
     {
-      "actual_sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "actual_sha256": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
       "artifact_id": "ring2_oracle_repair_run_summary_body_import",
       "body_copied": true,
-      "copy_policy": "exact_public_safe_runtime_artifact",
+      "copy_policy": "source_faithful_public_light_edit",
       "digest_status": "pass",
       "file_present": true,
-      "sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "sha256": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
     },
@@ -108,13 +108,13 @@
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json"
     },
     {
-      "actual_sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "actual_sha256": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
       "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import",
       "body_copied": true,
-      "copy_policy": "exact_public_safe_runtime_artifact",
+      "copy_policy": "source_faithful_public_light_edit",
       "digest_status": "pass",
       "file_present": true,
-      "sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "sha256": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
     },
@@ -163,13 +163,13 @@
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"
     },
     {
-      "actual_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "actual_sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
       "artifact_id": "ring2_premise_retrieval_run_summary_body_import",
       "body_copied": true,
-      "copy_policy": "exact_public_safe_runtime_artifact",
+      "copy_policy": "source_faithful_public_light_edit",
       "digest_status": "pass",
       "file_present": true,
-      "sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
       "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
     }
@@ -179,7 +179,7 @@
   "copied_macro_body_missing_files": [],
   "copied_macro_body_missing_target_refs": [],
   "copied_macro_body_unexpected_target_refs": [],
-  "created_at": "2026-05-28T09:19:20+00:00",
+  "created_at": "2026-05-30T21:36:33+00:00",
   "diagnostic_board_path": null,
   "diagnostic_board_source_authority_rejected": true,
   "diagnostic_row_count": 1,
@@ -197,9 +197,9 @@
   "freshness_basis": [
     {
       "exists": true,
-      "mtime_ns": 1779747304213837436,
+      "mtime_ns": 1780036336816096851,
       "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
-      "size_bytes": 13381
+      "size_bytes": 14857
     },
     {
       "exists": true,
@@ -263,9 +263,9 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779717034874181402,
+      "mtime_ns": 1780035870718843008,
       "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
-      "size_bytes": 37147
+      "size_bytes": 37050
     },
     {
       "exists": true,
@@ -281,9 +281,9 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779717034864149194,
+      "mtime_ns": 1780035870718483840,
       "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "size_bytes": 2144
+      "size_bytes": 2139
     },
     {
       "exists": true,
@@ -299,12 +299,12 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779717034857423278,
+      "mtime_ns": 1780035870718147464,
       "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "size_bytes": 51229
+      "size_bytes": 51112
     }
   ],
-  "freshness_digest": "3025b2ff56569fea712418c0571e2d783d25a6f73988ade3ee13af6b9670edea",
+  "freshness_digest": "9729a850dcdd8aea008ec1c35f0b1b1c4c6b91ad59b68effb258c65cd4a5bf2c",
   "freshness_status": "current",
   "input_mode": "exported_evidence_bundle",
   "missing_negative_cases": [],

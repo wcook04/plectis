@@ -21,8 +21,6 @@
   "continuation_packet_status": {
     "consumed": false,
     "continue_mode": "resume_pending",
-    "fake_transport_job_id": "synthetic_detached_job_001",
-    "fake_transport_packet_id": "synthetic_packet_001",
     "missing_packet_rejected": true,
     "missing_required_fields_rejected": true,
     "observe_id": "OBS_SYNTHETIC_BRIDGE_CONTINUITY_001",
@@ -31,9 +29,11 @@
       "apply_target_review"
     ],
     "status": "pass",
+    "synthetic_transport_job_id": "synthetic_detached_job_001",
+    "synthetic_transport_packet_id": "synthetic_packet_001",
     "target_job_id": "APPLY_SYNTHETIC_BRIDGE_CONTINUITY_001"
   },
-  "created_at": "2026-05-28T09:19:40+00:00",
+  "created_at": "2026-05-31T01:37:11+00:00",
   "dependency_preflight_receipt_ref": "not_required_for_observe_apply_fixture_consumption_only",
   "duplicate_resume_rejection": {
     "duplicate_resume_authorized": false,
@@ -60,48 +60,6 @@
     "resume_success_overclaims_work_landed",
     "apply_validation_failure_rolls_back_observe_promotion"
   ],
-  "fake_transport_fixture_summary": {
-    "continuation_packet_count": 3,
-    "detached_job_count": 4,
-    "duplicate_resume_rejected": true,
-    "error_codes": [
-      "CONTINUATION_PACKET_ALREADY_CONSUMED",
-      "HEARTBEAT_NOT_RESUME_AUTHORITY",
-      "MISSING_CONTINUATION_PACKET",
-      "MISSING_CONTINUATION_PACKET_FIELDS",
-      "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
-      "STALE_HEARTBEAT_LIVENESS_CLAIM"
-    ],
-    "findings": [],
-    "forbidden_class_ids_only": true,
-    "heartbeat_fresh_count": 2,
-    "heartbeat_resume_authority_rejected": true,
-    "heartbeat_row_count": 3,
-    "heartbeat_stale_count": 1,
-    "input_file_count": 6,
-    "manifest_input_refs": [
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
-      "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json"
-    ],
-    "missing_packet_rejected": true,
-    "missing_required_fields_rejected": true,
-    "resource_pressure_blocked": true,
-    "resource_pressure_row_count": 2,
-    "stale_heartbeat_rejected": true,
-    "status": "pass",
-    "valid_job": {
-      "job_id": "synthetic_detached_job_001",
-      "packet_id": "synthetic_packet_001",
-      "status": "pass",
-      "transport": "fake_transport"
-    },
-    "worker_skip_deduped_no_closeout": true,
-    "worker_skip_receipt_count": 1
-  },
   "findings": [],
   "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
   "heartbeat_status": {
@@ -207,6 +165,18 @@
     "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
   ],
   "receipt_role": "heartbeat",
+  "receipt_write_skipped_count": 0,
+  "receipt_write_status": {
+    "reason": null,
+    "receipt_writes_enabled": true,
+    "requested_count": 5,
+    "requires_tracked_receipt_env": false,
+    "skipped_count": 0,
+    "status": "writes_allowed",
+    "tracked_receipt_refresh_env": null,
+    "tracked_receipt_write_blocked_count": 0,
+    "written_count": 5
+  },
   "required_parent_acceptance_refs": [
     "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
     "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
@@ -299,7 +269,7 @@
   "status": "pass",
   "synthetic_fixture_gate_status": {
     "fixture_ref": "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
-    "manifest_scope": "fake_transport_continuation_fixture_acceptance_only",
+    "manifest_scope": "synthetic_transport_continuation_fixture_acceptance_only",
     "runner_scope": "observe_apply_fixture_consumption_only",
     "source_module_manifest_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
     "status": "pass"
@@ -313,6 +283,49 @@
     "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
     "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json"
   ],
+  "synthetic_transport_fixture_summary": {
+    "continuation_packet_count": 3,
+    "detached_job_count": 4,
+    "duplicate_resume_rejected": true,
+    "error_codes": [
+      "CONTINUATION_PACKET_ALREADY_CONSUMED",
+      "HEARTBEAT_NOT_RESUME_AUTHORITY",
+      "MISSING_CONTINUATION_PACKET",
+      "MISSING_CONTINUATION_PACKET_FIELDS",
+      "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+      "STALE_HEARTBEAT_LIVENESS_CLAIM"
+    ],
+    "forbidden_class_ids_only": true,
+    "heartbeat_fresh_count": 2,
+    "heartbeat_resume_authority_rejected": true,
+    "heartbeat_row_count": 3,
+    "heartbeat_stale_count": 1,
+    "input_file_count": 6,
+    "legacy_fixture_transport_label_exported": false,
+    "manifest_input_refs": [
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json"
+    ],
+    "missing_packet_rejected": true,
+    "missing_required_fields_rejected": true,
+    "resource_pressure_blocked": true,
+    "resource_pressure_row_count": 2,
+    "stale_heartbeat_rejected": true,
+    "status": "pass",
+    "transport_label": "synthetic_transport",
+    "valid_job": {
+      "job_id": "synthetic_detached_job_001",
+      "packet_id": "synthetic_packet_001",
+      "status": "pass",
+      "transport": "synthetic_transport"
+    },
+    "worker_skip_deduped_no_closeout": true,
+    "worker_skip_receipt_count": 1
+  },
   "transition_status": "closed_with_receipts",
   "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
   "worker_skip_receipt_ref": "not_applicable_for_observe_apply_fixture_consumption_only",
@@ -320,5 +333,6 @@
     "claim_closeout_authorized": false,
     "deduped_noop_receipt": true,
     "status": "pass"
-  }
+  },
+  "written_receipt_count": 5
 }

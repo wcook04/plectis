@@ -105,13 +105,13 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:20+00:00",
+  "created_at": "2026-05-30T21:36:33+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.undeclared_library_prior_symbol_classifier",
   "freshness_basis": {
-    "basis_digest": "sha256:8ca047d04ebb7adcb4a3428991ebe4ec33a72366ef75021781a1029a38d21774",
+    "basis_digest": "sha256:543b24b1a367897ab7cb9b98fb0ea691875226ae3ab1eedb6869f8e39aeb1f55",
     "card_schema_version": "undeclared_library_prior_symbol_classifier_command_card_v1",
     "include_negative": false,
     "input_count": 13,
@@ -143,8 +143,8 @@
       },
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
-        "sha256": "sha256:94dfd40e6b6f4e482b992fa6cb05a589d83b9c586232d52f943882f43717edd5",
-        "size_bytes": 12697
+        "sha256": "sha256:5691f8b4d433205f50b34a3a52ab159413a57d2a5d8c2b966c3793bc300e5ac3",
+        "size_bytes": 12809
       },
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",

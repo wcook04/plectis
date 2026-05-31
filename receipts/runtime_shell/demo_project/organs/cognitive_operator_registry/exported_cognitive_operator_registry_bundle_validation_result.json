@@ -1,0 +1,226 @@
+{
+  "active_operator_count": 3,
+  "anti_claim": "Cognitive operator registry validation summarizes the public cognitive-operator registry contract and copied non-secret macro bodies only. It does not become registry source authority, mutate operators, prove operator correctness, expose raw operator voice, call providers, authorize release, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "cognitive_operator_registry_projection_only_not_registry_authority",
+    "cognitive_operator_registry_mutation_authority": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_copied_material_count": 3,
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "bundle_id": "public_cognitive_operator_registry_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "covered_operator_ids": [
+    "cogop_landing_handoff_compiler",
+    "cogop_operator_accretion_governor",
+    "cogop_pressure_to_action_reducer"
+  ],
+  "created_at": "2026-05-30T21:37:00+00:00",
+  "dogfood_receipt_count": 3,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.cognitive_operator_registry",
+  "freshness_basis": {
+    "basis_digest": "sha256:80b485b4c27a618191f2a3e776fcc70389165461e1b03004a08877c0a4164c02",
+    "card_schema_version": "cognitive_operator_registry_command_card_v1",
+    "include_negative": false,
+    "input_count": 9,
+    "inputs": [
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/operator_registry.json",
+        "sha256": "b42b4c6577c152fbec37fa4d53369781cd90aee728f232c425b0587e9a37af39",
+        "size_bytes": 11120
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/operator_standard.json",
+        "sha256": "63a035953d633602c6a4cb5216aac8e16133f62940212b22b58a84a5090c870c",
+        "size_bytes": 1672
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/dogfood_index.json",
+        "sha256": "0bf104597ea6aca183be2ccb63da683da6021639dc5d4f122a4ffd893c26b6c6",
+        "size_bytes": 13627
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/bundle_manifest.json",
+        "sha256": "f24602af9e25dbfabc6feeb00ba3df67a75eac488ad3be159a3c46de2540133c",
+        "size_bytes": 2296
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+        "sha256": "145a57a3782c1f06b9f4e60b8078f01389e00e1af3a5aebb0b0f4cbf040c5833",
+        "size_bytes": 7162
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
+        "sha256": "e174c3f23e5fb81100d8a450b2bffec3a4d29ef7e0e321f087785f16abf6388d",
+        "size_bytes": 112393
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/standards/std_cognitive_operator.json",
+        "sha256": "6fdbb9461ee60e8c15fbc6d466716b960d3d8e466ddfbe9373cde5b8d0e0817b",
+        "size_bytes": 12624
+      },
+      {
+        "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py",
+        "sha256": "518e50222334ab7b35bd7eed0a4d8f1dda2b3a498b9f44fbf7cd4237b314fe21",
+        "size_bytes": 26952
+      },
+      {
+        "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
+        "sha256": "e80d3363f7a0a73d894c41a01c99b9e31fe1793e9e9f6076f805b27d13a69644",
+        "size_bytes": 51537
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "cognitive_operator_registry_freshness_basis_v1",
+    "validator_schema_version": "exported_cognitive_operator_registry_bundle_validation_result_v1"
+  },
+  "input_mode": "exported_cognitive_operator_registry_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "operator_count": 3,
+  "organ_id": "cognitive_operator_registry",
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/operator_registry.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/operator_standard.json",
+    "fixtures/first_wave/cognitive_operator_registry/input/dogfood_index.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle",
+    "paper_modules/cognitive_operator_registry.md"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_id": "exported_cognitive_operator_registry_bundle_validation_result_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry/exported_cognitive_operator_registry_bundle_validation_result.json"
+  ],
+  "receipt_reused": false,
+  "required_field_count": 11,
+  "schema_version": "exported_cognitive_operator_registry_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 3,
+    "module_ids": [
+      "cognitive_operator_registry_macro_registry_body_import",
+      "cognitive_operator_registry_macro_standard_body_import",
+      "cognitive_operator_registry_macro_validator_body_import"
+    ],
+    "source_module_import_status": "copied_non_secret_macro_body_landed",
+    "source_module_manifest_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+    "source_refs": [
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/standards/std_cognitive_operator.json",
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 3
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "body_material_count": 3,
+    "body_material_ids": [
+      "cognitive_operator_registry_macro_registry_body_import",
+      "cognitive_operator_registry_macro_standard_body_import",
+      "cognitive_operator_registry_macro_validator_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported cognitive operator registry bundle for copied macro cognitive-operator registry, standard, and projection-tool source bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "cognitive_operator_registry_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "cognitive_operator_registry",
+    "cogop_landing_handoff_compiler",
+    "cogop_operator_accretion_governor"
+  ],
+  "source_refs": [
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/core/organ_registry.json",
+    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/standards/std_cognitive_operator.json",
+    "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py"
+  ],
+  "status": "pass",
+  "status_values": [
+    "candidate",
+    "active",
+    "retired"
+  ],
+  "synthetic_receipt_standin_allowed": false,
+  "validator_id": "validator.microcosm.organs.cognitive_operator_registry"
+}

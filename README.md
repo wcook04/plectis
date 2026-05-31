@@ -13,7 +13,8 @@ source files or making external model calls.
 For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
 For the first local card from a source checkout, run
 `PYTHONPATH=src python3 -m microcosm_core hello .`; after install, run
-`microcosm hello .`.
+`microcosm hello .`. Use `make package-smoke` when you need the fresh-venv
+installed-console proof; `make ci` includes that package smoke.
 
 ## Public Repo Map
 
@@ -26,7 +27,7 @@ Use this map before opening the longer reference body or raw receipt trees:
 | [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / [PRINCIPLES.md](PRINCIPLES.md) / [ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: authority spine, public-safe source rules, operating principles, and rejected failure shapes. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Public verification floor, standalone export path, and contribution boundaries. |
 | [SECURITY.md](SECURITY.md) | Secret-exclusion and vulnerability-reporting boundary. |
-| [.github/workflows/ci.yml](.github/workflows/ci.yml) / [Makefile](Makefile) | GitHub Actions and local command surface; both route through `make ci`. |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) / [Makefile](Makefile) | GitHub Actions and local command surface; both route through `make ci`, including package install smoke. |
 | [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | Package metadata, console entry point, and source distribution inventory. |
 | [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | Runnable substrate and regression contracts. |
 | [core/](core/) / [standards/](standards/) / [paper_modules/](paper_modules/) | Public registries, standards, and bounded organ summaries. |
@@ -44,18 +45,18 @@ count, organ count, or route label as a claim:
 | Component family | Local surface | What to inspect |
 |---|---|---|
 | Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
-| Command cards | `hello`, `tour --card`, `status --card`, `authority --card`, `workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
+| Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
 | Public doctrine | [core/](core/), [standards/](standards/), [paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, standards, bounded explanations, and the first-screen entry packet. |
 | Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), [receipts/](receipts/) | Public-safe input bundles, negative cases, drilldown receipts, and copied artifact bodies. |
 | Source capsules | `source_modules/` plus `source_module_manifest.json` inside bundles | Non-secret macro source bodies with target paths, digests, anchors, omissions, and light-edit receipts. |
-| Validation shell | [tests/](tests/), [Makefile](Makefile), [.github/workflows/ci.yml](.github/workflows/ci.yml) | The public verification floor that keeps docs, CLI cards, fixtures, packaging, and standalone export honest. |
+| Validation shell | [tests/](tests/), [Makefile](Makefile), [.github/workflows/ci.yml](.github/workflows/ci.yml) | The public verification floor that keeps docs, CLI cards, fixtures, package install, and standalone export honest. |
 
 This component map is still navigation, not authority. The command cards,
 validators, manifests, and receipts remain the evidence-bearing surfaces.
 
 New here? Two generated surfaces give you the whole system fast:
 [ARCHITECTURE.md](ARCHITECTURE.md) is the architecture at a glance, and
-[ORGANS.md](ORGANS.md) is the comprehension card for all 48 runtime organs.
+[ORGANS.md](ORGANS.md) is the comprehension card for all accepted runtime organs.
 
 From an uninstalled source checkout, the immediately runnable first screen is:
 
@@ -104,9 +105,9 @@ for the shortest validation route.
 | Reader | Open next | What to check |
 |---|---|---|
 | Public GitHub visitor | `microcosm hello <project>`, then `microcosm tour --card <project>` | The copyable first command, shared local behavior proof, authority ceiling, and anti-claims before opening receipts or treating the repo as release-ready. |
-| Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority --card`, then `microcosm workingness --card` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes; open full authority/workingness only as drilldowns. |
+| Safety/evals engineer | `microcosm tour --card <project>`, then `microcosm status --card <project>`, then `microcosm authority --card` / `microcosm workingness --card` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes; open full authority/workingness only as drilldowns. |
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
-| Peer developer | `microcosm tour --card <project>`, then `microcosm observe <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`. |
+| Peer developer | `microcosm tour --card <project>`, then `microcosm observe --card <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`; use `microcosm observe <project>` for full event rows. |
 
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
@@ -156,7 +157,7 @@ structural evidence do not live in separate places.
 2. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the same
    first-screen card plus four bridge cards: `Local demo`, `Structural scale`,
    `Evidence floor`, and `Authority boundary`. For a bounded route smoke, use
-   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`.
+   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7`.
 3. `/project/observatory-card` is the JSON card for that bridge;
    `/project/status` is the compact body-import and authority lens; the full
    `/project/observatory` model stays a drilldown.
@@ -173,7 +174,18 @@ breadth, honest evidence accounting, and authority limits on one first screen.
 ## Try It On Your Repo
 
 From `microcosm-substrate/` in a local checkout or generated standalone export,
-install the console command from this source tree:
+run the source-root probe before installing the console command:
+
+```bash
+./bootstrap.sh
+```
+
+It writes ignored `.microcosm/cold_clone_probe.json` evidence and checks the
+first-wave fixture boundary without creating a release artifact. Use
+`./bootstrap.sh --dry-run` when you need the exact source-root command without
+writing the ignored receipt.
+
+Then install the console command from this source tree:
 
 ```bash
 python3 -m pip install .
@@ -188,6 +200,15 @@ For development, install the same command in editable mode with the test extras:
 ```bash
 python3 -m pip install -e '.[test]'
 ```
+
+To prove the non-editable package path from a fresh venv, run:
+
+```bash
+make package-smoke
+```
+
+`make ci` includes that package smoke after the public test and source-form
+smoke paths.
 
 Either install path should pass the first-screen self-check:
 
@@ -206,6 +227,7 @@ PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core observe --card .
 PYTHONPATH=src python3 -m microcosm_core observe .
 ```
 
@@ -218,8 +240,9 @@ microcosm first-screen --card .
 microcosm status --card .
 microcosm workingness --card
 microcosm proof-lab --out /tmp/microcosm-proof-lab
+microcosm observe --card .
 microcosm observe .
-microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6
+microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7
 microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
@@ -481,7 +504,7 @@ MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["se
 microcosm status --card /tmp/microcosm-scratch
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
-microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6
+microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7
 microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
@@ -507,7 +530,7 @@ MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["se
 PYTHONPATH=src python3 -m microcosm_core status --card /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core workingness
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
-PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6
+PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7
 PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
@@ -715,16 +738,14 @@ rejection, worker-skip dedupe, closeout transition receipts, and private-state
 scan ceilings without live bridge transport, providers, HUD/browser state,
 phase runtime state, work-landing authority, or release authority.
 
-`agent-route-observability-runtime validate-computer-use-bundle` is the
-computer-use action-trace showcase under the same observability organ. It
+`microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out /tmp/microcosm-computer-use` is the computer-use action-trace showcase under the same observability organ. It
 validates synthetic observations, affordances, actions, pre-action authority
 verdicts, state transitions, recovery receipts, cold replay, and falsification
 fixtures without live browser control, accounts, credentials, external network
 mutation, raw screenshots, benchmark scores, source mutation, or release
 authority.
 
-`agent-route-observability-runtime validate-session-attribution-bundle` is the
-public session-attribution showcase. It runs the copied
+`microcosm agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle --out /tmp/microcosm-session-attribution` is the public session-attribution showcase. It runs the copied
 `agent_session_attribution` macro body over synthetic AgentTraceStore and Work
 Ledger metadata envelopes, then exposes matched, unattributable, infrastructure,
 ATS-only, and WorkLedger-only session classes without raw transcript bodies,
@@ -859,7 +880,7 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package carries 48 accepted public runtime organs behind the local
+The public package carries the accepted public runtime organs behind the local
 substrate loop. Treat that as a public entry inventory/read-model over
 `core/organ_registry.json` and `core/organ_evidence_classes.json`, not a product progress meter.
 `accepted_current_authority`, organ counts, and adapter-backed counts are
@@ -889,7 +910,7 @@ Fixture and validator readiness for these organs is tracked in-tree at
 state. Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation`
 are documented per organ in [ORGANS.md](ORGANS.md).
 
-The 48 organs cluster into seven families (full cards in [ORGANS.md](ORGANS.md)):
+The accepted organs cluster into seven families (full cards in [ORGANS.md](ORGANS.md)):
 
 ### Entry & Reveal (2)
 
@@ -897,11 +918,11 @@ How a cold human or agent first meets Microcosm and what the short guided path a
 
 `cold_reader_route_map`, `public_reveal_walkthrough`
 
-### Architecture & Navigation (6)
+### Architecture & Navigation (8)
 
 The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
 
-`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`
+`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`, `routing_anti_patterns_registry`
 
 ### Formal Math & Proof (17)
 

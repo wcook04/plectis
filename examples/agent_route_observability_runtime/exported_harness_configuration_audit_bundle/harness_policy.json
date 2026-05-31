@@ -1,0 +1,25 @@
+{
+  "schema_version": "public_harness_configuration_policy_v1",
+  "policy_id": "public_harness_configuration_metadata_policy",
+  "inspected_surfaces": [
+    "settings",
+    "hooks",
+    "skill_registry",
+    "paper_modules",
+    "standards"
+  ],
+  "live_local_settings_read": false,
+  "raw_settings_body_exported": false,
+  "raw_hook_body_exported": false,
+  "raw_skill_body_exported": false,
+  "provider_payload_read": false,
+  "browser_hud_cockpit_state_read": false,
+  "account_session_state_exported": false,
+  "credential_or_cookie_exported": false,
+  "live_hook_install_authorized": false,
+  "source_mutation_authorized": false,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false,
+  "metadata_envelope_only": true,
+  "body_in_receipt": false
+}

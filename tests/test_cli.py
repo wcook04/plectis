@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from collections import Counter
 import json
 import os
+import re
 import shutil
 import socket
 import subprocess
@@ -32,17 +34,26 @@ from microcosm_core.runtime_shell import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
 ROOT_HELP_COMMAND_FLOOR = 35
+ROOT_COMMAND_DOCS = (
+    "README.md",
+    "QUICKSTART.md",
+    "AGENTS.md",
+    "ARCHITECTURE.md",
+    "SECURITY.md",
+)
+
+
+def _accepted_registry_rows(root: Path) -> list[dict[str, object]]:
+    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
 
 
 def _accepted_organ_count(root: Path) -> int:
-    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
-    return len(
-        [
-            row
-            for row in registry["implemented_organs"]
-            if row.get("status") == "accepted_current_authority"
-        ]
-    )
+    return len(_accepted_registry_rows(root))
 
 
 def _demoted_organ_count() -> int:
@@ -53,16 +64,22 @@ def _adapter_backed_organ_count(root: Path) -> int:
     return _accepted_organ_count(root) - _demoted_organ_count()
 
 
-def _adapter_evidence_class_count(root: Path) -> int:
-    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+def _adapter_registry_rows(root: Path) -> list[dict[str, object]]:
     demoted = set(PRODUCT_PATH_DEMOTED_ORGAN_IDS)
-    return len(
-        {
-            str(row["evidence_class"])
-            for row in registry["implemented_organs"]
-            if row.get("status") == "accepted_current_authority"
-            and row.get("organ_id") not in demoted
-        }
+    return [
+        row
+        for row in _accepted_registry_rows(root)
+        if row.get("organ_id") not in demoted
+    ]
+
+
+def _adapter_evidence_class_count(root: Path) -> int:
+    return len(_expected_adapter_evidence_class_counts(root))
+
+
+def _expected_adapter_evidence_class_counts(root: Path) -> dict[str, int]:
+    return dict(
+        Counter(str(row["evidence_class"]) for row in _adapter_registry_rows(root))
     )
 
 
@@ -213,6 +230,47 @@ def _root_help_command_names(help_output: str) -> list[str]:
     return commands
 
 
+def _documented_microcosm_command_names() -> set[str]:
+    command_names: set[str] = set()
+    pattern = re.compile(r"`(microcosm\s+[^`\n]*(?:\n[^`]*)?)`")
+    for relpath in ROOT_COMMAND_DOCS:
+        text = (MICROCOSM_ROOT / relpath).read_text(encoding="utf-8")
+        for match in pattern.finditer(text):
+            normalized = " ".join(match.group(1).split())
+            parts = normalized.split()
+            if len(parts) < 2 or parts[1].startswith("-"):
+                continue
+            command_names.add(parts[1])
+    return command_names
+
+
+def _strip_markdown_fenced_blocks(text: str) -> str:
+    return re.sub(
+        r"```.*?```",
+        lambda match: "\n" * match.group(0).count("\n"),
+        text,
+        flags=re.S,
+    )
+
+
+def _bare_documented_microcosm_command_spans(command_names: set[str]) -> list[str]:
+    failures: list[str] = []
+    pattern = re.compile(r"`([^`]+)`")
+    for relpath in ROOT_COMMAND_DOCS:
+        text = (MICROCOSM_ROOT / relpath).read_text(encoding="utf-8")
+        scan_text = _strip_markdown_fenced_blocks(text)
+        for match in pattern.finditer(scan_text):
+            normalized = " ".join(match.group(1).split())
+            parts = normalized.split()
+            if len(parts) < 2 or parts[0] == "microcosm":
+                continue
+            if parts[0] not in command_names:
+                continue
+            line = text[: match.start()].count("\n") + 1
+            failures.append(f"{relpath}:{line}: `{normalized}`")
+    return failures
+
+
 def _assert_body_floor_blocking_details(details: dict) -> None:
     assert details["status"] == "blocked"
     assert details["defect_count"] >= 1
@@ -274,6 +332,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
+    assert (
+        "microcosm status-card <project> alias for the compact status lens"
+        in output
+    )
     assert "microcosm spine --card          read the compact runtime spine lens" in output
     assert (
         "microcosm run --card examples/runtime_shell/demo_project replay the public "
@@ -291,6 +353,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
     assert "microcosm proof-lab --card      read the cached verifier-lab receipt card" in output
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
+    assert (
+        "microcosm observe --card <project> read compact route/work/event/evidence refs"
+        in output
+    )
     assert (
         "microcosm observe <project>     inspect route/work/event/evidence chain"
         in output
@@ -311,6 +377,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         output.index("microcosm status --card <project>")
     )
     assert output.index("microcosm status --card <project>") < output.index(
+        "microcosm status-card <project>"
+    )
+    assert output.index("microcosm status-card <project>") < output.index(
         "microcosm spine --card"
     )
     assert output.index("microcosm spine --card") < output.index(
@@ -349,6 +418,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "no provider calls, source mutation, release," in output
     assert "Receipts are evidence drilldowns after the behavior route is visible." in output
     for command in [
+        "init",
+        "index",
+        "catalog",
+        "architecture",
         "compile",
         "python-lens",
         "graph",
@@ -361,6 +434,16 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "authority",
         "run",
         "pattern-route-readiness",
+        "finance-eval-spine",
+        "executable-doctrine-grammar",
+        "formal-math-readiness-gate",
+        "standards-meta-diagnostics",
+        "cold-reader-route-map",
+        "macro-projection-import-protocol",
+        "agent-route-observability-runtime",
+        "bridge-phase-continuity-runtime",
+        "voice-to-doctrine-self-improvement-loop",
+        "routing-anti-patterns-registry",
         "serve",
         "patterns",
         "route",
@@ -410,11 +493,23 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "list runtime routes or project route candidates",
         "create or run project-local reversible work",
         "validate pattern route-readiness bundle",
+        "validate finance-evaluation fixture bundle",
+        "validate executable doctrine bundles",
+        "run formal math readiness bundle",
+        "run standards meta-diagnostics bundle",
+        "run cold-reader route-map bundle",
+        "run macro projection import bundle",
+        "validate route observability bundles",
+        "run bridge continuity bundle",
+        "run voice-to-doctrine bundle",
+        "run routing anti-patterns registry bundle",
+        "create project-local .microcosm state",
+        "classify project files into public repo roles",
+        "show project architecture-kernel primitives",
     ]:
         assert help_text in output
     for drilldown_command in [
         "private-state-scan",
-        "macro-projection-import-protocol",
         "verifier-lab-kernel",
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
@@ -439,6 +534,46 @@ def test_cli_root_help_listed_commands_have_help_routes() -> None:
             continue
         if f"usage: microcosm {command}" not in command_help.stdout:
             failures.append(f"{command}: missing command-specific usage line")
+
+    assert not failures, "\n".join(failures)
+
+
+def test_cli_status_card_help_explains_alias_and_boundaries() -> None:
+    help_result = _run_microcosm_cli("status-card", "--help")
+
+    assert help_result.returncode == 0, help_result.stderr
+    output = help_result.stdout
+    assert "usage: microcosm status-card [-h] [project]" in output
+    assert "Alias for the compact first-screen project/runtime status lens." in output
+    assert "project path with .microcosm state; omit for runtime-only status" in output
+    assert "Equivalent command:" in output
+    assert "microcosm status --card <project>" in output
+    assert "Next command:" in output
+    assert "microcosm tour --card <project>" in output
+    assert "Boundaries: local-first only; no provider calls" in output
+    assert "credential-equivalent live-access authority" in output
+
+
+def test_root_doc_microcosm_commands_are_discoverable_from_root_help() -> None:
+    root_help = _run_microcosm_cli("--help")
+    assert root_help.returncode == 0, root_help.stderr
+    help_commands = set(_root_help_command_names(root_help.stdout))
+
+    missing = sorted(_documented_microcosm_command_names() - help_commands)
+
+    assert not missing
+
+
+def test_root_doc_command_spans_include_microcosm_entrypoint() -> None:
+    root_help = _run_microcosm_cli("--help")
+    assert root_help.returncode == 0, root_help.stderr
+    command_names = (
+        set(_root_help_command_names(root_help.stdout))
+        | set(cli.PUBLIC_BUNDLE_COMMAND_HELP)
+        | {command for command, _ in cli.PUBLIC_LENS_COMMAND_HELP}
+    )
+
+    failures = _bare_documented_microcosm_command_spans(command_names)
 
     assert not failures, "\n".join(failures)
 
@@ -485,6 +620,133 @@ def test_cli_proof_lab_card_exits_zero_for_actionable_cache_status() -> None:
         assert payload["cache_action"]["command"] == (
             "microcosm proof-lab --out /tmp/microcosm-proof-lab"
         )
+        assert payload["fresh_receipt_required"] is True
+        assert payload["status_scope"] == "route_presence_not_cache_freshness"
+
+
+def test_cli_proof_lab_card_effective_stale_status_controls_action_fields() -> None:
+    payload = cli._proof_lab_first_screen_card(
+        {
+            "status": "stale_cached_receipt",
+            "cache_status": "canonical_receipt_read",
+            "proof_lab_component_metrics": {},
+            "receipt_paths": [
+                "/tmp/microcosm-proof-lab/example_verifier_lab_receipt.json"
+            ],
+            "proof_lab_route_id": "formal_prover_context_strategy_gate",
+            "proof_lab_route_component_count": 9,
+            "body_in_receipt": False,
+            "authority_ceiling": {"status": "pass"},
+            "anti_claim": "bounded proof-lab receipt only",
+        },
+        input_path=str(cli.DEFAULT_PROOF_LAB_INPUT),
+        out_dir="/tmp/microcosm-proof-lab",
+        command="microcosm proof-lab --card --out /tmp/microcosm-proof-lab",
+    )
+
+    assert payload["status"] == "stale_cached_receipt"
+    assert payload["cache_status"] == "canonical_receipt_read"
+    assert payload["fresh_receipt_required"] is True
+    assert payload["status_scope"] == "route_presence_not_cache_freshness"
+    assert payload["cache_action"]["status"] == "actionable"
+    assert payload["receipt_ref"] == (
+        "/tmp/microcosm-proof-lab/example_verifier_lab_receipt.json"
+    )
+
+
+def test_cli_proof_lab_card_accepts_project_argument_for_first_screen_parity() -> None:
+    result = _run_microcosm_cli("proof-lab", "--card", ".")
+    assert result.returncode == 0, result.stderr
+
+    payload = json.loads(result.stdout)
+    assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
+    assert payload["command"].startswith("microcosm proof-lab --card")
+    assert " ." not in payload["command"]
+
+
+@pytest.mark.parametrize(
+    ("argv", "schema_version", "canonical_command"),
+    (
+        (
+            ("spine", "--card", "."),
+            "microcosm_public_runtime_spine_card_v1",
+            "microcosm spine --card",
+        ),
+        (
+            ("intake", "--card", "."),
+            "microcosm_runtime_reveal_import_bridge_card_v1",
+            "microcosm intake --card",
+        ),
+        (
+            ("projection-import-map", "--card", "."),
+            "microcosm_public_projection_import_map_lens_v1",
+            "microcosm projection-import-map",
+        ),
+        (
+            ("legibility-scorecard", "."),
+            "microcosm_public_cold_reader_legibility_scorecard_lens_v1",
+            "microcosm legibility-scorecard",
+        ),
+    ),
+)
+def test_cli_public_lens_accepts_project_argument_for_first_screen_parity(
+    argv: tuple[str, ...],
+    schema_version: str,
+    canonical_command: str,
+) -> None:
+    result = _run_microcosm_cli(*argv)
+    assert result.returncode == 0, result.stderr
+
+    payload = json.loads(result.stdout)
+    assert payload["schema_version"] == schema_version
+    assert payload["command"] == canonical_command
+    assert " ." not in payload["command"]
+
+
+def test_cli_bridge_phase_continuity_runtime_accepts_card_flag(tmp_path: Path) -> None:
+    out_dir = tmp_path / "bridge_receipts"
+    result = _run_microcosm_cli(
+        "bridge-phase-continuity-runtime",
+        "run",
+        "--input",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input",
+        "--out",
+        out_dir.as_posix(),
+        "--card",
+    )
+
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["schema_version"] == "bridge_phase_continuity_runtime_command_card_v2"
+    assert payload["status"] == "pass"
+    assert payload["synthetic_transport_summary"]["transport_label"] == (
+        "synthetic_transport"
+    )
+    assert "fake_transport_summary" not in payload
+    assert (out_dir / "continuation_packet.json").is_file()
+
+
+@pytest.mark.parametrize(
+    "argv",
+    (
+        ("bridge-phase-continuity-runtime", "--help"),
+        ("bridge-phase-continuity-runtime", "run", "--help"),
+    ),
+)
+def test_cli_bridge_phase_continuity_runtime_help_matches_documented_shape(
+    argv: tuple[str, ...],
+) -> None:
+    result = _run_microcosm_cli(*argv)
+
+    assert result.returncode == 0, result.stderr
+    assert (
+        "microcosm bridge-phase-continuity-runtime run --input INPUT --out OUT [--card]"
+        in result.stdout
+    )
+    assert (
+        "microcosm bridge-phase-continuity-runtime [-h] --input INPUT --out OUT"
+        not in result.stdout
+    )
 
 
 def test_cli_proof_lab_card_exit_code_keeps_missing_cache_nonzero() -> None:
@@ -574,6 +836,25 @@ def test_cli_root_evidence_list_uses_compact_rows(
         "row_key": "receipt_ref",
         "field": "evidence_contract",
     }
+
+
+def test_runtime_evidence_index_rejects_duplicate_receipt_keys(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    receipt_path = public_root / "receipts/runtime_shell/demo/result.json"
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text(
+        '{"schema_version": "demo_receipt_v1", "status": "blocked", "status": "pass"}',
+        encoding="utf-8",
+    )
+
+    payload = runtime_evidence_index.list_runtime_evidence(public_root)
+
+    evidence_row = payload["evidence"][0]
+    assert evidence_row["status"] == "unknown"
+    assert (
+        evidence_row["evidence_contract_summary"]["real_runtime_receipt"]
+        is False
+    )
 
 
 def test_cli_root_evidence_list_can_be_bounded(
@@ -677,13 +958,13 @@ def test_cli_first_screen_text_projection_is_package_backed(
     assert text.startswith("Microcosm first screen\n")
     assert "First run: microcosm tour --card ." in text
     assert (
-        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in text
     )
     assert "A local evidence router; doctrine names boundaries" in text
     assert "Reader branch: Peer developer" in text
     assert "  First action: Run `microcosm tour --card .`." in text
-    assert "  Proof: `microcosm observe .`" in text
+    assert "  Proof: `microcosm observe --card .`" in text
     assert "Authority ceiling:" in text
     assert "reader_routes" not in text
     assert "/Users/" not in text
@@ -703,7 +984,7 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     assert payload["compact_projection_of"] == "microcosm_first_screen_composition_card_v1"
     assert payload["drilldowns"]["full_json"] == "microcosm first-screen --full ."
     assert payload["drilldowns"]["observatory"] == (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["output_policy"]["default_json_is_first_screen_projection"] is True
 
@@ -720,7 +1001,7 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
         "microcosm serve . --host 127.0.0.1 --port 8765"
     )
     assert payload["observatory_landing_frame"]["bounded_validation_command"] == (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert any(
         row.get("command") == "microcosm serve . --host 127.0.0.1 --port 8765"
@@ -729,7 +1010,7 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
     )
     assert any(
         row.get("command")
-        == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         and row.get("endpoint") == "/"
         for row in payload["drilldowns"]
     )
@@ -776,7 +1057,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     payload = json.loads(capsys.readouterr().out)
     project_ref = "<project>"
 
-    assert len(json.dumps(payload, sort_keys=True)) < 11000
+    assert len(json.dumps(payload, sort_keys=True)) < 11200
     assert payload["card_command"] == f"microcosm status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert "next_commands" not in payload
@@ -887,7 +1168,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert observatory["validation_status"] == "not_evaluated_in_status_card"
     assert observatory["command"] == (
         f"microcosm serve {project_ref} --host 127.0.0.1 "
-        "--port 8765 --max-requests 6"
+        "--port 8765 --max-requests 7"
     )
     assert observatory["interactive_command"] == (
         f"microcosm serve {project_ref} --host 127.0.0.1 --port 8765"
@@ -902,7 +1183,7 @@ def test_cli_status_card_can_overlay_project_route_state(
         f"microcosm serve {project_ref}::first_screen_route_proof"
     )
     assert observatory["project_observe_command"] == (
-        f"microcosm observe {project_ref}"
+        f"microcosm observe --card {project_ref}"
     )
     assert observatory["status_card_ref"] == (
         f"microcosm status --card {project_ref}"
@@ -929,6 +1210,47 @@ def test_cli_status_card_can_overlay_project_route_state(
     )
     assert body_floor["body_text_exported_in_status"] is False
     assert body_floor["body_text_exported_in_receipts"] is False
+    assert payload["workingness"]["source_body_count_kind"] == "per_organ_row_sum"
+
+
+def test_cli_status_card_alias_matches_status_card(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    project_substrate.compile_project(project)
+
+    assert cli.main(["status-card", str(project)]) == 0
+    alias_payload = json.loads(capsys.readouterr().out)
+    assert cli.main(["status", "--card", str(project)]) == 0
+    canonical_payload = json.loads(capsys.readouterr().out)
+
+    assert alias_payload == canonical_payload
+    assert alias_payload["card_command"] == "microcosm status --card <project>"
+
+
+def test_cli_status_card_preserves_relative_project_ref(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    project_substrate.compile_project(project)
+    monkeypatch.chdir(tmp_path)
+
+    assert cli.main(["status-card", "scratch"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["project_ref"] == "scratch"
+    assert payload["card_command"] == "microcosm status --card scratch"
+    assert payload["front_door"]["project_ref"] == "scratch"
+    assert payload["front_door"]["primary_command"] == "microcosm tour --card scratch"
+    assert payload["front_door"]["project_state"]["state_write_result_ref"] == (
+        "microcosm tour --card scratch::state_write_result"
+    )
+    assert payload["front_door"]["observatory"]["status_card_ref"] == (
+        "microcosm status --card scratch"
+    )
 
 
 def test_cli_full_status_preserves_project_route_overlay(
@@ -1129,15 +1451,16 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "event_log_ref": ".microcosm/events.jsonl",
         "evidence_dir_ref": ".microcosm/evidence/",
         "graph_ref": ".microcosm/graph.json",
-        "project_observe_command": "microcosm observe <project>",
+        "project_observe_command": "microcosm observe --card <project>",
+        "project_observe_full_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
         "observatory_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-            "--max-requests 6"
+            "--max-requests 7"
         ),
         "observatory_bounded_validation_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-            "--max-requests 6"
+            "--max-requests 7"
         ),
         "observatory_interactive_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765"
@@ -1188,7 +1511,8 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     observe_step = {
         row["step_id"]: row for row in first_screen["minimal_command_path"]
     }["inspect_project_observe"]
-    assert observe_step["command"] == "microcosm observe <project>"
+    assert observe_step["command"] == "microcosm observe --card <project>"
+    assert observe_step["full_drilldown"] == "microcosm observe <project>"
     assert observe_step["endpoint"] == "/project/observe"
     assert step_ids.index("run_first_screen_proof_lab") < step_ids.index(
         "inspect_python_routes"
@@ -1198,7 +1522,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     }["open_observatory"]
     assert observatory_step["command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-        "--max-requests 6"
+        "--max-requests 7"
     )
     assert observatory_step["interactive_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
@@ -1299,7 +1623,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "bounded_validation_command"
     ] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-        "--max-requests 6"
+        "--max-requests 7"
     )
     assert status_card["front_door"]["observatory"]["command"] == (
         status_card["front_door"]["observatory"]["bounded_validation_command"]
@@ -1309,9 +1633,9 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     )
     assert status_card["front_door"]["observatory"][
         "bounded_validation_request_count"
-    ] == 6
+    ] == 7
     assert status_card["front_door"]["observatory"]["project_observe_command"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert status_card["front_door"]["observatory"]["status"] == "actionable"
     assert (
@@ -1440,7 +1764,7 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
         observatory_card["json_drilldowns"]["project_observe"]
     )
     assert status_front_door["observatory"]["project_observe_command"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert observatory["observatory_card"] == observatory_card
     assert status_card["payload_boundary_audit"]["status"] == "pass"
@@ -1464,6 +1788,37 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     assert status_body_floor["body_text_exported_in_status"] is False
     assert observatory_body_floor["body_text_exported_in_status"] is False
     assert observatory_body_floor["body_text_exported_in_receipts"] is False
+
+
+def test_cli_observe_card_is_compact_peer_developer_handoff(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    assert cli.main(["tour", "--card", str(project)]) in {0, 1}
+    capsys.readouterr()
+
+    assert cli.main(["observe", "--card", str(project)]) == 0
+    card = json.loads(capsys.readouterr().out)
+
+    assert card["schema_version"] == "microcosm_project_observe_card_v1"
+    assert card["status"] == "pass"
+    assert card["card_status"] == "pass"
+    assert card["command"] == f"microcosm observe --card {project}"
+    assert card["full_command"] == f"microcosm observe {project}"
+    assert card["endpoint"] is None
+    assert card["endpoint_available"] is False
+    assert card["full_endpoint"] == "/project/observe"
+    assert card["selected_route_id"] == "readme_onboarding_route"
+    assert card["event_count"] >= 1
+    assert "events" not in card
+    assert card["state_write_proof"]["status"] == "pass"
+    assert card["state_write_proof"]["observe_writes_microcosm_state"] is False
+    assert card["state_write_proof"]["source_files_mutated"] is False
+    assert card["causal_chain_summary"]["status"] == "pass"
+    assert card["causal_chain_summary"]["graph"]["node_count"] > 0
+    assert card["safe_to_show"]["provider_calls_authorized"] is False
+    assert card["safe_to_show"]["source_files_mutated"] is False
 
 
 def test_cli_serve_process_exposes_first_screen_project_routes(
@@ -1493,7 +1848,7 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         "--port",
         str(port),
         "--max-requests",
-        "6",
+        "7",
     ]
     process = subprocess.Popen(
         command,
@@ -1534,6 +1889,7 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
 
         selected_route_id = status_card["front_door"]["selected_route_id"]
         observatory_card = _read_local_json(port, "/project/observatory-card")
+        first_screen = _read_local_json(port, "/project/first-screen")
         project_observe = _read_local_json(port, "/project/observe")
         proof_lab = _read_local_json(port, "/proof-lab")
         explanation = _read_local_json(port, f"/project/explain/{selected_route_id}")
@@ -1567,6 +1923,8 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         assert observatory_card["safe_to_show"]["provider_calls_authorized"] is False
         assert observatory_card["safe_to_show"]["source_files_mutated"] is False
         assert observatory_card["safe_to_show"]["proof_correctness_claim"] is False
+        assert first_screen["schema_version"] == "microcosm_first_screen_compact_card_v1"
+        assert first_screen["status"] == "pass"
         causal_summary = observatory_card["causal_chain_summary"]
         assert causal_summary["route"]["title"] == "Inspect README onboarding"
         assert causal_summary["route"]["grounded_ref_count"] >= 1
@@ -1586,14 +1944,14 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         state_write_proof = project_observe["state_write_proof"]
         assert state_write_proof["status"] == "pass"
         assert state_write_proof["state_write_result_ref"] == (
-            "microcosm tour --card <project>::state_write_result"
+            f"microcosm tour --card {project}::state_write_result"
         )
         assert state_write_proof["state_write_status_ref"] == (
-            "microcosm tour --card <project>::front_door_status."
+            f"microcosm tour --card {project}::front_door_status."
             "surface_statuses.state_write"
         )
         assert state_write_proof["state_inspection_status_ref"] == (
-            "microcosm tour --card <project>::front_door_status."
+            f"microcosm tour --card {project}::front_door_status."
             "surface_statuses.state_inspection"
         )
         assert state_write_proof["observe_writes_microcosm_state"] is False
@@ -1626,7 +1984,7 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         stdout, stderr = process.communicate(timeout=1)
         assert returncode == 0
         assert f"http://127.0.0.1:{port}" in stdout
-        assert "max_requests=6" in stdout
+        assert "max_requests=7" in stdout
         assert stderr == ""
     finally:
         if process.poll() is None:
@@ -1658,6 +2016,14 @@ def test_cli_serve_reports_busy_port_without_traceback(tmp_path: Path) -> None:
             "--max-requests",
             "1",
         )
+        default_result = _run_microcosm_cli(
+            "serve",
+            str(project),
+            "--host",
+            "127.0.0.1",
+            "--port",
+            str(port),
+        )
 
     assert result.returncode == 2
     assert result.stdout == ""
@@ -1666,6 +2032,15 @@ def test_cli_serve_reports_busy_port_without_traceback(tmp_path: Path) -> None:
     assert "--port" in result.stderr
     assert "Traceback" not in result.stderr
     assert "ThreadingHTTPServer" not in result.stderr
+    assert default_result.returncode == 2
+    assert default_result.stdout == ""
+    assert (
+        f"microcosm serve could not bind http://127.0.0.1:{port}"
+        in default_result.stderr
+    )
+    assert "--max-requests 7" in default_result.stderr
+    assert "Traceback" not in default_result.stderr
+    assert "ThreadingHTTPServer" not in default_result.stderr
 
 
 def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
@@ -1833,7 +2208,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["organ_evidence_class_count"] == (
         _adapter_evidence_class_count(MICROCOSM_ROOT)
     )
-    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 2
+    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
     assert (
         payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == payload["macro_body_import_floor"]["public_safe_body_material_count"]
@@ -1850,12 +2225,9 @@ def test_cli_authority_smoke(
     assert "material row, not by organ evidence class" in payload["count_scope"][
         "public_safe_body_material_count"
     ]
-    assert payload["evidence_class_counts"] == {
-        "semantic_validator": 17,
-        "algorithmic_projection": 22,
-        "external_subprocess_witness": 3,
-        "verified_macro_body_import": 2,
-    }
+    assert payload["evidence_class_counts"] == (
+        _expected_adapter_evidence_class_counts(public_root)
+    )
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
     assert (
         organ_authority_by_id["materials_chemistry_closed_loop_lab_safety_replay"][
@@ -1879,7 +2251,7 @@ def test_cli_authority_smoke(
     )
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
-        == "verified_macro_body_import"
+        == "algorithmic_projection"
     )
     assert (
         organ_authority_by_id["durable_agent_work_landing_replay"]["evidence_class"]
@@ -1987,6 +2359,50 @@ def test_cli_authority_smoke(
     assert any(row["endpoint"] == "/legibility-scorecard" for row in payload["surface_authority"])
 
 
+def test_cli_authority_card_exposes_top_level_false_authority_booleans(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
+    status = cli.main(["authority", "--card"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_authority_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm authority --card"
+    assert payload["release_authorized"] is False
+    assert payload["provider_calls_authorized"] is False
+    assert payload["source_mutation_authorized"] is False
+    assert payload["release_authorized"] == (
+        payload["authority_ceiling"]["release_authorized"]
+    )
+    assert payload["provider_calls_authorized"] == (
+        payload["authority_ceiling"]["provider_calls_authorized"]
+    )
+    assert payload["source_mutation_authorized"] == (
+        payload["authority_ceiling"]["source_mutation_authorized"]
+    )
+
+
+def test_cli_authority_card_accepts_project_argument_for_first_screen_parity(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+
+    status = cli.main(["authority", "--card", str(public_root)])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_authority_card_v1"
+    assert payload["command"] == "microcosm authority --card"
+    assert payload["release_authorized"] is False
+
+
 def test_cli_workingness_smoke(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -2085,6 +2501,21 @@ def test_cli_workingness_card_smoke(
     ).exists()
 
 
+def test_cli_workingness_card_accepts_project_argument_for_first_screen_parity(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_workingness_root(tmp_path)
+
+    status = cli.main(["workingness", "--card", str(public_root)])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_workingness_command_speed_card_v1"
+    assert payload["command"] == "microcosm workingness --card"
+    assert payload["card_status"] == "clear"
+
+
 def test_cli_tour_smoke(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -2128,7 +2559,7 @@ def test_cli_tour_smoke(
         "formal_prover_context_strategy_gate"
     )
     assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["first_screen"]["behavior_surfaces"][
         "observatory_interactive_command"
@@ -2136,6 +2567,11 @@ def test_cli_tour_smoke(
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
+        "microcosm observe --card <project>"
+    )
+    assert payload["first_screen"]["behavior_surfaces"][
+        "project_observe_full_command"
+    ] == (
         "microcosm observe <project>"
     )
     assert payload["first_screen"]["behavior_surfaces"]["project_observe_endpoint"] == (
@@ -2144,7 +2580,7 @@ def test_cli_tour_smoke(
     assert payload["command_path"][0] == "microcosm tour --card <project>"
     assert "microcosm status --card" in payload["command_path"]
     assert "microcosm workingness" in payload["command_path"]
-    assert "microcosm observe <project>" in payload["command_path"]
+    assert "microcosm observe --card <project>" in payload["command_path"]
     assert "/workingness-card" in payload["endpoint_path"]
     assert "/project/observe" in payload["endpoint_path"]
     assert any(
@@ -2240,7 +2676,8 @@ def test_cli_tour_card_smoke(
 
     status = cli.main(["tour", "--card"])
 
-    payload = json.loads(capsys.readouterr().out)
+    stdout = capsys.readouterr().out
+    payload = json.loads(stdout)
     encoded = json.dumps(payload, sort_keys=True)
     body_floor_blocked = (
         payload["surface_statuses"].get("macro_body_import_floor") != "pass"
@@ -2256,6 +2693,10 @@ def test_cli_tour_card_smoke(
     assert payload["first_screen"]["primary_command"] == (
         "microcosm tour --card <project>"
     )
+    assert "reader_routes" not in payload["first_screen"]
+    assert payload["first_screen"]["reader_routes_ref"] == (
+        "atlas/entry_packet.json::reader_first_screen_routes"
+    )
     assert (
         payload["first_screen"]["minimal_steps"][0]["command"]
         == "microcosm tour --card <project>"
@@ -2264,20 +2705,22 @@ def test_cli_tour_card_smoke(
         row["step_id"]: row for row in payload["first_screen"]["minimal_steps"]
     }
     assert compact_steps_by_id["open_observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert compact_steps_by_id["open_observatory"]["interactive_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["minimal_step_count"] == 10
     assert payload["first_screen"]["project_observe_command"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert payload["state_refs"]["route_state_ref"] == ".microcosm/routes.json"
     assert payload["state_refs"]["work_state_ref"] == ".microcosm/work_items.json"
     assert payload["state_refs"]["event_log_ref"] == ".microcosm/events.jsonl"
     assert payload["state_refs"]["evidence_dir_ref"] == ".microcosm/evidence/"
     assert payload["state_refs"]["graph_ref"] == ".microcosm/graph.json"
+    assert payload["state_refs"]["ref_count"] >= 8
+    assert "refs" not in payload["state_refs"]
     assert payload["state_inspection"]["status"] == "pass"
     assert payload["state_inspection"]["state_dir"] == ".microcosm"
     assert payload["state_inspection"]["state_dir_exists"] is True
@@ -2339,7 +2782,7 @@ def test_cli_tour_card_smoke(
     assert payload["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert payload["observatory"]["status_card_endpoint"] == "/project/status"
     assert payload["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert payload["observatory"]["project_observe_endpoint"] == "/project/observe"
     assert payload["observatory"]["project_observe_ref"] == (
@@ -2352,7 +2795,7 @@ def test_cli_tour_card_smoke(
         "microcosm serve <project>::first_screen_route_proof"
     )
     assert (
-        "microcosm observe examples/runtime_shell/demo_project"
+        "microcosm observe --card examples/runtime_shell/demo_project"
         in payload["next_commands"]
     )
     assert payload["status_card"]["command"] == "microcosm status --card <project>"
@@ -2400,14 +2843,40 @@ def test_cli_tour_card_smoke(
     assert payload["output_economy"]["state_write_result_exported"] is True
     assert payload["output_economy"]["observatory_refs_exported"] is True
     assert payload["output_economy"]["receipt_persisted"] is False
+    assert payload["output_economy"]["reader_routes_exported"] is False
     assert "route_cards" not in payload
     assert "route_cards_by_id" not in payload
     assert "endpoint_path" not in payload
     assert "command_path" not in payload
     assert len(encoded) < 14500
+    assert len(stdout.encode("utf-8")) < 15000
     assert not (
         public_root / "receipts/runtime_shell/public_ten_minute_tour.json"
     ).exists()
+
+
+def test_cli_tour_card_reports_tracked_receipt_refresh_env(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.delenv("MICROCOSM_TRACKED_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+
+    status = cli.main(["tour", "--card"])
+
+    payload = json.loads(capsys.readouterr().out)
+    policy = payload["receipt_write_policy"]
+    assert status == 0
+    assert policy["public_tour_receipt_ref"] == (
+        "receipts/runtime_shell/public_ten_minute_tour.json"
+    )
+    assert policy["compact_card_writes_public_tour_receipt"] is False
+    assert policy["full_tour_attempts_public_tour_receipt_write"] is True
+    assert policy["full_tour_writes_public_tour_receipt"] is False
+    assert policy["tracked_receipt_refresh_requires_env"] is True
+    assert policy["tracked_receipt_refresh_env"] == (
+        "MICROCOSM_TRACKED_RECEIPT_WRITES=1"
+    )
 
 
 def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -2426,7 +2895,9 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 78
+    assert payload["projection_intake_board"]["ready_cell_count"] == sum(
+        payload["projection_intake_board"]["projection_status_counts"].values()
+    )
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

@@ -1043,6 +1043,7 @@
       "landed_evidence_refs": [
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
         "tests/test_command_output_projection_runtime.py"
       ],
@@ -1054,9 +1055,10 @@
         "persistent_cli_cache_singleflight",
         "stale_ok_cache_peek_with_input_manifest_guard"
       ],
-      "status_reason": "The command-node cache now carries exact copied non-secret persistent CLI cache and focused regression-test bodies inside the projection bundle, validated by digest/anchor checks and syntax compilation without live macro kernel execution, provider payload access, private command-cache state, or private-state authority.",
+      "status_reason": "The command-node cache now carries exact copied non-secret persistent CLI cache, shared pulse-cache sidecar, and focused regression-test bodies inside the projection bundle, validated by digest/anchor checks and syntax compilation without live macro kernel execution, provider payload access, private command-cache state, or private-state authority.",
       "target_refs": [
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/pulse_cache.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
       ],
@@ -1064,6 +1066,39 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_work_admission_bodies_not_live_macro_kernel_provider_browser_account_private_state_process_kill_or_ledger_mutation_authority",
+      "body_in_receipt": false,
+      "cell_id": "work_admission_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/work_admission.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_admission.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "work_creation_admission_gate",
+        "host_pressure_start_gate",
+        "session_yield_pressure_relief"
+      ],
+      "status_reason": "The work-admission lane now carries exact copied non-secret work-start admission and focused regression-test bodies inside the projection bundle, validated by digest/anchor checks and syntax compilation without launching live validation work, terminating unknown-owner processes, mutating Work Ledger or Task Ledger state, calling providers, exporting private trace payloads, or claiming private-state authority.",
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/work_admission.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_admission.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/work_admission_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_sources_compile_and_carry_admission_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
     },
     {
@@ -1611,6 +1646,7 @@
       "landed_evidence_refs": [
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "tests/test_command_output_projection_runtime.py"
@@ -1623,9 +1659,10 @@
         "agent_trace_privacy_boundary",
         "macro_body_floor_import"
       ],
-      "status_reason": "The agent-execution trace boundary now carries exact copied non-secret process-trace runtime, focused synthetic-fixture regression test, and trace standard bodies inside the projection bundle, validated by digest/anchor checks, syntax compilation, and synthetic privacy-boundary trace-shape assertions without scanning live ~/.claude or ~/.codex sessions, calling providers, executing local CLIs, exporting prompt/provider/tool-output bodies, account/session state, hidden reasoning, browser/HUD live access, recipient-send state, generated state, or credential-equivalent material.",
+      "status_reason": "The agent-execution trace boundary now carries exact copied non-secret process-trace runtime, strict JSON helper, focused synthetic-fixture regression test, and trace standard bodies inside the projection bundle, validated by digest/anchor checks, syntax compilation, and synthetic privacy-boundary trace-shape assertions without scanning live ~/.claude or ~/.codex sessions, calling providers, executing local CLIs, exporting prompt/provider/tool-output bodies, account/session state, hidden reasoning, browser/HUD live access, recipient-send state, generated state, or credential-equivalent material.",
       "target_refs": [
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
@@ -2763,12 +2800,52 @@
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_orchestration_overnight_control_source_modules_not_live_launchd_provider_bridge_browser_account_session_raw_seed_body_generated_state_mutation_recipient_send_publication_or_release_authority",
+      "body_in_receipt": false,
+      "cell_id": "orchestration_overnight_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "orchestration_control_plane",
+        "overnight_autonomous_operation",
+        "daemon_orphan_prevention",
+        "phase_pipeline_runtime_control"
+      ],
+      "status_reason": "The orchestration and overnight-control lane now carries exact copied non-secret orchestration state, pipeline advance, overnight arm, compatibility launcher, and focused validator source bodies inside the projection bundle, validated by digest/anchor checks and syntax compilation without running launch agents, dispatching bridges, calling providers, reading raw seed bodies, exporting account/session state, mutating generated state, sending recipient work, or claiming release authority.",
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/control/orchestration.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_advance.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/pipeline_overnight.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/overnight_control.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_advance.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_pipeline_overnight.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_overnight_control.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/orchestration_overnight_control_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_orchestration_overnight_control_sources_compile_and_preserve_runtime_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
-  "consumed_cell_count": 78,
-  "created_at": "2026-05-28T16:12:41+00:00",
+  "consumed_cell_count": 80,
+  "created_at": "2026-05-30T21:25:54+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",
@@ -2796,13 +2873,13 @@
       "why": "open receipts only after the causal path is visible"
     }
   ],
-  "landed_cell_count": 78,
+  "landed_cell_count": 80,
   "open_actionable_cell_count": 0,
-  "projection_cell_count": 78,
+  "projection_cell_count": 80,
   "projection_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "projection_plan_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
   "projection_status_counts": {
-    "public_runtime_import_landed": 76,
+    "public_runtime_import_landed": 78,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
@@ -2824,7 +2901,7 @@
     "status_field": "projection_status"
   },
   "public_claim": "Microcosm turns macro-pattern intake into a runnable source-open path: compile, spine, intake, reveal, and evidence drilldown over real substrate receipts.",
-  "ready_cell_count": 78,
+  "ready_cell_count": 80,
   "reveal_command": "microcosm reveal",
   "runtime_bridge_evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",

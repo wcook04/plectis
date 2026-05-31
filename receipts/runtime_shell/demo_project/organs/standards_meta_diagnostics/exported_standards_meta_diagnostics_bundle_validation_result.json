@@ -1,5 +1,5 @@
 {
-  "accepted_organ_count": 44,
+  "accepted_organ_count": 48,
   "anti_claim": "Standards meta diagnostics summarizes public Microcosm standard, organ, runtime-contract, and receipt coverage only. It does not become source authority for the registries, expose private macro sources, authorize release, call providers, prove theorem correctness, or claim whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
@@ -25,7 +25,9 @@
     "agent_sandbox_policy_escape_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
     "belief_state_process_reward_replay",
+    "bridge_phase_continuity_runtime",
     "certificate_kernel_execution_lab",
+    "cognitive_operator_registry",
     "cold_reader_route_map",
     "corpus_readiness_mathlib_absence_gate",
     "durable_agent_work_landing_replay",
@@ -60,33 +62,35 @@
     "target_shape_tactic_routing_gate",
     "undeclared_library_prior_symbol_classifier",
     "verifier_lab_execution_spine",
+    "verifier_lab_kernel",
+    "voice_to_doctrine_self_improvement_loop",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.standards_meta_diagnostics",
   "freshness_basis": {
-    "basis_digest": "sha256:5b47f6d0dc2c308354f44fcc642face7ba1dc9efbfc7d57f126129c99c12f23c",
+    "basis_digest": "sha256:7dfe93f2f59a34495331ad2a5b1d9412be9456a8ece85f5ebff538d78d3476fe",
     "card_schema_version": "standards_meta_diagnostics_command_card_v1",
     "include_negative": false,
     "input_count": 9,
     "inputs": [
       {
         "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/standards_inventory.json",
-        "sha256": "c8b751fb3e726b92822d28fa0ea7953c511517b4e5a4466b16fefd35da2b4d57",
-        "size_bytes": 53976
+        "sha256": "1476cd1a1fe4c6ab309243f24fd6b284bf3ef6564dc8af6e8dbaf7f287f676b9",
+        "size_bytes": 58779
       },
       {
         "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/organ_runtime_contracts.json",
-        "sha256": "b847ce5caccd2efbfa95b6507ca35717c1df954ddf67c86f09ac73380fd56bda",
-        "size_bytes": 27297
+        "sha256": "447531d6cc0afbb40e9395a527c70f6210696a4fb3e9ae2aef334ade2d349ddd",
+        "size_bytes": 30903
       },
       {
         "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/diagnostic_policy.json",
-        "sha256": "bb1c23697ac816b7beca7c5858f46ba804ce98a7922fa1a66197732250952ab4",
-        "size_bytes": 2368
+        "sha256": "357253cb445a39c3917a375aa5c8ab76e54adda858ccb97cd75cdddfd99b9039",
+        "size_bytes": 2586
       },
       {
         "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/bundle_manifest.json",
@@ -115,8 +119,8 @@
       },
       {
         "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
-        "sha256": "0ed3c0e61def0e792060632fbe643255a78286c6fbd20804ed9b2e6f28c39c53",
-        "size_bytes": 46991
+        "sha256": "a5a67d4456dc14739ff44f09b704631e8944b3ae89c28a79673bbdc815ed5107",
+        "size_bytes": 53109
       }
     ],
     "missing_inputs": [],
@@ -128,7 +132,7 @@
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "standards_meta_diagnostics",
-  "pressure_row_count": 44,
+  "pressure_row_count": 48,
   "public_runtime_refs": [
     "core/standards_registry.json",
     "core/organ_registry.json",
@@ -145,9 +149,9 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
   ],
-  "receipt_ref_count": 184,
+  "receipt_ref_count": 203,
   "receipt_reused": false,
-  "runtime_contract_count": 44,
+  "runtime_contract_count": 48,
   "schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -256,7 +260,7 @@
     "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/tests/test_meta_diagnostics_workbench.py",
     "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/meta_diagnostics_workbench/receipt.json"
   ],
-  "standard_mapping_count": 44,
+  "standard_mapping_count": 48,
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,
   "validator_id": "validator.microcosm.organs.standards_meta_diagnostics"

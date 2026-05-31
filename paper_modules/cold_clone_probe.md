@@ -8,14 +8,16 @@ and emit command-owned receipts without local absolute paths.
 
 ## Public Contract
 
-Run `./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json`
-from the public root. The probe validates package importability and first-wave
-bootstrap mechanics while preserving the public/private boundary.
+Run `./bootstrap.sh` from the public root. The probe validates package
+importability and first-wave bootstrap mechanics while preserving the
+public/private boundary.
 
 ## Receipt Expectations
 
-The probe emits `receipts/cold_clone_probe.json` with `status=pass`, public
-relative receipt paths, anti-claims, and no private body excerpts.
+The probe emits ignored `.microcosm/cold_clone_probe.json` evidence with
+`status=pass`, public relative receipt paths, anti-claims, and no private body
+excerpts. Pass `--emit <path>` only when you intentionally want a custom local
+receipt path.
 
 ## Anti-Claim
 

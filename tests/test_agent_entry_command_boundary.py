@@ -35,6 +35,9 @@ def test_agent_entry_names_first_screen_cli_registry_before_route_labels() -> No
     assert "PYTHONPATH=src python3 -m microcosm_core --help" in agents
     assert "It is not the full drilldown inventory." in agents
     assert "drilldown commands remain callable by exact name" in agents
+    assert "not guaranteed to appear" in agents
+    assert "root help" in agents
+    assert "microcosm observe --card <project>" in help_output
     assert "microcosm observe <project>" in help_output
     for drilldown_command in (
         "agent-monitor-redteam-falsification-replay",
@@ -42,7 +45,6 @@ def test_agent_entry_names_first_screen_cli_registry_before_route_labels() -> No
         "macro-projection-import-protocol",
     ):
         assert drilldown_command in agents
-        assert drilldown_command not in help_output
     assert "microcosm evidence list <project> --limit 25" in agents
 
 
@@ -59,7 +61,5 @@ def test_agent_entry_does_not_advertise_removed_expanded_loop_commands() -> None
         assert removed not in agents
 
     help_output = _help_output()
-    for removed in ("init", "index", "architecture"):
-        assert f"    {removed} " not in help_output
     assert "microcosm route <project>" not in help_output
     assert "    route " in help_output

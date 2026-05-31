@@ -1,16 +1,17 @@
 {
   "anti_claim": "This fixture proves behavior-governance mechanics over synthetic traces; it does not prove live introspection accuracy, current host hook state, or private operator trace content.",
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "body_copied_material_count": 7,
+  "body_copied_material_count": 8,
   "source_open_body_imports": {
     "status": "pass",
     "body_material_status": "copied_non_secret_macro_body_with_provenance",
-    "body_material_count": 7,
+    "body_material_count": 8,
     "body_material_ids": [
       "agent_execution_trace_body_import",
       "agent_trace_route_repair_body_import",
       "agent_observability_store_body_import",
       "agent_session_attribution_body_import",
+      "agent_harness_configuration_audit_body_import",
       "continuation_packet_body_import",
       "bridge_resume_body_import",
       "controller_heartbeat_body_import"
@@ -22,6 +23,7 @@
     "source_manifest_refs": [
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+      "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
     ],
     "body_in_receipt": false,

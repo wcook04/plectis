@@ -16,6 +16,22 @@ from microcosm_core.runtime_shell import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.parametrize(
+    "command",
+    [command for command, _ in cli.PUBLIC_LENS_COMMAND_HELP],
+)
+def test_cli_public_lens_commands_accept_card_alias(
+    command: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main([command, "--card"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["schema_version"].startswith("microcosm_")
+    assert payload["status"] in {"pass", "blocked"}
+    assert status == (0 if payload["status"] == "pass" else 1)
+
+
 def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     status = cli.main(["prediction-lens"])
 
@@ -322,38 +338,49 @@ def test_cli_route_cleanup_contract_smoke(capsys: pytest.CaptureFixture[str]) ->
 
 
 def test_cli_projection_import_map_smoke(capsys: pytest.CaptureFixture[str]) -> None:
-    status = cli.main(["projection-import-map"])
+    for argv in (["projection-import-map"], ["projection-import-map", "--card"]):
+        status = cli.main(argv)
 
-    payload = json.loads(capsys.readouterr().out)
-    assert status == 0
-    assert payload["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
-    assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm projection-import-map"
-    assert payload["endpoint"] == "/projection-import-map"
-    assert payload["map_summary"]["row_count"] == 8
-    assert payload["map_summary"]["stage_count"] == 6
-    assert payload["map_summary"]["private_body_export_count"] == 0
-    assert payload["authority_ceiling"]["automated_import_guarantee"] is False
-    assert payload["payload_boundary"]["boundary_id"] == "public_projection_import_map_lens"
-    assert payload["unsafe_payload_bodies_in_receipt"] is False
+        payload = json.loads(capsys.readouterr().out)
+        assert status == 0
+        assert payload["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
+        assert payload["status"] == "pass"
+        assert payload["command"] == "microcosm projection-import-map"
+        assert payload["endpoint"] == "/projection-import-map"
+        assert payload["map_summary"]["row_count"] == 8
+        assert payload["map_summary"]["stage_count"] == 6
+        assert payload["map_summary"]["private_body_export_count"] == 0
+        assert payload["authority_ceiling"]["automated_import_guarantee"] is False
+        assert (
+            payload["payload_boundary"]["boundary_id"]
+            == "public_projection_import_map_lens"
+        )
+        assert payload["unsafe_payload_bodies_in_receipt"] is False
 
 
 def test_cli_import_projector_contract_smoke(capsys: pytest.CaptureFixture[str]) -> None:
-    status = cli.main(["import-projector"])
+    for argv in (["import-projector"], ["import-projector", "--card"]):
+        status = cli.main(argv)
 
-    payload = json.loads(capsys.readouterr().out)
-    assert status == 0
-    assert payload["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
-    assert payload["status"] == "pass"
-    assert payload["command"] == "microcosm import-projector"
-    assert payload["endpoint"] == "/import-projector"
-    assert payload["projector_summary"]["row_count"] == 9
-    assert payload["projector_summary"]["stage_count"] == 6
-    assert payload["projector_summary"]["private_body_export_count"] == 0
-    assert payload["authority_ceiling"]["automated_import_execution_authorized"] is False
-    assert payload["authority_ceiling"]["lossless_projection_claim"] is False
-    assert payload["payload_boundary"]["boundary_id"] == "public_import_projector_contract_lens"
-    assert payload["unsafe_payload_bodies_in_receipt"] is False
+        payload = json.loads(capsys.readouterr().out)
+        assert status == 0
+        assert (
+            payload["schema_version"]
+            == "microcosm_public_import_projector_contract_lens_v1"
+        )
+        assert payload["status"] == "pass"
+        assert payload["command"] == "microcosm import-projector"
+        assert payload["endpoint"] == "/import-projector"
+        assert payload["projector_summary"]["row_count"] == 9
+        assert payload["projector_summary"]["stage_count"] == 6
+        assert payload["projector_summary"]["private_body_export_count"] == 0
+        assert payload["authority_ceiling"]["automated_import_execution_authorized"] is False
+        assert payload["authority_ceiling"]["lossless_projection_claim"] is False
+        assert (
+            payload["payload_boundary"]["boundary_id"]
+            == "public_import_projector_contract_lens"
+        )
+        assert payload["unsafe_payload_bodies_in_receipt"] is False
 
 
 def test_cli_option_surface_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -551,11 +578,20 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     ]
     assert payload["card_first_entry_path"]["commands"] == card_first_commands
     assert payload["required_commands"][:6] == card_first_commands
+    pre_install_probe = payload["card_first_entry_path"]["pre_install_probe"]
+    assert pre_install_probe["command"] == "./bootstrap.sh"
+    assert pre_install_probe["dry_run_command"] == "./bootstrap.sh --dry-run"
+    assert pre_install_probe["receipt_ref"] == ".microcosm/cold_clone_probe.json"
+    assert pre_install_probe["runs_before_install"] is True
+    assert pre_install_probe["writes_ignored_local_state"] is True
+    assert "Run ./bootstrap.sh first" in payload["card_first_entry_path"][
+        "reader_rule"
+    ]
     assert "microcosm tour <project>" not in payload["required_commands"]
     assert "microcosm authority" not in payload["required_commands"]
     bounded_observatory_command = (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-        "--max-requests 6"
+        "--max-requests 7"
     )
     assert bounded_observatory_command in payload["required_commands"]
     assert bounded_observatory_command in payload["card_first_entry_path"]["drilldown_after"]
@@ -563,9 +599,12 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     first_run = {
         row["question_id"]: row for row in payload["reader_question_rows"]
     }["first_run"]
-    assert first_run["proof_command"] == (
-        "microcosm hello <project> && microcosm tour --card <project>"
-    )
+    assert first_run["pre_install_probe_command"] == "./bootstrap.sh"
+    assert first_run["proof_command"] == "microcosm hello <project>"
+    assert first_run["proof_command_sequence"] == [
+        "microcosm hello <project>",
+        "microcosm tour --card <project>",
+    ]
     checkpoint_commands = {
         row["checkpoint_id"]: row["command"] for row in payload["checkpoint_rows"]
     }

@@ -18,7 +18,7 @@
     "unapproved_side_effect_authorized": false,
     "untrusted_tool_output_instruction_authorized": false
   },
-  "body_copied_material_count": 6,
+  "body_copied_material_count": 7,
   "body_import_classification": "copied_non_secret_public_mcp_tool_authority_macro_body_import",
   "body_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
   "body_import_verification": {
@@ -131,21 +131,21 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:01+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.mcp_tool_authority_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:60be6f1d545d07afac70ec5415dd8be9863a71987a502cafa0020ff379f62132",
+    "basis_digest": "sha256:fe97f2100b4b70daea5583cf292a3b51dfd39207cabf4c31c8b1e6a992948233",
     "card_schema_version": "mcp_tool_authority_replay_command_card_v1",
     "include_negative": false,
-    "input_count": 16,
+    "input_count": 17,
     "inputs": [
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/projection_protocol.json",
-        "sha256": "sha256:755fd805ca6074d16bc89c98ace590d589e30c8fe914ced590d55fb1222cd63f",
-        "size_bytes": 2840
+        "sha256": "sha256:86ea451f3b78687442c650344f309da4ff44b5f8cc22266051377643929984ed",
+        "size_bytes": 2873
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/tool_policy.json",
@@ -184,8 +184,8 @@
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
-        "sha256": "sha256:dcbbcb173a06c61687483cb19c452a14d0b3e8baffd7a826390ababc4792bdab",
-        "size_bytes": 14236
+        "sha256": "sha256:af9282ac93842729a2a41b4371c05a1a815603b1bbe129310375c4dd31055ee7",
+        "size_bytes": 16092
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
@@ -199,13 +199,13 @@
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "size_bytes": 224689
+        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "size_bytes": 229460
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-        "size_bytes": 47570
+        "sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+        "size_bytes": 49875
       },
       {
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_extracted_pattern_route_readiness.json",
@@ -216,6 +216,11 @@
         "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
         "sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
         "size_bytes": 19500
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py",
+        "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "size_bytes": 10373
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -463,6 +468,9 @@
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sabotage_scheming_monitor_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_monitor_redteam_falsification_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace",
       "microcosm_core.macro_tools.agent_execution_trace::main"
     ]
   },
@@ -498,7 +506,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 15,
+    "scanned_path_count": 16,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -521,7 +529,7 @@
       "public_macro_pattern_body": 1,
       "public_macro_receipt_body": 1,
       "public_macro_standard_body": 2,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
     "findings": [],
     "material_classes": [
@@ -531,14 +539,15 @@
       "public_macro_standard_body",
       "public_macro_tool_body"
     ],
-    "module_count": 6,
+    "module_count": 7,
     "module_ids": [
       "mcp_tool_authority_high_novelty_growth_receipt_body_import",
       "mcp_tool_authority_extracted_patterns_ledger_body_import",
       "agent_execution_trace_runtime_body_import",
       "agent_execution_trace_standard_body_import",
       "extracted_pattern_route_readiness_standard_body_import",
-      "mission_transaction_preflight_control_body_import"
+      "mission_transaction_preflight_control_body_import",
+      "strict_json_source_body_import"
     ],
     "observed_negative_cases": {},
     "source_module_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
@@ -550,10 +559,11 @@
       "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
       "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
       "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_extracted_pattern_route_readiness.json",
-      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py"
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py"
     ],
     "status": "pass",
-    "verified_module_count": 6
+    "verified_module_count": 7
   },
   "source_module_manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
   "source_module_manifest_status": "pass",
@@ -574,16 +584,17 @@
       "public_macro_pattern_body": 1,
       "public_macro_receipt_body": 1,
       "public_macro_standard_body": 2,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
-    "body_material_count": 6,
+    "body_material_count": 7,
     "body_material_ids": [
       "mcp_tool_authority_high_novelty_growth_receipt_body_import",
       "mcp_tool_authority_extracted_patterns_ledger_body_import",
       "agent_execution_trace_runtime_body_import",
       "agent_execution_trace_standard_body_import",
       "extracted_pattern_route_readiness_standard_body_import",
-      "mission_transaction_preflight_control_body_import"
+      "mission_transaction_preflight_control_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
     "body_text_exported_in_receipts": false,
@@ -612,6 +623,7 @@
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_mcp_tool_authority_replay_growth_v1",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "codex/standards/std_agent_execution_trace.json"
   ],
   "status": "pass",

@@ -143,7 +143,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
         "Omit `--max-requests` only when you intentionally want an interactive server",
         "/project/observatory-card",
         "Receipts are evidence drilldowns after the behavior route is visible",
@@ -224,6 +224,17 @@ PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS = (
     "AGENTS.md",
     "ORGANS.md",
     "ARCHITECTURE.md",
+)
+PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_SCANNED_DOCS = (
+    "README.md",
+    "AGENTS.md",
+)
+PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS = (
+    r"\b\d+\s+accepted\s+public\s+runtime\s+organs?(?:\s+records)?\b",
+    r"\ball\s+\d+\s+runtime\s+organs?\b",
+    r"\bthe\s+\d+\s+organs?\s+cluster\b",
+    r"\b\d+\s+organs?\s+cluster\s+into\b",
+    r"\bpublic\s+package\s+carries\s+\d+\s+accepted\s+public\s+runtime\s+organs?\b",
 )
 CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
@@ -337,6 +348,24 @@ def _public_entry_overclaim_hits(
         )
         if matched:
             hits[rel] = matched
+    return hits
+
+
+def _hardcoded_numeric_organ_count_claims(
+    doc_text_by_rel: dict[str, str],
+) -> dict[str, list[str]]:
+    hits: dict[str, list[str]] = {}
+    for rel in PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_SCANNED_DOCS:
+        text = doc_text_by_rel.get(rel, "")
+        if not text:
+            continue
+        normalized = _normalized_text(text)
+        matched: set[str] = set()
+        for pattern in PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS:
+            for match in re.finditer(pattern, normalized, flags=re.IGNORECASE):
+                matched.add(match.group(0))
+        if matched:
+            hits[rel] = sorted(matched)
     return hits
 
 
@@ -504,9 +533,9 @@ def _entry_packet_route_contract(
         "microcosm status --card <project>",
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe <project>",
+        "microcosm observe --card <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
     ]
     required_state_refs = [
         ".microcosm/catalog.json",
@@ -553,6 +582,7 @@ def _entry_packet_route_contract(
         "microcosm status --card <project>::front_door.route_explanation",
         "microcosm status --card <project>::front_door.source_open_body_import_floor",
         "microcosm status --card <project>::macro_body_import_floor",
+        "microcosm observe --card <project>",
         "microcosm observe <project>",
         "microcosm legibility-scorecard",
         "microcosm authority",
@@ -625,7 +655,7 @@ def _entry_packet_route_contract(
         "microcosm status --card <project>",
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe <project>",
+        "microcosm observe --card <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
         "microcosm compile <project>",
         "microcosm python-lens <project>",
@@ -1083,6 +1113,9 @@ def validate_public_entry_docs(
     public_entry_overclaim_by_doc = _public_entry_overclaim_hits(
         doc_text_by_rel, public_root
     )
+    hardcoded_numeric_organ_count_claims = _hardcoded_numeric_organ_count_claims(
+        doc_text_by_rel
+    )
     blocking_codes: list[str] = []
     if missing_docs:
         blocking_codes.append("MISSING_PUBLIC_ENTRY_DOC")
@@ -1106,6 +1139,8 @@ def validate_public_entry_docs(
         blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
     if public_entry_overclaim_by_doc:
         blocking_codes.append("PUBLIC_ENTRY_OVERCLAIM")
+    if hardcoded_numeric_organ_count_claims:
+        blocking_codes.append("HARDCODED_PUBLIC_ENTRY_ORGAN_COUNT")
 
     blocking_codes = sorted(set(blocking_codes))
     status = PASS if not blocking_codes else "blocked"
@@ -1120,6 +1155,7 @@ def validate_public_entry_docs(
         "missing_required_phrases_by_doc": missing_required_phrases_by_doc,
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "public_entry_overclaim_by_doc": public_entry_overclaim_by_doc,
+        "hardcoded_numeric_organ_count_claims": hardcoded_numeric_organ_count_claims,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
         "duplicate_accepted_organs": _duplicates(accepted),

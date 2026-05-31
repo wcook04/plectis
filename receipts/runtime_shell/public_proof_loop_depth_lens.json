@@ -18,7 +18,7 @@
     "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-30T04:08:12+00:00",
+  "created_at": "2026-05-30T21:25:54+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -63,8 +63,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1780044064648439708,
-      "receipt_mtime_ns": 1780109700284315312,
+      "latest_input_mtime_ns": 1780167798758127657,
+      "receipt_mtime_ns": 1780169206432975028,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -72,7 +72,7 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 35066,
+    "cached_receipt_bytes": 34335,
     "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -94,6 +94,7 @@
     "current_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "endpoint": "/proof-lab",
     "evidence_class": "semantic_validator",
+    "fresh_receipt_required": false,
     "lean_compiled_declaration_count": 8,
     "lean_lake_return_code": 0,
     "organ_id": "verifier_lab_kernel",
@@ -133,7 +134,8 @@
       "status": "pass"
     },
     "source_lens_endpoint": "/proof-loop-depth",
-    "status": "pass"
+    "status": "pass",
+    "status_scope": "route_presence_and_cache_freshness"
   },
   "first_screen_verifier_lab_execution_spine": {
     "accepted_transition_count": 4,

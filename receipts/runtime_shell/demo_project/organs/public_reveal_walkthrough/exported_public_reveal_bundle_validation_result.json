@@ -17,16 +17,16 @@
   "command": "microcosm run examples/runtime_shell/demo_project",
   "command_count": 8,
   "commands": [
+    "microcosm authority --card",
     "microcosm compile /tmp/microcosm-scratch",
     "microcosm evidence list",
-    "microcosm explain /tmp/microcosm-scratch readme_onboarding_route",
-    "microcosm intake",
-    "microcosm run examples/runtime_shell/demo_project",
+    "microcosm explain /tmp/microcosm-scratch missing_tests_route",
+    "microcosm intake --card",
+    "microcosm run --card examples/runtime_shell/demo_project",
     "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765",
-    "microcosm status",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:00+00:00",
   "error_codes": [],
   "evidence_ref_count": 11,
   "evidence_refs": [
@@ -54,7 +54,7 @@
   "public_runtime_refs": [
     ".microcosm/catalog.json",
     ".microcosm/evidence/",
-    ".microcosm/explanations/readme_onboarding_route.json",
+    ".microcosm/explanations/missing_tests_route.json",
     ".microcosm/patterns.json",
     ".microcosm/routes.json",
     "/project/observatory",
@@ -86,7 +86,7 @@
   "reveal_board": {
     "body_in_receipt": false,
     "evidence_is_drilldown": true,
-    "first_command": "microcosm compile /tmp/microcosm-scratch",
+    "first_command": "python -m pip install -e '.[test]'",
     "headline": "Microcosm turns a repo into a local operating substrate.",
     "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
     "private_data_equivalence_claim": false,
@@ -116,15 +116,15 @@
       {
         "body_in_receipt": false,
         "commands": [
-          "microcosm explain /tmp/microcosm-scratch readme_onboarding_route"
+          "microcosm explain /tmp/microcosm-scratch missing_tests_route"
         ],
         "evidence_refs": [
           "core/public_standard_pressure.json",
           "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
         ],
-        "expected_signal": "The route explains grounded refs, patterns, standards, work, events, and evidence.",
+        "expected_signal": "The selected route explains pattern pressure, standards, work, events, and evidence.",
         "inspect_refs": [
-          ".microcosm/explanations/readme_onboarding_route.json",
+          ".microcosm/explanations/missing_tests_route.json",
           ".microcosm/evidence/"
         ],
         "minute_range": "2-4",
@@ -150,8 +150,8 @@
       {
         "body_in_receipt": false,
         "commands": [
-          "microcosm run examples/runtime_shell/demo_project",
-          "microcosm intake"
+          "microcosm run --card examples/runtime_shell/demo_project",
+          "microcosm intake --card"
         ],
         "evidence_refs": [
           "core/organ_registry.json",
@@ -171,7 +171,7 @@
         "body_in_receipt": false,
         "commands": [
           "microcosm evidence list",
-          "microcosm status"
+          "microcosm authority --card"
         ],
         "evidence_refs": [
           "core/private_state_forbidden_classes.json",
@@ -264,7 +264,7 @@
   "substrate_refs": [
     ".microcosm/catalog.json",
     ".microcosm/evidence/",
-    ".microcosm/explanations/readme_onboarding_route.json",
+    ".microcosm/explanations/missing_tests_route.json",
     ".microcosm/patterns.json",
     ".microcosm/routes.json",
     "/project/observatory",

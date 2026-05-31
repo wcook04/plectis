@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import Counter
+import hashlib
 import json
 import shutil
 import threading
@@ -66,19 +68,49 @@ def _demoted_organ_count() -> int:
     return len(runtime_shell.PRODUCT_PATH_DEMOTED_ORGAN_IDS)
 
 
+def _adapter_registry_rows(root: Path = MICROCOSM_ROOT) -> list[dict[str, object]]:
+    demoted = set(runtime_shell.PRODUCT_PATH_DEMOTED_ORGAN_IDS)
+    return [
+        row
+        for row in _accepted_registry_rows(root)
+        if row.get("organ_id") not in demoted
+    ]
+
+
 def _adapter_backed_organ_count(root: Path = MICROCOSM_ROOT) -> int:
     return _accepted_organ_count(root) - _demoted_organ_count()
 
 
 def _adapter_evidence_class_count(root: Path = MICROCOSM_ROOT) -> int:
-    demoted = set(runtime_shell.PRODUCT_PATH_DEMOTED_ORGAN_IDS)
-    return len(
-        {
-            str(row["evidence_class"])
-            for row in _accepted_registry_rows(root)
-            if row.get("organ_id") not in demoted
-        }
+    return len(_expected_adapter_evidence_class_counts(root))
+
+
+def _expected_adapter_evidence_class_counts(
+    root: Path = MICROCOSM_ROOT,
+) -> dict[str, int]:
+    return dict(
+        Counter(str(row["evidence_class"]) for row in _adapter_registry_rows(root))
     )
+
+
+def _expected_adapter_truth_bucket_counts(
+    root: Path = MICROCOSM_ROOT,
+) -> dict[str, int]:
+    return dict(
+        Counter(
+            str(row["truth_accounting_bucket"])
+            for row in _adapter_registry_rows(root)
+        )
+    )
+
+
+def _expected_organ_evidence_classes(
+    root: Path = MICROCOSM_ROOT,
+) -> dict[str, str]:
+    return {
+        str(row["organ_id"]): str(row["evidence_class"])
+        for row in _adapter_registry_rows(root)
+    }
 
 
 def _first_run_path_by_step_id(path: list[dict[str, object]]) -> dict[str, dict[str, object]]:
@@ -114,52 +146,47 @@ def _assert_step_command_prefix(
     assert str(by_step[step_id]["command"]).startswith(command_prefix)
 
 
-EXPECTED_ORGAN_EVIDENCE_CLASSES = {
-    "pattern_binding_contract": "semantic_validator",
-    "executable_doctrine_grammar": "semantic_validator",
-    "proof_diagnostic_evidence_spine": "verified_macro_body_import",
-    "formal_math_readiness_gate": "algorithmic_projection",
-    "corpus_readiness_mathlib_absence_gate": "algorithmic_projection",
-    "tactic_portfolio_availability_probe": "algorithmic_projection",
-    "target_shape_tactic_routing_gate": "algorithmic_projection",
-    "lean_std_premise_index": "algorithmic_projection",
-    "formal_math_premise_retrieval": "algorithmic_projection",
-    "formal_math_verifier_trace_repair_loop": "algorithmic_projection",
-    "formal_evidence_cell_anchor_resolver": "algorithmic_projection",
-    "undeclared_library_prior_symbol_classifier": "algorithmic_projection",
-    "ring2_premise_retrieval_precision_recall_harness": "algorithmic_projection",
-    "provider_context_recipe_budget_policy": "algorithmic_projection",
-    "formal_math_lean_proof_witness": "external_subprocess_witness",
-    "verifier_lab_kernel": "semantic_validator",
-    "verifier_lab_execution_spine": "external_subprocess_witness",
-    "navigation_hologram_route_plane": "semantic_validator",
-    "mission_transaction_work_spine": "algorithmic_projection",
-    "durable_agent_work_landing_replay": "semantic_validator",
-    "research_replication_rubric_artifact_replay": "algorithmic_projection",
-    "world_model_projection_drift_control_room": "semantic_validator",
-    "spatial_world_model_counterfactual_simulation_replay": "semantic_validator",
-    "materials_chemistry_closed_loop_lab_safety_replay": "algorithmic_projection",
-    "mechanistic_interpretability_circuit_attribution_replay": "semantic_validator",
-    "agent_route_observability_runtime": "semantic_validator",
-    "bridge_phase_continuity_runtime": "semantic_validator",
-    "pattern_assimilation_step": "semantic_validator",
-    "public_reveal_walkthrough": "semantic_validator",
-    "macro_projection_import_protocol": "verified_macro_body_import",
-    "prediction_oracle_reconciliation": "algorithmic_projection",
-    "standards_meta_diagnostics": "semantic_validator",
-    "cold_reader_route_map": "semantic_validator",
-    "agent_memory_temporal_conflict_replay": "algorithmic_projection",
-    "sleeper_memory_poisoning_quarantine_replay": "algorithmic_projection",
-    "mcp_tool_authority_replay": "algorithmic_projection",
-    "proof_derived_governed_mutation_authorization": "semantic_validator",
-    "belief_state_process_reward_replay": "algorithmic_projection",
-    "agent_sandbox_policy_escape_replay": "algorithmic_projection",
-    "indirect_prompt_injection_information_flow_policy_replay": "algorithmic_projection",
-    "agentic_vulnerability_discovery_patch_proof_replay": "algorithmic_projection",
-    "certificate_kernel_execution_lab": "external_subprocess_witness",
-    "voice_to_doctrine_self_improvement_loop": "semantic_validator",
-    "cognitive_operator_registry": "semantic_validator",
-}
+def test_runtime_shell_read_jsonl_streams_without_materializing_file(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    jsonl_path = tmp_path / "events.jsonl"
+    missing_path = tmp_path / "missing.jsonl"
+    jsonl_path.write_text('{"id": 1}\n\n{"id": 2}\n', encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: object, **kwargs: object) -> str:
+        if self == jsonl_path:
+            raise AssertionError("JSONL reader should stream event rows")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert runtime_shell._read_jsonl(jsonl_path) == [{"id": 1}, {"id": 2}]
+    assert runtime_shell._read_jsonl(missing_path) == []
+
+
+def test_runtime_shell_sha256_file_digest_streams_macro_body_targets(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    target = tmp_path / "source_module.py"
+    body = (b"runtime-shell-source-module\n" * (runtime_shell.HASH_CHUNK_SIZE // 28 + 2)) + b"tail\n"
+    target.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == target:
+            raise AssertionError("runtime shell digest should stream macro body targets")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert runtime_shell._sha256_file_digest(target) == (
+        "sha256:" + hashlib.sha256(body).hexdigest()
+    )
+
+
 WORK_LANDING_CONTROL_BODY_MATERIAL_IDS = [
     "work_landing_status_body_import",
     "mission_transaction_landing_preflight_body_import",
@@ -263,11 +290,22 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["adapter_backed_count_is_product_progress"] is False
     assert status["real_substrate_progress_count"] == _adapter_backed_organ_count()
     assert status["non_progress_organ_count"] == 0
-    assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert status["truth_accounting"]["copied_non_secret_macro_body_count"] == 2
-    assert status["truth_accounting"]["source_faithful_refactor_count"] == 22
-    assert status["truth_accounting"]["real_import_validation_count"] == 17
-    assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
+    expected_truth_bucket_counts = _expected_adapter_truth_bucket_counts()
+    assert status["truth_accounting"]["real_runtime_receipt_count"] == (
+        expected_truth_bucket_counts["real_runtime_receipt"]
+    )
+    assert status["truth_accounting"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_bucket_counts["copied_non_secret_macro_body"]
+    )
+    assert status["truth_accounting"]["source_faithful_refactor_count"] == (
+        expected_truth_bucket_counts["source_faithful_refactor"]
+    )
+    assert status["truth_accounting"]["real_import_validation_count"] == (
+        expected_truth_bucket_counts["real_import_validation"]
+    )
+    assert status["truth_accounting"]["regression_negative_fixture_count"] == (
+        expected_truth_bucket_counts.get("regression_negative_fixture", 0)
+    )
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
@@ -365,14 +403,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
             "examples/agent_route_observability_runtime/"
             "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
         ),
-        "module_count": 2,
+        "module_count": 3,
         "source_refs": [
             "system/lib/navigation_route_intervention.py",
             "system/lib/agent_execution_trace.py",
+            "system/lib/strict_json.py",
         ],
         "material_ids": [
             "route_repair_suggestion_source_body_import",
             "agent_execution_trace_source_body_import",
+            "strict_json_source_body_import",
         ],
         "validation_refs": [
             (
@@ -416,15 +456,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "event_log_ref": ".microcosm/events.jsonl",
         "evidence_dir_ref": ".microcosm/evidence/",
         "graph_ref": ".microcosm/graph.json",
-        "project_observe_command": "microcosm observe <project>",
+        "project_observe_command": "microcosm observe --card <project>",
+        "project_observe_full_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
         "observatory_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-            "--max-requests 6"
+            "--max-requests 7"
         ),
         "observatory_bounded_validation_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-            "--max-requests 6"
+            "--max-requests 7"
         ),
         "observatory_interactive_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765"
@@ -444,6 +485,9 @@ def test_runtime_shell_status_is_product_centered() -> None:
         behavior_contract["first_screen_semantics"]["bounded_observatory_validation"]
         == "finite_server_smoke_path"
     )
+    extension_policy = behavior_contract["extension_policy"]
+    assert "before any public authority boundary widens" in extension_policy
+    assert "before release readiness" not in extension_policy
     assert status["front_door"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
@@ -620,6 +664,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
     )
     assert (
         "microcosm agent-route-observability-runtime "
+        "validate-harness-configuration-bundle"
+        in status["runtime_surface"]["commands"]
+    )
+    assert (
+        "microcosm agent-route-observability-runtime "
         "validate-multi-agent-fanin-bundle"
         in status["runtime_surface"]["commands"]
     )
@@ -661,7 +710,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     card = shell.status_card()
 
     assert card == status["status_card"]
-    assert len(json.dumps(card, sort_keys=True)) < 11000
+    assert len(json.dumps(card, sort_keys=True)) < 11200
     assert card["schema_version"] == "microcosm_runtime_status_card_v1"
     assert card["status"] == "pass"
     assert card["card_command"] == "microcosm status --card"
@@ -866,6 +915,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["demoted_drilldown_count"] == _demoted_organ_count()
     assert card["workingness"]["rows_with_source_body_imports"] >= 2
     assert card["workingness"]["source_open_body_material_count"] >= 12
+    assert card["workingness"]["source_body_count_kind"] == "per_organ_row_sum"
     assert card["workingness"]["missing_standard_count"] == 0
     assert card["workingness"]["missing_failure_modes_count"] == 0
     gap_preview = card["workingness"]["gap_preview"]
@@ -928,7 +978,7 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     project_body_floor = card["macro_body_import_floor"]
     card_json = json.dumps(card, sort_keys=True)
 
-    assert len(card_json.replace(project_ref, "<project>")) < 13000
+    assert len(card_json.replace(project_ref, "<project>")) < 13200
     assert card["card_command"] == f"microcosm status --card {project_ref}"
     assert card["project_ref"] == project_ref
     assert card["front_door"]["primary_command"] == (
@@ -1061,11 +1111,11 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                     "graph_ref": ".microcosm/graph.json",
                     "observatory_command": (
                         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-                        "--max-requests 6"
+                        "--max-requests 7"
                     ),
                     "observatory_bounded_validation_command": (
                         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-                        "--max-requests 6"
+                        "--max-requests 7"
                     ),
                     "observatory_interactive_command": (
                         "microcosm serve <project> --host 127.0.0.1 --port 8765"
@@ -1145,7 +1195,7 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                     "body_text_exported_in_status": False,
                     "body_text_exported_in_receipts": False,
                     "latest_source_refs": ["system/lib/standard_option_surface.py"],
-                    "verified_source_module_family_count": 49,
+                    "verified_source_module_family_count": _accepted_organ_count(),
                     "latest_verified_source_module_families": [],
                 },
             },
@@ -1269,7 +1319,7 @@ def test_status_card_macro_drift_preview_stays_compact() -> None:
         "macro_body_import_floor"
     ]
 
-    assert len(card_json) < 13000
+    assert len(card_json) < 13300
     assert macro_detail["defect_count"] == 8
     assert len(macro_detail["defect_preview"]) == 3
     assert "source_refs" not in macro_detail["defect_preview"][0]
@@ -1298,17 +1348,28 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         _adapter_backed_organ_count()
     )
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
-    assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
-    assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 2
+    expected_truth_bucket_counts = _expected_adapter_truth_bucket_counts()
+    assert spine["surface_counts"]["real_runtime_receipt_count"] == (
+        expected_truth_bucket_counts["real_runtime_receipt"]
+    )
+    assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_bucket_counts["copied_non_secret_macro_body"]
+    )
     assert (
         spine["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == spine["surface_counts"]["public_safe_body_material_count"]
     )
     assert spine["surface_counts"]["public_safe_body_material_count"] >= 37
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
-    assert spine["surface_counts"]["source_faithful_refactor_count"] == 22
-    assert spine["surface_counts"]["real_import_validation_count"] == 17
-    assert spine["surface_counts"]["regression_negative_fixture_count"] == 0
+    assert spine["surface_counts"]["source_faithful_refactor_count"] == (
+        expected_truth_bucket_counts["source_faithful_refactor"]
+    )
+    assert spine["surface_counts"]["real_import_validation_count"] == (
+        expected_truth_bucket_counts["real_import_validation"]
+    )
+    assert spine["surface_counts"]["regression_negative_fixture_count"] == (
+        expected_truth_bucket_counts.get("regression_negative_fixture", 0)
+    )
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
     assert spine["surface_counts"]["secret_exclusion_count"] == 0
     assert spine["surface_counts"]["legacy_adapter_or_synthetic_placeholder_count"] == 0
@@ -1415,16 +1476,11 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert sum(spine["evidence_class_counts"].values()) == _adapter_backed_organ_count()
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
-        EXPECTED_ORGAN_EVIDENCE_CLASSES
+        _expected_organ_evidence_classes()
     )
-    assert spine["evidence_class_counts"] == {
-        "semantic_validator": 17,
-        "algorithmic_projection": 22,
-        "external_subprocess_witness": 3,
-        "verified_macro_body_import": 2,
-    }
+    assert spine["evidence_class_counts"] == _expected_adapter_evidence_class_counts()
     assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
-        "verified_macro_body_import"
+        "algorithmic_projection"
     )
     assert rows_by_id["durable_agent_work_landing_replay"]["evidence_class"] == (
         "semantic_validator"
@@ -1487,7 +1543,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "real_runtime_receipt"
     )
     assert rows_by_id["proof_diagnostic_evidence_spine"]["truth_accounting_bucket"] == (
-        "copied_non_secret_macro_body"
+        "source_faithful_refactor"
     )
     assert rows_by_id["agentic_vulnerability_discovery_patch_proof_replay"][
         "evidence_class"
@@ -1737,9 +1793,19 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     assert card["full_command"] == "microcosm authority"
     assert card["endpoint"] == "/authority-card"
     assert card["full_endpoint"] == "/authority"
+    assert card["release_authorized"] is False
+    assert card["provider_calls_authorized"] is False
+    assert card["source_mutation_authorized"] is False
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["authority_ceiling"]["provider_calls_authorized"] is False
     assert card["authority_ceiling"]["source_mutation_authorized"] is False
+    assert card["release_authorized"] == card["authority_ceiling"]["release_authorized"]
+    assert card["provider_calls_authorized"] == (
+        card["authority_ceiling"]["provider_calls_authorized"]
+    )
+    assert card["source_mutation_authorized"] == (
+        card["authority_ceiling"]["source_mutation_authorized"]
+    )
     assert card["surface_counts"]["organ_authority_count"] == (
         _adapter_backed_organ_count()
     )
@@ -1836,10 +1902,26 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["demoted_drilldown_count"] == _demoted_organ_count()
     assert workingness["rows_with_source_body_imports"] >= 2
     assert workingness["source_open_body_material_count"] >= 12
+    body_floor = runtime_shell._macro_projection_body_import_floor(MICROCOSM_ROOT)
+    count_scope = workingness["source_body_material_count_scope"]
+    assert count_scope["source_open_body_material_count_kind"] == (
+        "per_organ_row_sum"
+    )
+    assert count_scope["source_open_body_material_count"] == (
+        workingness["source_open_body_material_count"]
+    )
+    assert count_scope["aggregate_public_safe_body_material_count"] == (
+        body_floor["public_safe_body_material_count"]
+    )
+    assert count_scope["differs_from_aggregate_floor"] is (
+        workingness["source_open_body_material_count"]
+        != body_floor["public_safe_body_material_count"]
+    )
+    assert count_scope["body_text_exported"] is False
     assert workingness["missing_standard_count"] == 0
     assert workingness["missing_failure_modes_count"] == 0
     assert workingness["rows_with_failure_modes"] == _accepted_organ_count()
-    assert workingness["rows_with_future_work_targets"] == 29
+    assert workingness["rows_with_future_work_targets"] == 30
     assert workingness["accepted_status_is_not_evidence_strength"] is True
     assert workingness["not_a_scorecard"] is True
     assert workingness["gap_preview"]["status"] == "clear"
@@ -1866,7 +1948,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     route_body_imports = rows_by_id["agent_route_observability_runtime"][
         "source_open_body_imports"
     ]
-    assert route_body_imports["body_material_count"] == 7
+    assert route_body_imports["body_material_count"] == 8
     assert "agent_observability_store_body_import" in route_body_imports[
         "body_material_ids"
     ]
@@ -1903,8 +1985,6 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
         "known_failure_modes"
     ]
     assert proof_diagnostic["failure_mode_count"] >= 8
-    assert proof_diagnostic["evidence_gap_class"] == "verified_macro_body_import_scope_bound"
-    assert proof_diagnostic["future_work_targets"] == []
     assert all(
         target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
         for target in proof_diagnostic["future_work_targets"]
@@ -2007,6 +2087,17 @@ def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
     assert card["full_endpoint"] == "/workingness"
     assert card["drilldown_endpoint"] == "/workingness"
     assert card["surface_counts"]["mapped_organ_count"] == _accepted_organ_count()
+    count_scope = card["source_body_material_count_scope"]
+    assert count_scope["source_open_body_material_count_kind"] == (
+        "per_organ_row_sum"
+    )
+    assert count_scope["source_open_body_material_count"] == (
+        card["surface_counts"]["source_open_body_material_count"]
+    )
+    assert count_scope["canonical_aggregate_floor_ref"] == (
+        "microcosm status --card::front_door.source_open_body_import_floor"
+    )
+    assert count_scope["body_text_exported"] is False
     assert card["surface_counts"]["rows_with_failure_modes"] == _accepted_organ_count()
     assert card["surface_counts"]["missing_standard_count"] == 0
     assert card["surface_counts"]["missing_failure_modes_count"] == 0
@@ -2076,14 +2167,21 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         _adapter_backed_organ_count()
     )
     assert authority["surface_counts"]["non_progress_organ_count"] == 0
-    assert authority["surface_counts"]["regression_negative_fixture_count"] == 0
+    expected_truth_bucket_counts = _expected_adapter_truth_bucket_counts(public_root)
+    assert authority["surface_counts"]["regression_negative_fixture_count"] == (
+        expected_truth_bucket_counts.get("regression_negative_fixture", 0)
+    )
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
     assert authority["truth_accounting"]["real_substrate_progress_count"] == (
         _adapter_backed_organ_count()
     )
-    assert authority["truth_accounting"]["copied_non_secret_macro_body_count"] == 2
-    assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
+    assert authority["truth_accounting"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_bucket_counts["copied_non_secret_macro_body"]
+    )
+    assert authority["truth_accounting"]["regression_negative_fixture_count"] == (
+        expected_truth_bucket_counts.get("regression_negative_fixture", 0)
+    )
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
         authority["surface_counts"]["copied_non_secret_macro_body_material_count"]
@@ -2104,15 +2202,12 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert "material row, not by organ evidence class" in authority["count_scope"][
         "public_safe_body_material_count"
     ]
-    assert authority["evidence_class_counts"] == {
-        "semantic_validator": 17,
-        "algorithmic_projection": 22,
-        "external_subprocess_witness": 3,
-        "verified_macro_body_import": 2,
-    }
+    assert authority["evidence_class_counts"] == (
+        _expected_adapter_evidence_class_counts(public_root)
+    )
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in organ_authority_by_id.items()} == (
-        EXPECTED_ORGAN_EVIDENCE_CLASSES
+        _expected_organ_evidence_classes(public_root)
     )
     assert "agent_sabotage_scheming_monitor_replay" not in organ_authority_by_id
     assert (
@@ -2121,7 +2216,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     )
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
-        == "verified_macro_body_import"
+        == "algorithmic_projection"
     )
     assert (
         organ_authority_by_id["durable_agent_work_landing_replay"]["evidence_class"]
@@ -2378,6 +2473,10 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["snapshot_policy"] == {
         "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
         "runtime_invocation_can_write_receipt": True,
+        "receipt_write_persists": True,
+        "persist_receipt_requested": True,
+        "tracked_receipt_refresh_requires_env": False,
+        "tracked_receipt_refresh_env": None,
         "incidental_validator_reads_write_receipt": False,
         "test_runs_should_use_temp_public_root": True,
         "volatile_fields": [
@@ -2482,6 +2581,12 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert minimal_path_by_id["inspect_project_observe"]["endpoint"] == (
         "/project/observe"
     )
+    assert minimal_path_by_id["inspect_project_observe"]["command"] == (
+        "microcosm observe --card <project>"
+    )
+    assert minimal_path_by_id["inspect_project_observe"]["full_drilldown"] == (
+        "microcosm observe <project>"
+    )
     assert minimal_path_by_id["open_observatory"]["expanded_endpoint"] == (
         "/project/observatory"
     )
@@ -2495,7 +2600,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ".microcosm/routes.json"
     )
     assert tour["first_screen"]["behavior_surfaces"]["observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert tour["first_screen"]["behavior_surfaces"][
         "observatory_interactive_command"
@@ -2503,6 +2608,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
+        "microcosm observe --card <project>"
+    )
+    assert tour["first_screen"]["behavior_surfaces"]["project_observe_full_command"] == (
         "microcosm observe <project>"
     )
     assert tour["first_screen"]["behavior_surfaces_contract"]["required_keys"] == list(
@@ -2745,6 +2853,10 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["endpoint"] == "/tour"
     assert card["source_files_mutated"] is False
     assert card["first_screen"]["primary_command"] == "microcosm tour --card <project>"
+    assert "reader_routes" not in card["first_screen"]
+    assert card["first_screen"]["reader_routes_ref"] == (
+        "atlas/entry_packet.json::reader_first_screen_routes"
+    )
     assert card["first_contact_surface_count"] == 8
     assert card["first_contact_surface_ids"] == [
         "route",
@@ -2813,6 +2925,8 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["state_refs"]["event_log_ref"] == ".microcosm/events.jsonl"
     assert card["state_refs"]["evidence_dir_ref"] == ".microcosm/evidence/"
     assert card["state_refs"]["graph_ref"] == ".microcosm/graph.json"
+    assert card["state_refs"]["ref_count"] >= 8
+    assert "refs" not in card["state_refs"]
     assert card["state_inspection"]["status"] == "pass"
     assert card["state_inspection"]["state_dir"] == ".microcosm"
     assert card["state_inspection"]["state_dir_exists"] is True
@@ -2829,7 +2943,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert card["observatory"]["status_card_endpoint"] == "/project/status"
     assert card["observatory"]["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert card["status_card"]["command"] == "microcosm status --card <project>"
     assert card["first_screen"]["minimal_step_count"] == 10
@@ -2867,14 +2981,17 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["receipt_write_policy"] == {
         "public_tour_receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
         "compact_card_writes_public_tour_receipt": False,
+        "full_tour_attempts_public_tour_receipt_write": True,
         "full_tour_writes_public_tour_receipt": True,
+        "tracked_receipt_refresh_requires_env": False,
+        "tracked_receipt_refresh_env": None,
         "preexisting_public_tour_receipt_is_drilldown_only": True,
     }
     assert card["next_commands"] == [
         "microcosm status --card examples/runtime_shell/demo_project",
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe examples/runtime_shell/demo_project",
+        "microcosm observe --card examples/runtime_shell/demo_project",
         "microcosm tour examples/runtime_shell/demo_project",
     ]
     assert card["output_economy"]["full_route_cards_exported"] is False
@@ -2887,6 +3004,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["output_economy"]["receipt_persisted"] is False
     assert card["output_economy"]["receipt_write_policy_exported"] is True
     assert card["output_economy"]["first_contact_surface_refs_exported"] is True
+    assert card["output_economy"]["reader_routes_exported"] is False
     assert card["safe_to_show"]["project_local_state_refs_visible"] is True
     assert card["safe_to_show"]["source_files_mutated"] is False
     assert card["safe_to_show"]["source_mutation_authorized"] is False
@@ -2951,7 +3069,7 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
         "microcosm tour --card <project>"
     )
     assert reader_routes["peer_developer"]["next_command"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert reader_routes["safety_evals_engineer"]["next_command"] == (
         "microcosm authority --card"
@@ -3743,6 +3861,47 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     assert lens["map_summary"]["private_body_export_count"] == 0
     assert lens["map_summary"]["provider_payload_export_count"] == 0
     assert lens["map_summary"]["automated_import_guarantee"] is False
+    handoff = lens["source_body_import_floor_handoff"]
+    floor = runtime_shell._macro_projection_body_import_floor(public_root)
+    assert handoff["status"] == "pass"
+    assert handoff["source_ref"] == (
+        "microcosm status --card <project>::"
+        "front_door.source_open_body_import_floor"
+    )
+    assert handoff["full_status_ref"] == "microcosm status::macro_body_import_floor"
+    assert handoff["projection_map_role"] == "aggregate_handoff_not_body_text"
+    assert handoff["public_safe_body_material_count"] == floor[
+        "public_safe_body_material_count"
+    ]
+    assert handoff["public_safe_body_material_counts_by_class"] == floor[
+        "public_safe_body_material_counts_by_class"
+    ]
+    assert handoff["direct_source_module_manifest_count"] == floor[
+        "direct_source_module_manifest_count"
+    ]
+    assert handoff["direct_source_module_manifest_material_count"] == floor[
+        "direct_source_module_manifest_material_count"
+    ]
+    assert handoff["verified_source_module_family_count"] == floor[
+        "source_body_import_lens"
+    ]["verified_source_module_family_count"]
+    assert handoff["source_module_family_spotlights"] == floor[
+        "source_body_import_lens"
+    ]["source_module_family_spotlights"]
+    assert handoff["body_text_exported_in_status"] is False
+    assert handoff["body_text_exported_in_receipts"] is False
+    assert "body_imports" not in handoff
+    assert lens["map_summary"]["source_body_handoff_status"] == "pass"
+    assert (
+        lens["map_summary"]["source_body_handoff_public_safe_body_material_count"]
+        == floor["public_safe_body_material_count"]
+    )
+    assert (
+        lens["map_summary"][
+            "source_body_handoff_verified_source_module_family_count"
+        ]
+        == floor["source_body_import_lens"]["verified_source_module_family_count"]
+    )
     assert {row["source_pattern_id"] for row in lens["import_rows"]} >= {
         "macro_projection_import_protocol",
         "omission_receipt_reversible_projection_boundary",
@@ -4421,45 +4580,79 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["scorecard"]["not_score_based_progress"] is True
     bounded_observatory_command = (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-        "--max-requests 6"
+        "--max-requests 7"
     )
+    pre_install_probe = lens["card_first_entry_path"]["pre_install_probe"]
+    assert pre_install_probe["command"] == "./bootstrap.sh"
+    assert pre_install_probe["dry_run_command"] == "./bootstrap.sh --dry-run"
+    assert pre_install_probe["receipt_ref"] == ".microcosm/cold_clone_probe.json"
+    assert pre_install_probe["runs_before_install"] is True
+    assert pre_install_probe["writes_ignored_local_state"] is True
+    assert pre_install_probe["authority_ceiling"]["release_authorized"] is False
+    assert "Run ./bootstrap.sh first" in lens["card_first_entry_path"]["reader_rule"]
     assert bounded_observatory_command in lens["required_commands"]
     assert bounded_observatory_command in lens["card_first_entry_path"]["drilldown_after"]
     checkpoint_commands = {
         row["checkpoint_id"]: row["command"] for row in lens["checkpoint_rows"]
     }
-    assert checkpoint_commands["observatory_not_decorative"] == bounded_observatory_command
-    assert "microcosm serve <project>" not in lens["required_commands"]
-    assert lens["release_readiness_verdict"] == {
-        "schema_version": "microcosm_release_readiness_verdict_v1",
-        "public_first_screen_pass": True,
-        "release_gate_blocked_by_named_residuals": False,
-        "governance_valid_with_warnings": "trace_semantic_bucket_not_release_authority",
-        "no_release_authority": True,
-        "authority_boundary": (
-            "first-screen pass plus named residual hygiene can support a "
-            "bounded recording rehearsal, not release, hosting, proof correctness, "
-            "or private-root equivalence."
-        ),
+    checkpoint_command_sequences = {
+        row["checkpoint_id"]: row["command_sequence"]
+        for row in lens["checkpoint_rows"]
     }
-    assert "recording_companion_card" not in lens
-    recording_boundary = lens["recording_companion_boundary"]
-    assert (
-        recording_boundary["schema_version"]
-        == "microcosm_recording_companion_boundary_v1"
+    assert checkpoint_commands["observatory_not_decorative"] == bounded_observatory_command
+    repo_checkpoint = {
+        row["checkpoint_id"]: row for row in lens["checkpoint_rows"]
+    }["repo_to_local_substrate"]
+    assert repo_checkpoint["pre_install_probe_command"] == "./bootstrap.sh"
+    assert repo_checkpoint["pre_install_probe_receipt"] == (
+        ".microcosm/cold_clone_probe.json"
     )
-    assert recording_boundary["status"] == "demoted_from_default_public_scorecard"
-    assert "default installed output" in recording_boundary["why"]
-    assert recording_boundary["default_scorecard_excludes"] == [
-        "recording_scriptlet_body",
-        "recording_freeze_guidance",
-        "historical_commit_capsule",
-        "private_macro_equivalence_claim",
+    assert checkpoint_commands["weird_substrate_visible"] == "microcosm trace-lens"
+    assert checkpoint_command_sequences["weird_substrate_visible"] == [
+        "microcosm trace-lens",
+        "microcosm replay-gauntlet",
+        "microcosm benchmark-lab",
     ]
-    assert "current HEAD" in recording_boundary["reentry_condition"]
+    assert all("&&" not in row["command"] for row in lens["checkpoint_rows"])
     assert all(
-        value is False for value in recording_boundary["safe_to_show"].values()
+        row["command_sequence"][0] == row["command"]
+        for row in lens["checkpoint_rows"]
     )
+    assert all(
+        "&&" not in command
+        for row in lens["checkpoint_rows"]
+        for command in row["command_sequence"]
+    )
+    reader_proof_commands = {
+        row["question_id"]: row["proof_command"]
+        for row in lens["reader_question_rows"]
+    }
+    reader_proof_sequences = {
+        row["question_id"]: row["proof_command_sequence"]
+        for row in lens["reader_question_rows"]
+    }
+    assert reader_proof_commands["first_run"] == "microcosm hello <project>"
+    assert {
+        row["question_id"]: row for row in lens["reader_question_rows"]
+    }["first_run"]["pre_install_probe_command"] == "./bootstrap.sh"
+    assert reader_proof_sequences["first_run"] == [
+        "microcosm hello <project>",
+        "microcosm tour --card <project>",
+    ]
+    assert all("&&" not in row["proof_command"] for row in lens["reader_question_rows"])
+    assert all(
+        row["proof_command_sequence"][0] == row["proof_command"]
+        for row in lens["reader_question_rows"]
+    )
+    assert all(
+        "&&" not in command
+        for row in lens["reader_question_rows"]
+        for command in row["proof_command_sequence"]
+    )
+    assert "microcosm serve <project>" not in lens["required_commands"]
+    assert "release_readiness_verdict" not in lens
+    assert "recording_companion_card" not in lens
+    assert "recording_companion_boundary" not in lens
     assert set(lens["negative_case_ids"]) >= {
         "architecture_legible_without_running_commands_rejected",
         "receipt_forward_first_screen_rejected",
@@ -4490,9 +4683,12 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert (public_root / lens["legibility_scorecard_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "operator_recording_scriptlet" not in encoded
+    assert "bounded recording rehearsal" not in encoded
+    assert "rehearsal" not in encoded
     assert "landed_commits" not in encoded
     assert "e1f8bcef0" not in encoded
     assert "47dab635c" not in encoded
+    assert "&&" not in encoded
     assert OMITTED_PAYLOAD_BODY_KEY not in encoded
     assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
@@ -4710,6 +4906,10 @@ def test_runtime_shell_run_demo_card_is_compact(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     public_root = _copy_runtime_root(tmp_path)
+    cached_result_path = (
+        public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
+    )
+    cached_result_path.unlink()
     shell = RuntimeShell(public_root)
 
     def fake_run_demo(project: str, *, command: str | None = None) -> dict[str, object]:
@@ -4741,6 +4941,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     assert card["schema_version"] == "microcosm_runtime_demo_card_v1"
     assert card["command"] == "microcosm run --card examples/runtime_shell/demo_project"
     assert card["status"] == "pass"
+    assert card["cache_status"] == "live_replay_result"
     assert card["event_count"] == 2
     assert card["passed_event_count"] == 2
     assert card["failed_organs"] == []
@@ -4755,7 +4956,7 @@ def test_runtime_shell_run_demo_card_is_compact(
         "microcosm evidence list --limit 8",
         (
             "microcosm serve examples/runtime_shell/demo_project "
-            "--host 127.0.0.1 --port 8765 --max-requests 6"
+            "--host 127.0.0.1 --port 8765 --max-requests 7"
         ),
     ]
     assert "microcosm route list" not in card["next_actions"]
@@ -4764,6 +4965,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     assert card["output_economy"] == {
         "full_payload_drilldown": "microcosm run examples/runtime_shell/demo_project",
         "full_result_ref": "receipts/runtime_shell/demo_project/demo_project_result.json",
+        "cached_result_ref": None,
         "events_exported": False,
         "what_happened_exported": False,
         "all_evidence_refs_exported": False,
@@ -4773,6 +4975,90 @@ def test_runtime_shell_run_demo_card_is_compact(
     assert "evidence_refs" not in card
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_run_demo_card_reads_cached_result_without_replay(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+    cached_result_path = (
+        public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
+    )
+    cached_result = json.loads(cached_result_path.read_text(encoding="utf-8"))
+    expected_event_count = _adapter_backed_organ_count(public_root)
+    cached_result["events"] = [
+        {"organ_id": f"organ_{index}", "status": "pass"}
+        for index in range(expected_event_count)
+    ]
+    cached_result["evidence_refs"] = [
+        f"receipts/runtime_shell/demo_project/organs/organ_{index}/result.json"
+        for index in range(expected_event_count)
+    ]
+    cached_result_path.write_text(json.dumps(cached_result), encoding="utf-8")
+
+    def fail_run_demo(*args: object, **kwargs: object) -> dict[str, object]:
+        raise AssertionError("run --card must not replay when cached result exists")
+
+    monkeypatch.setattr(shell, "run_demo", fail_run_demo)
+
+    card = shell.run_demo_card("examples/runtime_shell/demo_project")
+    encoded = json.dumps(card, sort_keys=True)
+
+    assert card["schema_version"] == "microcosm_runtime_demo_card_v1"
+    assert card["command"] == "microcosm run --card examples/runtime_shell/demo_project"
+    assert card["status"] == cached_result["status"]
+    assert card["cache_status"] == "cached_result_read"
+    assert card["cache_freshness"] == {
+        "status": "current",
+        "cached_event_count": expected_event_count,
+        "expected_event_count": expected_event_count,
+    }
+    assert card["event_count"] == len(cached_result["events"])
+    assert card["evidence_ref_count"] == len(cached_result["evidence_refs"])
+    assert card["output_economy"]["cached_result_ref"] == (
+        "receipts/runtime_shell/demo_project/demo_project_result.json"
+    )
+    assert "events" not in card
+    assert "what_happened" not in card
+    assert "evidence_refs" not in card
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_run_demo_card_marks_stale_cache_without_replay(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+    cached_result_path = (
+        public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
+    )
+    cached_result = json.loads(cached_result_path.read_text(encoding="utf-8"))
+    expected_event_count = _adapter_backed_organ_count(public_root)
+    cached_result["events"] = cached_result["events"][: expected_event_count - 1]
+    cached_result["evidence_refs"] = cached_result["evidence_refs"][
+        : expected_event_count - 1
+    ]
+    cached_result_path.write_text(json.dumps(cached_result), encoding="utf-8")
+
+    def fail_run_demo(*args: object, **kwargs: object) -> dict[str, object]:
+        raise AssertionError("stale run --card cache must not trigger live replay")
+
+    monkeypatch.setattr(shell, "run_demo", fail_run_demo)
+
+    card = shell.run_demo_card("examples/runtime_shell/demo_project")
+
+    assert card["status"] == "stale_cached_result"
+    assert card["cache_status"] == "stale_cached_result"
+    assert card["cache_freshness"] == {
+        "status": "stale_event_count_mismatch",
+        "cached_event_count": expected_event_count - 1,
+        "expected_event_count": expected_event_count,
+    }
+    assert card["event_count"] == expected_event_count - 1
 
 
 def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Path) -> None:
@@ -4792,7 +5078,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         "microcosm evidence list --limit 8",
         (
             "microcosm serve examples/runtime_shell/demo_project "
-            "--host 127.0.0.1 --port 8765 --max-requests 6"
+            "--host 127.0.0.1 --port 8765 --max-requests 7"
         ),
     ]
     assert {event["input_mode"] for event in result["events"]} == {
@@ -4830,6 +5116,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         "exported_projection_import_bundle",
         "exported_prediction_oracle_bundle",
         "exported_cognitive_operator_registry_bundle",
+        "exported_routing_anti_patterns_bundle",
         "exported_standards_meta_diagnostics_bundle",
         "exported_cold_reader_route_map_bundle",
         "exported_memory_temporal_conflict_bundle",
@@ -5134,7 +5421,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     ] == "/project/observatory-card"
     assert project_status_card["front_door"]["observatory"]["command"] == (
         f"microcosm serve {project_status_ref} "
-        "--host 127.0.0.1 --port 8765 --max-requests 6"
+        "--host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert project_status_card["front_door"]["observatory"][
         "interactive_command"
@@ -5399,6 +5686,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "work_0001",
     }
     assert observatory_card["safe_to_show"]["provider_calls_authorized"] is False
+    card_runtime_bridge = observatory_card["runtime_bridge"]
+    assert card_runtime_bridge["bridge_id"] == "intake_observatory_bridge"
+    assert card_runtime_bridge["open_actionable_cell_count"] == 0
+    assert card_runtime_bridge["closed_cell_count"] >= 3
+    assert card_runtime_bridge["endpoints"]["proof_lab"] == "/proof-lab"
+    assert card_runtime_bridge["projection_status_counts"]["runtime_bridge_landed"] == 1
+    assert card_runtime_bridge["evidence_ref_count"] >= 1
     assert len(json.dumps(observatory_card, sort_keys=True).encode("utf-8")) < 50_000
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     route_proof = observatory["first_screen_route_proof"]
@@ -5479,7 +5773,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "source_open_body_imports"
     ]
     assert route_body_imports["status"] == "pass"
-    assert route_body_imports["body_material_count"] == 7
+    assert route_body_imports["body_material_count"] == 8
     assert "agent_trace_route_repair_body_import" in route_body_imports[
         "body_material_ids"
     ]
@@ -5588,12 +5882,9 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
         reveal["evidence_strength_policy"]["unclassified_organs_block_authority_projection"]
         is True
     )
-    assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
-        "semantic_validator": 17,
-        "algorithmic_projection": 22,
-        "external_subprocess_witness": 3,
-        "verified_macro_body_import": 2,
-    }
+    assert reveal["evidence_strength_policy"]["evidence_class_counts"] == (
+        _expected_adapter_evidence_class_counts(public_root)
+    )
     assert reveal["public_claim"].startswith("Microcosm turns a repo")
     assert (public_root / reveal["evidence_ref"]).is_file()
 

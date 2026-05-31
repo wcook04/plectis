@@ -1,0 +1,12 @@
+{
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "text": "Authority overclaim should fail."
+    }
+  ],
+  "expected_negative_case_id": "authority_overclaim",
+  "kind": "routing_anti_patterns",
+  "release_authorized": true,
+  "version": 1
+}

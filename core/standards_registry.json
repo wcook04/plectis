@@ -13,10 +13,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 82,
+  "first_wave_required_standard_count": 89,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 94,
+  "standard_count": 100,
   "standards": [
     {
       "first_wave_required": true,
@@ -901,6 +901,77 @@
       "wave": "w1_core_contract_and_grammar"
     },
     {
+      "first_wave_required": false,
+      "kind_id": "bridge_phase_continuity_runtime",
+      "kind_name": "Bridge phase continuity runtime",
+      "path": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+      "receipt_id": "receipt.microcosm.bridge_phase_continuity_runtime",
+      "standard_id": "std_microcosm_bridge_phase_continuity_runtime",
+      "status": "draft",
+      "used_by_organs": [
+        "bridge_phase_continuity_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
+      "wave": "w2_bridge_phase_continuity_runtime_standard_floor"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "executable_doctrine_grammar",
+      "kind_name": "Executable doctrine grammar",
+      "path": "standards/std_microcosm_executable_doctrine_grammar.json",
+      "receipt_id": "receipt.microcosm.executable_doctrine_grammar",
+      "standard_id": "std_microcosm_executable_doctrine_grammar",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "macro_projection_import_protocol"
+      ],
+      "validator_id": "validator.microcosm.organs.executable_doctrine_grammar",
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "mission_transaction_work_spine",
+      "kind_name": "Mission transaction work spine",
+      "path": "standards/std_microcosm_mission_transaction_work_spine.json",
+      "receipt_id": "receipt.microcosm.mission_transaction_work_spine",
+      "standard_id": "std_microcosm_mission_transaction_work_spine",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine"
+      ],
+      "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "navigation_hologram_route_plane",
+      "kind_name": "Navigation hologram route plane",
+      "path": "standards/std_microcosm_navigation_hologram_route_plane.json",
+      "receipt_id": "receipt.microcosm.navigation_hologram_route_plane",
+      "standard_id": "std_microcosm_navigation_hologram_route_plane",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": "validator.microcosm.organs.navigation_hologram_route_plane",
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "proof_diagnostic_evidence_spine",
+      "kind_name": "Proof diagnostic evidence spine",
+      "path": "standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+      "receipt_id": "receipt.microcosm.proof_diagnostic_evidence_spine",
+      "standard_id": "std_microcosm_proof_diagnostic_evidence_spine",
+      "status": "accepted",
+      "used_by_organs": [
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
       "first_wave_required": true,
       "kind_id": "public_reveal_walkthrough",
       "kind_name": "Public reveal walkthrough",
@@ -1418,6 +1489,20 @@
       ],
       "validator_id": "validator.microcosm.organs.cognitive_operator_registry",
       "wave": "w1_cognitive_operator_registry"
+    },
+    {
+      "first_wave_required": true,
+      "standard_id": "std_microcosm_routing_anti_patterns_registry",
+      "kind_id": "routing_anti_patterns_registry",
+      "kind_name": "Routing anti-pattern registry",
+      "path": "standards/std_microcosm_routing_anti_patterns_registry.json",
+      "receipt_id": "receipt.microcosm.routing_anti_patterns_registry",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "routing_anti_patterns_registry"
+      ],
+      "validator_id": "validator.microcosm.organs.routing_anti_patterns_registry",
+      "wave": "w1_routing_anti_patterns_registry"
     }
   ],
   "status": "current_public_standard_registry_cognitive_operator_registry_bound"

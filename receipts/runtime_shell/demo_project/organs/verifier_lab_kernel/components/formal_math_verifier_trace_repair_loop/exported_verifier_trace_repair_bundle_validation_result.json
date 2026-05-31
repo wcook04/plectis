@@ -151,7 +151,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-28T09:19:20+00:00",
+  "created_at": "2026-05-30T21:36:44+00:00",
   "curriculum_edge_count": 3,
   "curriculum_edges": [
     {
@@ -308,18 +308,18 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779949258017715034,
+      "mtime_ns": 1780128325303213557,
       "path": "src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
-      "size_bytes": 57222
+      "size_bytes": 57298
     },
     {
       "exists": true,
-      "mtime_ns": 1779947502314961510,
+      "mtime_ns": 1780110858259852205,
       "path": "src/microcosm_core/private_state_scan.py",
-      "size_bytes": 15253
+      "size_bytes": 20760
     }
   ],
-  "freshness_digest": "sha256:e995281b7ab51fd3ec29a06e60100b819be13ba05053e5bb792a937a25e7d474",
+  "freshness_digest": "sha256:f69c3de76a47dc67993b1b74e76a75160b5a41f4c923c6931fca3867b803ea25",
   "freshness_status": "current",
   "input_mode": "exported_verifier_trace_repair_bundle",
   "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",

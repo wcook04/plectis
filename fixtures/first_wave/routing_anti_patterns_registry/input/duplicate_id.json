@@ -1,0 +1,15 @@
+{
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "text": "First row."
+    },
+    {
+      "id": "kernel_before_grep",
+      "text": "Duplicate row."
+    }
+  ],
+  "expected_negative_case_id": "duplicate_id",
+  "kind": "routing_anti_patterns",
+  "version": 1
+}

@@ -32,8 +32,19 @@ output.
 ## Useful Local Checks
 
 Run these from `microcosm-substrate/` before reporting or accepting a boundary
-change. Install the repository-local test extra first so the pytest route uses
-the same standalone environment as the public repo:
+change. Start with the source-root probe so fixture availability and the
+public-safe boundary are checked before any install step:
+
+```bash
+./bootstrap.sh
+```
+
+It writes ignored `.microcosm/cold_clone_probe.json` evidence and does not
+refresh tracked receipts. Use `./bootstrap.sh --dry-run` when you need the
+exact command without writing the ignored receipt.
+
+Then install the repository-local test extra so the pytest route uses the same
+standalone environment as the public repo:
 
 ```bash
 make install

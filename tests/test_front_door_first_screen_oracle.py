@@ -27,6 +27,10 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
         public_root / "receipts/first_wave",
     )
     _copytree_fixture(
+        MICROCOSM_ROOT / "receipts/runtime_shell",
+        public_root / "receipts/runtime_shell",
+    )
+    _copytree_fixture(
         MICROCOSM_ROOT / "receipts/preflight",
         public_root / "receipts/preflight",
     )
@@ -244,7 +248,7 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
         "microcosm serve <project>::/project/observe"
     )
     assert tour_card_observatory["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert tour_card_observatory["route_explanation_endpoint"] == (
         f"/project/explain/{selected_route_id}"
@@ -291,12 +295,13 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in (
         first_screen_commands
     )
-    assert "microcosm observe <project>" in first_screen_commands
+    assert "microcosm observe --card <project>" in first_screen_commands
     observe_step = next(
         step
         for step in first_screen["minimal_command_path"]
         if step["step_id"] == "inspect_project_observe"
     )
+    assert observe_step["full_drilldown"] == "microcosm observe <project>"
     assert observe_step["endpoint"] == "/project/observe"
     assert observe_step["selected_route_id"] == selected_route_id
     status_step = next(
@@ -363,7 +368,7 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     )
     assert front_door["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert front_door["observatory"]["project_observe_command"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert front_door["observatory"]["model_field_count"] >= 10
     assert front_door["observatory"]["first_screen_route_proof_ref"] == (

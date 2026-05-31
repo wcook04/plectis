@@ -1,0 +1,28 @@
+{
+  "schema_version": "public_harness_configuration_expected_summary_v1",
+  "summary": {
+    "snapshot_count": 3,
+    "clean_snapshot_count": 1,
+    "finding_count": 2,
+    "quarantined_snapshot_count": 1,
+    "severity_counts": {
+      "error": 1,
+      "warning": 1
+    },
+    "code_counts": {
+      "INVALID_SKILL_TYPE": 1,
+      "MISSING_STOP_HOOK_TIMEOUT": 1
+    }
+  },
+  "finding_codes": [
+    "INVALID_SKILL_TYPE",
+    "MISSING_STOP_HOOK_TIMEOUT"
+  ],
+  "clean_snapshot_ids": [
+    "clean_public_harness"
+  ],
+  "quarantined_snapshot_ids": [
+    "skill_registry_type_drift"
+  ],
+  "body_in_receipt": false
+}

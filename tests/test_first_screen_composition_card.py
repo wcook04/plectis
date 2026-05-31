@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = MICROCOSM_ROOT / "scripts/first_screen_composition_card.py"
@@ -104,13 +106,28 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["source_standard_ref"]
         == "standards/std_microcosm_first_screen_composition_root.json"
     )
+    pre_install_probe = card["pre_install_probe"]
+    assert pre_install_probe["command"] == "./bootstrap.sh"
+    assert pre_install_probe["dry_run_command"] == "./bootstrap.sh --dry-run"
+    assert pre_install_probe["receipt_ref"] == ".microcosm/cold_clone_probe.json"
+    assert pre_install_probe["runs_before_install"] is True
+    assert pre_install_probe["writes_ignored_local_state"] is True
+    assert pre_install_probe["safe_to_show"]["release_authorized"] is False
     assert card["human_first_command"] == "microcosm hello <project>"
     assert card["shared_first_command"] == "microcosm tour --card <project>"
     text_projection = card["text_projection"]
     assert text_projection == {
         "command": card["human_first_command"],
+        "pre_install_probe_command": "./bootstrap.sh",
+        "pre_install_probe_receipt": ".microcosm/cold_clone_probe.json",
         "writes_microcosm_state": False,
         "behavioral_proof_command": card["shared_first_command"],
+        "source_checkout_command": (
+            "PYTHONPATH=src python3 -m microcosm_core hello <project>"
+        ),
+        "source_checkout_behavioral_proof_command": (
+            "PYTHONPATH=src python3 -m microcosm_core tour --card <project>"
+        ),
         "authority": "terminal_text_projection_only_not_behavior_proof",
         "reader_rule": (
             "Use this command to view the first-screen card; run the "
@@ -165,7 +182,19 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "publication_or_reader_success_ready"
     )
     assert menu_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm hello <project>`."
+        "Run `microcosm tour --card <project>` after this card."
+    )
+    assert menu_by_id["safety_evals_engineer"]["first_action"] == (
+        "Run `microcosm tour --card <project>` first, then "
+        "`microcosm status --card <project>`."
+    )
+    assert menu_by_id["hiring_reviewer"]["first_action"] == (
+        "Run `microcosm legibility-scorecard`, then "
+        "`microcosm tour --card <project>`."
+    )
+    assert menu_by_id["hiring_reviewer"]["proof_surface"] == (
+        "`microcosm legibility-scorecard` plus "
+        "`microcosm tour --card <project>`"
     )
     assert reader_route_menu["safe_to_show"] == {
         "uses_existing_reader_packets": True,
@@ -208,7 +237,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "README.md#first-run"
     )
     assert packet_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm hello <project>`."
+        "Run `microcosm tour --card <project>` after this card."
     )
     assert "from the repo root" not in packet_by_id["public_github_visitor"][
         "first_action"
@@ -219,6 +248,14 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "maturity or release readiness" in packet_by_id[
         "safety_evals_engineer"
     ]["success_criterion"]
+    assert packet_by_id["hiring_reviewer"]["first_action"] == (
+        "Run `microcosm legibility-scorecard`, then "
+        "`microcosm tour --card <project>`."
+    )
+    assert packet_by_id["hiring_reviewer"]["proof_surface"] == (
+        "`microcosm legibility-scorecard` plus "
+        "`microcosm tour --card <project>`"
+    )
     assert "provider calls" in packet_by_id["peer_developer"]["success_criterion"]
     behavior_proof_packet = card["behavior_proof_packet"]
     behavior_fields = {
@@ -251,6 +288,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "failure_reading"
     ]
     first_run_ladder = card["first_run_ladder"]
+    assert first_run_ladder["pre_install_probe"] == pre_install_probe
     ladder_steps = {row["step_id"]: row for row in first_run_ladder["steps"]}
     assert first_run_ladder["purpose"] == (
         "make_first_screen_run_order_copyable_without_long_quickstart"
@@ -371,7 +409,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "readme": "README.md::Choose Your First Screen",
         "browser": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
-            "--max-requests 6 -> /"
+            "--max-requests 7 -> /"
         ),
         "json": "microcosm first-screen --card <project>",
         "video": "video_storyboard_packet",
@@ -456,7 +494,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert first_contact_surfaces["observatory"]["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert first_contact_surfaces["observatory"]["compact_endpoint"] == (
         "/project/observatory-card"
@@ -556,7 +594,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "microcosm legibility-scorecard"
     )
     assert exit_by_id["peer_developer"]["next_if_not_met"] == (
-        "microcosm observe <project>"
+        "microcosm observe --card <project>"
     )
     assert exit_by_id["safety_evals_engineer"]["not_a_claim"] == (
         "safety_evaluation_complete"
@@ -596,7 +634,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert video_storyboard_packet["bounded_observatory_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert set(storyboard_by_id) == {
         "open_map",
@@ -681,7 +719,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "README.md::Choose Your First Screen"
     )
     assert artifact_fit_by_id["browser_landing"]["consumer_surface"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     assert artifact_fit_by_id["short_video_storyboard"]["consumer_surface"] == (
         "video_storyboard_packet"
@@ -1096,9 +1134,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory_landing_frame["bounded_validation_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
     )
-    assert observatory_landing_frame["bounded_validation_request_count"] == 6
+    assert observatory_landing_frame["bounded_validation_request_count"] == 7
     assert "route smokes" in observatory_landing_frame["bounded_validation_rule"]
     assert observatory_landing_frame["browser_landing_reuse"] == {
         "source_projection": (
@@ -1106,7 +1144,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         ),
         "serve_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
         "bounded_validation_command": (
-            "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         ),
         "default_endpoint": "/",
         "card_endpoint": "/project/first-screen",
@@ -1203,7 +1241,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert any(
         drilldown.get("command")
-        == "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        == "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         and drilldown.get("endpoint") == "/"
         for drilldown in card["drilldowns"]
     )
@@ -1302,6 +1340,26 @@ def test_first_screen_static_json_loads_are_cached_between_cards() -> None:
     assert after_second.hits > after_first.hits
 
 
+def test_first_screen_static_json_cache_rejects_duplicate_keys(tmp_path: Path) -> None:
+    from microcosm_core import first_screen_composition
+    from microcosm_core.schemas import DuplicateJsonKeyError
+
+    payload_path = tmp_path / "first_screen.json"
+    payload_path.write_text(
+        '{"reader_routes": [], "reader_routes": [{"reader_route_id": "shadow"}]}',
+        encoding="utf-8",
+    )
+    stat = payload_path.stat()
+    first_screen_composition._load_json_object.cache_clear()
+
+    with pytest.raises(DuplicateJsonKeyError, match="duplicate JSON key 'reader_routes'"):
+        first_screen_composition._load_json_object(
+            str(payload_path),
+            stat.st_mtime_ns,
+            stat.st_size,
+        )
+
+
 def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     result = subprocess.run(
         [
@@ -1322,9 +1380,26 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["status"] == "pass"
     assert card["human_first_command"] == "microcosm hello ."
     assert card["shared_first_command"] == "microcosm tour --card ."
+    assert card["source_checkout_commands"] == {
+        "schema_version": "microcosm_source_checkout_commands_v1",
+        "purpose": "keep_the_no_install_entry_path_copyable_after_hello",
+        "hello": "PYTHONPATH=src python3 -m microcosm_core hello .",
+        "behavior_proof": "PYTHONPATH=src python3 -m microcosm_core tour --card .",
+        "status_card": "PYTHONPATH=src python3 -m microcosm_core status --card .",
+        "first_screen_card": (
+            "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
+        ),
+        "authority": "source_checkout_fallback_not_package_install_or_release_claim",
+    }
     assert card["text_projection"]["command"] == "microcosm hello ."
+    assert card["text_projection"]["source_checkout_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core hello ."
+    )
     assert card["text_projection"]["behavioral_proof_command"] == (
         "microcosm tour --card ."
+    )
+    assert card["text_projection"]["source_checkout_behavioral_proof_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core tour --card ."
     )
     assert card["text_projection"]["writes_microcosm_state"] is False
     assert [
@@ -1379,6 +1454,14 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm tour --card .",
         "microcosm status --card .",
     ]
+    assert [
+        row["source_checkout_command"]
+        for row in card["first_run_ladder"]["steps"][:3]
+    ] == [
+        "PYTHONPATH=src python3 -m microcosm_core hello .",
+        "PYTHONPATH=src python3 -m microcosm_core tour --card .",
+        "PYTHONPATH=src python3 -m microcosm_core status --card .",
+    ]
     assert card["reader_route_menu"]["default_command"] == "microcosm hello ."
     assert card["reader_route_menu"]["shared_behavior_command"] == (
         "microcosm tour --card ."
@@ -1413,7 +1496,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     ]
     assert card["first_contact_surface_refs"]["surfaces"]["observatory"][
         "bounded_validation_command"
-    ] == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+    ] == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
     assert card["first_contact_surface_refs"]["surfaces"]["proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
@@ -1491,12 +1574,23 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
 
     text.encode("ascii")
     assert text.startswith("Microcosm first screen\n")
+    assert (
+        "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
+        in text
+    )
     assert "Open card: microcosm hello ." in text
     assert "First run: microcosm tour --card ." in text
     assert (
-        "Check state: microcosm status --card . | Trail: catalog -> routes -> "
-        "events -> evidence -> graph."
-    ) in text
+        "First run: microcosm tour --card . | Source-only first run: "
+        "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+        in text
+    )
+    assert (
+        "Check state: microcosm status --card . | Source-only status: "
+        "PYTHONPATH=src python3 -m microcosm_core status --card . | "
+        "Trail: catalog -> routes -> events -> evidence -> graph."
+        in text
+    )
     assert "A local evidence router" in text
     assert "doctrine names boundaries" in text
     assert "exit when you can choose a drilldown" in text
@@ -1524,20 +1618,20 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     ) in text
     assert (
         "Hiring: microcosm hello --reader hiring_reviewer . | Proof: "
-        "`microcosm tour --card .`"
+        "`microcosm legibility-scorecard` plus `microcosm tour --card .`"
     ) in text
     assert (
         "Peer developer: microcosm hello --reader peer_developer . | Proof: "
-        "`microcosm observe .`"
+        "`microcosm observe --card .`"
     ) in text
     assert (
-        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in text
     )
     assert "-> /project/first-screen -> /project/observatory-card" in text
     assert (
-        "artifact fit: terminal/README/browser/JSON/video project this card; "
-        "problem map binds the gaps."
+        "artifact fit: terminal, README, browser, JSON, and video reuse this card; "
+        "problem map names the gaps."
         in text
     )
     assert (
@@ -1558,7 +1652,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
     expected = {
         "public_github_visitor": {
             "label": "GitHub visitor",
-            "first_action": "Run `microcosm hello .`.",
+            "first_action": "Run `microcosm tour --card .` after this card.",
             "proof": "`microcosm tour --card .`",
             "success": "release, hosting, and private-data claims",
             "absent": [
@@ -1569,7 +1663,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         },
         "safety_evals_engineer": {
             "label": "Safety/evals",
-            "first_action": "Run `microcosm status --card .`.",
+            "first_action": (
+                "Run `microcosm tour --card .` first, then "
+                "`microcosm status --card .`."
+            ),
             "proof": "`microcosm authority --card` plus `microcosm workingness --card`",
             "success": "maturity or release readiness",
             "absent": [
@@ -1580,8 +1677,11 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         },
         "hiring_reviewer": {
             "label": "Hiring",
-            "first_action": "Run `microcosm hello .` before the longer tour.",
-            "proof": "`microcosm tour --card .`",
+            "first_action": (
+                "Run `microcosm legibility-scorecard`, then "
+                "`microcosm tour --card .`."
+            ),
+            "proof": "`microcosm legibility-scorecard` plus `microcosm tour --card .`",
             "success": "public card explicitly refuses to make",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1592,7 +1692,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         "peer_developer": {
             "label": "Peer developer",
             "first_action": "Run `microcosm tour --card .`.",
-            "proof": "`microcosm observe .`",
+            "proof": "`microcosm observe --card .`",
             "success": "without provider calls",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1607,12 +1707,23 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
 
         text.encode("ascii")
         assert text.startswith("Microcosm first screen\n")
+        assert (
+            "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
+            in text
+        )
         assert "Open card: microcosm hello ." in text
         assert "First run: microcosm tour --card ." in text
         assert (
-            "Check state: microcosm status --card . | Trail: catalog -> routes -> "
-            "events -> evidence -> graph."
-        ) in text
+            "First run: microcosm tour --card . | Source-only first run: "
+            "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+            in text
+        )
+        assert (
+            "Check state: microcosm status --card . | Source-only status: "
+            "PYTHONPATH=src python3 -m microcosm_core status --card . | "
+            "Trail: catalog -> routes -> events -> evidence -> graph."
+            in text
+        )
         assert f"Reader branch: {assertions['label']}" in text
         assert f"  Command: microcosm hello --reader {reader_id} ." in text
         assert (
@@ -1630,7 +1741,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "status --card shows the stricter body-import floor" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof after tour --card: front_door_status=pass" in text
-        assert "problem map binds the gaps" in text
+        assert "problem map names the gaps" in text
         assert "doctrine names boundaries" in text
         assert "exit when you can choose a drilldown" in text
         assert "without the command inventory" in text
@@ -1712,7 +1823,10 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
         "safety_evals_engineer ."
         in result.stdout
     )
-    assert "  First action: Run `microcosm status --card .`." in result.stdout
+    assert (
+        "  First action: Run `microcosm tour --card .` first, then "
+        "`microcosm status --card .`."
+    ) in result.stdout
     assert (
         "  Proof: `microcosm authority --card` plus `microcosm workingness --card`"
         in result.stdout

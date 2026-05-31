@@ -38,7 +38,7 @@
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:01+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
@@ -52,7 +52,7 @@
   "findings": [],
   "fixture_id": "first_wave.agent_memory_temporal_conflict_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:6d8aa64040784db29ac2ad0e36533a5fc2396dd1a35fe6cb70ff5c7f7d3b5259",
+    "basis_digest": "sha256:2f1619a233d3469c14803cb656fd45d3663e9f24f79bce5a3ac1862b53c5ca26",
     "card_schema_version": "agent_memory_temporal_conflict_replay_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -84,13 +84,13 @@
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
-        "sha256": "sha256:42a5bf3712836afe6cd7f0212a6d54b3a2036cc67d5381f191f1824f2d75acfc",
-        "size_bytes": 9940
+        "sha256": "sha256:93c665bf4d357b23100efded67e712e1c6294f1692bc8d9fd68c9364ed2b66ef",
+        "size_bytes": 10415
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "size_bytes": 224689
+        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "size_bytes": 229460
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
@@ -510,6 +510,9 @@
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sabotage_scheming_monitor_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_monitor_redteam_falsification_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace",
       "microcosm_core.macro_tools.agent_execution_trace::main"
     ]
   },

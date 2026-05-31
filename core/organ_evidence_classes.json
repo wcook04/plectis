@@ -92,8 +92,8 @@
       "organ_id": "executable_doctrine_grammar"
     },
     {
-      "classification_basis": "validates copied public-safe Ring2 diagnostic runtime artifacts by target existence, digest provenance, light-edit receipts, secret-exclusion checks, and authority ceilings; proof verdict rows remain non-authoritative diagnostics",
-      "evidence_class": "verified_macro_body_import",
+      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "proof_diagnostic_evidence_spine"
     },
     {
@@ -320,6 +320,11 @@
       "classification_basis": "derived cognitive-operator registry contract and dogfood-receipt diagnostics",
       "evidence_class": "semantic_validator",
       "organ_id": "cognitive_operator_registry"
+    },
+    {
+      "classification_basis": "derived routing anti-pattern registry contract and copied non-secret macro body diagnostics",
+      "evidence_class": "semantic_validator",
+      "organ_id": "routing_anti_patterns_registry"
     }
   ],
   "registry_id": "microcosm_organ_evidence_classes",

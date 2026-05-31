@@ -1,0 +1,179 @@
+{
+  "kind": "standard",
+  "schema_version": "std_agent_entrypoint_audit_v1",
+  "id": "std_agent_entrypoint_audit",
+  "title": "Agent Entrypoint Comprehension Audit Standard",
+  "purpose": "Make the Claude / Codex / shared agent entrypoints anti-drift and comprehension-auditable so a cold Type A session cannot silently claim whole-system comprehension while missing Python, hologram, paper-module, raw-seed, fact, bridge, station, or phase-continuity substrate.",
+  "governance": {
+    "authority": "codex/standards/standards_registry.json -> core group",
+    "writer": "agents may extend the authored axis registry; generated audits are builder-owned",
+    "builder": "tools/meta/factory/build_agent_entrypoint_audit.py",
+    "runtime": "system/lib/agent_entrypoint_audit.py",
+    "source_of_truth": "codex/doctrine/agent_bootstrap.json (actor_context_surfaces + adapter_actor_map + bootstrap_sequence) is the authored truth for adapter routing; this audit validates projection over that truth — it does NOT duplicate it.",
+    "drift_sensitivity": "high"
+  },
+  "authority_split": {
+    "authored_truth": {
+      "surfaces": [
+        "codex/doctrine/agent_entrypoints/axis_registry.json",
+        "codex/doctrine/agent_entrypoints/entrypoint_registry.json"
+      ],
+      "role": "Authored list of comprehension axes (id, title, why, resolution_methods) plus the authored list of entrypoint surfaces (id, actor, paths, required_axes) that must cover them. Paired with agent_bootstrap.json::actor_context_surfaces — the audit cross-checks both."
+    },
+    "generated_truth": {
+      "surfaces": [
+        "codex/hologram/agent_entrypoints/audit.json",
+        "codex/hologram/agent_entrypoints/summary.json",
+        "codex/hologram/agent_entrypoints/per_entrypoint.json"
+      ],
+      "role": "Generated audit record, per-entrypoint axis coverage matrix, and summary status used by kernel routes (`--agent-entrypoints`, `--agent-entrypoint-audit`, `--agent-entrypoint <id>`)."
+    },
+    "audited_claim_surface": {
+      "surfaces": ["CLAUDE.md", "CODEX.md", "AGENTS.md", ".claude/", ".codex/"],
+      "role": "Adapter surfaces whose comprehension coverage the audit measures. These remain hand-authored (plus the generated live regions already owned by build_agent_bootstrap_projection.py)."
+    }
+  },
+  "types": {
+    "ComprehensionAxis": {
+      "required_fields": ["id", "title", "why", "resolution_methods"],
+      "optional_fields": ["required_for_actors", "severity_if_missing", "tags"],
+      "role": "Authored declaration of one comprehension obligation a cold agent entrypoint must cover (e.g. python_hologram_substrate, derived_facts_anti_drift)."
+    },
+    "ResolutionMethod": {
+      "required_fields": ["method"],
+      "optional_fields": ["value", "values", "why"],
+      "role": "One way an entrypoint can satisfy an axis — explicit token, kernel command, docs-route alias, paper-module slug, or projection file citation. At least one must resolve for the axis to be covered.",
+      "method_kinds": {
+        "explicit_token": "One literal token (case-insensitive substring) appears in the adapter content.",
+        "any_of_tokens": "At least one of a list of tokens appears in the adapter content.",
+        "kernel_command": "A specific kernel.py flag (e.g. `kernel.py --facts`) is mentioned.",
+        "docs_route": "A docs-route query (`--docs-route \"<alias>\"`) is mentioned.",
+        "paper_module_slug": "A paper-module slug (e.g. `system_lib_directory_index`) is mentioned or reachable via `--paper-module`.",
+        "projection_file": "A projection / hologram file (e.g. `codex/doctrine/agent_bootstrap.json`) is cited."
+      }
+    },
+    "EntrypointSurface": {
+      "required_fields": ["id", "role", "primary_paths", "required_axes"],
+      "optional_fields": ["actor_id", "companion_paths", "dotfile_tree", "line_budget", "notes"],
+      "role": "One authored entrypoint surface — CLAUDE.md (actor=claude_code), CODEX.md (actor=codex), AGENTS.md (shared), or a dotfile tree (.claude/, .codex/) — with its expected axis coverage set."
+    },
+    "DoctrineRefScopeOverride": {
+      "required_fields": ["ref_kind", "ref", "scope_class", "scope_reason"],
+      "optional_fields": ["actor_scope"],
+      "role": "Authored triage row for entry-surface topology refs that decides whether missing symmetric actor reachability is shared debt, actor-local success, or still unknown.",
+      "scope_class_values": {
+        "shared": "The ref is a shared doctrine obligation; all actors should reach it directly or transitively.",
+        "actor_local": "The ref belongs to one actor's adapter lane; only actor_scope must reach it.",
+        "unknown": "The audit should keep surfacing the ref until an owner classifies it."
+      },
+      "owner": "codex/doctrine/agent_entrypoints/entrypoint_registry.json::doctrine_ref_scope_overrides"
+    },
+    "AuditFinding": {
+      "required_fields": ["severity", "rule", "message"],
+      "optional_fields": ["entrypoint_id", "axis_id", "path", "snippet", "fix_scope", "repair_kind", "repair_surface", "repair_reason", "shared_fix_candidate"],
+      "role": "Builder-visible warning / error emitted by the entrypoint audit, with repair-accounting metadata that names the ledger or surface that should be adjusted."
+    },
+    "RepairPlan": {
+      "required_fields": ["summary", "items"],
+      "role": "Grouped repair view over findings. It reconciles missing comprehension buckets to the correct ledger: shared bootstrap truth, adapter-local prose, dotfile plane, paper-module plane, or projection builder."
+    },
+    "EntrypointAuditRecord": {
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "repair_plan", "entrypoints", "findings"],
+      "role": "Generated audit artifact consumed by kernel routes, CI checks, and cold-agent verification."
+    }
+  },
+  "finding_rules": {
+    "missing_axis": "Hard error. An entrypoint's required axis could not be resolved by any authored resolution method. The cold agent has no reachable path to this comprehension obligation.",
+    "weak_route": "Warning. An axis is mentioned but only via ambient prose, not via a kernel command / docs-route / paper-module / projection file. A future refactor could silently break the link.",
+    "stale_projection": "Warning. The entrypoint cites a generated region whose source fingerprint disagrees with the current builder output (e.g. agent_bootstrap_live block drifted).",
+    "generated_block_drift": "Hard error. A generated region marker block in the entrypoint disagrees with the current builder's rendered markdown — a hand-edit in a generated region, or a missed refresh.",
+    "oversized_entrypoint": "Warning. Adapter line count exceeds the declared budget; re-read becomes ceremony rather than orientation. Re-route content into depth files.",
+    "hidden_adapter_surface": "Hard error. A file exists in `.claude/` or `.codex/` that no declared entrypoint surface names and no paper module covers — adapter substrate invisible to navigation.",
+    "unknown_axis_reference": "Warning. An entrypoint's `required_axes` cites an axis id not in the axis registry.",
+    "incoherent_doctrine_file_pattern": "Hard error. Entrypoint prose names a doctrine file pattern that is not a live authority surface, such as `pri_*.json` when active principles are rows in `raw_seed_principles.json` and projections are `pri_*.md`.",
+    "navigation_integration_debt_unresolved": "Warning. The agent-entrypoint audit surfaced an unresolved navigation integration-debt signal — a primitive (kernel option-surface command, projection emitter, or related route) reports `status: \"integration_debt\"` (or an equivalent self-diagnosis field such as `nav_hologram_gap.status`) inside its raw JSON output, and this audit makes that signal operator-visible. The visibility bridge is complete; the remaining repair is upstream in the primitive, route, or projection that reported the debt — implement the missing capability, fix the gap that prompted the self-report, or update the emitter once the gap is resolved. Keeping severity warning so the audit does not fail merely because a primitive honestly reports unresolved debt. Renamed from `navigation_integration_debt_not_operator_visible` after fb6a76b3 made the signal operator-visible — the legacy name claimed continued invisibility, which became stale once the bridge existed (per pri_128 test #3 lifecycle: substrate self-report → audit-visible finding → upstream repair).",
+    "entry_surface_reserve_critical": "Warning. An entry surface (AGENTS.md / AGENTS.override.md / CLAUDE.md / CODEX.md) is within the hard cap but headroom is below the reserve floor (initial heuristic: 5% of hard_cap; refine when concurrent-growth telemetry is available). The hard checker reports `surface_over_budget` only after the cap is breached; this finding fires earlier so concurrent-agent commits cannot silently blow the cap with the next addition. Repair: apply pri_121 compression to routed substrate (per pri_131 change_protocol). Severity stays warning because the surface is technically valid; the reserve metric is operational early-warning, not a hard contract.",
+    "architectural_constraint_lacks_principle_anchor": "Warning. A compression_budgets row (or sibling architectural-constraint row in std_agent_entry_surface.json) lacks the structured `justifying_principle` field that pri_130's architectural_constraint_rationale_contract requires. Migrate to the ADR shape: add justifying_principle, failure_prevented, evidence_basis (external + local), change_protocol, review_command, repair_path. See compression_budgets.agents_md (cited pri_131) for the reference template. Migration is non-breaking: existing prose `rationale` remains valid until each row is migrated, so this finding is severity warning, not error.",
+    "route_pointer_missing_owner": "Warning. An entry surface (AGENTS.md / AGENTS.override.md / CLAUDE.md / CODEX.md) carries route commands whose owner_coverage is below the floor (default 0.6) — most route commands should sit near an owning artifact pointer: markdown link, standard path/id, skill path, paper-module path, generated sidecar, or source file. The audit accepts the previous two lines, same line, or following two lines so Rosetta rows may put owner before or after the command. Per std_agent_entry_surface.json::compression_via_projection_contract.rosetta_stone_shape, every route command should pair with an owning_artifact pointer so cold agents can expand the seed. Repair: add markdown links to the routed owner artifacts, route through a generated Rosetta row, or relocate orphan route commands to a routed skill.",
+    "route_pointer_missing_freshness_command": "Warning. An entry surface carries route commands whose freshness_coverage is below the floor (default 0.4) — most route commands should sit near a freshness signal (check_*.py, --check flag, refresh command, or 'freshness' keyword). The audit accepts the previous two lines, same line, or following two lines. Cold agents need a way to verify a routed surface is current; the Rosetta Stone shape requires a freshness_command alongside the route_command. Repair: pair each hub route command with the appropriate `check_*.py`, refresh command, or `--check` invocation. Floor is lower than owner_coverage because not every route command operates against build-projected substrate that has a freshness check; only those that do trigger this finding when missing.",
+    "shared_doctrine_adapter_asymmetry": "Warning. A SHARED-SCOPE doctrine ref (pri_/std_/skill/paper_module classified as `scope_class: shared` by _classify_topology_ref_scope) is missing from at least one actor's reading path. Adapters are NOT required to duplicate shared refs; the warning fires only when no direct nor transitive reachability path exists for at least one actor. Repair: route via AGENTS.md or another shared owner artifact AGENTS.md cites; do NOT duplicate into adapters. The asymmetry policy rewards transitive routing through routed paper modules / skills (`transitive_via_routed_owner`).",
+    "actor_local_doctrine_misrouted": "Warning. An ACTOR-LOCAL doctrine ref (e.g. Claude-specific subagent / UI / harness doctrine, or Codex-specific doctrine) is directly present in some surface but is MISSING from its INTENDED actor's reading path. This is a misrouting case: the ref belongs to an actor whose adapter cannot reach it. Repair: relocate the ref into the intended actor's adapter, or route the intended actor's adapter to the surface that contains it. Distinct from shared_doctrine_adapter_asymmetry, which fires for cross-actor visibility of shared doctrine; this rule fires for same-actor missing-self-doctrine.",
+    "scope_unknown_adapter_asymmetry": "Warning. A doctrine ref has `scope_class: unknown` (no authored triage entry in entrypoint_registry.json::doctrine_ref_scope_overrides yet, no naming heuristic match in _classify_topology_ref_scope) AND is missing from at least one actor's reading path. Repair: classify the ref as `shared` or `actor_local` (with appropriate `actor_scope`) in the entrypoint registry; the audit will then fire the correct narrower warning (shared_doctrine_adapter_asymmetry or actor_local_doctrine_misrouted). Default is unknown so the audit keeps emitting until the owner classifies — silent suppression of unclassified refs is itself a doctrine smell."
+  },
+  "scope_triage_contract": {
+    "source": "codex/doctrine/agent_entrypoints/entrypoint_registry.json::doctrine_ref_scope_overrides",
+    "runtime": "system/lib/agent_entrypoint_audit.py::_classify_topology_ref_scope",
+    "rule": "Known doctrine-ref scope decisions are authored registry data, not hardcoded Python frozensets. Python may keep naming heuristics for obvious actor prefixes, but durable triage belongs in the registry so Atlas/compliance can display and refine the decision surface.",
+    "validation": "./repo-python tools/meta/factory/build_agent_entrypoint_audit.py --check --summary --json"
+  },
+  "resolution_method_semantics": {
+    "probe_order": [
+      "kernel_command",
+      "paper_module_slug",
+      "docs_route",
+      "projection_file",
+      "any_of_tokens",
+      "explicit_token"
+    ],
+    "coverage_rule": "An axis is covered if ANY of its authored resolution methods resolves against the entrypoint's concatenated primary_paths content. Methods fire independently; a single match is sufficient.",
+    "case_handling": "All token probes are lowercase substring matches; paper-module slug matches are exact (underscore-normalized)."
+  },
+  "output_contract": {
+    "audit.json": {
+      "kind": "agent_entrypoint_audit",
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "repair_plan", "entrypoints", "findings", "axes", "sources"],
+      "notes": "One file with the full audit shape; kernel routes slice it."
+    },
+    "summary.json": {
+      "kind": "agent_entrypoint_audit_summary",
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "repair_plan"],
+      "notes": "Compact counts + per-entrypoint status for operator / CI consumption."
+    },
+    "per_entrypoint.json": {
+      "kind": "agent_entrypoint_audit_per_entrypoint",
+      "required_fields": ["kind", "schema_version", "generated_at", "entrypoints"],
+      "notes": "Per-entrypoint axis matrix + findings, without the full registry expansion."
+    }
+  },
+  "compliance_scanner_contract": {
+    "governed_artifact_kind": "agent_entrypoint_audit",
+    "scanner": "system/lib/compliance/agent_entrypoint_audit_adapter.py::scan_agent_entrypoint_audit",
+    "builder": "tools/meta/factory/build_agent_entrypoint_audit.py",
+    "runtime": "system/lib/agent_entrypoint_audit.py",
+    "coverage_path": "codex/hologram/compliance/ledger.json::by_standard[std_agent_entrypoint_audit]",
+    "coverage_inputs": [
+      "codex/standards/std_agent_entrypoint_audit.json",
+      "codex/doctrine/agent_entrypoints/axis_registry.json",
+      "codex/doctrine/agent_entrypoints/entrypoint_registry.json",
+      "codex/doctrine/agent_bootstrap.json",
+      "system/lib/agent_entrypoint_audit.py"
+    ],
+    "finding_policy": {
+      "audit_errors": "Emit error-severity compliance findings and let build_compliance_ledger.py --check fail.",
+      "audit_warnings": "Emit warning-severity compliance findings so Atlas/navigation can route repair without turning warning debt into a hard source gate.",
+      "projection_check_posture": "Generated-region comparison must use build_bootstrap_projection_context(refresh_orchestration=false), matching check_agent_bootstrap_projection.py, so the audit does not self-invalidate by refreshing runtime orchestration while comparing existing markdown."
+    },
+    "navigation_contract": {
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "entry_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "summary_route": "./repo-python kernel.py --agent-entrypoints",
+      "audit_route": "./repo-python kernel.py --agent-entrypoint-audit",
+      "card_route": "./repo-python kernel.py --agent-entrypoint <id>",
+      "cluster_axis": "finding rule / entrypoint id",
+      "authority_posture": "read_only_compliance_projection"
+    }
+  },
+  "kernel_routes": {
+    "--agent-entrypoints": "List entrypoint surfaces with per-axis coverage tiles and summary counts.",
+    "--agent-entrypoint-audit": "Emit full audit record with findings, unresolved axes, and recommended_action.",
+    "--agent-entrypoint": "Open one entrypoint (claude|codex|shared|<id>) with its per-axis coverage and unresolved axes.",
+    "exit_codes": "Commands return 0 on success. `--agent-entrypoint-audit --strict` returns non-zero if any finding severity is 'error'."
+  },
+  "coexistence_with_existing_surfaces": {
+    "agent_bootstrap_projection": "Does not replace. agent_bootstrap_projection renders the live regions in AGENTS.md / CLAUDE.md / CODEX.md from agent_bootstrap.json. This audit measures whether those rendered regions plus the hand-authored prose collectively cover the required axes.",
+    "paper_module_validation": "Does not replace. paper-module validation audits paper-module freshness. This audit audits adapter-entrypoint coverage.",
+    "fact_hologram": "Does not replace. Fact hologram audits volatile numeric claims. This audit audits axis reachability.",
+    "navigation_graph": "Orthogonal. The navigation graph covers frontend view wiring; this covers markdown entrypoint wiring."
+  }
+}

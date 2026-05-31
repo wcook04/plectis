@@ -12,6 +12,7 @@
   "source_refs": [
     "system/lib/navigation_route_intervention.py",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "codex/standards/std_agent_execution_trace.json",
     "codex/standards/std_navigation_contract.json",
     "codex/doctrine/paper_modules/agent_self_observability_plane.md",
@@ -42,6 +43,13 @@
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "path": "source_modules/codex/standards/std_agent_execution_trace.json",
       "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_in_receipt": false
+    },
+    {
+      "source_ref": "system/lib/strict_json.py",
+      "path": "source_modules/system/lib/strict_json.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/strict_json.py",
       "source_import_class": "copied_non_secret_macro_body",
       "body_in_receipt": false
     }

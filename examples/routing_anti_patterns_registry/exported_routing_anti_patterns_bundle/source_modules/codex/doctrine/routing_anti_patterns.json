@@ -1,0 +1,26 @@
+{
+  "kind": "routing_anti_patterns",
+  "version": 1,
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "text": "Using grep, glob, or find as discovery when a kernel route or phase card can narrow the space first."
+    },
+    {
+      "id": "bridge_before_scope",
+      "text": "Using bridge to discover scope before the controller or cohort has already selected refs, files, or slices."
+    },
+    {
+      "id": "zero_write_disk",
+      "text": "Letting zero-write workers persist files instead of returning typed bundles in-tool."
+    },
+    {
+      "id": "ad_hoc_subphase_dirs",
+      "text": "Inventing new top-level subphase directories such as `cohort_wave_001/` or `worker_outputs/`."
+    },
+    {
+      "id": "mode_in_chat_only",
+      "text": "Changing execution mode in chat memory without updating the synth or wave contract."
+    }
+  ]
+}

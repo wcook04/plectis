@@ -1,0 +1,10 @@
+{
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "text": "Missing kind should fail."
+    }
+  ],
+  "expected_negative_case_id": "missing_kind",
+  "version": 1
+}

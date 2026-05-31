@@ -212,6 +212,65 @@ def test_cli_proof_lab_cache_freshness_streams_bundle_inputs_without_rglob(
     assert freshness["stale_input_count"] == 0
 
 
+def test_cli_proof_lab_cache_freshness_skips_symlinked_input_files(
+    tmp_path: Path,
+) -> None:
+    input_dir = tmp_path / "verifier-bundle"
+    input_dir.mkdir()
+    direct = input_dir / "proof_lab_route.json"
+    direct.write_text("{}", encoding="utf-8")
+    outside = tmp_path / "outside_payload.json"
+    outside.write_text('{"outside": true}', encoding="utf-8")
+    symlink = input_dir / "linked_payload.json"
+    try:
+        symlink.symlink_to(outside)
+    except (NotImplementedError, OSError) as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+    receipt = tmp_path / "cached_proof_lab_receipt.json"
+    receipt.write_text("{}", encoding="utf-8")
+    base_mtime_ns = direct.stat().st_mtime_ns
+    os.utime(receipt, ns=(base_mtime_ns + 1_000_000, base_mtime_ns + 1_000_000))
+    os.utime(outside, ns=(base_mtime_ns + 2_000_000, base_mtime_ns + 2_000_000))
+
+    freshness = cli._proof_lab_cache_freshness(str(input_dir), receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 1
+    assert freshness["stale_input_count"] == 0
+    assert symlink not in cli._proof_lab_input_files(str(input_dir))
+
+
+def test_runtime_shell_proof_lab_cache_freshness_skips_symlinked_input_files(
+    tmp_path: Path,
+) -> None:
+    input_dir = tmp_path / runtime_shell.PROOF_LAB_BUNDLE_REF
+    input_dir.mkdir(parents=True)
+    direct = input_dir / "proof_lab_route.json"
+    direct.write_text("{}", encoding="utf-8")
+    outside = tmp_path / "outside_payload.json"
+    outside.write_text('{"outside": true}', encoding="utf-8")
+    symlink = input_dir / "linked_payload.json"
+    try:
+        symlink.symlink_to(outside)
+    except (NotImplementedError, OSError) as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+    receipt = tmp_path / runtime_shell.PROOF_LAB_RECEIPT_REF
+    receipt.parent.mkdir(parents=True)
+    receipt.write_text("{}", encoding="utf-8")
+    base_mtime_ns = direct.stat().st_mtime_ns
+    os.utime(receipt, ns=(base_mtime_ns + 1_000_000, base_mtime_ns + 1_000_000))
+    os.utime(outside, ns=(base_mtime_ns + 2_000_000, base_mtime_ns + 2_000_000))
+
+    freshness = runtime_shell._proof_lab_cache_freshness(tmp_path, receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 1
+    assert freshness["stale_input_count"] == 0
+    assert symlink not in runtime_shell._proof_lab_input_files(tmp_path)
+
+
 def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> None:
     private_tmp_out = "/private/tmp/microcosm-proof-lab"
     host_private_out = "/private/var/folders/wn/example/microcosm-proof-lab"

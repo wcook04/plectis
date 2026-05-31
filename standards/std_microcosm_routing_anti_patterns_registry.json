@@ -1,0 +1,123 @@
+{
+  "anti_claim": "Routing anti-pattern registry rows validate a public navigation failure taxonomy only; they do not authorize route mutation, source mutation, release, provider calls, private-data equivalence, account/session export, or whole-system correctness.",
+  "authority_boundary": "public_routing_anti_patterns_registry_projection_with_copied_non_secret_macro_body_floor",
+  "authority_ceiling": {
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authority": false,
+    "route_policy_mutation_authority": false,
+    "source_mutation_authority": false,
+    "standards_registry_authority": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "raw operator route notes",
+      "provider payload bodies",
+      "account/session state and cookies",
+      "browser/HUD live-access state",
+      "credential values",
+      "recipient-send state"
+    ],
+    "public_inputs": "public anti-pattern ids, explanatory text, source refs, validator refs, negative-case ids, and copied non-secret macro source-module bodies with hashes and anchors",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "authority_overclaim.json",
+      "duplicate_id.json",
+      "missing_kind.json",
+      "missing_text.json",
+      "private_source_leakage.json"
+    ],
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "routing_anti_patterns_registry_result.json",
+    "routing_anti_patterns_registry_board.json",
+    "routing_anti_patterns_registry_validation_receipt.json",
+    "routing_anti_patterns_registry_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
+    ],
+    "used_by_organs": [
+      "routing_anti_patterns_registry"
+    ]
+  },
+  "required_fields": [
+    "kind",
+    "version",
+    "anti_patterns",
+    "id",
+    "text",
+    "source_module_manifest_ref",
+    "negative_case_ids",
+    "authority_ceiling"
+  ],
+  "schema_version": "std_microcosm_routing_anti_patterns_registry_v1",
+  "source_refs": [
+    "src/microcosm_core/organs/routing_anti_patterns_registry.py",
+    "tests/test_routing_anti_patterns_registry.py",
+    "fixtures/first_wave/routing_anti_patterns_registry/input",
+    "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle",
+    "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json",
+    "paper_modules/routing_anti_patterns_registry.md"
+  ],
+  "standard_id": "std_microcosm_routing_anti_patterns_registry",
+  "standard_payload": {
+    "anti_purpose": "A prose-only route warning list that lacks runnable validation, negative cases, source-module manifests, and public/private boundaries.",
+    "compression_bands": [
+      "anti_pattern_id",
+      "source_module_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "routing anti-pattern row admitted without stable id or text",
+      "duplicate anti-pattern ids accepted",
+      "routing anti-pattern registry treated as live route mutation authority",
+      "private route notes, provider payload bodies, secret values, account/session state, browser/HUD live access, or credential-equivalent material exported through public receipts",
+      "source module manifest missing, target body digest stale, or declared anchor absent",
+      "receipt embeds copied macro body text instead of carrying public refs, hashes, counts, and verdicts"
+    ],
+    "ontology": "A public routing anti-pattern registry organ that validates typed navigation failure rows, negative cases, secret-exclusion policy, and copied non-secret macro registry body.",
+    "teleology": "Show how the macro system names reusable navigation failure modes without leaking private route material or pretending a registry card can mutate or release work."
+  },
+  "status": "accepted_public_runtime_standard",
+  "validation_rules": [
+    "The registry must declare kind=routing_anti_patterns and a positive integer version.",
+    "Every anti-pattern row must carry a stable unique id and explanatory text.",
+    "Exported runtime bundle must include source_module_manifest.json and a copied non-secret macro body module whose target hash and anchors validate.",
+    "Private routing bodies, raw voice bodies, provider payload bodies, account/session state, live browser/HUD access, credential material, release authority, provider-call authority, source-mutation authority, route-policy mutation authority, and whole-system correctness claims are rejected.",
+    "Receipts must carry refs, hashes, counts, verdicts, and omission boundaries without embedding copied macro body text."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out receipts/first_wave/routing_anti_patterns_registry --acceptance-out receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.routing_anti_patterns_registry",
+    "runtime_bundle_command": "python -m microcosm_core.organs.routing_anti_patterns_registry run-bundle --input examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle --out receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/routing_anti_patterns_registry.py",
+    "tests/test_routing_anti_patterns_registry.py"
+  ]
+}

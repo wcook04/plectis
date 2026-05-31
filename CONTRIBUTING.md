@@ -68,6 +68,11 @@ scratch parent if a previous run was interrupted. The scratch root stays outside
 the checkout so tests that inspect git ancestry keep their normal cold-clone
 shape.
 
+If you bypass `make` and run separate pytest subsets at the same time, pass a
+unique `--basetemp` to each process. The default raw pytest basetemp is shared
+through `.microcosm/test-tmp/pytest`, so parallel direct invocations can race
+while copying fixture trees even when the code under test is fine.
+
 For the full macro-root development suite, use `make test-all` from a checkout
 where the sibling macro source paths are present.
 This is a broad drift-detection lane rather than the public release floor: it
@@ -142,6 +147,11 @@ the authority boundary until a separate operator decision exists.
   readiness, private-root equivalence, or authority beyond their receipt.
 - Keep compact commands useful before raw receipt trees. A cold reader should
   get an honest answer from cards before drilldown.
+
+When you open a pull request, use `.github/PULL_REQUEST_TEMPLATE.md` as the
+inline checklist for validation evidence, public/private payload exclusions,
+claim boundaries, and standalone source inventory. The template is a guardrail,
+not a release approval surface.
 
 ## Hard Boundaries
 

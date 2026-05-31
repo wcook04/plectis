@@ -145,16 +145,11 @@ def _lazy_organ_module_bindings(refs: dict[str, str]) -> dict[str, _LazyModule]:
 
 RUNTIME_ORGAN_RUNNER_MODULE_REFS = _accepted_organ_runner_module_refs()
 globals().update(_lazy_organ_module_bindings(RUNTIME_ORGAN_RUNNER_MODULE_REFS))
-routing_anti_patterns_registry = globals().get(
-    "routing_anti_patterns_registry",
-    _LazyModule("microcosm_core.organs.routing_anti_patterns_registry"),
-)
 
 
 PASS = "pass"
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 DEFAULT_EVIDENCE_LIST_LIMIT = 25
-PROJECT_OBSERVATORY_EVIDENCE_PREVIEW_LIMIT = 10
 EVIDENCE_CLASS_REGISTRY_REL = Path("core/organ_evidence_classes.json")
 MACRO_PROJECTION_PROTOCOL_REF = Path(
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
@@ -852,9 +847,6 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         receipt_name="exported_voice_to_doctrine_bundle_validation_result.json",
     ),
 )
-RUNTIME_STEPS = tuple(
-    step for step in RUNTIME_STEPS if step.organ_id in RUNTIME_ORGAN_RUNNER_MODULE_REFS
-)
 
 
 def public_root() -> Path:
@@ -1353,11 +1345,6 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         if isinstance(causal.get("evidence"), list)
         else []
     )
-    evidence_summary = (
-        causal.get("evidence_summary", {})
-        if isinstance(causal.get("evidence_summary"), dict)
-        else {}
-    )
     status = (
         PASS
         if model.get("status") == PASS
@@ -1657,9 +1644,6 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             },
             "event_rows_shown": len(events),
             "evidence_rows_shown": len(evidence),
-            "evidence_count": evidence_summary.get("evidence_count"),
-            "evidence_preview_limit": evidence_summary.get("preview_limit"),
-            "evidence_truncated": evidence_summary.get("truncated"),
             "graph": {
                 "node_count": graph_summary.get("node_count"),
                 "edge_count": graph_summary.get("edge_count"),
@@ -2324,44 +2308,6 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         route_rows[0] if route_rows else {},
     )
     route_id = str(selected_route.get("route_id") or "")
-    cache_freshness = project_substrate._compile_source_freshness(
-        project_path,
-        catalog,
-    )
-    freshness_status = cache_freshness.get("status")
-    if freshness_status not in {"current", "missing_cache_marker"}:
-        return {
-            "schema_version": "microcosm_project_compile_fast_cached_card_v1",
-            "status": (
-                "stale_cached_state"
-                if freshness_status == "stale"
-                else "missing_cached_state"
-            ),
-            "card_id": "compile_fast_cached_state",
-            "headline": "repo -> .microcosm",
-            "command": "microcosm compile --card <project>",
-            "full_command": "microcosm compile <project>",
-            "cache_status": (
-                "stale_cached_state"
-                if freshness_status == "stale"
-                else "missing_cache"
-            ),
-            "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
-            "cache_freshness": cache_freshness,
-            "state_ref": project_substrate.STATE_DIR,
-            "selected_route_id": route_id or None,
-            "source_files_mutated": False,
-            "safe_to_show": {
-                "project_local_state_refs_visible": True,
-                "route_metadata_visible": True,
-                "receipt_refs_visible": True,
-                "source_files_mutated": False,
-                "provider_calls_authorized": False,
-                "release_authorized": False,
-                "proof_correctness_claim": False,
-                "freshness_certified": False,
-            },
-        }
     work_rows = project_substrate._load_work_items(project_path)
     selected_work = next(
         (row for row in work_rows if row.get("route_id") == route_id),
@@ -2378,7 +2324,6 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
         "full_command": "microcosm compile <project>",
         "cache_status": "cached_state_read",
         "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
-        "cache_freshness": cache_freshness,
         "state_ref": project_substrate.STATE_DIR,
         "file_count": catalog.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
@@ -4643,7 +4588,6 @@ def _runtime_status_card(
     project_path: str | Path | None = None,
     *,
     project_ref: str | Path | None = None,
-    project_overlay: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     front_door = (
         status.get("front_door", {})
@@ -5041,8 +4985,7 @@ def _runtime_status_card(
         project_ref = _project_command_ref(
             project_ref if project_ref is not None else project_path
         )
-        if not isinstance(project_overlay, dict):
-            project_overlay = _project_status_overlay(project_path)
+        project_overlay = _project_status_overlay(project_path)
         selected_route_id = project_overlay.get("selected_route_id")
         project_state_summary = _replace_project_placeholder(
             _compact_project_status_overlay(project_overlay),
@@ -6188,46 +6131,6 @@ class RuntimeShell:
             self.workingness_map(persist_receipt=False)
         )
 
-    def _status_card_source_payload_from_parts(
-        self,
-        *,
-        adapter_backed_rows: list[dict[str, Any]],
-        truth_accounting: dict[str, Any],
-        product_steps: list[RuntimeStep],
-        proof_lab: dict[str, Any],
-        body_import_floor: dict[str, Any],
-        workingness_summary: dict[str, Any],
-        front_door: dict[str, Any],
-        routes: list[dict[str, Any]],
-        workitems: list[dict[str, Any]],
-        evidence_count: int,
-    ) -> dict[str, Any]:
-        return {
-            "schema_version": "microcosm_runtime_status_card_source_v1",
-            "status": PASS
-            if len(adapter_backed_rows) == len(product_steps)
-            and body_import_floor.get("status") == PASS
-            else "blocked",
-            "posture": "executable_research_prototype",
-            "front_door": front_door,
-            "first_screen_proof_lab": proof_lab,
-            "macro_body_import_floor": body_import_floor,
-            "workingness_summary": workingness_summary,
-            "adapter_backed_organ_count": len(adapter_backed_rows),
-            "adapter_backed_count_is_product_progress": False,
-            "real_substrate_progress_count": truth_accounting[
-                "real_substrate_progress_count"
-            ],
-            "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
-            "truth_accounting": truth_accounting,
-            "copied_non_secret_macro_body_material_count": body_import_floor.get(
-                "copied_non_secret_macro_body_material_count"
-            ),
-            "route_count": len(routes),
-            "workitem_count": len(workitems),
-            "evidence_count": evidence_count,
-        }
-
     def status(
         self,
         project_path: str | Path | None = None,
@@ -6255,18 +6158,6 @@ class RuntimeShell:
         front_door = _cold_reader_first_screen_card(
             project_ref="<project>",
             proof_lab=proof_lab,
-        )
-        status_card_source_payload = self._status_card_source_payload_from_parts(
-            adapter_backed_rows=adapter_backed_rows,
-            truth_accounting=truth_accounting,
-            product_steps=product_steps,
-            proof_lab=proof_lab,
-            body_import_floor=body_import_floor,
-            workingness_summary=workingness_summary,
-            front_door=front_door,
-            routes=routes,
-            workitems=workitems,
-            evidence_count=evidence_count,
         )
         payload = {
             "schema_version": "microcosm_runtime_status_v1",
@@ -6554,29 +6445,18 @@ class RuntimeShell:
                 "open evidence only when drilldown is needed",
             ],
         }
-        project_overlay = (
-            _project_status_overlay(project_path)
-            if project_path is not None
-            else None
-        )
         status_card = _runtime_status_card(
-            status_card_source_payload,
+            self._status_card_source_payload(),
             project_path=project_path,
             project_ref=project_ref,
-            project_overlay=project_overlay,
         )
         payload["status_card"] = status_card
         if project_path is not None:
             public_project_ref = _project_command_ref(
                 project_ref if project_ref is not None else project_path
             )
-            raw_project_overlay = (
-                project_overlay
-                if isinstance(project_overlay, dict)
-                else _project_status_overlay(project_path)
-            )
             project_overlay = _replace_project_placeholder(
-                raw_project_overlay,
+                _project_status_overlay(project_path),
                 public_project_ref,
             )
             payload["project_ref"] = public_project_ref
@@ -6639,18 +6519,31 @@ class RuntimeShell:
             project_ref="<project>",
             proof_lab=proof_lab,
         )
-        return self._status_card_source_payload_from_parts(
-            adapter_backed_rows=adapter_backed_rows,
-            truth_accounting=truth_accounting,
-            product_steps=product_steps,
-            proof_lab=proof_lab,
-            body_import_floor=body_import_floor,
-            workingness_summary=workingness_summary,
-            front_door=front_door,
-            routes=self.routes(),
-            workitems=self.workitems(),
-            evidence_count=self.evidence_count(),
-        )
+        return {
+            "schema_version": "microcosm_runtime_status_card_source_v1",
+            "status": PASS
+            if len(adapter_backed_rows) == len(product_steps)
+            and body_import_floor.get("status") == PASS
+            else "blocked",
+            "posture": "executable_research_prototype",
+            "front_door": front_door,
+            "first_screen_proof_lab": proof_lab,
+            "macro_body_import_floor": body_import_floor,
+            "workingness_summary": workingness_summary,
+            "adapter_backed_organ_count": len(adapter_backed_rows),
+            "adapter_backed_count_is_product_progress": False,
+            "real_substrate_progress_count": truth_accounting[
+                "real_substrate_progress_count"
+            ],
+            "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+            "truth_accounting": truth_accounting,
+            "copied_non_secret_macro_body_material_count": body_import_floor.get(
+                "copied_non_secret_macro_body_material_count"
+            ),
+            "route_count": len(self.routes()),
+            "workitem_count": len(self.workitems()),
+            "evidence_count": self.evidence_count(),
+        }
 
     def status_card(
         self,
@@ -6676,7 +6569,7 @@ class RuntimeShell:
         patterns = self.patterns()
         routes = self.routes()
         workitems = self.workitems()
-        evidence_count = self.evidence_count()
+        evidence = self.evidence()
         proof_lab = _proof_lab_first_screen_card(self.root)
         body_import_floor = _macro_projection_body_import_floor(self.root)
         return {
@@ -7299,7 +7192,7 @@ class RuntimeShell:
                 "pattern_count": len(patterns),
                 "route_count": len(routes),
                 "workitem_count": len(workitems),
-                "evidence_count": evidence_count,
+                "evidence_count": len(evidence),
                 "evidence_class_count": len(_evidence_class_counts(adapter_backed)),
             },
             "truth_accounting": truth_accounting,
@@ -18929,8 +18822,6 @@ class RuntimeShell:
         *,
         persist_receipts: bool = True,
         tour_payload_mode: str = "full",
-        tour_payload: dict[str, Any] | None = None,
-        status_payload: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         if tour_payload_mode not in {"full", "card"}:
             raise ValueError("tour_payload_mode must be 'full' or 'card'")
@@ -18939,28 +18830,14 @@ class RuntimeShell:
             if project is not None
             else None
         )
-        project_command_ref = (
-            _public_project_command_ref(project_path, self.root)
-            if project_path is not None
-            else "<project>"
-        )
+        status = self.status()
         tour_project = project_path if project_path is not None else DEFAULT_PROJECT_REL
-        if isinstance(tour_payload, dict):
-            tour = tour_payload
-        elif tour_payload_mode == "card":
+        if tour_payload_mode == "card":
             tour = self.tour_card(tour_project)
         else:
             tour = self.tour(
                 tour_project,
                 persist_receipt=persist_receipts,
-            )
-        if isinstance(status_payload, dict):
-            status = status_payload
-        else:
-            status = (
-                self.status(project_path, project_ref=project_command_ref)
-                if project_path is not None
-                else self.status()
             )
         tour_front_door_status = (
             tour.get("front_door_status", {})
@@ -19083,7 +18960,7 @@ class RuntimeShell:
                 ),
             },
             "front_door_status": front_door_status,
-            "status_card_ref": f"microcosm status --card {project_command_ref}",
+            "status_card_ref": "microcosm status --card <project>",
             "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
             "runtime_bridge": _compact_observatory_payload(
@@ -19246,28 +19123,13 @@ class RuntimeShell:
         observe = project_substrate.observe_project(
             project_path, refresh_architecture=False
         )
-        evidence = project_substrate.list_evidence(
-            project_path,
-            limit=PROJECT_OBSERVATORY_EVIDENCE_PREVIEW_LIMIT,
-        )
+        evidence = project_substrate.list_evidence(project_path)
         pattern_bindings = _rows(explanation, "pattern_bindings")
         standard_bindings = _rows(explanation, "standard_bindings")
         work_event_refs = selected_work.get("event_refs", []) if isinstance(selected_work, dict) else []
         work_evidence_refs = selected_work.get("evidence_refs", []) if isinstance(selected_work, dict) else []
         event_rows = _rows(observe, "events")
         evidence_rows = _rows(evidence, "evidence")
-        evidence_preview_rows = evidence_rows[
-            :PROJECT_OBSERVATORY_EVIDENCE_PREVIEW_LIMIT
-        ]
-        evidence_count = evidence.get("evidence_count")
-        if not isinstance(evidence_count, int):
-            evidence_count = len(evidence_preview_rows)
-        returned_evidence_count = evidence.get("returned_evidence_count")
-        if not isinstance(returned_evidence_count, int):
-            returned_evidence_count = len(evidence_preview_rows)
-        evidence_limit = evidence.get("limit")
-        if not isinstance(evidence_limit, int):
-            evidence_limit = PROJECT_OBSERVATORY_EVIDENCE_PREVIEW_LIMIT
         causal_events = [
             row
             for row in event_rows
@@ -19303,7 +19165,7 @@ class RuntimeShell:
             {
                 "project_summary": {
                     "project_id": catalog.get("project_id") or project_path.name,
-                    "project_ref": project_command_ref,
+                    "project_ref": ".",
                     "status": PASS,
                     "state_ref": project_substrate.STATE_DIR,
                     "local_state_refs": local_state_refs,
@@ -19351,9 +19213,7 @@ class RuntimeShell:
                         if route_id
                         else "microcosm explain <project> <selected_route_id>"
                     ),
-                    "status_card_ref": (
-                        f"microcosm status --card {project_command_ref}"
-                    ),
+                    "status_card_ref": "microcosm status --card <project>",
                     "front_door_status_ref": (
                         "microcosm tour <project>::front_door_status"
                     ),
@@ -19446,18 +19306,7 @@ class RuntimeShell:
                         "evidence_refs": work_evidence_refs if isinstance(work_evidence_refs, list) else [],
                     },
                     "events": causal_events,
-                    "evidence": evidence_preview_rows,
-                    "evidence_summary": {
-                        "schema_version": "microcosm_project_observatory_evidence_summary_v1",
-                        "list_mode": "bounded_project_observatory_preview",
-                        "evidence_count": evidence_count,
-                        "returned_evidence_count": returned_evidence_count,
-                        "preview_row_count": len(evidence_preview_rows),
-                        "preview_limit": evidence_limit,
-                        "truncated": evidence.get("truncated") is True,
-                        "full_drilldown_endpoint": "/project/evidence",
-                        "full_drilldown_command": "microcosm evidence list <project>",
-                    },
+                    "evidence": evidence_rows[-10:],
                     "authority_boundary": explanation.get("authority_boundary")
                     or "project_local_projection_not_source_authority",
                 },
@@ -19553,11 +19402,6 @@ class RuntimeShell:
         standard_bindings = causal.get("standard_bindings", []) if isinstance(causal.get("standard_bindings"), list) else []
         events = causal.get("events", []) if isinstance(causal.get("events"), list) else []
         evidence = causal.get("evidence", []) if isinstance(causal.get("evidence"), list) else []
-        evidence_summary = (
-            causal.get("evidence_summary", {})
-            if isinstance(causal.get("evidence_summary"), dict)
-            else {}
-        )
         project_python_lens = model.get("python_lens", {}) if isinstance(model.get("python_lens"), dict) else {}
         python_route_rows = (
             project_python_lens.get("route_rows", [])
@@ -20699,7 +20543,7 @@ class RuntimeShell:
           <div class="node"><strong>State Write Proof</strong><span>{html.escape(_safe_text(state_write_proof.get("status")))} · <code>{html.escape(public_project_ref(state_write_proof.get("state_write_result_ref") or "microcosm tour --card <project>::state_write_result"))}</code></span></div>
           <div class="node"><strong>Work</strong><span>{html.escape(_safe_text(work.get("work_id") or "not yet created"))}</span></div>
           <div class="node"><strong>Events</strong><span>{len(events)} shown</span></div>
-          <div class="node"><strong>Evidence</strong><span>{len(evidence)} shown / {html.escape(_safe_text(evidence_summary.get("evidence_count") or len(evidence)))} refs</span></div>
+          <div class="node"><strong>Evidence</strong><span>{len(evidence)} refs</span></div>
           <div class="node"><strong>Authority</strong><span><code>/authority</code></span></div>
           <div class="node"><strong>Tour</strong><span><code>/tour</code> · {html.escape(_safe_text(tour.get("time_budget_minutes")))} min</span></div>
           <div class="node"><strong>Prediction</strong><span><code>/prediction</code> · {html.escape(_safe_text(prediction_lens.get("status")))}</span></div>
@@ -21562,11 +21406,6 @@ class RuntimeShell:
         observatory_cache: dict[str, Any] = {}
         authority_cache_lock = threading.Lock()
         state_prime_lock = threading.Lock()
-        spine_cache_lock = threading.Lock()
-        status_cache_lock = threading.Lock()
-        workingness_cache_lock = threading.Lock()
-        runtime_lens_cache_lock = threading.Lock()
-        project_view_cache_lock = threading.Lock()
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
             if project_path is None:
@@ -21586,34 +21425,12 @@ class RuntimeShell:
             model = observatory_cache.get("model")
             if isinstance(model, dict):
                 return model
-            cached_tour = observatory_cache.get("tour_card")
-            cached_status = observatory_cache.get("status_payload")
             model = shell.project_observatory(
                 project_path,
                 persist_receipts=False,
                 tour_payload_mode="card" if project_path is not None else "full",
-                tour_payload=(
-                    cached_tour
-                    if project_path is not None and isinstance(cached_tour, dict)
-                    else None
-                ),
-                status_payload=cached_status if isinstance(cached_status, dict) else None,
             )
             observatory_cache["model"] = model
-            tour = model.get("tour")
-            if isinstance(tour, dict):
-                if project_path is not None:
-                    observatory_cache["tour_card"] = tour
-                else:
-                    observatory_cache["tour_payload"] = tour
-            runtime_status = model.get("runtime_status")
-            status_card = (
-                runtime_status.get("status_card")
-                if isinstance(runtime_status, dict)
-                else None
-            )
-            if isinstance(status_card, dict):
-                observatory_cache["status_card"] = status_card
             return model
 
         def cached_observatory_html() -> str:
@@ -21646,210 +21463,6 @@ class RuntimeShell:
             observatory_cache["runtime_bridge"] = payload
             return payload
 
-        def cached_runtime_lens_payload(
-            cache_key: str,
-            builder: Callable[[], dict[str, Any]],
-        ) -> dict[str, Any]:
-            payload = observatory_cache.get(cache_key)
-            if isinstance(payload, dict):
-                return payload
-            with runtime_lens_cache_lock:
-                payload = observatory_cache.get(cache_key)
-                if isinstance(payload, dict):
-                    return payload
-                payload = builder()
-                observatory_cache[cache_key] = payload
-                return payload
-
-        def cached_project_view_payload(
-            cache_key: str,
-            builder: Callable[[], dict[str, Any]],
-        ) -> dict[str, Any]:
-            payload = observatory_cache.get(cache_key)
-            if isinstance(payload, dict):
-                return payload
-            with project_view_cache_lock:
-                payload = observatory_cache.get(cache_key)
-                if isinstance(payload, dict):
-                    return payload
-                payload = builder()
-                observatory_cache[cache_key] = payload
-                return payload
-
-        def kernel_payload() -> dict[str, Any]:
-            return {
-                **architecture_kernel.load_kernel_manifest(shell.root),
-                "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(
-                    shell.root
-                ),
-            }
-
-        runtime_lens_builders: dict[
-            str,
-            tuple[str, Callable[[], dict[str, Any]]],
-        ] = {
-            "/prediction": ("runtime_lens_prediction", shell.prediction_lens),
-            "/market-boundary": ("runtime_lens_market_boundary", shell.market_boundary),
-            "/corpus": ("runtime_lens_corpus", shell.corpus_lens),
-            "/trace": ("runtime_lens_trace", shell.trace_lens),
-            "/repair-loop": ("runtime_lens_repair_loop", shell.repair_loop),
-            "/evidence-cells": ("runtime_lens_evidence_cells", shell.evidence_cells),
-            "/proof-lab": ("runtime_lens_proof_lab", shell.proof_lab),
-            "/verifier-lab-kernel": ("runtime_lens_proof_lab", shell.proof_lab),
-            "/proof-loop-depth": ("runtime_lens_proof_loop_depth", shell.proof_loop_depth),
-            "/verifier-lab-execution-spine": (
-                "runtime_lens_verifier_lab_execution_spine",
-                shell.verifier_lab_execution_spine_lens,
-            ),
-            "/landing-replay": ("runtime_lens_landing_replay", shell.landing_replay),
-            "/view-quality": ("runtime_lens_view_quality", shell.view_quality),
-            "/projection-safety": ("runtime_lens_projection_safety", shell.projection_safety),
-            "/drift-control": ("runtime_lens_drift_control", shell.projection_drift),
-            "/spatial-simulation": (
-                "runtime_lens_spatial_simulation",
-                shell.spatial_simulation,
-            ),
-            "/circuit-attribution": (
-                "runtime_lens_circuit_attribution",
-                shell.circuit_attribution,
-            ),
-            "/route-cleanup": ("runtime_lens_route_cleanup", shell.route_cleanup),
-            "/projection-import-map": (
-                "runtime_lens_projection_import_map",
-                shell.projection_import_map,
-            ),
-            "/import-projector": ("runtime_lens_import_projector", shell.import_projector),
-            "/option-surface-lens": (
-                "runtime_lens_option_surface",
-                shell.option_surface_lens,
-            ),
-            "/stripping-guard": ("runtime_lens_stripping_guard", shell.stripping_guard),
-            "/standards-control": (
-                "runtime_lens_standards_control",
-                shell.standards_control,
-            ),
-            "/hook-coverage": ("runtime_lens_hook_coverage", shell.hook_coverage),
-            "/replay-gauntlet": ("runtime_lens_replay_gauntlet", shell.replay_gauntlet),
-            "/benchmark-lab": ("runtime_lens_benchmark_lab", shell.benchmark_lab),
-            "/legibility-scorecard": (
-                "runtime_lens_legibility_scorecard",
-                shell.legibility_scorecard,
-            ),
-            "/intake": ("runtime_lens_intake", shell.intake),
-            "/intake-card": ("runtime_lens_intake_card", shell.intake_card),
-            "/reveal": ("runtime_lens_reveal", shell.reveal),
-            "/kernel": ("runtime_lens_kernel", kernel_payload),
-            "/organs": (
-                "runtime_lens_organs",
-                lambda: {
-                    "schema_version": "microcosm_runtime_organs_v1",
-                    "organs": shell.organs(),
-                },
-            ),
-            "/patterns": (
-                "runtime_lens_patterns",
-                lambda: {
-                    "schema_version": "microcosm_runtime_patterns_v1",
-                    "patterns": shell.patterns(),
-                },
-            ),
-            "/routes": (
-                "runtime_lens_routes",
-                lambda: {
-                    "schema_version": "microcosm_runtime_routes_v1",
-                    "routes": shell.routes(),
-                },
-            ),
-            "/workitems": (
-                "runtime_lens_workitems",
-                lambda: {
-                    "schema_version": "microcosm_runtime_workitems_v1",
-                    "workitems": shell.workitems(),
-                },
-            ),
-        }
-
-        project_view_builders: dict[
-            str,
-            tuple[str, Callable[[], dict[str, Any]]],
-        ] = {}
-        if project_path is not None:
-            served_project_path = project_path
-            project_view_builders = {
-                "/project/observe": (
-                    "project_view_observe",
-                    lambda: project_substrate.observe_project(
-                        served_project_path,
-                        refresh_architecture=False,
-                    ),
-                ),
-                "/project/architecture": (
-                    "project_view_architecture",
-                    lambda: project_substrate.architecture_project(served_project_path),
-                ),
-                "/project/graph": (
-                    "project_view_graph",
-                    lambda: project_substrate.state_graph(served_project_path),
-                ),
-                "/project/catalog": (
-                    "project_view_catalog",
-                    lambda: project_substrate.catalog_project(served_project_path),
-                ),
-                "/project/python-lens": (
-                    "project_view_python_lens",
-                    lambda: project_substrate.python_lens_card(served_project_path),
-                ),
-                "/project/patterns": (
-                    "project_view_patterns",
-                    lambda: project_substrate.discover_patterns(served_project_path),
-                ),
-                "/project/routes": (
-                    "project_view_routes",
-                    lambda: project_substrate.propose_routes(served_project_path),
-                ),
-                "/project/workitems": (
-                    "project_view_workitems",
-                    lambda: {
-                        "schema_version": "microcosm_project_workitems_view_v1",
-                        "status": PASS,
-                        "work_items": project_substrate._load_work_items(
-                            served_project_path
-                        ),
-                    },
-                ),
-            }
-
-        def cached_project_view_path(path: str) -> dict[str, Any]:
-            cached_builder = project_view_builders.get(path)
-            if cached_builder is None:
-                return {}
-            cache_key, builder = cached_builder
-            return cached_project_view_payload(cache_key, builder)
-
-        def cached_spine_payload() -> dict[str, Any]:
-            payload = observatory_cache.get("spine_payload")
-            if isinstance(payload, dict):
-                return payload
-            with spine_cache_lock:
-                payload = observatory_cache.get("spine_payload")
-                if isinstance(payload, dict):
-                    return payload
-                payload = shell.spine()
-                observatory_cache["spine_payload"] = payload
-                return payload
-
-        def cached_spine_card() -> dict[str, Any]:
-            card = observatory_cache.get("spine_card")
-            if isinstance(card, dict):
-                return card
-            with spine_cache_lock:
-                card = observatory_cache.get("spine_card")
-                if isinstance(card, dict):
-                    return card
-                card = shell.spine_card()
-                observatory_cache["spine_card"] = card
-                return card
-
         def cached_authority_payload() -> dict[str, Any]:
             payload = observatory_cache.get("authority_payload")
             if isinstance(payload, dict):
@@ -21868,101 +21481,17 @@ class RuntimeShell:
                 observatory_cache["authority_payload"] = payload
                 return payload
 
-        def cached_authority_card() -> dict[str, Any]:
-            card = observatory_cache.get("authority_card")
-            if isinstance(card, dict):
-                return card
-            with authority_cache_lock:
-                card = observatory_cache.get("authority_card")
-                if isinstance(card, dict):
-                    return card
-                card = shell.authority_card()
-                observatory_cache["authority_card"] = card
-                return card
-
         def warm_authority_payload() -> None:
             cached_authority_payload()
-
-        def cached_workingness_payload() -> dict[str, Any]:
-            payload = observatory_cache.get("workingness_payload")
-            if isinstance(payload, dict):
-                return payload
-            with workingness_cache_lock:
-                payload = observatory_cache.get("workingness_payload")
-                if isinstance(payload, dict):
-                    return payload
-                payload = shell.workingness_map(persist_receipt=False)
-                observatory_cache["workingness_payload"] = payload
-                return payload
-
-        def cached_workingness_card() -> dict[str, Any]:
-            card = observatory_cache.get("workingness_card")
-            if isinstance(card, dict):
-                return card
-            with workingness_cache_lock:
-                card = observatory_cache.get("workingness_card")
-                if isinstance(card, dict):
-                    return card
-                payload = observatory_cache.get("workingness_payload")
-                if not isinstance(payload, dict):
-                    payload = shell.workingness_map(persist_receipt=False)
-                    observatory_cache["workingness_payload"] = payload
-                card = _workingness_command_speed_card(payload)
-                observatory_cache["workingness_card"] = card
-                return card
-
-        def _cached_status_card_from_payload() -> dict[str, Any] | None:
-            payload = observatory_cache.get("status_payload")
-            if not isinstance(payload, dict):
-                return None
-            card = payload.get("status_card")
-            if not isinstance(card, dict):
-                return None
-            observatory_cache["status_card"] = card
-            return card
-
-        def _served_status_card_response(card: dict[str, Any]) -> dict[str, Any]:
-            ensure_project_first_screen_state()
-            return card
-
-        def cached_status_payload() -> dict[str, Any]:
-            payload = observatory_cache.get("status_payload")
-            if isinstance(payload, dict):
-                return payload
-            with status_cache_lock:
-                payload = observatory_cache.get("status_payload")
-                if isinstance(payload, dict):
-                    return payload
-                if project_path is not None:
-                    payload = shell.status(
-                        project_path,
-                        project_ref=served_project_ref,
-                    )
-                else:
-                    payload = shell.status()
-                observatory_cache["status_payload"] = payload
-                if not isinstance(observatory_cache.get("status_card"), dict):
-                    _cached_status_card_from_payload()
-                return payload
 
         def cached_status_card() -> dict[str, Any]:
             card = observatory_cache.get("status_card")
             if isinstance(card, dict):
-                return _served_status_card_response(card)
-            card = _cached_status_card_from_payload()
-            if isinstance(card, dict):
-                return _served_status_card_response(card)
-            with status_cache_lock:
-                card = observatory_cache.get("status_card")
-                if isinstance(card, dict):
-                    return _served_status_card_response(card)
-                card = _cached_status_card_from_payload()
-                if isinstance(card, dict):
-                    return _served_status_card_response(card)
-                ensure_project_first_screen_state()
-                card = shell.status_card(project_path, project_ref=served_project_ref)
-                observatory_cache["status_card"] = card
                 return card
+            ensure_project_first_screen_state()
+            card = shell.status_card(project_path, project_ref=served_project_ref)
+            observatory_cache["status_card"] = card
+            return card
 
         def cached_first_screen_full_card() -> dict[str, Any]:
             card = observatory_cache.get("first_screen_full_card")
@@ -21991,10 +21520,7 @@ class RuntimeShell:
             cached = observatory_cache.get("landing_work_transaction")
             if isinstance(cached, dict):
                 return cached
-            workitem_payload = cached_project_view_path("/project/workitems")
-            work_rows = workitem_payload.get("work_items", [])
-            if not isinstance(work_rows, list):
-                work_rows = []
+            work_rows = project_substrate._load_work_items(project_path)
             selected_work = _select_observatory_work_transaction(
                 work_rows,
                 selected_route_id,
@@ -22064,7 +21590,9 @@ class RuntimeShell:
                 else "/project/explain/<selected_route_id>"
             )
             work_transaction = cached_landing_work_transaction(selected_route_id)
-            observe_payload = cached_project_view_path("/project/observe")
+            observe_payload = project_substrate.observe_project(
+                project_path, refresh_architecture=False
+            )
             observe_causal = (
                 observe_payload.get("causal_chain", {})
                 if isinstance(observe_payload.get("causal_chain"), dict)
@@ -22410,19 +21938,12 @@ class RuntimeShell:
             return body
 
         def cached_tour_payload() -> dict[str, Any]:
+            if project_path is None:
+                return shell.tour(DEFAULT_PROJECT_REL)
             cached_model = observatory_cache.get("model")
             tour = cached_model.get("tour") if isinstance(cached_model, dict) else {}
             if isinstance(tour, dict) and tour:
-                if project_path is None:
-                    observatory_cache["tour_payload"] = tour
                 return tour
-            if project_path is None:
-                tour_payload = observatory_cache.get("tour_payload")
-                if isinstance(tour_payload, dict):
-                    return tour_payload
-                tour_payload = shell.tour(DEFAULT_PROJECT_REL)
-                observatory_cache["tour_payload"] = tour_payload
-                return tour_payload
             return ensure_project_first_screen_state()
 
         class Handler(BaseHTTPRequestHandler):
@@ -22567,32 +22088,124 @@ class RuntimeShell:
                         else cached_observatory_html(),
                     )
                 elif path == "/status":
-                    self._send(200, cached_status_payload())
+                    payload = shell.status()
+                    if project_path is not None:
+                        payload["project_front_door_status"] = (
+                            _project_status_overlay(project_path)
+                        )
+                    self._send(200, payload)
                 elif path == "/spine":
-                    self._send(200, cached_spine_payload())
+                    self._send(200, shell.spine())
                 elif path == "/spine-card":
-                    self._send(200, cached_spine_card())
+                    self._send(200, shell.spine_card())
                 elif path == "/tour":
                     self._send(200, cached_tour_payload())
                 elif path == "/authority":
                     self._send(200, cached_authority_payload())
                 elif path == "/authority-card":
-                    self._send(200, cached_authority_card())
+                    self._send(200, shell.authority_card())
                 elif path == WORKINGNESS_CARD_ENDPOINT:
-                    self._send(200, cached_workingness_card())
+                    self._send(200, shell.workingness_card())
                 elif path == WORKINGNESS_ENDPOINT:
-                    self._send(200, cached_workingness_payload())
-                elif path in runtime_lens_builders:
-                    cache_key, builder = runtime_lens_builders[path]
-                    self._send(200, cached_runtime_lens_payload(cache_key, builder))
+                    self._send(200, shell.workingness_map())
+                elif path == "/prediction":
+                    self._send(200, shell.prediction_lens())
+                elif path == "/market-boundary":
+                    self._send(200, shell.market_boundary())
+                elif path == "/corpus":
+                    self._send(200, shell.corpus_lens())
+                elif path == "/trace":
+                    self._send(200, shell.trace_lens())
+                elif path == "/repair-loop":
+                    self._send(200, shell.repair_loop())
+                elif path == "/evidence-cells":
+                    self._send(200, shell.evidence_cells())
+                elif path in {"/proof-lab", "/verifier-lab-kernel"}:
+                    self._send(200, shell.proof_lab())
+                elif path == "/proof-loop-depth":
+                    self._send(200, shell.proof_loop_depth())
+                elif path == "/verifier-lab-execution-spine":
+                    self._send(200, shell.verifier_lab_execution_spine_lens())
+                elif path == "/landing-replay":
+                    self._send(200, shell.landing_replay())
+                elif path == "/view-quality":
+                    self._send(200, shell.view_quality())
+                elif path == "/projection-safety":
+                    self._send(200, shell.projection_safety())
+                elif path == "/drift-control":
+                    self._send(200, shell.projection_drift())
+                elif path == "/spatial-simulation":
+                    self._send(200, shell.spatial_simulation())
+                elif path == "/circuit-attribution":
+                    self._send(200, shell.circuit_attribution())
+                elif path == "/route-cleanup":
+                    self._send(200, shell.route_cleanup())
+                elif path == "/projection-import-map":
+                    self._send(200, shell.projection_import_map())
+                elif path == "/import-projector":
+                    self._send(200, shell.import_projector())
+                elif path == "/option-surface-lens":
+                    self._send(200, shell.option_surface_lens())
+                elif path == "/stripping-guard":
+                    self._send(200, shell.stripping_guard())
+                elif path == "/standards-control":
+                    self._send(200, shell.standards_control())
+                elif path == "/hook-coverage":
+                    self._send(200, shell.hook_coverage())
+                elif path == "/replay-gauntlet":
+                    self._send(200, shell.replay_gauntlet())
+                elif path == "/benchmark-lab":
+                    self._send(200, shell.benchmark_lab())
+                elif path == "/legibility-scorecard":
+                    self._send(200, shell.legibility_scorecard())
+                elif path == "/intake":
+                    self._send(200, shell.intake())
+                elif path == "/intake-card":
+                    self._send(200, shell.intake_card())
+                elif path == "/reveal":
+                    self._send(200, shell.reveal())
+                elif path == "/kernel":
+                    self._send(
+                        200,
+                        {
+                            **architecture_kernel.load_kernel_manifest(shell.root),
+                            "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(shell.root),
+                        },
+                    )
                 elif path == "/project/status" and project_path is not None:
                     self._send(200, cached_status_card())
                 elif path == "/project/first-screen" and project_path is not None:
                     self._send(200, cached_first_screen_card())
                 elif path == "/project/first-screen-full" and project_path is not None:
                     self._send(200, cached_first_screen_full_card())
-                elif path in project_view_builders:
-                    self._send(200, cached_project_view_path(path))
+                elif path == "/project/observe" and project_path is not None:
+                    self._send(
+                        200,
+                        project_substrate.observe_project(
+                            project_path, refresh_architecture=False
+                        ),
+                    )
+                elif path == "/project/architecture" and project_path is not None:
+                    self._send(200, project_substrate.architecture_project(project_path))
+                elif path == "/project/graph" and project_path is not None:
+                    self._send(200, project_substrate.state_graph(project_path))
+                elif path == "/project/catalog" and project_path is not None:
+                    self._send(200, project_substrate.catalog_project(project_path))
+                elif path == "/project/python-lens" and project_path is not None:
+                    self._send(200, project_substrate.python_lens_card(project_path))
+                elif path == "/project/patterns" and project_path is not None:
+                    self._send(200, project_substrate.discover_patterns(project_path))
+                elif path == "/project/routes" and project_path is not None:
+                    self._send(200, project_substrate.propose_routes(project_path))
+                elif path == "/project/workitems" and project_path is not None:
+                    self._send(
+                        200,
+                        {
+                            "schema_version": "microcosm_project_workitems_view_v1",
+                            "status": PASS,
+                            "work_items": project_substrate._load_work_items(project_path),
+                        },
+                    )
                 elif path == "/project/evidence" and project_path is not None:
                     limit, error = self._evidence_limit_from_query()
                     if error is not None:
@@ -22614,6 +22227,14 @@ class RuntimeShell:
                     self._send(200, cached_observatory_model())
                 elif path.startswith("/project/explain/") and project_path is not None:
                     self._send(200, project_substrate.explain_route(project_path, unquote(path.removeprefix("/project/explain/"))))
+                elif path == "/organs":
+                    self._send(200, {"schema_version": "microcosm_runtime_organs_v1", "organs": shell.organs()})
+                elif path == "/patterns":
+                    self._send(200, {"schema_version": "microcosm_runtime_patterns_v1", "patterns": shell.patterns()})
+                elif path == "/routes":
+                    self._send(200, {"schema_version": "microcosm_runtime_routes_v1", "routes": shell.routes()})
+                elif path == "/workitems":
+                    self._send(200, {"schema_version": "microcosm_runtime_workitems_v1", "workitems": shell.workitems()})
                 elif path == "/evidence":
                     limit, error = self._evidence_limit_from_query()
                     if error is not None:
@@ -22628,10 +22249,7 @@ class RuntimeShell:
             def do_POST(self) -> None:
                 path = urlparse(self.path).path
                 if path == "/demo/run":
-                    demo_project = project_path if project_path is not None else DEFAULT_PROJECT_REL
-                    result = shell.run_demo(demo_project)
-                    observatory_cache.clear()
-                    self._send(200, result)
+                    self._send(200, shell.run_demo())
                     return
                 if path == "/project/work/run" and project_path is not None:
                     result = project_substrate.run_work(project_path)

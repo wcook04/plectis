@@ -22,16 +22,31 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
     assert "doctrine, evidence fixtures, source capsules, and validation shell" in (
         quickstart
     )
+    assert "./bootstrap.sh" in quickstart
+    assert "./bootstrap.sh --dry-run" in quickstart
+    assert ".microcosm/cold_clone_probe.json" in quickstart
+    assert "--emit receipts/cold_clone_probe.json" not in quickstart
     assert (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        quickstart.index("## 0. Run The Bounded Cold-Clone Probe")
+        < quickstart.index("## 1. Install The Local Command")
+    )
+    assert (
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in quickstart
     )
     assert (
         "PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 "
-        "--port 8765 --max-requests 6"
+        "--port 8765 --max-requests 7"
     ) in quickstart
     assert "If you are staying source-only" in quickstart
     assert "- `/workingness-card`" in quickstart
+    assert "compact Demo To Scale bridge" in quickstart
+    assert "runtime bridge summary" in quickstart
+    assert "projection status counts" in quickstart
+    assert "open/closed intake-cell counts" in quickstart
+    assert quickstart.index("- `/project/observatory-card`") < quickstart.index(
+        "Treat `/project/observatory-card` as the compact Demo To Scale bridge"
+    ) < quickstart.index("/project/observatory` only")
     assert (
         "Open `/workingness` only when you need the full per-organ "
         "failure-envelope map."

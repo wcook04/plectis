@@ -1,0 +1,31 @@
+{
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 865,
+      "line_count": 26,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "routing_anti_patterns_macro_registry_body_import",
+      "required_anchors": [
+        "kernel_before_grep",
+        "bridge_before_scope",
+        "mode_in_chat_only"
+      ],
+      "sha256": "a451576122ddcd00163c014741d59afc559433ae0610a95a3001c3d8bc8d356f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "codex/doctrine/routing_anti_patterns.json",
+      "source_sha256": "a451576122ddcd00163c014741d59afc559433ae0610a95a3001c3d8bc8d356f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_modules/codex/doctrine/routing_anti_patterns.json",
+      "target_sha256": "a451576122ddcd00163c014741d59afc559433ae0610a95a3001c3d8bc8d356f"
+    }
+  ],
+  "schema_version": "routing_anti_patterns_registry_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body"
+}

@@ -99,11 +99,13 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "PYTHONPATH=src python3 -m microcosm_core authority --card",
         "PYTHONPATH=src python3 -m microcosm_core workingness --card",
         "PYTHONPATH=src python3 -m microcosm_core legibility-scorecard",
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6",
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7",
         "/project/observatory-card",
         "/workingness-card",
         "Open `/workingness` only when you need the full per-organ failure-envelope map.",
         "make ci",
+        "make package-smoke",
+        "package-install smoke",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
         "cd /tmp/microcosm-substrate-export/microcosm-substrate",
@@ -134,9 +136,13 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     contributing = contributing_path.read_text(encoding="utf-8")
     agents = agents_path.read_text(encoding="utf-8")
     normalized_contributing = " ".join(contributing.split())
+    normalized_agents = " ".join(agents.split())
 
     for phrase in (
         "not a production security product",
+        "./bootstrap.sh",
+        "./bootstrap.sh --dry-run",
+        "ignored `.microcosm/cold_clone_probe.json` evidence",
         "microcosm authority --card",
         "microcosm stripping-guard",
         "make install",
@@ -149,10 +155,14 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     ):
         assert phrase in security
     assert "python3 -m pytest tests/test_secret_exclusion_scan.py" not in security
+    assert security.index("./bootstrap.sh") < security.index("make install")
 
     for phrase in (
         "make install",
+        "./bootstrap.sh",
+        "./bootstrap.sh --dry-run",
         "make smoke",
+        "make package-smoke",
         "make ci",
         ".microcosm/smoke/",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
@@ -170,11 +180,11 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "real non-secret macro bodies",
         "fake progress",
         "tests/test_public_entry_docs.py",
-        "./bootstrap.sh",
         "ignored `.microcosm/cold_clone_probe.json` evidence",
     ):
         assert phrase in contributing
     assert "without dumping the full cards into CI logs" in normalized_contributing
+    assert contributing.index("./bootstrap.sh") < contributing.index("make smoke")
 
     for forbidden in (
         "--emit receipts/cold_clone_probe.json",
@@ -185,9 +195,12 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         assert forbidden not in agents
 
     for phrase in (
+        "./bootstrap.sh",
+        "./bootstrap.sh --dry-run",
         "make install",
         "make smoke",
         "make ci",
+        "package-install smoke",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
         "cd /tmp/microcosm-substrate-export/microcosm-substrate",
@@ -201,8 +214,13 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "microcosm legibility-scorecard",
         "PYTHONPATH=src python3 -m microcosm_core <command>",
         "public GitHub Actions entry",
+        "Do not launch multiple raw `pytest` processes",
+        "uses its own `--basetemp`",
+        ".microcosm/test-tmp/pytest",
     ):
         assert phrase in agents
+    assert "ignored `.microcosm/cold_clone_probe.json` evidence" in normalized_agents
+    assert agents.index("./bootstrap.sh") < agents.index("make install")
 
 
 def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path) -> None:
@@ -219,6 +237,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert receipt["missing_docs"] == []
     assert receipt["missing_required_phrases_by_doc"] == {}
     assert receipt["forbidden_phrases_by_doc"] == {}
+    assert receipt["hardcoded_numeric_organ_count_claims"] == {}
     assert receipt["stale_first_slice_only_phrases"] == []
     assert receipt["accepted_current_authority_organs"] == expected_organs
     assert receipt["duplicate_accepted_organs"] == []
@@ -487,6 +506,33 @@ def test_public_entry_docs_block_registry_route_with_false_inline_coverage(
     assert agents_claim["missing_organs"]
 
 
+def test_public_entry_docs_block_hardcoded_numeric_organ_count_claim(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8")
+        + "\nThe public package carries 1 accepted public runtime organs today.\n",
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "HARDCODED_PUBLIC_ENTRY_ORGAN_COUNT" in receipt["blocking_codes"]
+    assert receipt["hardcoded_numeric_organ_count_claims"] == {
+        "README.md": [
+            "1 accepted public runtime organs",
+            "public package carries 1 accepted public runtime organs",
+        ],
+    }
+
+
 @pytest.mark.parametrize(
     "overclaim_sentence",
     [
@@ -731,6 +777,7 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
     expected_help_block = (
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
+        "  microcosm status-card <project> alias for the compact status lens\n"
         "  microcosm spine --card          read the compact runtime spine lens\n"
         "  microcosm run --card examples/runtime_shell/demo_project "
         "replay the public runtime demo\n"
@@ -749,6 +796,7 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
         "and failure gaps\n"
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
+        "  microcosm status-card <project> alias for the compact status lens\n"
         "  microcosm spine --card          read the compact runtime spine lens\n"
         "  microcosm run --card examples/runtime_shell/demo_project "
         "replay the public runtime demo\n"
@@ -891,16 +939,30 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
+    cold_clone_module = (
+        MICROCOSM_ROOT / "paper_modules/cold_clone_probe.md"
+    ).read_text(encoding="utf-8")
     normalized_cold_start = " ".join(cold_start.split())
     assert "std_python_microcosm_navigation_assay" in cold_start
     assert "implementation_atlas.python_navigation_assay" in cold_start
     assert "route_utility_curriculum" in cold_start
     assert "route_utility_curriculum.ratchet" in cold_start
+    assert "./bootstrap.sh" in cold_start
+    assert "./bootstrap.sh --dry-run" in cold_start
+    assert "--emit receipts/cold_clone_probe.json" not in cold_start
+    assert ".microcosm/cold_clone_probe.json" in cold_start
+    assert "Source-Root Probe" in cold_start
+    assert "before install" in cold_start
+    assert "after first-screen behavior is visible" not in cold_start
+    assert "Run `./bootstrap.sh` from the public root." in cold_clone_module
+    assert "ignored `.microcosm/cold_clone_probe.json` evidence" in cold_clone_module
+    assert "--emit receipts/cold_clone_probe.json" not in cold_clone_module
+    assert not (MICROCOSM_ROOT / "receipts/cold_clone_probe.json").exists()
     assert "proof-lab --out /tmp/microcosm-proof-lab" in cold_start
     assert "verifier-lab-kernel run-kernel-bundle" in cold_start
     assert "formal_prover_context_strategy_gate" in cold_start
     assert "First-Screen Route Contract" in cold_start
-    assert "Bring a folder first" in cold_start
+    assert "Bring a folder after the source-root probe" in cold_start
     assert "route_cards_by_id.status_and_workingness" in cold_start
     assert "microcosm evidence list <project> --limit 25" in cold_start
     assert "microcosm evidence inspect <project> <ref>" in cold_start
@@ -911,12 +973,12 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
         "microcosm serve <project> --host 127.0.0.1 --port 8765" in cold_start
     )
     assert (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         in cold_start
     )
     assert (
         "PYTHONPATH=src python3 -m microcosm_core serve <project> --host "
-        "127.0.0.1 --port 8765 --max-requests 6"
+        "127.0.0.1 --port 8765 --max-requests 7"
     ) in cold_start
     assert (
         "Omit `--max-requests` only when you intentionally want an interactive server"
@@ -960,7 +1022,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     assert "python3 -m microcosm_core.cli" not in no_install_block
     assert (
         "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 "
-        "--port 8765 --max-requests 6"
+        "--port 8765 --max-requests 7"
     ) in installed_block
     assert (
         "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765\n"
@@ -979,7 +1041,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     )
     serve_command = (
         "PYTHONPATH=src python3 -m microcosm_core serve "
-        "/tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6"
+        "/tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7"
     )
     compile_command = (
         "PYTHONPATH=src python3 -m microcosm_core compile "
@@ -1031,11 +1093,11 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "microcosm status --card <project>",
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "microcosm observe <project>",
+        "microcosm observe --card <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
     ]
     assert (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
         in route["command_path"]
     )
     assert route["command_path"].index(
@@ -1065,7 +1127,8 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[
         "command_path"
     ]
-    assert "microcosm observe <project>" in route["command_path"]
+    assert "microcosm observe --card <project>" in route["command_path"]
+    assert "microcosm observe <project>" in entry_packet["allowed_drilldowns"]
     assert route["reader_routes_ref"] == (
         "atlas/entry_packet.json::reader_first_screen_routes"
     )
@@ -1164,7 +1227,10 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
     assert rows["hiring_reviewer"]["first_screen_command"] == (
         "microcosm legibility-scorecard"
     )
-    assert rows["peer_developer"]["next_command"] == "microcosm observe <project>"
+    assert rows["peer_developer"]["next_command"] == (
+        "microcosm observe --card <project>"
+    )
+    assert rows["peer_developer"]["followup_command"] == "microcosm observe <project>"
     assert "maturity score" in rows["safety_evals_engineer"]["anti_misread"]
 
 

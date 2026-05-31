@@ -23,10 +23,25 @@ def test_cli_hello_prints_shared_first_screen_card(
 
     output.encode("ascii")
     assert output.startswith("Microcosm first screen\n")
+    assert "Pre-install probe: ./bootstrap.sh -> .microcosm/cold_clone_probe.json" in output
+    assert (
+        "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
+        in output
+    )
     assert "Open card: microcosm hello ." in output
     assert "First run: microcosm tour --card ." in output
     assert (
-        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+        "Source-only first run: "
+        "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+        in output
+    )
+    assert (
+        "Source-only status: "
+        "PYTHONPATH=src python3 -m microcosm_core status --card ."
+        in output
+    )
+    assert (
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in output
     )
     assert "-> /project/first-screen -> /project/observatory-card" in output
@@ -75,7 +90,7 @@ def test_cli_hello_can_focus_reader_branch(
 
     assert "Reader branch: Peer developer" in output
     assert "First action: Run `microcosm tour --card .`." in output
-    assert "Proof: `microcosm observe .`" in output
+    assert "Proof: `microcosm observe --card .`" in output
     assert "Reader branch: GitHub visitor" not in output
     assert "Reader branch: Safety/evals" not in output
     assert "Reader branch: Hiring" not in output
@@ -90,7 +105,7 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
 
     assert "Reader branch: GitHub visitor" in output
     assert "Command: microcosm hello --reader public_github_visitor ." in output
-    assert "First action: Run `microcosm hello .`." in output
+    assert "First action: Run `microcosm tour --card .` after this card." in output
     assert "from the repo root" not in output
     assert "Proof: `microcosm tour --card .`" in output
     assert "release, hosting, and private-data claims this repo refuses" in output
@@ -151,6 +166,22 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert payload["reader_route_menu"]["machine_card_command"] == (
         "microcosm first-screen --card ."
     )
+    assert payload["reader_route_menu"]["source_checkout_commands"]["behavior_proof"] == (
+        "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+    )
+    first_run_steps = {
+        row["step_id"]: row
+        for row in payload["first_run_ladder"]["steps"]
+    }
+    assert first_run_steps["map"]["source_checkout_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core hello ."
+    )
+    assert first_run_steps["behavior_proof"]["source_checkout_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+    )
+    assert first_run_steps["status_confirmation"]["source_checkout_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core status --card ."
+    )
     assert payload["reader_route_menu"]["default_json_command"] == (
         "microcosm first-screen ."
     )
@@ -159,7 +190,16 @@ def test_cli_first_screen_json_is_compact_by_default(
         for route in payload["reader_route_menu"]["routes"]
     }
     assert route_by_id["public_github_visitor"]["first_action"] == (
-        "Run `microcosm hello .`."
+        "Run `microcosm tour --card .` after this card."
+    )
+    assert route_by_id["safety_evals_engineer"]["first_action"] == (
+        "Run `microcosm tour --card .` first, then `microcosm status --card .`."
+    )
+    assert route_by_id["hiring_reviewer"]["first_action"] == (
+        "Run `microcosm legibility-scorecard`, then `microcosm tour --card .`."
+    )
+    assert route_by_id["hiring_reviewer"]["proof_surface"] == (
+        "`microcosm legibility-scorecard` plus `microcosm tour --card .`"
     )
     assert "video_storyboard_packet" not in payload
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
@@ -177,6 +217,12 @@ def test_cli_first_screen_accepts_card_alias(
     )
     assert payload["output_policy"]["full_contract_preserved"] is True
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
+    assert payload["pre_install_probe"]["command"] == "./bootstrap.sh"
+    assert payload["pre_install_probe"]["runs_before_install"] is True
+    assert (
+        payload["first_run_ladder"]["pre_install_probe"]
+        == payload["pre_install_probe"]
+    )
 
 
 def test_cli_first_screen_card_alias_preserves_text_format(

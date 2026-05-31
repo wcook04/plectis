@@ -21,18 +21,32 @@ membrane:
 1. Read `README.md` for the human map and install mode. In that README, use
    `Public Repo Map` and `Component Map` before opening raw receipts or the
    long organ inventory.
-2. From `microcosm-substrate/`, make the console command available with
+2. From `microcosm-substrate/`, run the bounded cold-clone probe before any
+   install step:
+
+```bash
+./bootstrap.sh
+```
+
+   It validates the first-wave fixture and boundary floor, writes ignored
+   `.microcosm/cold_clone_probe.json` evidence, and points back to the README
+   map. Use `./bootstrap.sh --dry-run` when you need to see the exact command
+   without writing the ignored receipt.
+3. From `microcosm-substrate/`, make the console command available with
    `make install`. If you cannot use `make`, run
    `python3 -m pip install -e '.[test]'` directly; if you cannot install, use
    the source form `PYTHONPATH=src python3 -m microcosm_core <command>`.
-3. Run the standard smoke target before opening raw receipts:
+4. Run the standard smoke target before opening raw receipts:
 
 ```bash
 make smoke
 ```
 
-The smoke target runs the compact route directly. If you are inspecting each
-output, use the same commands by hand:
+The smoke target writes ignored receipts under `.microcosm/smoke/`, validates
+them, and prints a compact terminal summary. A healthy run includes
+`Microcosm smoke check: pass`, `authority: pass`, `workingness: clear`, and
+`served status: pass`. If you are inspecting each output, use the same commands
+by hand:
 
 ```bash
 microcosm hello .
@@ -44,17 +58,26 @@ microcosm workingness --card
 microcosm legibility-scorecard
 ```
 
-Read those outputs as the first contract: `hello` is the no-write human card,
-`first-screen --card` is the compact JSON reader map, `tour --card` is the
-shared state-writing behavior proof, `status --card` is the compressed public
-evidence map, `authority --card` is the claim ceiling, `workingness --card` is
-the failure envelope, and `legibility-scorecard` is the cold-reader
-comprehension check. These commands do not create release, hosting, proof,
-production, provider-call, source-mutation, or financial-advice authority.
+Read those outputs as the first contract: `microcosm hello` is the no-write
+human card, `microcosm first-screen --card` is the compact JSON reader map,
+`microcosm tour --card` is the shared state-writing behavior proof,
+`microcosm status --card` is the compressed public evidence map,
+`microcosm authority --card` is the claim ceiling, `microcosm workingness --card`
+is the failure envelope, `microcosm observe --card` is the compact
+route/work/event/evidence handoff, and `microcosm legibility-scorecard` is the
+cold-reader comprehension check. These commands do not create release, hosting,
+proof, production, provider-call, source-mutation, or financial-advice
+authority.
 
 Before publishing, handing off, or treating the standalone clone as verified,
-run `make ci`. It is the public GitHub Actions entry and expands to install,
-test, and smoke verification.
+run `make ci`. It is the public GitHub Actions entry and expands to editable
+install, public tests, source-form smoke, and package-install smoke
+verification.
+
+Do not launch multiple raw `pytest` processes against this root in parallel
+unless each one uses its own `--basetemp`. The Makefile targets already isolate
+pytest scratch roots per run; direct parallel subsets must do the same or they
+can race while copying fixture trees under `.microcosm/test-tmp/pytest`.
 
 If you need a bounded standalone review artifact, run
 `make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export`. This
@@ -119,7 +142,7 @@ imported macro body.
 ## Accepted Public Runtime Spine
 
 This is the public entry inventory over `core/organ_registry.json` and
-`core/organ_evidence_classes.json`: 48 accepted public runtime organ records
+`core/organ_evidence_classes.json`: accepted public runtime organ records
 with receipt-index status. Those counts are inventory-only route-alignment metadata:
 `accepted_current_authority`, organ counts, and adapter-backed counts are not product progress, release readiness, product completeness, proof
 authority,
@@ -139,7 +162,7 @@ The atlas is regenerated from substrate with
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
 `tests/test_organ_atlas.py`; do not hand-edit `ORGANS.md`/`ARCHITECTURE.md`.
 Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation` are
-documented per organ in [ORGANS.md](ORGANS.md). The 48 organs cluster into seven
+documented per organ in [ORGANS.md](ORGANS.md). The accepted organs cluster into seven
 families:
 
 ### Entry & Reveal (2)
@@ -148,11 +171,11 @@ How a cold human or agent first meets Microcosm and what the short guided path a
 
 `cold_reader_route_map`, `public_reveal_walkthrough`
 
-### Architecture & Navigation (7)
+### Architecture & Navigation (8)
 
 The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
 
-`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`
+`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`, `routing_anti_patterns_registry`
 
 ### Formal Math & Proof (17)
 
@@ -249,7 +272,8 @@ of those existing lanes can carry the pressure without distortion.
    authority ceiling, safety/evals readers go from the shared local card to
    status, authority card, and workingness card,
    hiring reviewers go to the legibility scorecard plus the local card, and
-   peer developers go to the local card plus `microcosm observe <project>`.
+   peer developers go to the local card plus `microcosm observe --card <project>`;
+   use `microcosm observe <project>` only when full event rows are needed.
    Those branches route attention; they do not create release, proof,
    production, hiring, or safety-evaluation authority.
    The Python route loop is `microcosm python-lens <project>`; it should expose
@@ -296,11 +320,11 @@ of those existing lanes can carry the pressure without distortion.
    The `public_reveal_walkthrough` organ is the exception that binds entry
    legibility itself to fixtures, commands, negative cases, and receipts.
    The `macro_projection_import_protocol` organ is the import membrane for
-   future macro patterns: use `macro-projection-import-protocol` to import real
-   non-secret bodies when they are copyable, and to demote metadata-only cells
-   when they are not. Use
-   `macro-projection-import-protocol plan` before a new import slice; it is
-   the non-writing intake board for per-cell source refs, target refs,
+   future macro patterns: use `microcosm macro-projection-import-protocol` to
+   import real non-secret bodies when they are copyable, and to demote
+   metadata-only cells when they are not. Use `microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle`
+   before a new import slice; it is the non-writing intake board for per-cell
+   source refs, target refs,
    validation refs, copy policy, body-import verification, omitted material, and
    ready/blocked status. It must also expose `projection_status`,
    `cell_state`, `action_required`, landed evidence refs, status counts, and
@@ -602,11 +626,11 @@ of those existing lanes can carry the pressure without distortion.
    mutate Task Ledger, authorize pattern
    assimilation, certify runtime behavior, or imply release authority.
    The same organ owns the computer-use action-trace replay path:
-   `agent-route-observability-runtime validate-computer-use-bundle` validates
-   synthetic observations, affordances, actions, pre-action authority verdicts,
-   state transitions, recovery receipts, cold replay, and negative cases without
-   live browser control, accounts, credentials, external network mutation, raw
-   screenshots, benchmark claims, source mutation, or release authority.
+   `microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out /tmp/microcosm-computer-use` validates synthetic observations,
+   affordances, actions, pre-action authority verdicts, state transitions,
+   recovery receipts, cold replay, and negative cases without live browser
+   control, accounts, credentials, external network mutation, raw screenshots,
+   benchmark claims, source mutation, or release authority.
    The bridge-continuity loop is `microcosm bridge-phase-continuity-runtime`;
    it should validate synthetic transport continuation packets, heartbeat boundaries,
    resource-pressure blocking, resume-once semantics, duplicate-resume rejection,
@@ -655,7 +679,7 @@ of those existing lanes can carry the pressure without distortion.
    widening docs, reveal views, or route commands. It is not route-registry
    authority.
    The `formal_math_readiness_gate` organ is the formal-math intake boundary:
-   use `formal-math-readiness-gate plan` to inspect the
+   use `microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input` to inspect the
    `formal_math_readiness_extensions` board before retrieval or proof witness
    work. It reports closed-premise coverage, tactic probe availability,
    target-shape routing admissibility, context budget posture, selected
@@ -733,9 +757,10 @@ of those existing lanes can carry the pressure without distortion.
    Explanations must also resolve public standard pressure from
    `core/public_standard_pressure.json`; do not inline private doctrine or
    create a second pattern taxonomy.
-   The causal chain must stay stable across `route`, `explain`, `work run`,
-   `observe`, `graph`, and `evidence`: route refs, pattern bindings, standard
-   bindings, work state, event ids, and evidence refs should agree.
+   The causal chain must stay stable across `microcosm route`,
+   `microcosm explain`, `microcosm work run`, `microcosm observe`,
+   `microcosm graph`, and `microcosm evidence`: route refs, pattern bindings,
+   standard bindings, work state, event ids, and evidence refs should agree.
    The local observatory is the first browser-facing cockpit for that chain:
    keep causal-chain sections legible before raw JSON drilldowns. It must also
    surface the Python lens and spine/intake/reveal bridge in browser form,

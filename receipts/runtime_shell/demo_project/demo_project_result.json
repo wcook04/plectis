@@ -6,7 +6,8 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "created_at": "2026-05-28T09:20:07+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-30T21:37:19+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -319,7 +320,27 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_32_standards_meta_diagnostics",
+      "event_id": "evt_32_cognitive_operator_registry",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry/exported_cognitive_operator_registry_bundle_validation_result.json",
+      "input_mode": "exported_cognitive_operator_registry_bundle",
+      "inputs": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle",
+      "organ_id": "cognitive_operator_registry",
+      "outputs": "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry",
+      "span": "cognitive_operator_registry.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_33_routing_anti_patterns_registry",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle_validation_result.json",
+      "input_mode": "exported_routing_anti_patterns_bundle",
+      "inputs": "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle",
+      "organ_id": "routing_anti_patterns_registry",
+      "outputs": "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry",
+      "span": "routing_anti_patterns_registry.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_34_standards_meta_diagnostics",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
       "input_mode": "exported_standards_meta_diagnostics_bundle",
       "inputs": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
@@ -329,7 +350,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_33_cold_reader_route_map",
+      "event_id": "evt_35_cold_reader_route_map",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
       "input_mode": "exported_cold_reader_route_map_bundle",
       "inputs": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
@@ -339,7 +360,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_34_agent_memory_temporal_conflict_replay",
+      "event_id": "evt_36_agent_memory_temporal_conflict_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
       "input_mode": "exported_memory_temporal_conflict_bundle",
       "inputs": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
@@ -349,7 +370,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_35_sleeper_memory_poisoning_quarantine_replay",
+      "event_id": "evt_37_sleeper_memory_poisoning_quarantine_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
       "input_mode": "exported_sleeper_memory_poisoning_bundle",
       "inputs": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
@@ -359,7 +380,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_36_mcp_tool_authority_replay",
+      "event_id": "evt_38_mcp_tool_authority_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
       "input_mode": "exported_mcp_tool_authority_bundle",
       "inputs": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
@@ -369,7 +390,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_37_proof_derived_governed_mutation_authorization",
+      "event_id": "evt_39_proof_derived_governed_mutation_authorization",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
       "input_mode": "exported_governed_mutation_authorization_bundle",
       "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
@@ -379,7 +400,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_38_belief_state_process_reward_replay",
+      "event_id": "evt_40_belief_state_process_reward_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json",
       "input_mode": "exported_belief_state_process_reward_bundle",
       "inputs": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
@@ -389,7 +410,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_39_agent_sandbox_policy_escape_replay",
+      "event_id": "evt_41_agent_sandbox_policy_escape_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json",
       "input_mode": "exported_sandbox_policy_escape_bundle",
       "inputs": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
@@ -399,7 +420,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_40_indirect_prompt_injection_information_flow_policy_replay",
+      "event_id": "evt_42_indirect_prompt_injection_information_flow_policy_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle_validation_result.json",
       "input_mode": "exported_prompt_injection_flow_bundle",
       "inputs": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
@@ -409,7 +430,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_41_agentic_vulnerability_discovery_patch_proof_replay",
+      "event_id": "evt_43_agentic_vulnerability_discovery_patch_proof_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle_validation_result.json",
       "input_mode": "exported_patch_proof_bundle",
       "inputs": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle",
@@ -419,7 +440,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_42_certificate_kernel_execution_lab",
+      "event_id": "evt_44_certificate_kernel_execution_lab",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle_validation_result.json",
       "input_mode": "exported_certificate_kernel_execution_lab_bundle",
       "inputs": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle",
@@ -429,7 +450,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_43_voice_to_doctrine_self_improvement_loop",
+      "event_id": "evt_45_voice_to_doctrine_self_improvement_loop",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle_validation_result.json",
       "input_mode": "exported_voice_to_doctrine_bundle",
       "inputs": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle",
@@ -471,6 +492,8 @@
     "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation/exported_prediction_oracle_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry/exported_cognitive_operator_registry_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
@@ -485,9 +508,10 @@
     "receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle_validation_result.json"
   ],
   "next_actions": [
-    "microcosm route list",
-    "microcosm evidence list",
-    "microcosm serve"
+    "microcosm status --card examples/runtime_shell/demo_project",
+    "microcosm observe examples/runtime_shell/demo_project",
+    "microcosm evidence list --limit 8",
+    "microcosm serve examples/runtime_shell/demo_project --host 127.0.0.1 --port 8765 --max-requests 7"
   ],
   "project_id": "demo_project",
   "schema_version": "microcosm_runtime_demo_result_v1",
@@ -525,6 +549,8 @@
     "public_reveal_walkthrough: pass via exported_public_reveal_bundle",
     "macro_projection_import_protocol: pass via exported_projection_import_bundle",
     "prediction_oracle_reconciliation: pass via exported_prediction_oracle_bundle",
+    "cognitive_operator_registry: pass via exported_cognitive_operator_registry_bundle",
+    "routing_anti_patterns_registry: pass via exported_routing_anti_patterns_bundle",
     "standards_meta_diagnostics: pass via exported_standards_meta_diagnostics_bundle",
     "cold_reader_route_map: pass via exported_cold_reader_route_map_bundle",
     "agent_memory_temporal_conflict_replay: pass via exported_memory_temporal_conflict_bundle",

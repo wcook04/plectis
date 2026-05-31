@@ -28,7 +28,7 @@
     "trusted_promotion_from_untrusted_context_authorized": false
   },
   "blocked_before_action_count": 1,
-  "body_copied_material_count": 6,
+  "body_copied_material_count": 7,
   "body_import_classification": "copied_non_secret_public_memory_plane_macro_body_import",
   "body_import_status": "copied_non_secret_sleeper_memory_macro_body_landed",
   "body_in_receipt": false,
@@ -37,21 +37,21 @@
   "body_text_in_receipt": false,
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-28T09:19:41+00:00",
+  "created_at": "2026-05-30T21:37:01+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.sleeper_memory_poisoning_quarantine_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:f02b2e838782d17b99c918b7526ac2e37c76bd0489d8ada8b1fb81c7ecf7310c",
+    "basis_digest": "sha256:b390404d506fbaa605f3104fec74160e1965dae97be5d6205b97ceb76ce57e9c",
     "card_schema_version": "sleeper_memory_poisoning_quarantine_command_card_v1",
     "include_negative": false,
-    "input_count": 15,
+    "input_count": 16,
     "inputs": [
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/projection_protocol.json",
-        "sha256": "sha256:9770e7c2ac0c159f3d675634a3afd7dbee8d5672db51e69c939897684f6aec06",
-        "size_bytes": 2213
+        "sha256": "sha256:8f4133ac8c37ebce75ffb68856afaa3e6c5279bbc710c36cc3060a7dde203f54",
+        "size_bytes": 2246
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/memory_policy.json",
@@ -85,8 +85,8 @@
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
-        "sha256": "sha256:b60c11157fb10e12cbb4ba52a69e9019cc5ac65a736ba44708c7a80b55534c7d",
-        "size_bytes": 14440
+        "sha256": "sha256:c8a76de2c2c2ff575be2100ee290c95955c09c66919bc85f012e7e1a669132ca",
+        "size_bytes": 16354
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
@@ -110,13 +110,18 @@
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "size_bytes": 224689
+        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "size_bytes": 229460
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-        "size_bytes": 47570
+        "sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+        "size_bytes": 49875
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/system/lib/strict_json.py",
+        "sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "size_bytes": 10373
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -150,7 +155,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 14,
+    "scanned_path_count": 15,
     "status": "pass"
   },
   "product_path_role": "copied_non_secret_macro_body_plus_public_memory_security_policy_refactor",
@@ -256,7 +261,7 @@
       "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
     "findings": [],
     "material_classes": [
@@ -265,14 +270,15 @@
       "public_macro_receipt_body",
       "public_macro_tool_body"
     ],
-    "module_count": 6,
+    "module_count": 7,
     "module_ids": [
       "sleeper_memory_high_novelty_growth_receipt_body_import",
       "claude_memory_plane_contract_body_import",
       "memory_injection_tiers_body_import",
       "operator_thread_memory_test_body_import",
       "agent_execution_trace_runtime_body_import",
-      "agent_execution_trace_standard_body_import"
+      "agent_execution_trace_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "observed_negative_cases": {},
     "source_module_import_status": "copied_non_secret_sleeper_memory_macro_body_landed",
@@ -284,10 +290,11 @@
       "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/memory_injection_tiers.md",
       "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
       "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/system/lib/strict_json.py"
     ],
     "status": "pass",
-    "verified_module_count": 6
+    "verified_module_count": 7
   },
   "source_module_manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
   "source_module_manifest_status": "pass",
@@ -307,16 +314,17 @@
       "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
-    "body_material_count": 6,
+    "body_material_count": 7,
     "body_material_ids": [
       "sleeper_memory_high_novelty_growth_receipt_body_import",
       "claude_memory_plane_contract_body_import",
       "memory_injection_tiers_body_import",
       "operator_thread_memory_test_body_import",
       "agent_execution_trace_runtime_body_import",
-      "agent_execution_trace_standard_body_import"
+      "agent_execution_trace_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
     "body_text_exported_in_receipts": false,
@@ -345,7 +353,8 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#L344",
     "state/microcosm_portfolio/reconstruction/public_microcosm_seed_pattern_reconstruction.jsonl#sleeper_memory_poisoning_quarantine_replay_compound",
     "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet",
-    "microcosm-substrate/receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+    "microcosm-substrate/receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+    "system/lib/strict_json.py"
   ],
   "status": "pass",
   "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay",

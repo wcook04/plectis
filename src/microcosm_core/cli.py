@@ -844,7 +844,7 @@ def _iter_proof_lab_input_files(input_path: str) -> Iterator[Path]:
                 entry_path = Path(entry.path)
                 if entry.is_dir(follow_symlinks=False):
                     child_dirs.append(entry_path)
-                elif entry.is_file():
+                elif entry.is_file(follow_symlinks=False):
                     yield entry_path
         pending.extend(reversed(sorted(child_dirs)))
 

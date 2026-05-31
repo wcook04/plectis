@@ -1,0 +1,96 @@
+{
+  "anti_claim": "This fixture validates the public routing anti-pattern registry contract and copied non-secret macro routing body only; it does not become route source authority, mutate routes, expose private sources, or authorize release.",
+  "authority_ceiling": "routing_anti_patterns_registry_projection_with_copied_non_secret_macro_body_floor_not_route_authority",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::routing_anti_patterns_registry::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
+    "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/routing_anti_patterns.json",
+      "role": "positive public routing anti-pattern registry copied from macro source"
+    },
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/missing_kind.json",
+      "role": "negative case: registry kind missing"
+    },
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/duplicate_id.json",
+      "role": "negative case: duplicate anti-pattern id"
+    },
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/missing_text.json",
+      "role": "negative case: anti-pattern text missing"
+    },
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/authority_overclaim.json",
+      "role": "negative case: release/provider/source/route mutation or correctness overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/private_source_leakage.json",
+      "role": "negative case: private routing body leakage"
+    }
+  ],
+  "organ_id": "routing_anti_patterns_registry",
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "core/standards_registry.json",
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "fixtures/first_wave/routing_anti_patterns_registry/input/routing_anti_patterns.json",
+      "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle",
+      "paper_modules/routing_anti_patterns_registry.md",
+      "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
+      "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_modules"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_pattern_body": 1
+    },
+    "body_material_count": 1,
+    "body_material_ids": [
+      "routing_anti_patterns_macro_registry_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open the source module manifest and source_modules directory for the copied macro routing anti-pattern body; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "routing_anti_patterns_registry_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/routing_anti_patterns_registry/exported_routing_anti_patterns_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Routing anti-pattern registry fixture",
+  "validator": "microcosm_core.organs.routing_anti_patterns_registry",
+  "validator_command": "python -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out receipts/first_wave/routing_anti_patterns_registry"
+}

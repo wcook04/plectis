@@ -1,0 +1,103 @@
+{
+  "schema_version": "public_harness_configuration_snapshots_v1",
+  "snapshots": [
+    {
+      "snapshot_id": "clean_public_harness",
+      "expected_status": "pass",
+      "metadata_only": true,
+      "surfaces": [
+        {
+          "surface_id": "settings",
+          "status": "ok"
+        },
+        {
+          "surface_id": "hooks",
+          "status": "ok"
+        },
+        {
+          "surface_id": "skill_registry",
+          "status": "ok"
+        }
+      ],
+      "findings": [],
+      "quarantined": false,
+      "live_local_settings_read": false,
+      "raw_settings_body_exported": false,
+      "raw_hook_body_exported": false,
+      "raw_skill_body_exported": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "snapshot_id": "missing_stop_hook_timeout",
+      "expected_status": "warning",
+      "metadata_only": true,
+      "surfaces": [
+        {
+          "surface_id": "settings",
+          "status": "present"
+        },
+        {
+          "surface_id": "hooks",
+          "status": "drift"
+        },
+        {
+          "surface_id": "skill_registry",
+          "status": "ok"
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "finding_missing_stop_hook_timeout",
+          "severity": "warning",
+          "kind": "hook_timeout_missing",
+          "code": "MISSING_STOP_HOOK_TIMEOUT",
+          "target": "hooks.stop.timeout_ms",
+          "message": "Synthetic Stop hook metadata lacks the short timeout required by the harness audit contract.",
+          "body_redacted": true
+        }
+      ],
+      "quarantined": false,
+      "live_local_settings_read": false,
+      "raw_settings_body_exported": false,
+      "raw_hook_body_exported": false,
+      "raw_skill_body_exported": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "snapshot_id": "skill_registry_type_drift",
+      "expected_status": "quarantine",
+      "metadata_only": true,
+      "surfaces": [
+        {
+          "surface_id": "settings",
+          "status": "present"
+        },
+        {
+          "surface_id": "hooks",
+          "status": "ok"
+        },
+        {
+          "surface_id": "skill_registry",
+          "status": "drift"
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "finding_invalid_skill_type",
+          "severity": "error",
+          "kind": "skill_type_invalid",
+          "code": "INVALID_SKILL_TYPE",
+          "target": "codex/doctrine/skills/example/bad_type.md",
+          "message": "Synthetic skill frontmatter declares a skill_type outside the standard enum.",
+          "body_redacted": true
+        }
+      ],
+      "quarantined": true,
+      "live_local_settings_read": false,
+      "raw_settings_body_exported": false,
+      "raw_hook_body_exported": false,
+      "raw_skill_body_exported": false,
+      "source_mutation_authorized": false
+    }
+  ]
+}
