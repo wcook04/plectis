@@ -249,7 +249,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 75488,
+      "byte_count": 75501,
       "classification": "copied_non_secret_macro_body",
       "line_count": 1754,
       "material_class": "public_macro_tool_body",
@@ -260,15 +260,15 @@
         "def run"
       ],
       "required_anchors_present": true,
-      "sha256": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
+      "sha256": "sha256:0e185ff041539a6275b8c1dde72f488d1c9e8e388eb4331e835075f9028c905c",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
       "source_role": "Proof diagnostic evidence public component body used by accepted/rejected proof-evidence separation",
-      "source_sha256": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
+      "source_sha256": "sha256:0e185ff041539a6275b8c1dde72f488d1c9e8e388eb4331e835075f9028c905c",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
-      "target_sha256": "sha256:13fdc20200bfbe789d465c88bb024913becd933e0a7e79dc15e72495028cc08b",
+      "target_sha256": "sha256:0e185ff041539a6275b8c1dde72f488d1c9e8e388eb4331e835075f9028c905c",
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"

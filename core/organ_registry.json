@@ -114,18 +114,19 @@
         "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
         "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
         "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
-        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
       ],
       "organ_id": "proof_diagnostic_evidence_spine",
       "runner": "microcosm_core.organs.proof_diagnostic_evidence_spine",
       "status": "accepted_current_authority",
-      "evidence_class": "algorithmic_projection",
+      "evidence_class": "verified_macro_body_import",
       "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[proof_diagnostic_evidence_spine]",
-      "evidence_strength_rank": 3,
-      "claim_ceiling": "projection mechanics only, not domain correctness",
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "evidence_strength_rank": 5,
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
       "counts_as_real_substrate_progress": true,
-      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
+      "classification_basis": "validates copied public-safe Ring2 diagnostic runtime artifacts by target existence, digest provenance, light-edit receipts, secret-exclusion checks, and authority ceilings; proof verdict rows remain non-authoritative diagnostics",
       "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
     },
     {

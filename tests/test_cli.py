@@ -1833,7 +1833,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["organ_evidence_class_count"] == (
         _adapter_evidence_class_count(MICROCOSM_ROOT)
     )
-    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
+    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 2
     assert (
         payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == payload["macro_body_import_floor"]["public_safe_body_material_count"]
@@ -1852,9 +1852,9 @@ def test_cli_authority_smoke(
     ]
     assert payload["evidence_class_counts"] == {
         "semantic_validator": 17,
-        "algorithmic_projection": 23,
+        "algorithmic_projection": 22,
         "external_subprocess_witness": 3,
-        "verified_macro_body_import": 1,
+        "verified_macro_body_import": 2,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
     assert (
@@ -1879,7 +1879,7 @@ def test_cli_authority_smoke(
     )
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
-        == "algorithmic_projection"
+        == "verified_macro_body_import"
     )
     assert (
         organ_authority_by_id["durable_agent_work_landing_replay"]["evidence_class"]

@@ -117,7 +117,7 @@ def _assert_step_command_prefix(
 EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "pattern_binding_contract": "semantic_validator",
     "executable_doctrine_grammar": "semantic_validator",
-    "proof_diagnostic_evidence_spine": "algorithmic_projection",
+    "proof_diagnostic_evidence_spine": "verified_macro_body_import",
     "formal_math_readiness_gate": "algorithmic_projection",
     "corpus_readiness_mathlib_absence_gate": "algorithmic_projection",
     "tactic_portfolio_availability_probe": "algorithmic_projection",
@@ -264,8 +264,8 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["real_substrate_progress_count"] == _adapter_backed_organ_count()
     assert status["non_progress_organ_count"] == 0
     assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert status["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
-    assert status["truth_accounting"]["source_faithful_refactor_count"] == 23
+    assert status["truth_accounting"]["copied_non_secret_macro_body_count"] == 2
+    assert status["truth_accounting"]["source_faithful_refactor_count"] == 22
     assert status["truth_accounting"]["real_import_validation_count"] == 17
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
@@ -1299,14 +1299,14 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     )
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
-    assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 1
+    assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 2
     assert (
         spine["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == spine["surface_counts"]["public_safe_body_material_count"]
     )
     assert spine["surface_counts"]["public_safe_body_material_count"] >= 37
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
-    assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
+    assert spine["surface_counts"]["source_faithful_refactor_count"] == 22
     assert spine["surface_counts"]["real_import_validation_count"] == 17
     assert spine["surface_counts"]["regression_negative_fixture_count"] == 0
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
@@ -1419,12 +1419,12 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     )
     assert spine["evidence_class_counts"] == {
         "semantic_validator": 17,
-        "algorithmic_projection": 23,
+        "algorithmic_projection": 22,
         "external_subprocess_witness": 3,
-        "verified_macro_body_import": 1,
+        "verified_macro_body_import": 2,
     }
     assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
-        "algorithmic_projection"
+        "verified_macro_body_import"
     )
     assert rows_by_id["durable_agent_work_landing_replay"]["evidence_class"] == (
         "semantic_validator"
@@ -1487,7 +1487,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "real_runtime_receipt"
     )
     assert rows_by_id["proof_diagnostic_evidence_spine"]["truth_accounting_bucket"] == (
-        "source_faithful_refactor"
+        "copied_non_secret_macro_body"
     )
     assert rows_by_id["agentic_vulnerability_discovery_patch_proof_replay"][
         "evidence_class"
@@ -1839,7 +1839,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["missing_standard_count"] == 0
     assert workingness["missing_failure_modes_count"] == 0
     assert workingness["rows_with_failure_modes"] == _accepted_organ_count()
-    assert workingness["rows_with_future_work_targets"] == 30
+    assert workingness["rows_with_future_work_targets"] == 29
     assert workingness["accepted_status_is_not_evidence_strength"] is True
     assert workingness["not_a_scorecard"] is True
     assert workingness["gap_preview"]["status"] == "clear"
@@ -1903,6 +1903,8 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
         "known_failure_modes"
     ]
     assert proof_diagnostic["failure_mode_count"] >= 8
+    assert proof_diagnostic["evidence_gap_class"] == "verified_macro_body_import_scope_bound"
+    assert proof_diagnostic["future_work_targets"] == []
     assert all(
         target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
         for target in proof_diagnostic["future_work_targets"]
@@ -2080,7 +2082,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["truth_accounting"]["real_substrate_progress_count"] == (
         _adapter_backed_organ_count()
     )
-    assert authority["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
+    assert authority["truth_accounting"]["copied_non_secret_macro_body_count"] == 2
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
@@ -2104,9 +2106,9 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     ]
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 17,
-        "algorithmic_projection": 23,
+        "algorithmic_projection": 22,
         "external_subprocess_witness": 3,
-        "verified_macro_body_import": 1,
+        "verified_macro_body_import": 2,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in organ_authority_by_id.items()} == (
@@ -2119,7 +2121,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     )
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
-        == "algorithmic_projection"
+        == "verified_macro_body_import"
     )
     assert (
         organ_authority_by_id["durable_agent_work_landing_replay"]["evidence_class"]
@@ -5588,9 +5590,9 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     )
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
         "semantic_validator": 17,
-        "algorithmic_projection": 23,
+        "algorithmic_projection": 22,
         "external_subprocess_witness": 3,
-        "verified_macro_body_import": 1,
+        "verified_macro_body_import": 2,
     }
     assert reveal["public_claim"].startswith("Microcosm turns a repo")
     assert (public_root / reveal["evidence_ref"]).is_file()

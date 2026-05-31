@@ -150,7 +150,7 @@ Jump to a cluster, then open the cards inside it:
 
 ### `proof_diagnostic_evidence_spine`
 
-`algorithmic_projection` · strength 3/5 · Formal Math & Proof
+`verified_macro_body_import` · strength 5/5 · Formal Math & Proof
 
 - **What it makes visible:** This organ is an evidence checkpoint that sits in front of formal-proof work. It reads the diagnostic records left by earlier proof-pipeline steps and writes a "diagnostic board" listing which checks were accepted, which were rejected, and why. A cold reader can open that board to see exactly what evidence was kept, and can watch it refuse to let raw model output, a stale record, or a merely-passing check get inflated into a claim that the math is actually correct. It only organizes and judges existing records; it never runs a proof checker itself.
 - **For agents:** An agent runs it to turn upstream Ring2 proof-pipeline receipt references (failure-taxonomy, graph-update, verifier-trace repair, evidence-cell anchor) into accepted/rejected diagnostic receipts, and to confirm forbidden cases (provider proof bodies, source-authority upgrades, stale receipt coupling, runtime-correctness overclaims) are rejected as regression guards before any downstream proof-witness step. It emits a diagnostic board, proof receipts, a provider-payload policy result, and a proof-evidence validation receipt over receipt refs only.

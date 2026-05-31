@@ -1285,7 +1285,7 @@ def _write_evidence_bundle_receipt(
     public_root = Path(public_root).resolve(strict=False)
     path = target / EVIDENCE_BUNDLE_RESULT_NAME
     receipt_path = public_relative_path(path, display_root=public_root)
-    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+    if "receipts" in path.parts and not str(receipt_path).startswith("receipts/"):
         receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
         receipt_path = Path(*path.parts[receipts_index:]).as_posix()
     payload = _common_receipt(

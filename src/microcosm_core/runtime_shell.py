@@ -5518,6 +5518,8 @@ def _evidence_gap_class(row: dict[str, Any]) -> str:
         return "contract_validated_but_scope_bound"
     if evidence_class == "external_subprocess_witness":
         return "tool_witness_present_but_not_general_authority"
+    if evidence_class == "verified_macro_body_import":
+        return "verified_macro_body_import_scope_bound"
     if evidence_class == "algorithmic_projection":
         return "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims"
     if evidence_class in {"fixture_echo_smoke", "fixture_schema_replay"}:
