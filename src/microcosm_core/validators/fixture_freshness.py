@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from collections import Counter
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -41,6 +43,7 @@ REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
         "real_import_validation",
     }
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -77,16 +80,34 @@ def _display_context_ref(path: Path, *, public_root: Path) -> str:
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    hasher = hashlib.sha256()
+    _update_hash_from_file(hasher, path)
+    return hasher.hexdigest()
+
+
+def _update_hash_from_file(hasher: Any, path: Path) -> None:
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            hasher.update(chunk)
+
+
+def _iter_directory_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_directory_files(child)
+            elif entry.is_file(follow_symlinks=False):
+                yield child
 
 
 def _sha256_directory(path: Path) -> str:
     hasher = hashlib.sha256()
-    for child in sorted(candidate for candidate in path.rglob("*") if candidate.is_file()):
+    for child in sorted(_iter_directory_files(path)):
         relative = child.relative_to(path).as_posix()
         hasher.update(relative.encode("utf-8"))
         hasher.update(b"\0")
-        hasher.update(child.read_bytes())
+        _update_hash_from_file(hasher, child)
         hasher.update(b"\0")
     return hasher.hexdigest()
 
