@@ -247,7 +247,8 @@ def _json_digest(payload: object) -> str:
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    with path.open("r", encoding="utf-8") as handle:
+        return sum(1 for _ in handle)
 
 
 def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:

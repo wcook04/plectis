@@ -9,6 +9,7 @@ from typing import Any
 from microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _line_count,
     main,
     run,
     run_simulation_bundle,
@@ -57,6 +58,24 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_spatial_world_model_line_count_streams_without_full_text_read(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "spatial_source.py"
+    source.write_text("one\n\ntwo\n", encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == source:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _line_count(source) == 3
 
 
 def test_spatial_world_model_counterfactual_replay_observes_negative_cases(
