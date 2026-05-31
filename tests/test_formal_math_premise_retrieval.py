@@ -6,6 +6,8 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 import microcosm_core.organs.formal_math_premise_retrieval as premise_module
 from microcosm_core.organs.formal_math_premise_retrieval import (
     EXPECTED_NEGATIVE_CASES,
@@ -221,6 +223,166 @@ def test_formal_math_premise_retrieval_bundle_card_reuses_fresh_receipt(
     assert cached["freshness_digest"] == result["freshness_digest"]
     assert cached_card["receipt_reused"] is True
     assert cached_card["premise_count"] == 11
+
+
+def test_formal_math_premise_retrieval_fresh_receipt_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    out_dir = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval"
+    )
+    out_dir.mkdir(parents=True)
+    freshness_digest = "sha256:duplicate-key-cache"
+    (out_dir / premise_module.BUNDLE_RESULT_NAME).write_text(
+        (
+            '{"card_schema_version":"poisoned",'
+            f'"card_schema_version":"{premise_module.CARD_SCHEMA_VERSION}",'
+            f'"organ_id":"{premise_module.ORGAN_ID}",'
+            '"input_mode":"exported_premise_retrieval_bundle",'
+            f'"freshness_digest":"{freshness_digest}"'
+            "}"
+        ),
+        encoding="utf-8",
+    )
+
+    assert (
+        premise_module._fresh_retrieval_bundle_receipt(
+            out_dir,
+            freshness_digest=freshness_digest,
+        )
+        is None
+    )
+
+
+def test_formal_math_premise_retrieval_source_module_scan_streams_without_path_rglob(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    input_dir = tmp_path / "input"
+    source_modules = input_dir / "source_modules"
+    nested = source_modules / "system/lib"
+    nested.mkdir(parents=True)
+    for name in premise_module.INPUT_NAMES:
+        (input_dir / name).write_text("{}", encoding="utf-8")
+    (input_dir / "bundle_manifest.json").write_text("{}", encoding="utf-8")
+    module_file = nested / "premise_runtime.py"
+    module_file.write_text("VALUE = 1\n", encoding="utf-8")
+    (nested / "notes.md").write_text("public note\n", encoding="utf-8")
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == source_modules:
+            raise AssertionError("source module scan should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    assert [
+        path.relative_to(input_dir).as_posix()
+        for path in premise_module._scan_input_paths(input_dir, include_negative=False)
+    ] == [
+        "projection_protocol.json",
+        "premise_index.json",
+        "retrieval_queries.json",
+        "context_recipes.json",
+        "strategy_cases.json",
+        "bundle_manifest.json",
+        "source_modules/system/lib/notes.md",
+        "source_modules/system/lib/premise_runtime.py",
+    ]
+
+
+def test_formal_math_premise_retrieval_source_module_scan_recurses_before_root_sibling(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source_modules = tmp_path / "source_modules"
+    nested_opened = {"value": False}
+
+    class FakeEntry:
+        def __init__(self, name: str, *, is_dir: bool = False, is_file: bool = False) -> None:
+            self.name = name
+            self._is_dir = is_dir
+            self._is_file = is_file
+
+        def is_dir(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_dir
+
+        def is_file(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_file
+
+    class FakeScandir:
+        def __init__(self, path: Path, entries: list[FakeEntry]) -> None:
+            self.path = path
+            self.entries = entries
+
+        def __enter__(self) -> "FakeScandir":
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def __iter__(self) -> Any:
+            for index, entry in enumerate(self.entries):
+                if self.path == source_modules and index == 1 and not nested_opened["value"]:
+                    raise AssertionError("source module scan should recurse before root siblings")
+                yield entry
+
+    def fake_scandir(path: Path) -> FakeScandir:
+        path = Path(path)
+        if path == source_modules:
+            return FakeScandir(
+                path,
+                [
+                    FakeEntry("system", is_dir=True),
+                    FakeEntry("bundle_manifest.json", is_file=True),
+                ],
+            )
+        if path == source_modules / "system":
+            nested_opened["value"] = True
+            return FakeScandir(path, [FakeEntry("premise_runtime.py", is_file=True)])
+        raise AssertionError(f"unexpected scandir path: {path}")
+
+    class FakeOs:
+        scandir = staticmethod(fake_scandir)
+
+    monkeypatch.setattr(premise_module, "os", FakeOs)
+
+    refs = [
+        path.relative_to(source_modules).as_posix()
+        for path in premise_module._iter_source_module_files(source_modules)
+    ]
+
+    assert refs == ["system/premise_runtime.py", "bundle_manifest.json"]
+
+
+def test_formal_math_premise_retrieval_source_module_scan_skips_symlinked_files(
+    tmp_path: Path,
+) -> None:
+    input_dir = tmp_path / "input"
+    source_modules = input_dir / "source_modules"
+    nested = source_modules / "system/lib"
+    nested.mkdir(parents=True)
+    for name in premise_module.INPUT_NAMES:
+        (input_dir / name).write_text("{}", encoding="utf-8")
+    direct = nested / "premise_runtime.py"
+    direct.write_text("VALUE = 1\n", encoding="utf-8")
+    outside = tmp_path / "outside_runtime.py"
+    outside.write_text("SECRET = False\n", encoding="utf-8")
+    symlink = nested / "linked_runtime.py"
+    try:
+        symlink.symlink_to(outside)
+    except (NotImplementedError, OSError) as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+
+    refs = [
+        path.relative_to(input_dir).as_posix()
+        for path in premise_module._scan_input_paths(input_dir, include_negative=False)
+    ]
+
+    assert "source_modules/system/lib/premise_runtime.py" in refs
+    assert "source_modules/system/lib/linked_runtime.py" not in refs
 
 
 def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> None:

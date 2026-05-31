@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 from collections import Counter, defaultdict
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +18,7 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
-from microcosm_core.schemas import read_json_strict
+from microcosm_core.schemas import StrictJsonError, read_json_strict
 
 
 ORGAN_ID = "formal_math_premise_retrieval"
@@ -141,6 +143,16 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _iter_source_module_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_source_module_files(child)
+            elif entry.is_file(follow_symlinks=False):
+                yield child
+
+
 def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     paths = _input_paths(input_dir, include_negative=include_negative)
     for name in OPTIONAL_BUNDLE_SCAN_NAMES:
@@ -149,7 +161,7 @@ def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
             paths.append(path)
     source_modules = input_dir / "source_modules"
     if source_modules.is_dir():
-        paths.extend(sorted(path for path in source_modules.rglob("*") if path.is_file()))
+        paths.extend(sorted(_iter_source_module_files(source_modules)))
     return paths
 
 
@@ -222,8 +234,8 @@ def _fresh_retrieval_bundle_receipt(
     if not receipt_path.is_file():
         return None
     try:
-        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        payload = read_json_strict(receipt_path)
+    except (OSError, StrictJsonError):
         return None
     if not isinstance(payload, dict):
         return None
