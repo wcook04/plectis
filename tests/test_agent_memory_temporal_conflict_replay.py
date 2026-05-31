@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -42,6 +43,27 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_agent_memory_sha256_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "memory_episodes.json"
+    body = b'{"memory_episodes":[]}\n' * 1024
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source:
+            raise AssertionError("digest should stream memory freshness input")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert agent_memory_replay._sha256(source) == (
+        "sha256:" + hashlib.sha256(body).hexdigest()
+    )
 
 
 def test_agent_memory_temporal_conflict_replay_observes_negative_cases(

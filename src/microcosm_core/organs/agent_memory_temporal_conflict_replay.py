@@ -67,6 +67,7 @@ NEGATIVE_INPUT_NAMES = (
     "final_answer_only_memory_credit.json",
     "active_injection_as_authoritative.json",
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 EXPECTED_NEGATIVE_CASES = {
     "raw_transcript_export": ["MEMORY_CONFLICT_RAW_TRANSCRIPT_FORBIDDEN"],
@@ -201,7 +202,11 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 
 def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
