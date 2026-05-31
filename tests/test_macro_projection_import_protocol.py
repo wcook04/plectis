@@ -268,6 +268,13 @@ AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS = [
     "agent_entrypoint_audit_body_import",
     "agent_entrypoint_audit_test_body_import",
 ]
+AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS = [
+    *AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
+    "agent_entry_surface_standard_body_import",
+    "agent_entry_surfaces_paper_body_import",
+    "codex_adapter_projection_paper_body_import",
+    "claude_code_adapter_projection_paper_body_import",
+]
 NAVIGATION_FITNESS_BODY_MATERIAL_IDS = [
     "navigation_fitness_body_import",
     "navigation_fitness_test_body_import",
@@ -724,7 +731,7 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
         module_rows.extend(source_manifest["modules"])
 
     assert body_imports["status"] == "pass"
-    assert body_imports["body_material_count"] == len(module_rows) == 168
+    assert body_imports["body_material_count"] == len(module_rows) == 172
     assert body_imports["body_material_ids"] == [
         row["module_id"] for row in module_rows
     ]
@@ -1692,8 +1699,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 239
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 239
+    assert result["public_safe_body_material_count"] == 243
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 243
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1739,7 +1746,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
         *ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
         *ENTRYPOINT_HEALTH_BODY_MATERIAL_IDS,
-        *AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
+        *AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS,
         *NAVIGATION_FITNESS_BODY_MATERIAL_IDS,
         *DYNAMIC_PAPER_LATTICE_BODY_MATERIAL_IDS,
         *KIND_ATLAS_BODY_MATERIAL_IDS,
@@ -1784,7 +1791,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 239
+    assert result["public_safe_body_digest_count"] == 243
 
 
 def test_macro_projection_plan_exposes_source_digest_drift(tmp_path: Path) -> None:
@@ -1971,13 +1978,13 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 239
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 243
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 3,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 26,
         "public_macro_standard_body": 4,
-        "public_macro_tool_body": 205,
+        "public_macro_tool_body": 209,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -2498,7 +2505,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 239
+    assert result["public_safe_body_material_count"] == 243
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -4288,7 +4295,7 @@ def test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macr
     _assert_exact_source_module_body_import(
         result=result,
         public_root=public_root,
-        material_ids=AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
+        material_ids=AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS,
         cell_id="agent_entrypoint_audit_source_modules_import",
     )
 

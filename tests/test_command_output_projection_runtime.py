@@ -96,6 +96,20 @@ ENTRYPOINT_HEALTH_MANIFEST = (
 AGENT_ENTRYPOINT_AUDIT_MANIFEST = (
     BUNDLE_INPUT / "agent_entrypoint_audit_source_module_manifest.json"
 )
+AGENT_ENTRY_SURFACE_STANDARD_TARGET = (
+    BUNDLE_INPUT / "source_modules/codex/standards/std_agent_entry_surface.json"
+)
+AGENT_ENTRY_SURFACES_PAPER_TARGET = (
+    BUNDLE_INPUT / "source_modules/codex/doctrine/paper_modules/agent_entry_surfaces.md"
+)
+CODEX_ADAPTER_PROJECTION_PAPER_TARGET = (
+    BUNDLE_INPUT
+    / "source_modules/codex/doctrine/paper_modules/codex_adapter_projection.md"
+)
+CLAUDE_CODE_ADAPTER_PROJECTION_PAPER_TARGET = (
+    BUNDLE_INPUT
+    / "source_modules/codex/doctrine/paper_modules/claude_code_adapter_projection.md"
+)
 NAVIGATION_FITNESS_MANIFEST = (
     BUNDLE_INPUT / "navigation_fitness_source_module_manifest.json"
 )
@@ -1264,7 +1278,7 @@ def test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources() ->
     _assert_source_manifest_matches_exact_macro_sources(
         AGENT_ENTRYPOINT_AUDIT_MANIFEST,
         manifest_id="agent_entrypoint_audit_source_modules_import",
-        module_count=2,
+        module_count=6,
     )
 
 
@@ -1277,6 +1291,18 @@ def test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract() -> No
 
     audit_text = audit_source.read_text(encoding="utf-8")
     test_text = test_source.read_text(encoding="utf-8")
+    standard_payload = json.loads(
+        AGENT_ENTRY_SURFACE_STANDARD_TARGET.read_text(encoding="utf-8")
+    )
+    entry_surfaces_text = AGENT_ENTRY_SURFACES_PAPER_TARGET.read_text(
+        encoding="utf-8"
+    )
+    codex_adapter_text = CODEX_ADAPTER_PROJECTION_PAPER_TARGET.read_text(
+        encoding="utf-8"
+    )
+    claude_adapter_text = CLAUDE_CODE_ADAPTER_PROJECTION_PAPER_TARGET.read_text(
+        encoding="utf-8"
+    )
 
     compile(audit_text, str(audit_source), "exec")
     compile(test_text, str(test_source), "exec")
@@ -1286,6 +1312,23 @@ def test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract() -> No
     assert '"kind": "agent_entrypoint_audit"' in audit_text
     assert "test_kernel_route_emits_audit_shape" in test_text
     assert "test_generated_block_drift_compares_against_rendered_projection" in test_text
+    assert standard_payload["id"] == "std_agent_entry_surface"
+    assert "canonical_option_surface_routes" in standard_payload
+    assert (
+        "first_move_contract"
+        in standard_payload["canonical_option_surface_routes"]
+    )
+    assert "compression_via_projection_contract" in standard_payload
+    assert "actor_delivery_contract" in standard_payload
+    assert "# Agent Entry Surfaces" in entry_surfaces_text
+    assert "Entry affordance, not entry doctrine" in entry_surfaces_text
+    assert "system/lib/agent_bootstrap_projection.py" in entry_surfaces_text
+    assert "# Codex Adapter Projection" in codex_adapter_text
+    assert "instruction_discovery_live" in codex_adapter_text
+    assert "codex_adapter_live" in codex_adapter_text
+    assert "# Claude Code Adapter Projection" in claude_adapter_text
+    assert "claude_adapter_live" in claude_adapter_text
+    assert ".claude/hooks/runtime_hook.py" in claude_adapter_text
 
 
 def test_navigation_fitness_source_manifest_matches_exact_macro_sources() -> None:

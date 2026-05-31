@@ -1321,22 +1321,35 @@
       "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
       "public_safe_body_material_ids": [
         "agent_entrypoint_audit_body_import",
-        "agent_entrypoint_audit_test_body_import"
+        "agent_entrypoint_audit_test_body_import",
+        "agent_entry_surface_standard_body_import",
+        "agent_entry_surfaces_paper_body_import",
+        "codex_adapter_projection_paper_body_import",
+        "claude_code_adapter_projection_paper_body_import"
       ],
       "selected_pattern_ids": [
         "agent_entrypoint_audit",
         "entrypoint_axis_coverage_audit",
-        "generated_entry_surface_drift_detection"
+        "generated_entry_surface_drift_detection",
+        "agent_entry_surfaces_canonical_first_move"
       ],
       "source_refs": [
         "system/lib/agent_entrypoint_audit.py",
         "system/server/tests/test_agent_entrypoint_audit.py",
-        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "codex/doctrine/paper_modules/codex_adapter_projection.md",
+        "codex/doctrine/paper_modules/claude_code_adapter_projection.md"
       ],
       "target_refs": [
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_entry_surface.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/codex_adapter_projection.md",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/claude_code_adapter_projection.md"
       ],
       "validation_refs": [
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",

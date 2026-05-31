@@ -5443,6 +5443,202 @@
     },
     {
       "applied_edits": [
+        "exact_copy_macro_agent_entry_surface_contract_sources_into_public_projection_bundle",
+        "bind_agent_entry_surface_contract_sources_to_agent_entrypoint_audit_cell",
+        "preserve_entry_surface_contract_sources_without_live_macro_kernel_or_actor_adapter_mutation_authority"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:4f296c901e366a2fdde1ebfccec7e6958115b54c535213ecb9dafa950e6a55c0",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:4f296c901e366a2fdde1ebfccec7e6958115b54c535213ecb9dafa950e6a55c0",
+        "source_line_count": 1609,
+        "source_ref": "codex/standards/std_agent_entry_surface.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:4f296c901e366a2fdde1ebfccec7e6958115b54c535213ecb9dafa950e6a55c0",
+        "target_line_count": 1609,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_entry_surface.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 1609,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public agent entry surface contract source-body import only; not live macro kernel execution, actor adapter mutation, provider calls, credential export, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "agent_entry_surface_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_agent_entry_surface.json",
+      "source_refs": [
+        "codex/standards/std_agent_entry_surface.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_entry_surface.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_agent_entry_surface_contract_sources_into_public_projection_bundle",
+        "bind_agent_entry_surface_contract_sources_to_agent_entrypoint_audit_cell",
+        "preserve_entry_surface_contract_sources_without_live_macro_kernel_or_actor_adapter_mutation_authority"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:cfe9d9a8c9cbd9b9331a8f54591a771008ba0f29acf597a421e6a3e0cffee4ad",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:cfe9d9a8c9cbd9b9331a8f54591a771008ba0f29acf597a421e6a3e0cffee4ad",
+        "source_line_count": 179,
+        "source_ref": "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:cfe9d9a8c9cbd9b9331a8f54591a771008ba0f29acf597a421e6a3e0cffee4ad",
+        "target_line_count": 179,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 179,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public agent entry surface contract source-body import only; not live macro kernel execution, actor adapter mutation, provider calls, credential export, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "agent_entry_surfaces_paper_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+      "source_refs": [
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/agent_entry_surfaces.md",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_agent_entry_surface_contract_sources_into_public_projection_bundle",
+        "bind_agent_entry_surface_contract_sources_to_agent_entrypoint_audit_cell",
+        "preserve_entry_surface_contract_sources_without_live_macro_kernel_or_actor_adapter_mutation_authority"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:c90980224356115e29a58c3d9519e2a078d2f85c9a88ecb51a2c9bea1cc4e2ce",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:c90980224356115e29a58c3d9519e2a078d2f85c9a88ecb51a2c9bea1cc4e2ce",
+        "source_line_count": 151,
+        "source_ref": "codex/doctrine/paper_modules/codex_adapter_projection.md",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:c90980224356115e29a58c3d9519e2a078d2f85c9a88ecb51a2c9bea1cc4e2ce",
+        "target_line_count": 151,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/codex_adapter_projection.md",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 151,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public agent entry surface contract source-body import only; not live macro kernel execution, actor adapter mutation, provider calls, credential export, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "codex_adapter_projection_paper_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/doctrine/paper_modules/codex_adapter_projection.md",
+      "source_refs": [
+        "codex/doctrine/paper_modules/codex_adapter_projection.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/codex_adapter_projection.md",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_agent_entry_surface_contract_sources_into_public_projection_bundle",
+        "bind_agent_entry_surface_contract_sources_to_agent_entrypoint_audit_cell",
+        "preserve_entry_surface_contract_sources_without_live_macro_kernel_or_actor_adapter_mutation_authority"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:d84162e09a5155b816eaea838c50fe123ed699466319e559d604e04fdca6653c",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:d84162e09a5155b816eaea838c50fe123ed699466319e559d604e04fdca6653c",
+        "source_line_count": 137,
+        "source_ref": "codex/doctrine/paper_modules/claude_code_adapter_projection.md",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:d84162e09a5155b816eaea838c50fe123ed699466319e559d604e04fdca6653c",
+        "target_line_count": 137,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/claude_code_adapter_projection.md",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 137,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public agent entry surface contract source-body import only; not live macro kernel execution, actor adapter mutation, provider calls, credential export, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "claude_code_adapter_projection_paper_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/doctrine/paper_modules/claude_code_adapter_projection.md",
+      "source_refs": [
+        "codex/doctrine/paper_modules/claude_code_adapter_projection.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/claude_code_adapter_projection.md",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
         "exact_copy_macro_navigation_fitness_source_bodies_into_public_projection_bundle",
         "bind_navigation_fitness_source_bodies_to_macro_projection_body_floor",
         "preserve_navigation_fitness_sources_without_claiming_live_macro_kernel_execution_semantic_route_probe_provider_payload_or_private_session_state_authority_in_microcosm"
