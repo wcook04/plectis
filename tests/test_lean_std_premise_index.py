@@ -8,6 +8,7 @@ from typing import Any
 from microcosm_core.organs.lean_std_premise_index import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _line_count,
     main,
     run,
     run_index_bundle,
@@ -68,6 +69,28 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_lean_std_premise_index_line_count_streams_source_modules(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    empty = tmp_path / "empty_source_module.py"
+    source.write_text("one\n\ntwo", encoding="utf-8")
+    empty.write_text("", encoding="utf-8")
+    guarded_paths = {source, empty}
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in guarded_paths:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _line_count(source) == 3
+    assert _line_count(empty) == 1
 
 
 def test_lean_std_premise_index_observes_negative_cases(tmp_path: Path) -> None:
