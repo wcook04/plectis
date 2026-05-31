@@ -13,6 +13,7 @@ from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs.agent_monitor_redteam_falsification_replay import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _sha256,
     main,
     run,
     run_monitor_bundle,
@@ -60,6 +61,25 @@ def _source_target_path(target_ref: str) -> Path:
 
 def _sha256_ref(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_agent_monitor_redteam_sha256_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "monitor_observations.json"
+    body = b'{"monitor_observations":[]}\n' * 1024
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source:
+            raise AssertionError("digest should stream monitor freshness input")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert _sha256(source) == "sha256:" + hashlib.sha256(body).hexdigest()
 
 
 def test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_verified() -> None:

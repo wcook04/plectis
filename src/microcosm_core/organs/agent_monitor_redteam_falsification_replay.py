@@ -70,6 +70,7 @@ NEGATIVE_INPUT_NAMES = (
     "monitor_product_performance_claim.json",
     "coverage_without_adversarial_probe.json",
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 EXPECTED_NEGATIVE_CASES = {
     "private_chain_of_thought_leakage": ["MONITOR_REDTEAM_PRIVATE_COT_FORBIDDEN"],
@@ -170,7 +171,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
