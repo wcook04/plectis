@@ -9,6 +9,7 @@ It does not mutate Git, Task Ledger, Work Ledger, or generated projections.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 import errno
 from fnmatch import fnmatch
 import hashlib
@@ -91,6 +92,15 @@ RUNTIME_ARTIFACT_LIFECYCLE_DRY_RUN_COMMAND = (
     "./repo-python tools/meta/control/mission_transaction_preflight.py "
     "--runtime-artifact-lifecycle"
 )
+PHASE_PIPELINE_RUNTIME_COMMAND = (
+    "./repo-python tools/meta/control/phase_convergence_doctor.py --compact"
+)
+MICROCOSM_RUNTIME_RECEIPT_COMMAND = (
+    "cd microcosm-substrate && PYTHONPATH=src .venv/bin/python -m microcosm_core runtime-shell --help"
+)
+RECEIPT_ARTIFACT_OWNER_COMMAND = (
+    "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact"
+)
 LOCAL_OWNED_PATH_SETTLEMENT_DEFERRED_REASON = (
     "local_owned_path_preflight_defers_generated_projection_settlement"
 )
@@ -122,6 +132,19 @@ STATION_RENDER_LOAD_INDEX = "state/observability/render_load_index.json"
 STATION_RENDER_RECEIPT_PREFIXES = (
     "state/observability/renders/",
 )
+PHASE_PIPELINE_RUNTIME_FILENAMES = {
+    "continuation_packet.json",
+    "pipeline_attention.json",
+    "pipeline_attention.md",
+    "pipeline_resume.json",
+    "pipeline_resume.md",
+    "pipeline_state.json",
+    "raw_seed_digest.json",
+    "system_view.json",
+    "task_backlog.json",
+}
+MICROCOSM_RUNTIME_RECEIPT_PREFIX = "microcosm-substrate/receipts/runtime_shell/"
+RECEIPT_ARTIFACT_PREFIX = "receipts/"
 KNOWN_GENERATED_SUFFIXES = (
     "/openapi.json",
     "/generated/types.ts",
@@ -295,6 +318,9 @@ DIRTY_TREE_CLASS_OWNERS = {
     "runtime_run_artifact": "runtime_artifact_lifecycle",
     "station_render_latest_projection": "station_render_receipt_promotion",
     "station_render_receipt_artifact": "station_render_receipt_promotion",
+    "phase_pipeline_runtime_state": "phase_pipeline_runtime",
+    "microcosm_runtime_receipt_state": "microcosm_runtime_shell",
+    "receipt_artifact_state": "mission_receipt_artifacts",
     "current_transaction_owned": "current_transaction",
     "unowned_staged": "git_index_owner",
 }
@@ -339,6 +365,27 @@ DERIVED_STATE_BLOAT_POLICIES = {
         "owner_hint": "station_render_receipt_promotion",
         "allowed_git_policy": "per_run_manifest_preserved_unless_explicitly_promoted",
         "drain_or_manifest_command": RUNTIME_ARTIFACT_LIFECYCLE_DRY_RUN_COMMAND,
+        "push_block_threshold": None,
+    },
+    "phase_pipeline_runtime_state": {
+        "budget": 25,
+        "owner_hint": "phase_pipeline_runtime",
+        "allowed_git_policy": "phase_runtime_state_preserved_or_settled_by_phase_owner",
+        "drain_or_manifest_command": PHASE_PIPELINE_RUNTIME_COMMAND,
+        "push_block_threshold": None,
+    },
+    "microcosm_runtime_receipt_state": {
+        "budget": 50,
+        "owner_hint": "microcosm_runtime_shell",
+        "allowed_git_policy": "runtime_shell_receipts_preserved_unless_claimed_or_promoted",
+        "drain_or_manifest_command": MICROCOSM_RUNTIME_RECEIPT_COMMAND,
+        "push_block_threshold": None,
+    },
+    "receipt_artifact_state": {
+        "budget": 25,
+        "owner_hint": "mission_receipt_artifacts",
+        "allowed_git_policy": "receipt_artifacts_preserved_until_owner_promotion",
+        "drain_or_manifest_command": RECEIPT_ARTIFACT_OWNER_COMMAND,
         "push_block_threshold": None,
     },
     "distribution_packet": {
@@ -3100,6 +3147,26 @@ def _is_station_render_receipt_artifact(path: str) -> bool:
     return any(token.startswith(prefix) for prefix in STATION_RENDER_RECEIPT_PREFIXES)
 
 
+def _is_phase_pipeline_runtime_path(path: str) -> bool:
+    token = str(path or "").strip("/")
+    if not token.startswith("obsidian/okay lets do this/"):
+        return False
+    name = token.rsplit("/", 1)[-1]
+    return (
+        name in PHASE_PIPELINE_RUNTIME_FILENAMES
+        or "/.pipeline_recovery/" in token
+        or "/cycle_" in token
+    )
+
+
+def _is_microcosm_runtime_receipt_path(path: str) -> bool:
+    return str(path or "").strip("/").startswith(MICROCOSM_RUNTIME_RECEIPT_PREFIX)
+
+
+def _is_receipt_artifact_path(path: str) -> bool:
+    return str(path or "").strip("/").startswith(RECEIPT_ARTIFACT_PREFIX)
+
+
 def _is_runtime_artifact_lifecycle_path(path: str) -> bool:
     return (
         _is_runtime_run_artifact(path)
@@ -3151,6 +3218,18 @@ def classify_path(
         generation_class = "station_render_receipt_artifact"
         source_authority = "station_render per-run manifest"
         stageability_class = "preserve_unless_explicitly_promoted"
+    elif _is_phase_pipeline_runtime_path(token):
+        generation_class = "phase_pipeline_runtime_state"
+        source_authority = "pipeline_advance.py / system/lib/pipeline_recovery.py"
+        stageability_class = "route_through_phase_pipeline_owner"
+    elif _is_microcosm_runtime_receipt_path(token):
+        generation_class = "microcosm_runtime_receipt_state"
+        source_authority = "microcosm-substrate/src/microcosm_core/runtime_shell.py"
+        stageability_class = "preserve_unless_claimed_or_promoted"
+    elif _is_receipt_artifact_path(token):
+        generation_class = "receipt_artifact_state"
+        source_authority = "mission receipt artifact lane"
+        stageability_class = "preserve_unless_claimed_or_promoted"
     elif registry_owners:
         generation_class = "registered_generated_projection"
         source_authority = "generated_projection_registry"
@@ -3400,10 +3479,14 @@ def _work_ledger_packet(
 ) -> dict[str, Any]:
     runtime_status = work_ledger_runtime.load_runtime_status(repo_root)
     overview = work_ledger_runtime.build_session_cohort_overview(runtime_status)
+    claim_overview = dict(overview)
+    full_active_claims = _runtime_active_claim_rows(runtime_status)
+    if full_active_claims:
+        claim_overview["active_claims"] = full_active_claims
     counts = overview.get("counts") if isinstance(overview.get("counts"), Mapping) else {}
     requested_session_id = str(session_id or "").strip()
-    initial_path_collisions = _path_claim_collisions(requested_paths, overview, session_id=None)
-    initial_target_collisions = _subject_or_td_claim_collisions(target_ids, overview, session_id=None)
+    initial_path_collisions = _path_claim_collisions(requested_paths, claim_overview, session_id=None)
+    initial_target_collisions = _subject_or_td_claim_collisions(target_ids, claim_overview, session_id=None)
     session_key, session_id_resolution = _auto_session_id_resolution(
         requested_session_id=requested_session_id,
         path_collisions=initial_path_collisions,
@@ -3423,15 +3506,15 @@ def _work_ledger_packet(
         "stale": bool(session_row.get("stale")) if isinstance(session_row, Mapping) else None,
         "stale_reason": session_row.get("stale_reason") if isinstance(session_row, Mapping) else None,
     }
-    path_collisions = _path_claim_collisions(requested_paths, overview, session_id=session_key)
-    target_collisions = _subject_or_td_claim_collisions(target_ids, overview, session_id=session_key)
+    path_collisions = _path_claim_collisions(requested_paths, claim_overview, session_id=session_key)
+    target_collisions = _subject_or_td_claim_collisions(target_ids, claim_overview, session_id=session_key)
     collisions = [*path_collisions, *target_collisions]
     sessionless_claim_identity_hint = _sessionless_claim_identity_hint(
         collisions,
         session_id=session_key,
     )
     matching_claims = _matching_request_claims(
-        overview,
+        claim_overview,
         requested_paths,
         target_ids,
         session_id=session_key,
@@ -3449,7 +3532,7 @@ def _work_ledger_packet(
             "effective_active_sessions": counts.get("effective_active_sessions", 0),
             "orphaned_active_sessions": counts.get("orphaned_active_sessions", 0),
             "active_claims": counts.get("active_claims", 0),
-            "other_active_claims": _other_active_claim_count(overview, session_id=session_id),
+            "other_active_claims": _other_active_claim_count(claim_overview, session_id=session_id),
             "claim_collisions": counts.get("claim_collisions", 0),
             "stale_sessions": counts.get("stale_sessions", 0),
         },
@@ -3462,7 +3545,7 @@ def _work_ledger_packet(
         "matching_active_claims": matching_claims,
         "active_claims": [
             _claim_summary(claim)
-            for claim in overview.get("active_claims") or []
+            for claim in claim_overview.get("active_claims") or []
             if isinstance(claim, Mapping)
         ],
         "path_collision_count": len(path_collisions),
@@ -3471,6 +3554,43 @@ def _work_ledger_packet(
         "subject_or_td_collisions": target_collisions,
         "contention": overview.get("contention", {}),
     }
+
+
+def _parse_claim_datetime(value: Any) -> datetime | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _runtime_active_claim_rows(runtime_status: Mapping[str, Any]) -> list[dict[str, Any]]:
+    now = datetime.now(timezone.utc)
+    sessions = runtime_status.get("sessions") if isinstance(runtime_status.get("sessions"), Mapping) else {}
+    rows: list[dict[str, Any]] = []
+    for session_id, session in sessions.items():
+        if not isinstance(session, Mapping) or session.get("ended_at"):
+            continue
+        for claim in session.get("claims") or []:
+            if not isinstance(claim, Mapping):
+                continue
+            if claim.get("released_at") or claim.get("expired_at"):
+                continue
+            leased_until = _parse_claim_datetime(claim.get("leased_until"))
+            if leased_until is not None and leased_until < now:
+                continue
+            row = dict(claim)
+            row["session_id"] = str(session_id)
+            row["actor"] = session.get("actor")
+            row["phase_id"] = session.get("phase_id")
+            rows.append(row)
+    rows.sort(key=lambda claim: str(claim.get("leased_until") or ""), reverse=True)
+    return rows
 
 
 def _scoped_commit_capability(repo_root: Path) -> dict[str, Any]:
@@ -3891,6 +4011,44 @@ def _work_ledger_claim_collision_evidence(work_ledger: Mapping[str, Any]) -> dic
     }
 
 
+def _staged_only_claim_pressure(
+    *,
+    work_ledger: Mapping[str, Any],
+    declared_paths: Sequence[str],
+    staged_paths: Sequence[str],
+) -> dict[str, Any]:
+    path_collisions = [
+        row for row in work_ledger.get("path_collisions") or [] if isinstance(row, Mapping)
+    ]
+    if not path_collisions or _int_value(work_ledger.get("subject_or_td_collision_count")):
+        return {}
+
+    declared = {str(path).strip("/") for path in declared_paths if str(path).strip()}
+    staged = {str(path).strip("/") for path in staged_paths if str(path).strip()}
+    if not staged:
+        return {}
+
+    for row in path_collisions:
+        requested = str(
+            row.get("requested_path")
+            or row.get("path")
+            or row.get("claim_path")
+            or row.get("scope_id")
+            or ""
+        ).strip("/")
+        if not requested or requested in declared or requested not in staged:
+            return {}
+
+    return {
+        "schema": "staged_index_claim_pressure_v0",
+        "status": "staged_only",
+        "collision_count": len(path_collisions),
+        "policy": "normal_commit_blocked_private_index_scoped_commit_may_proceed",
+        "normal_commit_still_blocked": True,
+        "collisions_preview": [dict(row) for row in path_collisions[:COMPACT_PREVIEW_LIMIT]],
+    }
+
+
 def _sessionless_binding_hint(work_ledger: Mapping[str, Any]) -> dict[str, Any] | None:
     if str(work_ledger.get("session_id") or "").strip():
         return None
@@ -4204,6 +4362,30 @@ def _dirty_category_for_path(
             "class": "station_render_receipt_artifact",
             "severity": "watch",
             "reason": "station_render_per_run_receipt_preserved_until_explicit_promotion",
+            "owner_session_id": None,
+            "claim_id": None,
+        }
+    if generation_class == "phase_pipeline_runtime_state":
+        return {
+            "class": "phase_pipeline_runtime_state",
+            "severity": "watch",
+            "reason": "phase_pipeline_runtime_state_dirty_outside_current_write_set",
+            "owner_session_id": None,
+            "claim_id": None,
+        }
+    if generation_class == "microcosm_runtime_receipt_state":
+        return {
+            "class": "microcosm_runtime_receipt_state",
+            "severity": "watch",
+            "reason": "microcosm_runtime_shell_receipt_dirty_outside_current_write_set",
+            "owner_session_id": None,
+            "claim_id": None,
+        }
+    if generation_class == "receipt_artifact_state":
+        return {
+            "class": "receipt_artifact_state",
+            "severity": "watch",
+            "reason": "mission_receipt_artifact_dirty_outside_current_write_set",
             "owner_session_id": None,
             "claim_id": None,
         }
@@ -4626,8 +4808,20 @@ def _landing_decision(
     effective_active = int(counts.get("effective_active_sessions") or 0)
     active_claims = int(counts.get("other_active_claims") or counts.get("active_claims") or 0)
     mission_claim_collisions = int(work_ledger.get("collision_count") or 0)
+    staged_only_claim_pressure = _staged_only_claim_pressure(
+        work_ledger=work_ledger,
+        declared_paths=declared_paths,
+        staged_paths=staged_paths,
+    )
+    staged_only_private_index_allowed = (
+        bool(staged_only_claim_pressure)
+        and bool(shared_index_quarantine.get("private_index_scoped_commit_allowed"))
+        and not _int_value(shared_index_quarantine.get("overlap_count"))
+    )
 
-    if work_ledger.get("status") == "blocked" or mission_claim_collisions:
+    if (
+        work_ledger.get("status") == "blocked" or mission_claim_collisions
+    ) and not staged_only_private_index_allowed:
         binding_hint = _sessionless_binding_hint(work_ledger)
         if binding_hint:
             return {
@@ -4667,13 +4861,16 @@ def _landing_decision(
             shared_index_quarantine.get("private_index_scoped_commit_allowed")
             and not _int_value(shared_index_quarantine.get("overlap_count"))
         ):
-            return {
+            decision = {
                 "status": "review",
                 "reason": "shared_index_normal_commit_blocked_private_index_allowed",
                 "recommended_lane": "scoped_commit_private_index",
                 "shared_index_normal_commit_blocked": True,
                 "private_index_scoped_commit_allowed": True,
             }
+            if staged_only_claim_pressure:
+                decision["staged_index_claim_pressure"] = staged_only_claim_pressure
+            return decision
         return {
             "status": "hard_stop",
             "reason": "unowned_staged_index_paths",
@@ -5648,6 +5845,83 @@ def _compact_transaction_convergence(
     }
 
 
+PATH_CLASSIFICATION_SIGNATURE_KEYS = (
+    "ownership_class",
+    "generation_class",
+    "stageability_class",
+    "source_authority",
+    "coverage_gap",
+)
+
+
+def _path_classification_signature(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {key: row.get(key) for key in PATH_CLASSIFICATION_SIGNATURE_KEYS}
+
+
+def _compact_path_classifications(
+    rows: Sequence[Mapping[str, Any]],
+    *,
+    owned_paths: Sequence[str],
+    staged_paths: Sequence[str],
+    coverage_gap_paths: Sequence[str],
+    full_count: int,
+    preview_limit: int,
+) -> dict[str, Any]:
+    path_values = [str(row.get("path") or "") for row in rows if row.get("path")]
+    owned_path_set = set(owned_paths)
+    signatures = {
+        json.dumps(_path_classification_signature(row), sort_keys=True)
+        for row in rows
+    }
+    homogeneous_collapse_threshold = min(preview_limit, 8)
+    homogeneous_owned = (
+        len(rows) > homogeneous_collapse_threshold
+        and bool(rows)
+        and not staged_paths
+        and not coverage_gap_paths
+        and all(path in owned_path_set for path in path_values)
+        and len(signatures) == 1
+    )
+    if homogeneous_owned:
+        signature = _path_classification_signature(rows[0])
+        return {
+            "rows": [],
+            "summary": {
+                "status": "homogeneous_owned_rows_omitted",
+                "row_count": len(rows),
+                "path_preview": _path_preview(
+                    path_values,
+                    limit=homogeneous_collapse_threshold,
+                ),
+                **signature,
+            },
+            "omission": {
+                "returned_count": 0,
+                "full_count": full_count,
+                "homogeneous_omitted_count": len(rows),
+                "rule": (
+                    "compact profile collapses homogeneous owned path classifications; "
+                    "staged, coverage-gap, mixed, or short path rows remain explicit"
+                ),
+            },
+        }
+    return {
+        "rows": list(rows),
+        "summary": {
+            "status": "explicit_rows",
+            "row_count": len(rows),
+            "mixed_signature_count": len(signatures),
+            "homogeneous_omitted_count": 0,
+        },
+        "omission": {
+            "returned_count": len(rows),
+            "full_count": full_count,
+            "homogeneous_omitted_count": 0,
+            "rule": "compact profile returns owned, staged, and coverage-gap paths only",
+        },
+    }
+
+
 def compact_mission_transaction_landing_preflight(
     packet: Mapping[str, Any],
     *,
@@ -5690,6 +5964,14 @@ def compact_mission_transaction_landing_preflight(
         for row in packet.get("path_classifications") or []
         if isinstance(row, Mapping) and str(row.get("path") or "") in requested_path_set
     ]
+    compact_classifications = _compact_path_classifications(
+        requested_classifications,
+        owned_paths=owned_paths,
+        staged_paths=staged_paths,
+        coverage_gap_paths=coverage_gap_paths,
+        full_count=len(packet.get("path_classifications") or []),
+        preview_limit=preview_limit,
+    )
 
     risky_operations = [
         row
@@ -5817,12 +6099,9 @@ def compact_mission_transaction_landing_preflight(
             "command_diagnostics": git.get("command_diagnostics", []),
             "full_status_drilldown": "git status --short",
         },
-        "path_classifications": requested_classifications,
-        "path_classification_omission": {
-            "returned_count": len(requested_classifications),
-            "full_count": len(packet.get("path_classifications") or []),
-            "rule": "compact profile returns owned, staged, and coverage-gap paths only",
-        },
+        "path_classifications": compact_classifications["rows"],
+        "path_classification_summary": compact_classifications["summary"],
+        "path_classification_omission": compact_classifications["omission"],
         "coverage_gaps": coverage_gaps,
         "work_ledger": {
             "status": work_ledger.get("status"),
@@ -6594,6 +6873,18 @@ def _build_monitor_cards(
     work_status = _risk_band(work_ledger.get("status") or "clear")
     if work_status == "clear" and (effective_sessions or other_active_claims):
         work_status = "watch"
+    staged_only_claim_pressure = (
+        landing_decision.get("staged_index_claim_pressure")
+        if isinstance(landing_decision.get("staged_index_claim_pressure"), Mapping)
+        else {}
+    )
+    if (
+        work_status == "blocked"
+        and staged_only_claim_pressure
+        and landing_decision.get("reason") == "shared_index_normal_commit_blocked_private_index_allowed"
+        and shared_index_quarantine.get("private_index_scoped_commit_allowed")
+    ):
+        work_status = "review"
     work_summary = (
         f"{effective_sessions} effective active sessions, "
         f"{other_active_claims} other active claims, "

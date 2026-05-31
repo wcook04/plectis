@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 58119,
+      "byte_count": 61649,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 1515,
+      "line_count": 1616,
       "module_id": "scoped_commit_tool_body_import",
       "required_anchors": [
         "def perform_scoped_commit(",
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "tools/meta/control/scoped_commit.py",
       "source_role": "scoped commit controller for exact pathspec staging, mission preflight admission, private-index guardrails, and Work Ledger claim checks",
-      "source_sha256": "85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
+      "source_sha256": "29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
-      "target_sha256": "85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002"
+      "target_sha256": "29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c"
     },
     {
       "anchor_count": 6,

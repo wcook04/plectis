@@ -781,7 +781,12 @@ def cmd_session_finalize(args: argparse.Namespace) -> int:
 def cmd_session_status(args: argparse.Namespace) -> int:
     payload = work_ledger_runtime.load_runtime_status(REPO_ROOT)
     session_id = str(getattr(args, "session_id", "") or "").strip()
-    limit = getattr(args, "limit", work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT)
+    raw_limit = getattr(args, "limit", None)
+    limit = (
+        work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
+        if raw_limit is None
+        else raw_limit
+    )
     if session_id:
         return _print(
             _compact_single_session_status(
@@ -792,6 +797,29 @@ def cmd_session_status(args: argparse.Namespace) -> int:
             )
         )
     if getattr(args, "full", False):
+        if raw_limit is not None:
+            _print(
+                {
+                    "schema": "work_ledger_session_status_limit_guard_v0",
+                    "status": "refused",
+                    "reason": "--full emits the complete runtime status and cannot honor --limit without a --session-id.",
+                    "requested_limit": raw_limit,
+                    "bounded_alternatives": [
+                        "./repo-python tools/meta/factory/work_ledger.py session-status --overview --cards-only --limit "
+                        + str(raw_limit),
+                        "./repo-python tools/meta/factory/work_ledger.py session-status --overview --limit "
+                        + str(raw_limit),
+                        "./repo-python tools/meta/factory/work_ledger.py session-status --session-id <session_id> --full --limit "
+                        + str(raw_limit),
+                    ],
+                    "full_runtime_command": "./repo-python tools/meta/factory/work_ledger.py session-status --full",
+                    "omission_receipt": {
+                        "omitted": ["runtime_status.sessions"],
+                        "reason": "Prevent accidental full-runtime expansion when the caller requested a bounded sample.",
+                    },
+                },
+            )
+            return 2
         return _print(payload)
     seed_speed = bool(
         getattr(args, "seed_speed", False) or getattr(args, "speed_only", False)
@@ -842,26 +870,35 @@ def cmd_session_claims(args: argparse.Namespace) -> int:
     if getattr(args, "refresh", False):
         status = work_ledger_runtime.load_runtime_status(REPO_ROOT)
         work_ledger_runtime.write_active_claims_snapshot(REPO_ROOT, status)
+    scan_limit = 5000 if getattr(args, "session_summary", False) else limit
     payload = work_ledger_runtime.load_active_claims_snapshot(
         REPO_ROOT,
-        limit=limit,
+        limit=scan_limit,
         allow_stale=bool(getattr(args, "allow_stale", False)),
     )
+    if getattr(args, "session_summary", False):
+        payload = _compact_claim_session_summary_cards(payload, limit=limit)
+        return _print(payload)
     if not getattr(args, "full", False):
         payload = _compact_session_claims_cards(payload, limit=limit)
     return _print(payload)
 
 
-def _compact_claim_card(row: Mapping[str, Any]) -> Dict[str, Any]:
+def _compact_claim_card(
+    row: Mapping[str, Any],
+    *,
+    fallback_session: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
+    owner = fallback_session if isinstance(fallback_session, Mapping) else {}
     return {
         "scope_kind": row.get("scope_kind"),
         "scope_id": row.get("scope_id"),
         "td_id": row.get("td_id"),
         "path": row.get("path"),
         "work_item_id": row.get("work_item_id"),
-        "session_id": row.get("session_id"),
-        "actor": row.get("actor"),
-        "phase_id": row.get("phase_id"),
+        "session_id": row.get("session_id") or owner.get("session_id"),
+        "actor": row.get("actor") or owner.get("actor"),
+        "phase_id": row.get("phase_id") or owner.get("phase_id"),
         "leased_until": row.get("leased_until"),
     }
 
@@ -939,6 +976,161 @@ def _compact_session_claims_cards(snapshot: Mapping[str, Any], *, limit: int) ->
     }
 
 
+def _claim_preview(values: List[str], *, limit: int = 5) -> List[str]:
+    seen: List[str] = []
+    for value in values:
+        text = str(value or "").strip()
+        if text and text not in seen:
+            seen.append(text)
+    return sorted(seen)[:limit]
+
+
+def _compact_claim_session_summary_cards(snapshot: Mapping[str, Any], *, limit: int) -> Dict[str, Any]:
+    safe_limit = max(0, int(limit or 0))
+    session_rows: Dict[str, Dict[str, Any]] = {}
+    active_claims = [
+        row for row in list(snapshot.get("active_claims") or []) if isinstance(row, Mapping)
+    ]
+    for claim in active_claims:
+        session_id = str(claim.get("session_id") or "unknown").strip() or "unknown"
+        row = session_rows.setdefault(
+            session_id,
+            {
+                "session_id": session_id,
+                "actor": claim.get("actor"),
+                "phase_id": claim.get("phase_id"),
+                "active_claim_count": 0,
+                "path_claim_count": 0,
+                "td_claim_count": 0,
+                "work_item_claim_count": 0,
+                "other_claim_count": 0,
+                "_paths": [],
+                "_td_ids": [],
+                "_work_item_ids": [],
+                "lease_until_max": None,
+            },
+        )
+        row["active_claim_count"] += 1
+        scope_kind = str(claim.get("scope_kind") or "").strip()
+        if scope_kind == "path":
+            row["path_claim_count"] += 1
+            row["_paths"].append(str(claim.get("path") or claim.get("scope_id") or ""))
+        elif scope_kind in {"td", "td_id", "thread"}:
+            row["td_claim_count"] += 1
+            row["_td_ids"].append(str(claim.get("td_id") or claim.get("scope_id") or ""))
+        elif scope_kind in {"work_item", "work_item_id"}:
+            row["work_item_claim_count"] += 1
+            row["_work_item_ids"].append(
+                str(claim.get("work_item_id") or claim.get("scope_id") or "")
+            )
+        else:
+            row["other_claim_count"] += 1
+        leased_until = str(claim.get("leased_until") or "").strip()
+        if leased_until and (
+            not row["lease_until_max"] or leased_until > row["lease_until_max"]
+        ):
+            row["lease_until_max"] = leased_until
+        if not row.get("actor") and claim.get("actor"):
+            row["actor"] = claim.get("actor")
+        if not row.get("phase_id") and claim.get("phase_id"):
+            row["phase_id"] = claim.get("phase_id")
+
+    session_cards = sorted(
+        session_rows.values(),
+        key=lambda row: (
+            -int(row.get("active_claim_count") or 0),
+            str(row.get("lease_until_max") or ""),
+            str(row.get("session_id") or ""),
+        ),
+    )
+    emitted = session_cards[:safe_limit] if safe_limit else []
+    compact_cards: List[Dict[str, Any]] = []
+    for row in emitted:
+        paths = list(row.pop("_paths", []))
+        td_ids = list(row.pop("_td_ids", []))
+        work_item_ids = list(row.pop("_work_item_ids", []))
+        session_id = str(row.get("session_id") or "unknown")
+        compact_cards.append(
+            {
+                **row,
+                "paths_preview": _claim_preview(paths),
+                "paths_omitted": max(0, int(row.get("path_claim_count") or 0) - 5),
+                "td_ids_preview": _claim_preview(td_ids),
+                "td_ids_omitted": max(0, int(row.get("td_claim_count") or 0) - 5),
+                "work_item_ids_preview": _claim_preview(work_item_ids),
+                "work_item_ids_omitted": max(
+                    0, int(row.get("work_item_claim_count") or 0) - 5
+                ),
+                "drilldown": (
+                    "./repo-python tools/meta/factory/work_ledger.py "
+                    f"session-status --session-id {shlex.quote(session_id)} --full"
+                ),
+            }
+        )
+
+    truncation = (
+        snapshot.get("truncation") if isinstance(snapshot.get("truncation"), Mapping) else {}
+    )
+    return {
+        "schema": "work_ledger_active_claim_session_summary_v1",
+        "generated_at": snapshot.get("generated_at"),
+        "status": snapshot.get("status"),
+        "counts": {
+            **dict(snapshot.get("counts") or {}),
+            "claim_sessions_total": len(session_cards),
+            "claim_sessions_emitted": len(compact_cards),
+        },
+        "claim_session_cards": compact_cards,
+        "claim_sessions_omitted": max(0, len(session_cards) - len(compact_cards)),
+        "source_claim_scan": {
+            "limit": truncation.get("limit"),
+            "active_claims_total": truncation.get("active_claims_total"),
+            "active_claims_scanned": truncation.get("active_claims_emitted"),
+            "truncated": bool(
+                (truncation.get("active_claims_total") or 0)
+                > (truncation.get("active_claims_emitted") or 0)
+            ),
+        },
+        "source_freshness": {
+            "status": (snapshot.get("source_freshness") or {}).get("status")
+            if isinstance(snapshot.get("source_freshness"), Mapping)
+            else None,
+            "policy": (snapshot.get("source_freshness") or {}).get("policy")
+            if isinstance(snapshot.get("source_freshness"), Mapping)
+            else None,
+        },
+        "drilldown_commands": {
+            "full_claims": (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                f"session-claims --limit {safe_limit} --full"
+            ),
+            "claim_cards": (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                f"session-claims --refresh --limit {safe_limit} --cards-only"
+            ),
+            "seed_speed_status": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "session_overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
+        },
+        "omission_receipt": {
+            "omitted": [
+                "per-claim rows",
+                "claim_id",
+                "claimed_at",
+                "release metadata",
+                "source receipts",
+            ],
+            "reason": (
+                "session-summary groups refreshed claims by owner session so lane "
+                "selection is not dominated by one high-volume session."
+            ),
+            "drilldown": (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                f"session-claims --limit {safe_limit} --full"
+            ),
+        },
+    }
+
+
 def _parse_optional_datetime(value: Any) -> datetime | None:
     token = str(value or "").strip()
     if not token:
@@ -974,6 +1166,8 @@ def _pass_freshness_for_session(row: Mapping[str, Any], heartbeat: Mapping[str, 
 
 def _compact_session_row(row: Mapping[str, Any]) -> Dict[str, Any]:
     risk_flags: list[str] = []
+    session_id = str(row.get("session_id") or "").strip()
+    quoted_session_id = shlex.quote(session_id) if session_id else "<session_id>"
     if row.get("orphaned_active"):
         risk_flags.append("orphaned_active")
     if row.get("stale"):
@@ -1000,7 +1194,10 @@ def _compact_session_row(row: Mapping[str, Any]) -> Dict[str, Any]:
         "freshness_state": _pass_freshness_for_session(row, heartbeat),
         "pass_source": heartbeat.get("source"),
         "risk_flags": risk_flags,
-        "drilldown_command": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+        "drilldown_command": (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            f"session-status --session-id {quoted_session_id} --full"
+        ),
     }
 
 
@@ -1019,9 +1216,10 @@ def _compact_single_session_status(
             "schema": "work_ledger_session_status_card_v1",
             "status": "missing",
             "session_id": session_id,
-            "hint": "Run session-status --overview --with-session-cards to inspect active session ids.",
+            "hint": "Run session-status --seed-speed to inspect active session ids.",
             "drilldown_commands": {
-                "overview": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+                "seed_speed": WORK_LEDGER_SEED_SPEED_COMMAND,
+                "overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
                 "full_runtime": "./repo-python tools/meta/factory/work_ledger.py session-status --full",
             },
         }
@@ -1046,9 +1244,13 @@ def _compact_single_session_status(
             "touched_work": bool(session.get("touched_work")),
         },
         "active_claim_count": len(active_claims),
-        "active_claim_cards": [_compact_claim_card(claim) for claim in active_claims],
+        "active_claim_cards": [
+            _compact_claim_card(claim, fallback_session=session)
+            for claim in active_claims
+        ],
         "drilldown_commands": {
-            "overview": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+            "seed_speed": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
             "single_full": (
                 "./repo-python tools/meta/factory/work_ledger.py "
                 f"session-status --session-id {shlex.quote(session_id)} --full"
@@ -1177,12 +1379,12 @@ def _cohort_speed_summary(
         "projected_unknown_sessions": heartbeat.get("projected_unknown_count", 0),
         "orphaned_active_sessions": counts.get("orphaned_active_sessions"),
         "first_action": (
-            "Use session-claims for write-active lanes, then publish session-heartbeat "
-            "for participating live seeds that can write."
+            "Use session-level claim summaries for write-active lanes, then publish "
+            "session-heartbeat for participating live seeds that can write."
         ),
         "claims_fast_path": (
             "./repo-python tools/meta/factory/work_ledger.py "
-            "session-claims --refresh --limit 50 --cards-only"
+            "session-claims --refresh --session-summary --limit 12 --cards-only"
         ),
         "heartbeat_fast_path": (
             "./repo-python tools/meta/factory/work_ledger.py "
@@ -1376,7 +1578,8 @@ def _compact_session_status_overview(
         },
         "recommended_actions": list(overview.get("recommended_actions") or [])[:safe_limit],
         "drilldown_commands": {
-            "with_session_cards": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+            "seed_speed": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
             "full_runtime": "./repo-python tools/meta/factory/work_ledger.py session-status --full",
         },
     }
@@ -2640,6 +2843,7 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         "observed_path_overlap_summary": overlap_summary,
         "shared_worktree_git_risks": payload.get("shared_worktree_git_risks") or [],
         "overview_summary": _compact_preflight_overview(overview),
+        "initial_heartbeat": payload.get("initial_heartbeat") or {},
         "heartbeat_participation_contract": payload.get("heartbeat_participation_contract") or {},
         "closeout_rule": payload.get("closeout_rule") or {},
         "closeout_plan": payload.get("closeout_plan") or {},
@@ -2825,6 +3029,16 @@ def cmd_session_yield_request(args: argparse.Namespace) -> int:
         ],
         limit=1,
     )
+    request_context = {
+        "request_id": request_id,
+        "requested_action": receipt.get("requested_action"),
+        "target_class": receipt.get("target_class"),
+        "result": receipt.get("result"),
+        "rank_candidate_preserved": True,
+        "reason": "explicit_owner_visible_request",
+    }
+    for row in rank.get("rows", []):
+        row["explicit_request"] = dict(request_context)
     payload = {
         "schema": "session_yield_request_command_v1",
         "status": receipt.get("result"),
@@ -3015,6 +3229,40 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
         require_exclusive_claims=bool(args.require_exclusive),
     )
     claims = list(bootstrap.get("claims") or [])
+    initial_heartbeat: Dict[str, Any] = {"status": "not_requested"}
+    heartbeat_current_line = getattr(args, "heartbeat_current_pass_line", None)
+    heartbeat_result_line = getattr(args, "heartbeat_last_pass_result_line", None)
+    if heartbeat_current_line or heartbeat_result_line:
+        heartbeat_scope_refs = list(getattr(args, "heartbeat_scope_ref", []) or [])
+        heartbeat_scope_policy = "explicit"
+        if not heartbeat_scope_refs:
+            heartbeat_scope_refs = list(args.td_id or []) + list(claim_paths)
+            heartbeat_scope_policy = "claimed_scopes"
+        heartbeat_state = SESSION_HEARTBEAT_STATE_ALIASES.get(
+            str(getattr(args, "heartbeat_state", "inspecting") or ""),
+            getattr(args, "heartbeat_state", "inspecting"),
+        )
+        heartbeat_status = work_ledger_runtime.mark_session_pass_heartbeat(
+            REPO_ROOT,
+            session_id=session_id,
+            pass_state=heartbeat_state,
+            current_pass_line=heartbeat_current_line,
+            last_pass_result_line=heartbeat_result_line,
+            td_id=(args.td_id or [None])[0],
+            scope_refs=heartbeat_scope_refs,
+            source=getattr(args, "heartbeat_source", "manual_cli") or "manual_cli",
+        )
+        heartbeat_session = (
+            heartbeat_status.get("sessions", {}).get(session_id, {})
+            if isinstance(heartbeat_status.get("sessions"), Mapping)
+            else {}
+        )
+        initial_heartbeat = {
+            "schema": "work_ledger_session_preflight_initial_heartbeat_v0",
+            "status": "written",
+            "scope_ref_policy": heartbeat_scope_policy,
+            "pass_heartbeat": dict(heartbeat_session.get("pass_heartbeat") or {}),
+        }
     observed_path_overlaps = _observed_path_overlaps(
         requested_paths=_preflight_requested_paths(claim_paths),
         codex_import=codex_import,
@@ -3026,6 +3274,8 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
         else None
     )
     if (
+        initial_heartbeat.get("status") != "written"
+        and
         int(args.overview_limit or 0) == work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
         and cached_overview is not None
     ):
@@ -3062,6 +3312,7 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
         "observed_path_overlaps": observed_path_overlaps,
         "shared_worktree_git_risks": shared_worktree_git_risks,
         "overview": overview,
+        "initial_heartbeat": initial_heartbeat,
         "closeout_rule": {
             "schema": "work_ledger_preflight_closeout_rule_v1",
             "status": "append_or_append_exempt_before_finalize",
@@ -3219,15 +3470,36 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
         dirty_tree_pressure["sweep_dry_run"] = bool(args.dry_run)
     duplicate_claim_dedupe = None
     if bool(getattr(args, "dedupe_duplicate_claims", False)):
+        dedupe_preview_limit = int(
+            getattr(args, "dedupe_preview_limit", 0)
+            or work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT
+        )
         duplicate_claim_dedupe = work_ledger_runtime.dedupe_duplicate_same_session_claims(
             REPO_ROOT,
             dry_run=bool(args.dry_run),
+            limit=dedupe_preview_limit,
         )
+        if not bool(getattr(args, "full", False)):
+            duplicate_claim_dedupe = _compact_duplicate_claim_dedupe_cli_payload(
+                duplicate_claim_dedupe,
+                released_limit=dedupe_preview_limit,
+            )
     dirty_tree_pressure_alias = (
         work_ledger_runtime.dirty_tree_pressure_alias(dirty_tree_pressure)
         if dirty_tree_pressure is not None
         else None
     )
+    if dirty_tree_pressure_alias is not None and not bool(getattr(args, "full", False)):
+        dirty_tree_pressure_alias = _compact_dirty_tree_pressure_alias_cli_payload(
+            dirty_tree_pressure_alias
+        )
+    dirty_tree_pressure_payload = None
+    if dirty_tree_pressure is not None:
+        dirty_tree_pressure_payload = (
+            dirty_tree_pressure
+            if bool(getattr(args, "full", False))
+            else work_ledger_runtime.compact_dirty_tree_pressure_card(dirty_tree_pressure)
+        )
     return _print(
         {
             "schema": "work_ledger_sweep_report_v1",
@@ -3236,8 +3508,8 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
             "claim_expiry": expiry,
             "orphan_sessions": orphans,
             **(
-                {"dirty_tree_bankruptcy_pressure": dirty_tree_pressure}
-                if dirty_tree_pressure is not None
+                {"dirty_tree_bankruptcy_pressure": dirty_tree_pressure_payload}
+                if dirty_tree_pressure_payload is not None
                 else {}
             ),
             **(
@@ -3252,6 +3524,71 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
             ),
         }
     )
+
+
+def _compact_dirty_tree_pressure_alias_cli_payload(
+    payload: Mapping[str, Any],
+) -> Dict[str, Any]:
+    compact = {
+        key: payload.get(key)
+        for key in (
+            "schema",
+            "alias_of",
+            "output_profile",
+            "authority_boundary",
+            "safety_authority",
+            "bankruptcy_authorized",
+            "dirty_scan_status",
+            "dirty_total",
+            "class_counts",
+            "dirty_path_class_counts",
+            "operator_authorized_mainline_checkpoint",
+            "operator_authorized_unclaimed_checkpoint",
+            "blocked_residual_count",
+            "next_safe_action",
+            "full_card_command",
+        )
+        if payload.get(key) not in (None, "", [], {})
+    }
+    compact["omission_receipt"] = {
+        "omitted": [
+            "nested path previews",
+            "containment plan detail",
+            "claim collision action rows",
+            "repeat policy detail",
+            "command map",
+        ],
+        "reason": (
+            "session-sweep compact output already carries the first-action "
+            "dirty_tree_bankruptcy_pressure card; the alias stays handle-sized."
+        ),
+        "drilldown": (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            "session-sweep --dry-run --dirty-tree-pressure --full"
+        ),
+    }
+    return compact
+
+
+def _compact_duplicate_claim_dedupe_cli_payload(
+    payload: Mapping[str, Any],
+    *,
+    released_limit: int,
+) -> Dict[str, Any]:
+    compact = dict(payload)
+    released = compact.pop("released", None)
+    if not isinstance(released, list):
+        return compact
+    safe_limit = max(0, int(released_limit or 0))
+    released_preview = released[:safe_limit] if safe_limit else []
+    compact["released_preview"] = released_preview
+    compact["released_omitted"] = max(0, len(released) - len(released_preview))
+    compact["released_detail_omitted"] = True
+    compact["full_output_hint"] = (
+        "./repo-python tools/meta/factory/work_ledger.py session-sweep "
+        "--dedupe-duplicate-claims --full"
+    )
+    return compact
 
 
 def cmd_append_open(args: argparse.Namespace) -> int:
@@ -3496,6 +3833,8 @@ def cmd_reopen(args: argparse.Namespace) -> int:
 
 
 def cmd_project(args: argparse.Namespace) -> int:
+    if args.all and args.target_only:
+        raise SystemExit("--target-only cannot be used with --all")
     if args.check:
         if args.all:
             return _print(work_ledger.check_project_all(REPO_ROOT))
@@ -3504,17 +3843,50 @@ def cmd_project(args: argparse.Namespace) -> int:
                 REPO_ROOT,
                 phase_id=args.phase_id,
                 family_id=args.family_id,
+                target_only=bool(args.target_only),
             )
         )
     if args.all:
         return _print(work_ledger.project_all(REPO_ROOT))
-    return _print(
-        work_ledger.project_phase(
-            REPO_ROOT,
-            phase_id=args.phase_id,
-            family_id=args.family_id,
-        )
+    payload = work_ledger.project_phase(
+        REPO_ROOT,
+        phase_id=args.phase_id,
+        family_id=args.family_id,
+        target_only=bool(args.target_only),
     )
+    if args.target_only and not args.full:
+        payload = _compact_target_only_project_payload(payload)
+    return _print(payload)
+
+
+def _compact_target_only_project_payload(payload: Mapping[str, Any]) -> Dict[str, Any]:
+    compact = dict(payload)
+    projection = compact.pop("projection", None)
+    if not isinstance(projection, Mapping):
+        return compact
+
+    threads = projection.get("threads")
+    compact["projection_summary"] = {
+        "schema": projection.get("schema"),
+        "generated_at": projection.get("generated_at"),
+        "phase_id": projection.get("phase_id") or compact.get("phase_id"),
+        "family_id": projection.get("family_id") or compact.get("family_id"),
+        "counts": projection.get("counts"),
+        "thread_count": len(threads) if isinstance(threads, Mapping) else None,
+    }
+    compact["omission_receipt"] = {
+        "omitted": ["projection"],
+        "reason": (
+            "project --target-only CLI output omits the full Work Ledger index "
+            "body by default; projection_results and projection_summary retain "
+            "refresh status and counts."
+        ),
+        "drilldown": (
+            "./repo-python tools/meta/factory/work_ledger.py project "
+            "--target-only --full"
+        ),
+    }
+    return compact
 
 
 def cmd_query(args: argparse.Namespace) -> int:
@@ -3804,6 +4176,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     session_status = subparsers.add_parser("session-status")
     session_status.add_argument(
+        "--json",
+        action="store_true",
+        help="Compatibility no-op; session-status output is already JSON.",
+    )
+    session_status.add_argument(
         "--overview",
         action="store_true",
         help="Print the compact multi-agent session overview. This is the default.",
@@ -3865,7 +4242,8 @@ def build_parser() -> argparse.ArgumentParser:
     session_status.add_argument(
         "--limit",
         type=int,
-        default=work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT,
+        default=None,
+        help="Limit compact overview rows; with --full, use --session-id for bounded diagnostics.",
     )
     session_status.set_defaults(func=cmd_session_status)
 
@@ -3892,6 +4270,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--full",
         action="store_true",
         help="Print full claim rows, notes, source receipts, and nested collision details.",
+    )
+    session_claims.add_argument(
+        "--session-summary",
+        action="store_true",
+        help="Group active claims into compact owner-session cards for lane selection.",
     )
     session_claims.add_argument(
         "--cards-only",
@@ -4178,6 +4561,48 @@ def build_parser() -> argparse.ArgumentParser:
     session_preflight.add_argument("--include-all-cwds", action="store_true")
     session_preflight.add_argument("--include-all-workspaces", action="store_true")
     session_preflight.add_argument(
+        "--heartbeat-current-pass-line",
+        "--heartbeat-now",
+        dest="heartbeat_current_pass_line",
+        default=None,
+        help=(
+            "Optional public current-pass line to write as part of the same "
+            "session-preflight mutation."
+        ),
+    )
+    session_preflight.add_argument(
+        "--heartbeat-last-pass-result-line",
+        "--heartbeat-done",
+        dest="heartbeat_last_pass_result_line",
+        default=None,
+        help=(
+            "Optional public previous-result line to write as part of the same "
+            "session-preflight mutation."
+        ),
+    )
+    session_preflight.add_argument(
+        "--heartbeat-state",
+        default="inspecting",
+        choices=sorted(
+            set(work_ledger_runtime.PASS_HEARTBEAT_STATES)
+            | set(SESSION_HEARTBEAT_STATE_ALIASES)
+        ),
+    )
+    session_preflight.add_argument(
+        "--heartbeat-scope-ref",
+        action="append",
+        default=[],
+        help=(
+            "Optional heartbeat scope ref. Repeatable. Defaults to claimed "
+            "WorkItem/thread ids plus claimed paths when heartbeat text is supplied."
+        ),
+    )
+    session_preflight.add_argument(
+        "--heartbeat-source",
+        default="manual_cli",
+        choices=sorted(work_ledger_runtime.PASS_HEARTBEAT_SOURCES),
+    )
+    session_preflight.add_argument(
         "--full",
         action="store_true",
         help="Print the full bootstrap/import/cohort payload instead of the compact default.",
@@ -4304,6 +4729,24 @@ def build_parser() -> argparse.ArgumentParser:
             "True cross-session collisions remain explicit coordination blockers."
         ),
     )
+    session_sweep.add_argument(
+        "--dedupe-preview-limit",
+        type=int,
+        default=work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT,
+        help=(
+            "Preview row limit for duplicate-claim dedupe actions and released "
+            "claim rows. Use --full only for machine consumers that need every "
+            "released claim record."
+        ),
+    )
+    session_sweep.add_argument(
+        "--full",
+        action="store_true",
+        help=(
+            "Print full sweep detail, including every duplicate claim released. "
+            "Default output keeps bounded previews for agent-facing coordination."
+        ),
+    )
     session_sweep.set_defaults(func=cmd_session_sweep)
 
     append_open = subparsers.add_parser("append-open")
@@ -4343,6 +4786,19 @@ def build_parser() -> argparse.ArgumentParser:
     project.add_argument("--family-id", default=None)
     project.add_argument("--all", action="store_true")
     project.add_argument("--check", action="store_true")
+    project.add_argument(
+        "--target-only",
+        action="store_true",
+        help=(
+            "Refresh or check only the selected phase/family index. Sibling "
+            "family bucket projections are reported as deferred instead of rewritten."
+        ),
+    )
+    project.add_argument(
+        "--full",
+        action="store_true",
+        help="Print the full projection payload for project --target-only diagnostics.",
+    )
     project.set_defaults(func=cmd_project)
 
     query = subparsers.add_parser("query")

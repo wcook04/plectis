@@ -195,6 +195,7 @@ def _default_status() -> Dict[str, Any]:
             "generated_at": work_ledger.utc_now(),
             "counts": {},
             "active_sessions": [],
+            "passive_external_observed_sessions": [],
             "stale_sessions": [],
             "actors": {},
             "phases": {},
@@ -446,6 +447,147 @@ def _is_orphaned_active_session(
     return now - last_signal > orphan_after
 
 
+def _external_mutation_path_count(session: Mapping[str, Any]) -> int:
+    metadata = session.get("external_metadata")
+    if not isinstance(metadata, Mapping):
+        return 0
+    rollout = metadata.get("rollout_activity")
+    if not isinstance(rollout, Mapping):
+        return 0
+    mutation_paths = rollout.get("recent_mutation_paths")
+    if isinstance(mutation_paths, Sequence) and not isinstance(mutation_paths, (str, bytes)):
+        return len([path for path in mutation_paths if str(path or "").strip()])
+    try:
+        return int(rollout.get("recent_mutation_path_count") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _session_has_live_explicit_pass_heartbeat(
+    session: Mapping[str, Any],
+    *,
+    now: datetime,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> bool:
+    orphaned_active = _is_orphaned_active_session(
+        session,
+        now=now,
+        orphan_after=orphan_after,
+    )
+    heartbeat = _compact_pass_heartbeat(
+        session,
+        now=now,
+        orphaned_active=orphaned_active,
+    )
+    source = str(heartbeat.get("source") or "").strip()
+    freshness = str(heartbeat.get("freshness_state") or "").strip()
+    has_public_line = bool(
+        str(heartbeat.get("current_pass_line") or "").strip()
+        or str(heartbeat.get("last_pass_result_line") or "").strip()
+    )
+    return freshness == "live" and source in EXPLICIT_HEARTBEAT_SOURCES and has_public_line
+
+
+def _session_has_coordination_signal(
+    session: Mapping[str, Any],
+    *,
+    now: datetime,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> bool:
+    try:
+        open_todos_touched = int(session.get("open_todos_touched_this_session") or 0)
+    except (TypeError, ValueError):
+        open_todos_touched = 0
+    try:
+        write_count = int(session.get("writes") or 0)
+    except (TypeError, ValueError):
+        write_count = 0
+    return bool(
+        _session_active_claims(session, now=now)
+        or session.get("touched_work")
+        or session.get("touched_td_ids")
+        or session.get("touched_work_item_ids")
+        or open_todos_touched > 0
+        or write_count > 0
+        or session.get("session_had_ledger_append")
+        or session.get("append_exempt")
+        or _external_mutation_path_count(session) > 0
+        or _session_has_live_explicit_pass_heartbeat(
+            session,
+            now=now,
+            orphan_after=orphan_after,
+        )
+    )
+
+
+def _session_claim_scope_kinds(session: Mapping[str, Any]) -> set[str]:
+    kinds: set[str] = set()
+    for raw in session.get("claims") or []:
+        if not isinstance(raw, Mapping):
+            continue
+        scope_kind, scope_id = _normalize_claim_scope(raw)
+        if scope_kind and scope_id:
+            kinds.add(scope_kind)
+    return kinds
+
+
+def _session_requires_append_evidence(session: Mapping[str, Any]) -> bool:
+    if session.get("session_had_ledger_append") or session.get("append_exempt"):
+        return False
+    try:
+        open_todos_touched = int(session.get("open_todos_touched_this_session") or 0)
+    except (TypeError, ValueError):
+        open_todos_touched = 0
+    try:
+        write_count = int(session.get("writes") or 0)
+    except (TypeError, ValueError):
+        write_count = 0
+    if (
+        session.get("touched_td_ids")
+        or session.get("touched_work_item_ids")
+        or open_todos_touched > 0
+        or write_count > 0
+        or _external_mutation_path_count(session) > 0
+    ):
+        return True
+    if not session.get("touched_work"):
+        return False
+    claim_kinds = _session_claim_scope_kinds(session)
+    if not claim_kinds:
+        return True
+    return bool(claim_kinds - {CLAIM_SCOPE_PATH})
+
+
+def _is_passive_external_observed_session(
+    session: Mapping[str, Any],
+    *,
+    now: datetime,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> bool:
+    return bool(session.get("external_observed")) and not _session_has_coordination_signal(
+        session,
+        now=now,
+        orphan_after=orphan_after,
+    )
+
+
+def _is_effective_active_session(
+    session: Mapping[str, Any],
+    *,
+    now: datetime,
+    orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
+) -> bool:
+    if session.get("ended_at"):
+        return False
+    if _is_orphaned_active_session(session, now=now, orphan_after=orphan_after):
+        return False
+    return not _is_passive_external_observed_session(
+        session,
+        now=now,
+        orphan_after=orphan_after,
+    )
+
+
 def _compact_external_metadata(metadata: Mapping[str, Any]) -> Dict[str, Any]:
     compact: Dict[str, Any] = {}
     for key, value in metadata.items():
@@ -676,6 +818,56 @@ def _orphan_visibility_sweep_command(orphan_after: timedelta, *args: str) -> str
     )
 
 
+def _stale_append_repair_route(session: Mapping[str, Any]) -> Dict[str, Any]:
+    session_id = str(session.get("session_id") or "<session_id>")
+    session_arg = _quote_cli(session_id)
+    ended = bool(session.get("ended_at"))
+    has_append = bool(session.get("session_had_ledger_append"))
+    append_exempt = bool(session.get("append_exempt"))
+    if ended and not has_append and not append_exempt:
+        read_receipt_id = str(session.get("read_receipt_id") or "").strip()
+        details: Dict[str, Any] = {
+            "sample_repair_state": "ended_without_append_or_exemption",
+            "triage_reason": (
+                "session is already ended; inspect durable evidence before recording "
+                "append-exempt closeout"
+            ),
+        }
+        if read_receipt_id:
+            details["append_exempt_template_command"] = _wl_command(
+                "session-finalize",
+                f"--session-id {session_arg}",
+                "--action append_exempt_closeout",
+                f"--read-receipt-id {_quote_cli(read_receipt_id)}",
+                "--append-exempt-reason <commit-or-projection-closeout>",
+                "--append-exempt-ref <commit-or-receipt-ref>",
+            )
+        return {
+            "why_blocked": (
+                "Stale session is already ended without Work Ledger append or "
+                "append-exempt evidence; inspect the session before recording an "
+                "evidence-backed append-exempt closeout."
+            ),
+            "owning_surface": "work_ledger.session_status",
+            "safe_next_command": _wl_command(
+                "session-status",
+                f"--session-id {session_arg}",
+                "--full",
+            ),
+            "details": details,
+        }
+    return {
+        "why_blocked": (
+            "Stale sessions may still owe Work Ledger append/finalize work; close "
+            "normal sessions with session-finalize, and use append-exempt finalize "
+            "only for commit/projection-only evidence."
+        ),
+        "owning_surface": "work_ledger.session_finalize",
+        "safe_next_command": _wl_command("session-finalize", f"--session-id {session_arg}"),
+        "details": {"sample_repair_state": "active_or_finalizable_stale_session"},
+    }
+
+
 def _mission_command(*args: str) -> str:
     suffix = " ".join(arg for arg in args if arg)
     base = "./repo-python tools/meta/control/mission_transaction_preflight.py"
@@ -683,10 +875,12 @@ def _mission_command(*args: str) -> str:
 
 
 def _residual_capture_command(tag: str = "concurrency_actionability") -> str:
+    title = f"Work Ledger residual: {tag}"
     return (
         "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
         "--created-by codex --confidence 0.85 "
-        f"--tag {shlex.quote(tag)} --tag work_ledger --summary <residual>"
+        f"--tag {shlex.quote(tag)} --tag work_ledger "
+        f"--title {shlex.quote(title)} --statement {shlex.quote('<residual>')}"
     )
 
 
@@ -858,9 +1052,9 @@ def _session_is_mission_focus_candidate(session: Mapping[str, Any]) -> bool:
     except (TypeError, ValueError):
         open_todos_touched = 0
     return bool(
-        session.get("external_observed")
-        or session.get("touched_work")
+        session.get("touched_work")
         or open_todos_touched > 0
+        or str(session.get("external_title") or "").strip()
         or _session_claim_path_roots(session)
     )
 
@@ -974,6 +1168,16 @@ def _build_monitor_cards(
     orphaned_active = int(counts.get("orphaned_active_sessions") or 0)
     active_claims = int(counts.get("active_claims") or 0)
     stale_sessions = int(counts.get("stale_sessions") or 0)
+    stale_append_obligations = int(
+        counts.get("stale_append_obligations", stale_sessions) or 0
+    )
+    stale_claim_only = int(
+        counts.get(
+            "stale_claim_only_sessions",
+            max(0, stale_sessions - stale_append_obligations),
+        )
+        or 0
+    )
     cohort_status = risk_level
     claims_status = _monitor_status(
         blocked=claim_collision_count > 0 or td_collision_count > 0,
@@ -985,7 +1189,7 @@ def _build_monitor_cards(
     )
     mission_focus_status = _monitor_status(watch=mission_focus_group_count > 0)
     orphaned_status = _monitor_status(watch=orphaned_active > 0)
-    stale_status = _monitor_status(watch=stale_sessions > 0)
+    stale_status = _monitor_status(watch=stale_append_obligations > 0)
     return [
         {
             "card_id": "cohort",
@@ -1038,7 +1242,7 @@ def _build_monitor_cards(
                 "signal": "unbound_mission_focus_parallelism",
                 "binding_rule": "same title/note focus or module work should claim td/work_item identity before mutation",
             },
-            "drilldown": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+            "drilldown": _wl_command("session-status", "--seed-speed --limit 12"),
         },
         {
             "card_id": "orphaned_sessions",
@@ -1054,8 +1258,16 @@ def _build_monitor_cards(
             "label": "Stale Append Obligations",
             "status": stale_status,
             "risk_band": _monitor_risk_band(stale_status),
-            "count": stale_sessions,
-            "summary": f"{stale_sessions} sessions have stale Work Ledger append obligations",
+            "count": stale_append_obligations,
+            "summary": (
+                f"{stale_append_obligations} sessions have stale Work Ledger append "
+                f"obligations; {stale_claim_only} claim-only stale sessions are demoted"
+            ),
+            "details": {
+                "stale_sessions": stale_sessions,
+                "stale_append_obligations": stale_append_obligations,
+                "stale_claim_only_sessions": stale_claim_only,
+            },
             "drilldown": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --limit 12",
         },
     ]
@@ -1123,7 +1335,7 @@ def _session_heartbeat_repair_row(card: Mapping[str, Any]) -> Dict[str, Any] | N
             "session-heartbeat",
             f"--session-id {quoted_session}",
             "--state orienting",
-            "--now '<current pass line>'",
+            "--current-pass-line '<current pass line>'",
             "--scope-ref <work_item_or_path>",
         ),
         proof_route=_wl_command("session-status", f"--session-id {quoted_session} --full"),
@@ -1487,7 +1699,7 @@ def _td_collision_repair_rows(
                 ),
                 owning_surface="work_ledger.thread_claims",
                 safe_next_command=proof,
-                proof_route=_wl_command("session-status", "--overview --with-session-cards --limit 12"),
+                proof_route=_wl_command("session-status", "--seed-speed --limit 12"),
                 residual_capture_route=_residual_capture_command("td_id_contention"),
                 details={
                     "td_id": td_id,
@@ -1592,7 +1804,7 @@ def _overview_repair_rows(
                     "session-heartbeat",
                     "--session-id <session_id>",
                     "--state orienting",
-                    "--now '<current pass line>'",
+                    "--current-pass-line '<current pass line>'",
                     "--scope-ref <work_item_or_path>",
                 ),
                 proof_route=_wl_command("session-status", "--overview --cards-only --limit 12"),
@@ -1622,7 +1834,7 @@ def _overview_repair_rows(
                     "--td-id <work_item_id>",
                     "--claim-path <path>",
                 ),
-                proof_route=_wl_command("session-status", "--overview --with-session-cards --limit 12"),
+                proof_route=_wl_command("session-status", "--seed-speed --limit 12"),
                 residual_capture_route=_residual_capture_command("mission_focus_binding"),
                 details={
                     "group_count": len(mission_focus_groups),
@@ -1644,29 +1856,37 @@ def _overview_repair_rows(
                 ),
                 owning_surface="work_ledger.session_sweep",
                 safe_next_command=_orphan_visibility_sweep_command(orphan_after),
-                proof_route=_wl_command("session-status", "--overview --with-session-cards --limit 12"),
+                proof_route=_wl_command("session-status", "--overview --cards-only --limit 12"),
                 residual_capture_route=_residual_capture_command("orphaned_session"),
                 details={"session_count": len(orphaned_active_sessions)},
             )
         )
     if stale_sessions:
-        first_stale = next((item for item in stale_sessions if isinstance(item, Mapping)), {})
+        first_stale = next(
+            (
+                item
+                for item in stale_sessions
+                if isinstance(item, Mapping) and not item.get("ended_at")
+            ),
+            next((item for item in stale_sessions if isinstance(item, Mapping)), {}),
+        )
         session_id = str(first_stale.get("session_id") or "<session_id>")
+        stale_repair = _stale_append_repair_route(first_stale)
         rows.append(
             _repair_row(
                 row_id="stale_append_or_finalize",
                 failure_class="stale_append_or_finalize",
                 status="watch",
-                why_blocked=(
-                    "Stale sessions may still owe Work Ledger append/finalize work; close "
-                    "normal sessions with session-finalize, and use append-exempt finalize "
-                    "only for commit/projection-only evidence."
-                ),
-                owning_surface="work_ledger.session_finalize",
-                safe_next_command=_wl_command("session-finalize", f"--session-id {_quote_cli(session_id)}"),
-                proof_route=_wl_command("session-status", "--overview --with-session-cards --limit 12"),
+                why_blocked=str(stale_repair["why_blocked"]),
+                owning_surface=str(stale_repair["owning_surface"]),
+                safe_next_command=str(stale_repair["safe_next_command"]),
+                proof_route=_wl_command("session-status", "--overview --cards-only --limit 12"),
                 residual_capture_route=_residual_capture_command("stale_append_obligation"),
-                details={"session_count": len(stale_sessions), "sample_session_id": session_id},
+                details={
+                    "session_count": len(stale_sessions),
+                    "sample_session_id": session_id,
+                    **dict(stale_repair["details"]),
+                },
             )
         )
     return rows[:row_limit]
@@ -1726,16 +1946,35 @@ def build_session_cohort_overview(
         for session in active_sessions
         if _is_orphaned_active_session(session, now=now, orphan_after=orphan_after)
     ]
-    effective_active_sessions = [
+    passive_external_observed_sessions = [
         session
         for session in active_sessions
         if not _is_orphaned_active_session(session, now=now, orphan_after=orphan_after)
+        and _is_passive_external_observed_session(
+            session,
+            now=now,
+            orphan_after=orphan_after,
+        )
+    ]
+    effective_active_sessions = [
+        session
+        for session in active_sessions
+        if _is_effective_active_session(session, now=now, orphan_after=orphan_after)
     ]
     stale_sessions = [session for session in sessions if bool(session.get("stale"))]
+    stale_append_sessions = [
+        session for session in stale_sessions if _session_requires_append_evidence(session)
+    ]
+    stale_claim_only_sessions = [
+        session for session in stale_sessions if not _session_requires_append_evidence(session)
+    ]
     active_sessions.sort(key=_session_sort_key, reverse=True)
     effective_active_sessions.sort(key=_session_sort_key, reverse=True)
+    passive_external_observed_sessions.sort(key=_session_sort_key, reverse=True)
     orphaned_active_sessions.sort(key=_session_sort_key, reverse=True)
     stale_sessions.sort(key=_session_sort_key, reverse=True)
+    stale_append_sessions.sort(key=_session_sort_key, reverse=True)
+    stale_claim_only_sessions.sort(key=_session_sort_key, reverse=True)
 
     actors: Dict[str, Dict[str, Any]] = {}
     phases: Dict[str, Dict[str, Any]] = {}
@@ -1752,7 +1991,11 @@ def build_session_cohort_overview(
             if active
             else False
         )
-        effective_active = active and not orphaned_active
+        effective_active = active and _is_effective_active_session(
+            session,
+            now=now,
+            orphan_after=orphan_after,
+        )
         compact: Dict[str, Any] | None = None
         if effective_active:
             compact = _compact_session(session, now=now, orphan_after=orphan_after)
@@ -1834,8 +2077,9 @@ def build_session_cohort_overview(
         signals.append("unclaimed_touched_work")
     if orphaned_active_sessions:
         signals.append("orphaned_active_sessions")
-    if stale_sessions:
-        signals.append("stale_session_backlog")
+    historical_signals: List[str] = []
+    if stale_append_sessions:
+        historical_signals.append("stale_session_backlog")
 
     risk_level = "clear"
     if td_id_collisions or claim_collisions or len(unknown_scope_active) > 1:
@@ -1844,7 +2088,6 @@ def build_session_cohort_overview(
         len(effective_active_sessions) > 1
         or mission_focus_groups
         or unclaimed_touched_sessions
-        or stale_sessions
         or orphaned_active_sessions
     ):
         risk_level = "watch"
@@ -1879,7 +2122,7 @@ def build_session_cohort_overview(
         recommended_actions.append(
             "Finalize or refresh orphaned active sessions (`session-sweep`) before treating the active count as live coordination pressure."
         )
-    if stale_sessions:
+    if stale_append_sessions:
         recommended_actions.append(
             "Close stale append obligations with explicit ledger progress or resolution events."
         )
@@ -1891,11 +2134,14 @@ def build_session_cohort_overview(
     safe_limit = max(0, int(limit or 0))
     counts = dict(status.get("counts") or {})
     counts["effective_active_sessions"] = len(effective_active_sessions)
+    counts["passive_external_observed_sessions"] = len(passive_external_observed_sessions)
     counts["orphaned_active_sessions"] = len(orphaned_active_sessions)
     counts["active_claims"] = len(active_claims_flat)
     counts["claim_collisions"] = len(claim_collisions)
     counts["unclaimed_touched_sessions"] = len(unclaimed_touched_sessions)
     counts["mission_focus_pressure_groups"] = len(mission_focus_groups)
+    counts["stale_append_obligations"] = len(stale_append_sessions)
+    counts["stale_claim_only_sessions"] = len(stale_claim_only_sessions)
     recent_sweep_events = [
         dict(entry)
         for entry in (status.get("recent_sweep_events") or [])
@@ -1933,7 +2179,7 @@ def build_session_cohort_overview(
         unclaimed_touched_sessions=unclaimed_touched_sessions,
         mission_focus_groups=mission_focus_groups,
         orphaned_active_sessions=orphaned_active_sessions,
-        stale_sessions=stale_sessions,
+        stale_sessions=stale_append_sessions,
         heartbeat_participation=heartbeat_participation,
         limit=safe_limit,
         orphan_after=orphan_after,
@@ -1977,6 +2223,10 @@ def build_session_cohort_overview(
             _compact_session(session, now=now, orphan_after=orphan_after)
             for session in effective_active_sessions[:safe_limit]
         ],
+        "passive_external_observed_sessions": [
+            _compact_session(session, now=now, orphan_after=orphan_after)
+            for session in passive_external_observed_sessions[:safe_limit]
+        ],
         "orphaned_active_sessions": [
             _compact_session(session, now=now, orphan_after=orphan_after)
             for session in orphaned_active_sessions[:safe_limit]
@@ -1985,11 +2235,21 @@ def build_session_cohort_overview(
             _compact_session(session, now=now, orphan_after=orphan_after)
             for session in stale_sessions[:safe_limit]
         ],
+        "stale_append_obligations": [
+            _compact_session(session, now=now, orphan_after=orphan_after)
+            for session in stale_append_sessions[:safe_limit]
+        ],
+        "stale_claim_only_sessions": [
+            _compact_session(session, now=now, orphan_after=orphan_after)
+            for session in stale_claim_only_sessions[:safe_limit]
+        ],
         "actors": actors,
         "phases": phases,
         "contention": {
             "risk_level": risk_level,
             "signals": signals,
+            "historical_signals": historical_signals,
+            "historical_signal_policy": "stale ended-session append obligations stay as repair cards, not live coordination risk",
             "td_id_collisions": td_id_collisions[:safe_limit],
             "mission_focus_pressure_groups": mission_focus_groups[:safe_limit],
             "unknown_scope_active_sessions": unknown_scope_active[:safe_limit],
@@ -2036,12 +2296,74 @@ def _seed_speed_heartbeat_gap_row(card: Mapping[str, Any]) -> Dict[str, Any]:
         "heartbeat_command": _wl_command(
             "session-heartbeat",
             f"--session-id {_quote_cli(session_id)}",
-            "--state <state>",
-            "--now '<public current pass>'",
-            "--done '<public previous result>'",
+            "--state inspecting",
+            "--current-pass-line '<public current pass>'",
+            "--last-pass-result-line '<public previous result>'",
             f"--scope-ref {_quote_cli(scope_ref)}",
         ),
         "read_only_alternative_command": read_only_alternative_command,
+    }
+
+
+def _seed_speed_unclaimed_touched_row(
+    session: Mapping[str, Any],
+    *,
+    awareness_by_session: Mapping[str, Mapping[str, Any]],
+) -> Dict[str, Any]:
+    session_id = str(session.get("session_id") or "").strip()
+    td_ids = [
+        str(item)
+        for item in session.get("unclaimed_touched_td_ids") or []
+        if item
+    ]
+    work_item_ids = [
+        str(item) for item in session.get("unclaimed_touched_work_item_ids") or [] if item
+    ]
+    awareness = awareness_by_session.get(session_id) or {}
+    heartbeat = (
+        session.get("pass_heartbeat")
+        if isinstance(session.get("pass_heartbeat"), Mapping)
+        else {}
+    )
+    read_only_drilldown = _wl_command(
+        "session-status",
+        f"--session-id {_quote_cli(session_id)} --full",
+    )
+    owner_claim_command = None
+    if td_ids:
+        owner_claim_command = _wl_command(
+            "session-claim",
+            f"--session-id {_quote_cli(session_id)}",
+            f"--td-id {_quote_cli(td_ids[0])}",
+            "--lease-minutes 30",
+            "--require-exclusive",
+        )
+    elif work_item_ids:
+        owner_claim_command = (
+            "./repo-python tools/meta/control/work_landing.py begin "
+            f"--subject-id {_quote_cli(work_item_ids[0])} --session-id {_quote_cli(session_id)}"
+        )
+    return {
+        "session_id": session_id,
+        "actor": session.get("actor"),
+        "phase_id": session.get("phase_id"),
+        "freshness_state": awareness.get("freshness_state")
+        or heartbeat.get("freshness_state"),
+        "pass_state": awareness.get("pass_state") or heartbeat.get("pass_state"),
+        "current_pass_line": awareness.get("current_pass_line")
+        or heartbeat.get("current_pass_line"),
+        "heartbeat_source": awareness.get("source") or heartbeat.get("source"),
+        "unclaimed_touched_td_ids": td_ids[:3],
+        "unclaimed_touched_td_ids_omitted": max(0, len(td_ids) - 3),
+        "unclaimed_touched_work_item_ids": work_item_ids[:3],
+        "unclaimed_touched_work_item_ids_omitted": max(0, len(work_item_ids) - 3),
+        "read_only_drilldown": read_only_drilldown,
+        "read_only_alternative_command": read_only_drilldown,
+        "owner_claim_command": owner_claim_command,
+        "policy": (
+            "Inspect the session first; only that owner or an explicit coordinator "
+            "should claim the touched work before mutation."
+        ),
     }
 
 
@@ -2283,7 +2605,6 @@ def _seed_speed_choose_disjoint_lane_action(
     prefer_explicit_current: bool,
 ) -> Dict[str, Any]:
     candidates = list(seed_claim_sessions)
-    ref = "seed_claim_sessions[0].drilldown"
     if prefer_explicit_current:
         explicit_candidates = [
             card
@@ -2292,14 +2613,16 @@ def _seed_speed_choose_disjoint_lane_action(
         ]
         if explicit_candidates:
             candidates = explicit_candidates
-            ref = "seed_claim_sessions[explicit_current].drilldown"
     if candidates:
-        command = str(candidates[0].get("drilldown") or "").strip() or None
+        command = _wl_command(
+            "session-claims",
+            "--refresh --session-summary --limit 12 --cards-only",
+        )
         return {
             "kind": "choose_disjoint_write_lane",
             "action": "Use the seed claim session cards to choose the disjoint write lane.",
             "command": command,
-            "ref": ref,
+            "ref": "fast_paths.claim_session_summary",
         }
     return {
         "kind": "dirty_tree_pressure",
@@ -2441,7 +2764,6 @@ def _seed_speed_dirty_pressure_focus(
             "blocking_active_claim_session_groups.groups[0].safe_next_command"
         )
         status = "checkpoint_blocked_by_active_claims"
-        promote_for_no_heartbeat = bool(first_action_command)
 
     def _bounded_owner_surfaces(
         row: Mapping[str, Any],
@@ -3590,6 +3912,18 @@ def build_seed_speed_status(
         for card in heartbeat_gap_claim_sessions
         if str(card.get("session_id") or "").strip()
     }
+    unclaimed_touched_source = [
+        row
+        for row in list(contention.get("unclaimed_touched_sessions") or [])
+        if isinstance(row, Mapping)
+    ]
+    unclaimed_touched_sessions = [
+        _seed_speed_unclaimed_touched_row(
+            row,
+            awareness_by_session=awareness_by_session,
+        )
+        for row in unclaimed_touched_source
+    ]
     claim_collision_rows = [
         row
         for row in list(contention.get("claim_collisions") or [])
@@ -3640,17 +3974,20 @@ def build_seed_speed_status(
     elif seed_claim_sessions:
         first_action_kind = "choose_disjoint_write_lane"
         first_action = "Use the seed claim session cards to choose the disjoint write lane."
-        first_action_command = str(seed_claim_sessions[0].get("drilldown") or "").strip() or None
-        first_action_ref = "seed_claim_sessions[0].drilldown"
+        first_action_command = _wl_command(
+            "session-claims",
+            "--refresh --session-summary --limit 12 --cards-only",
+        )
+        first_action_ref = "fast_paths.claim_session_summary"
     elif projected_unknown_count:
         first_action_kind = "projected_unknown_heartbeat"
         first_action = "Publish session-heartbeat for participating live seeds that can write."
         first_action_command = _wl_command(
             "session-heartbeat",
             "--session-id <id>",
-            "--state <state>",
-            "--now '<public current pass>'",
-            "--done '<public previous result>'",
+            "--state inspecting",
+            "--current-pass-line '<public current pass>'",
+            "--last-pass-result-line '<public previous result>'",
             "--scope-ref <path-or-claim>",
         )
         first_action_ref = "fast_paths.heartbeat"
@@ -3844,6 +4181,15 @@ def build_seed_speed_status(
         "claim_collision_cleanup_summary": claim_collision_cleanup_summary,
         "claim_collision_actions": claim_collision_actions[:safe_limit],
         "claim_collision_actions_omitted": max(0, len(claim_collision_actions) - safe_limit),
+        "unclaimed_touched_sessions": unclaimed_touched_sessions[:safe_limit],
+        "unclaimed_touched_sessions_omitted": max(
+            0,
+            max(
+                len(unclaimed_touched_sessions),
+                int(counts.get("unclaimed_touched_sessions") or 0),
+            )
+            - safe_limit,
+        ),
         "seed_claim_sessions": seed_claim_sessions[:safe_limit],
         "seed_claim_sessions_omitted": max(0, len(seed_claim_sessions) - safe_limit),
         "heartbeat_gap_claim_sessions": heartbeat_gap_claim_sessions[:safe_limit],
@@ -3852,9 +4198,17 @@ def build_seed_speed_status(
         ),
         "fast_paths": {
             "claims": _wl_command("session-claims", "--refresh --limit 50 --cards-only"),
+            "claim_session_summary": _wl_command(
+                "session-claims",
+                "--refresh --session-summary --limit 12 --cards-only",
+            ),
             "overview_cards": _wl_command(
                 "session-status",
                 f"--overview --cards-only --limit {safe_limit}",
+            ),
+            "unclaimed_touched_overview": _wl_command(
+                "session-status",
+                f"--overview --limit {safe_limit}",
             ),
             "seed_speed_no_heartbeat": _wl_command(
                 "session-status",
@@ -3875,9 +4229,9 @@ def build_seed_speed_status(
             "heartbeat": _wl_command(
                 "session-heartbeat",
                 "--session-id <id>",
-                "--state <state>",
-                "--now '<public current pass>'",
-                "--done '<public previous result>'",
+                "--state inspecting",
+                "--current-pass-line '<public current pass>'",
+                "--last-pass-result-line '<public previous result>'",
                 "--scope-ref <path-or-claim>",
             ),
             "full_runtime": _wl_command("session-status", "--full"),
@@ -3889,6 +4243,7 @@ def build_seed_speed_status(
                 "repair_rows",
                 "recommended_actions",
                 "full active claim rows",
+                "full unclaimed touched session rows",
                 "full session rows",
             ],
             "reason": "seed-speed status is the first-contact active-seed lane; it keeps only claim-session, heartbeat, and contention scalars.",
@@ -4013,6 +4368,56 @@ def _normalize_dirty_path(value: object) -> str:
     return PurePosixPath(*parts).as_posix()
 
 
+def _work_ledger_index_target_only_command(path: str) -> str:
+    posix = PurePosixPath(path)
+    parts = posix.parts
+    if len(parts) < 4 or parts[0] != "codex" or parts[1] != "ledger":
+        return "./repo-python tools/meta/factory/work_ledger.py project --check --all"
+    phase_id = parts[2]
+    path_name = posix.name
+    family_id = phase_id.split("_", 1)[0]
+    prefix = "work_ledger_index."
+    if path_name.startswith(prefix) and path_name.endswith(".json"):
+        family_id = path_name[len(prefix) : -len(".json")] or family_id
+    return (
+        "./repo-python tools/meta/factory/work_ledger.py project "
+        f"--phase-id {phase_id} --family-id {family_id} --check --target-only"
+    )
+
+
+PHASE_PIPELINE_RUNTIME_FILENAMES = {
+    "continuation_packet.json",
+    "pipeline_attention.json",
+    "pipeline_attention.md",
+    "pipeline_resume.json",
+    "pipeline_resume.md",
+    "pipeline_state.json",
+    "raw_seed_digest.json",
+    "system_view.json",
+    "task_backlog.json",
+}
+ROOT_AUTONOMOUS_SEED_PREFIX = (
+    "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, "
+    "and Fresh Execution Spine/autonomous_seed."
+)
+ROOT_AUTONOMOUS_SEED_JSON = (
+    "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, "
+    "and Fresh Execution Spine/autonomous_seed.json"
+)
+
+
+def _is_phase_pipeline_runtime_path(path: str) -> bool:
+    token = str(path or "").strip("/")
+    if not token.startswith("obsidian/okay lets do this/"):
+        return False
+    name = PurePosixPath(token).name
+    return (
+        name in PHASE_PIPELINE_RUNTIME_FILENAMES
+        or "/.pipeline_recovery/" in token
+        or "/cycle_" in token
+    )
+
+
 def _dirty_path_owner_hint(path: str) -> Dict[str, str]:
     path_name = PurePosixPath(path).name
     if path in {
@@ -4048,10 +4453,7 @@ def _dirty_path_owner_hint(path: str) -> Dict[str, str]:
             return {
                 "class": "generated_owner_dirty",
                 "owner_surface": "work_ledger_index_projection",
-                "recommended_action": (
-                    "./repo-python tools/meta/factory/work_ledger.py "
-                    "project --check --all"
-                ),
+                "recommended_action": _work_ledger_index_target_only_command(path),
             }
         return {
             "class": "generated_owner_dirty",
@@ -4072,6 +4474,46 @@ def _dirty_path_owner_hint(path: str) -> Dict[str, str]:
             "class": "generated_owner_dirty",
             "owner_surface": "system_atlas_projection",
             "recommended_action": "./repo-python kernel.py --facts --band cluster_flag",
+        }
+    if path.startswith(ROOT_AUTONOMOUS_SEED_PREFIX):
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "autonomous_seed_state",
+            "recommended_action": (
+                "./repo-python kernel.py --validate-seed-continuity "
+                f"{shlex.quote(ROOT_AUTONOMOUS_SEED_JSON)}"
+            ),
+        }
+    if path.startswith("annexes/") and path_name in {
+        "annex_sync_digest.json",
+        "annex_sync_digest.md",
+        "annex_sync_digest_run_state.json",
+    }:
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "annex_sync_digest_projection",
+            "recommended_action": "./repo-python annex_import.py digest --run --quiet --stale-days 7 --limit 8",
+        }
+    if _is_phase_pipeline_runtime_path(path):
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "phase_pipeline_runtime_state",
+            "recommended_action": "./repo-python tools/meta/control/phase_convergence_doctor.py --compact",
+        }
+    if path.startswith("microcosm-substrate/receipts/runtime_shell/"):
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "microcosm_runtime_receipt_state",
+            "recommended_action": (
+                "cd microcosm-substrate && "
+                "PYTHONPATH=src .venv/bin/python -m microcosm_core runtime-shell --help"
+            ),
+        }
+    if path.startswith("receipts/"):
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "receipt_artifact_state",
+            "recommended_action": "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact",
         }
     if path.startswith("codex/doctrine/paper_modules/") and (
         path.endswith("_index.json")
@@ -5719,7 +6161,11 @@ def build_dirty_tree_bankruptcy_pressure(
             "active_sessions": counts.get("active_sessions", 0),
             "effective_active_sessions": counts.get("effective_active_sessions", 0),
             "orphaned_active_sessions": counts.get("orphaned_active_sessions", 0),
-            "stale_append_obligations": counts.get("stale_sessions", 0),
+            "stale_append_obligations": counts.get(
+                "stale_append_obligations",
+                counts.get("stale_sessions", 0),
+            ),
+            "stale_claim_only_sessions": counts.get("stale_claim_only_sessions", 0),
             "active_claims": len(active_claims),
             "claim_collisions": counts.get("claim_collisions", 0),
         },
@@ -5782,6 +6228,263 @@ def build_dirty_tree_bankruptcy_pressure(
     }
 
 
+def _compact_dirty_path_class_preview(row: Mapping[str, Any] | None) -> Dict[str, Any] | None:
+    if not isinstance(row, Mapping):
+        return None
+    return {
+        key: row.get(key)
+        for key in (
+            "schema",
+            "class",
+            "path_count",
+            "paths_preview",
+            "paths_omitted",
+            "first_path",
+            "first_path_owner_surface",
+            "first_path_recommended_action",
+            "owner_surfaces_preview",
+            "owner_surfaces_omitted",
+            "first_path_preflight_command",
+        )
+        if row.get(key) not in (None, "", [], {})
+    }
+
+
+def _compact_active_claim_session_groups(
+    groups: Mapping[str, Any] | None,
+) -> Dict[str, Any] | None:
+    if not isinstance(groups, Mapping):
+        return None
+    compact_groups: List[Dict[str, Any]] = []
+    for row in list(groups.get("groups") or [])[:2]:
+        if not isinstance(row, Mapping):
+            continue
+        compact_groups.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "session_id",
+                    "actor",
+                    "phase_id",
+                    "dirty_path_count",
+                    "leased_until_max",
+                    "recommended_action",
+                    "safe_next_command",
+                    "paths_preview",
+                    "paths_omitted",
+                    "first_underlying_path",
+                    "first_underlying_owner_surface",
+                    "first_underlying_recommended_action",
+                )
+                if row.get(key) not in (None, "", [], {})
+            }
+        )
+    return {
+        "schema": groups.get("schema"),
+        "group_count": groups.get("group_count"),
+        "groups": compact_groups,
+        "groups_omitted": max(0, int(groups.get("group_count") or 0) - len(compact_groups)),
+    }
+
+
+def _compact_dirty_tree_checkpoint(
+    checkpoint: Mapping[str, Any] | None,
+) -> Dict[str, Any] | None:
+    if not isinstance(checkpoint, Mapping):
+        return None
+    compact = {
+        key: checkpoint.get(key)
+        for key in (
+            "schema",
+            "authorized",
+            "status",
+            "command",
+            "conservative_fallback_command",
+            "requires_no_claim_collisions",
+            "claim_collision_count",
+            "requires_no_active_claim_dirty_paths",
+            "active_claim_dirty_path_count",
+            "blocked_by",
+            "available_after",
+            "recheck_command",
+            "first_blocking_claim_command",
+            "included_dirty_path_count",
+            "included_dirty_path_classes",
+            "excluded_active_claim_dirty_path_count",
+            "path_selection_policy",
+            "requires_dirty_path_scan",
+            "requires_operator_bankruptcy_authorization",
+            "active_claim_boundary",
+        )
+        if checkpoint.get(key) not in (None, "", [], {})
+    }
+    groups = _compact_active_claim_session_groups(
+        checkpoint.get("blocking_active_claim_session_groups")
+    )
+    if groups:
+        compact["blocking_active_claim_session_groups"] = groups
+    after_claims_clear = checkpoint.get("after_active_claims_clear")
+    if isinstance(after_claims_clear, Mapping):
+        compact["after_active_claims_clear"] = {
+            key: after_claims_clear.get(key)
+            for key in (
+                "schema",
+                "status",
+                "operator_authorized",
+                "remaining_dirty_path_classes",
+                "remaining_classes_checkpoint_policy",
+                "checkpoint_guard",
+                "recheck_command",
+                "first_owner_settlement_action",
+            )
+            if after_claims_clear.get(key) not in (None, "", [], {})
+        }
+    for source_key in ("included_generated_owner_dirty", "included_unclaimed_source_dirty"):
+        preview = _compact_dirty_path_class_preview(checkpoint.get(source_key))
+        if preview:
+            compact[source_key] = preview
+    return compact
+
+
+def _compact_dirty_tree_containment_plan(
+    plan: Mapping[str, Any] | None,
+) -> Dict[str, Any] | None:
+    if not isinstance(plan, Mapping):
+        return None
+    compact_steps: List[Dict[str, Any]] = []
+    for row in list(plan.get("steps") or []):
+        if not isinstance(row, Mapping):
+            continue
+        compact_steps.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "step_id",
+                    "status",
+                    "why",
+                    "dirty_path_count",
+                    "next_safe_action",
+                    "first_blocking_claim_command",
+                    "commands",
+                    "quiet_window",
+                )
+                if row.get(key) not in (None, "", [], {})
+            }
+        )
+    first_action = plan.get("first_action") if isinstance(plan.get("first_action"), Mapping) else {}
+    return {
+        key: value
+        for key, value in {
+            "schema": plan.get("schema"),
+            "status": plan.get("status"),
+            "first_action": {
+                key: first_action.get(key)
+                for key in (
+                    "step_id",
+                    "status",
+                    "why",
+                    "dirty_path_count",
+                    "next_safe_action",
+                    "first_blocking_claim_command",
+                )
+                if first_action.get(key) not in (None, "", [], {})
+            },
+            "steps": compact_steps,
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _compact_dirty_tree_repeat_policy(policy: Mapping[str, Any] | None) -> Dict[str, Any] | None:
+    if not isinstance(policy, Mapping):
+        return None
+    return {
+        key: policy.get(key)
+        for key in (
+            "schema",
+            "status",
+            "repeat_rescue_now",
+            "rescue_coverage_status",
+            "reason",
+            "drift_class",
+            "drift_owner_hint",
+            "next_safe_action",
+            "quiet_window",
+        )
+        if policy.get(key) not in (None, "", [], {})
+    }
+
+
+def compact_dirty_tree_pressure_card(card: Mapping[str, Any]) -> Dict[str, Any]:
+    """Return the agent-facing dirty-tree pressure card.
+
+    The full bankruptcy card intentionally carries repeated nested evidence for
+    machine consumers. The CLI first-action route needs the same decision handles
+    without replaying every nested preview into active context.
+    """
+    class_counts = card.get("class_counts") or card.get("dirty_path_class_counts") or {}
+    repeat_policy = card.get("repeat_policy") or card.get("rescue_repeat_policy")
+    compact = {
+        "schema": card.get("schema") or DIRTY_TREE_BANKRUPTCY_PRESSURE_SCHEMA,
+        "output_profile": "compact",
+        "authority_boundary": card.get("authority_boundary"),
+        "safety_authority": card.get("safety_authority"),
+        "bankruptcy_authorized": card.get("bankruptcy_authorized"),
+        "dirty_scan_status": card.get("dirty_scan_status"),
+        "dirty_total": card.get("dirty_total"),
+        "dirty_path_class_counts": class_counts,
+        "class_counts": class_counts,
+        "operator_authorized_mainline_checkpoint": _compact_dirty_tree_checkpoint(
+            card.get("operator_authorized_mainline_checkpoint")
+        ),
+        "operator_authorized_unclaimed_checkpoint": _compact_dirty_tree_checkpoint(
+            card.get("operator_authorized_unclaimed_checkpoint")
+        ),
+        "policy": card.get("policy"),
+        "generated_owner_dirty": _compact_dirty_path_class_preview(
+            card.get("generated_owner_dirty")
+        ),
+        "unclaimed_source_dirty": _compact_dirty_path_class_preview(
+            card.get("unclaimed_source_dirty")
+        ),
+        "active_claim_session_groups": _compact_active_claim_session_groups(
+            card.get("active_claim_session_groups")
+        ),
+        "scoped_work_unblock": card.get("scoped_work_unblock"),
+        "containment_plan": _compact_dirty_tree_containment_plan(
+            card.get("containment_plan")
+        ),
+        "work_ledger_counts": card.get("work_ledger_counts"),
+        "claim_collision_cleanup": card.get("claim_collision_cleanup"),
+        "claim_collision_actions": card.get("claim_collision_actions"),
+        "claim_collision_actions_omitted": card.get("claim_collision_actions_omitted"),
+        "repeat_policy": _compact_dirty_tree_repeat_policy(repeat_policy),
+        "rescue_repeat_policy": _compact_dirty_tree_repeat_policy(repeat_policy),
+        "blocked_residuals": card.get("blocked_residuals"),
+        "mainline_commit_candidates": card.get("mainline_commit_candidates"),
+        "next_safe_action": card.get("next_safe_action"),
+        "commands": card.get("commands"),
+        "full_card_command": (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            "session-sweep --dry-run --dirty-tree-pressure --full"
+        ),
+        "omission_receipt": {
+            "omitted": [
+                "dirty_path_rows",
+                "full rescue refs and coverage",
+                "repeated nested generated-owner previews",
+                "full active-claim group payloads",
+            ],
+            "reason": "Default dirty-tree pressure output is a first-action coordination card; use --full for machine evidence.",
+            "drilldown": (
+                "./repo-python tools/meta/factory/work_ledger.py "
+                "session-sweep --dry-run --dirty-tree-pressure --full"
+            ),
+        },
+    }
+    return {key: value for key, value in compact.items() if value not in (None, "", [], {})}
+
+
 def dirty_tree_pressure_alias(card: Mapping[str, Any]) -> Dict[str, Any]:
     """Return a compact stable alias for the dirty-tree pressure readback.
 
@@ -5791,37 +6494,112 @@ def dirty_tree_pressure_alias(card: Mapping[str, Any]) -> Dict[str, Any]:
     the full card payload.
     """
 
-    class_counts = card.get("class_counts") or card.get("dirty_path_class_counts") or {}
-    repeat_policy = card.get("repeat_policy") or card.get("rescue_repeat_policy") or {}
+    compact = compact_dirty_tree_pressure_card(card)
+    class_counts = compact.get("class_counts") or compact.get("dirty_path_class_counts") or {}
+    repeat_policy = compact.get("repeat_policy") or compact.get("rescue_repeat_policy") or {}
+
+    def alias_checkpoint(name: str) -> Dict[str, Any] | None:
+        checkpoint = compact.get(name)
+        if not isinstance(checkpoint, Mapping):
+            return None
+        return {
+            key: checkpoint.get(key)
+            for key in (
+                "schema",
+                "authorized",
+                "status",
+                "command",
+                "blocked_by",
+                "claim_collision_count",
+                "active_claim_dirty_path_count",
+                "included_dirty_path_count",
+                "included_dirty_path_classes",
+                "excluded_active_claim_dirty_path_count",
+                "first_blocking_claim_command",
+                "recheck_command",
+            )
+            if checkpoint.get(key) not in (None, "", [], {})
+        }
+
+    groups = compact.get("active_claim_session_groups")
+    active_claim_summary = None
+    if isinstance(groups, Mapping):
+        active_claim_summary = {
+            key: groups.get(key)
+            for key in ("schema", "group_count", "groups_omitted")
+            if groups.get(key) not in (None, "", [], {})
+        }
+        first_group = next(
+            (row for row in list(groups.get("groups") or []) if isinstance(row, Mapping)),
+            None,
+        )
+        if first_group:
+            active_claim_summary["first_group"] = {
+                key: first_group.get(key)
+                for key in (
+                    "session_id",
+                    "dirty_path_count",
+                    "safe_next_command",
+                    "first_underlying_path",
+                    "first_underlying_owner_surface",
+                )
+                if first_group.get(key) not in (None, "", [], {})
+            }
+
+    containment = compact.get("containment_plan")
+    containment_summary = None
+    if isinstance(containment, Mapping):
+        containment_summary = {
+            "schema": containment.get("schema"),
+            "status": containment.get("status"),
+            "first_action": containment.get("first_action"),
+            "step_count": len(
+                [row for row in list(containment.get("steps") or []) if isinstance(row, Mapping)]
+            ),
+        }
     return {
         "schema": DIRTY_TREE_PRESSURE_ALIAS_SCHEMA,
         "alias_of": "dirty_tree_bankruptcy_pressure",
-        "authority_boundary": card.get("authority_boundary"),
-        "safety_authority": card.get("safety_authority"),
-        "bankruptcy_authorized": card.get("bankruptcy_authorized"),
-        "dirty_scan_status": card.get("dirty_scan_status"),
-        "dirty_total": card.get("dirty_total"),
+        "output_profile": compact.get("output_profile"),
+        "authority_boundary": compact.get("authority_boundary"),
+        "safety_authority": compact.get("safety_authority"),
+        "bankruptcy_authorized": compact.get("bankruptcy_authorized"),
+        "dirty_scan_status": compact.get("dirty_scan_status"),
+        "dirty_total": compact.get("dirty_total"),
         "class_counts": class_counts,
         "dirty_path_class_counts": class_counts,
-        "operator_authorized_mainline_checkpoint": card.get(
+        "operator_authorized_mainline_checkpoint": alias_checkpoint(
             "operator_authorized_mainline_checkpoint"
         ),
-        "operator_authorized_unclaimed_checkpoint": card.get(
+        "operator_authorized_unclaimed_checkpoint": alias_checkpoint(
             "operator_authorized_unclaimed_checkpoint"
         ),
-        "active_claim_session_groups": card.get("active_claim_session_groups"),
-        "scoped_work_unblock": card.get("scoped_work_unblock"),
-        "containment_plan": card.get("containment_plan"),
-        "generated_owner_dirty": card.get("generated_owner_dirty"),
-        "unclaimed_source_dirty": card.get("unclaimed_source_dirty"),
-        "claim_collision_cleanup": card.get("claim_collision_cleanup"),
-        "claim_collision_actions": card.get("claim_collision_actions"),
-        "claim_collision_actions_omitted": card.get("claim_collision_actions_omitted"),
+        "active_claim_session_groups": active_claim_summary,
+        "scoped_work_unblock": {
+            key: (compact.get("scoped_work_unblock") or {}).get(key)
+            for key in ("schema", "status", "one_line_rule", "counts")
+            if isinstance(compact.get("scoped_work_unblock"), Mapping)
+            and (compact.get("scoped_work_unblock") or {}).get(key) not in (None, "", [], {})
+        },
+        "containment_plan": containment_summary,
+        "generated_owner_dirty": _compact_dirty_path_class_preview(
+            compact.get("generated_owner_dirty")
+        ),
+        "unclaimed_source_dirty": _compact_dirty_path_class_preview(
+            compact.get("unclaimed_source_dirty")
+        ),
+        "claim_collision_cleanup": compact.get("claim_collision_cleanup"),
+        "claim_collision_actions": compact.get("claim_collision_actions"),
+        "claim_collision_actions_omitted": compact.get("claim_collision_actions_omitted"),
         "repeat_policy": repeat_policy,
         "rescue_repeat_policy": repeat_policy,
-        "blocked_residuals": card.get("blocked_residuals"),
-        "next_safe_action": card.get("next_safe_action"),
-        "commands": card.get("commands"),
+        "blocked_residual_count": len(
+            [row for row in list(compact.get("blocked_residuals") or []) if isinstance(row, Mapping)]
+        ),
+        "next_safe_action": compact.get("next_safe_action"),
+        "commands": compact.get("commands"),
+        "full_card_command": compact.get("full_card_command"),
+        "omission_receipt": compact.get("omission_receipt"),
     }
 
 
@@ -5912,7 +6690,17 @@ def build_active_claims_snapshot(
     effective_active_sessions = [
         session
         for session in active_sessions
+        if _is_effective_active_session(session, now=now, orphan_after=orphan_after)
+    ]
+    passive_external_observed_sessions = [
+        session
+        for session in active_sessions
         if not _is_orphaned_active_session(session, now=now, orphan_after=orphan_after)
+        and _is_passive_external_observed_session(
+            session,
+            now=now,
+            orphan_after=orphan_after,
+        )
     ]
     orphaned_active_sessions = [
         session
@@ -5959,6 +6747,7 @@ def build_active_claims_snapshot(
             "sessions_total": len(sessions),
             "active_sessions": len(active_sessions),
             "effective_active_sessions": len(effective_active_sessions),
+            "passive_external_observed_sessions": len(passive_external_observed_sessions),
             "orphaned_active_sessions": len(orphaned_active_sessions),
             "active_claims": len(active_claims),
             "claim_collisions": len(claim_collisions),
@@ -6312,7 +7101,7 @@ def _limit_claim_snapshot(snapshot: Mapping[str, Any], *, limit: int) -> Dict[st
     }
     payload["drilldown_commands"] = {
         "refresh": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh",
-        "full_session_status": "./repo-python tools/meta/factory/work_ledger.py session-status --overview --with-session-cards --limit 12",
+        "seed_speed_status": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12",
         "mutation_check": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive",
     }
     return payload
@@ -6387,6 +7176,8 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
         "sessions_total": 0,
         "active_sessions": 0,
         "stale_sessions": 0,
+        "stale_append_obligations": 0,
+        "stale_claim_only_sessions": 0,
         "sessions_with_activity": 0,
         "sessions_with_ledger_append": 0,
         "open_todos_touched_this_session": 0,
@@ -6460,6 +7251,10 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
             counts["stale_sessions"] += 1
             if not session["session_had_ledger_append"]:
                 counts["session_had_no_ledger_append"] += 1
+            if _session_requires_append_evidence(session):
+                counts["stale_append_obligations"] += 1
+            else:
+                counts["stale_claim_only_sessions"] += 1
         counts["open_todos_touched_this_session"] += session["open_todos_touched_this_session"]
     stale_sessions.sort(key=lambda item: str(item.get("last_activity_at") or item.get("ended_at") or ""), reverse=True)
     status["generated_at"] = work_ledger.utc_now()
@@ -6474,7 +7269,7 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
     overview = build_session_cohort_overview(status)
     status["cohort_overview"] = overview
     status["triggers"] = {
-        "stale_session_ready": counts["stale_sessions"] > 0 and counts["session_had_no_ledger_append"] > 0,
+        "stale_session_ready": counts["stale_append_obligations"] > 0,
         "multi_agent_coordination_ready": overview["contention"]["risk_level"] != "clear",
     }
     stable_fields = {
@@ -6662,8 +7457,9 @@ def format_bootstrap_context(payload: Mapping[str, Any]) -> str:
         "- pass heartbeat: publish a public now/done line at long pass start, plan pivot, before validation, and closeout",
         (
             "- heartbeat command: `./repo-python tools/meta/factory/work_ledger.py "
-            f"session-heartbeat --session-id {payload.get('session_id')} --state <state> "
-            "--now \"<public current pass>\" --done \"<public previous result>\" "
+            f"session-heartbeat --session-id {payload.get('session_id')} --state inspecting "
+            "--current-pass-line \"<public current pass>\" "
+            "--last-pass-result-line \"<public previous result>\" "
             "--scope-ref <path-or-claim>`"
         ),
         "- heartbeat boundary: runtime coordination only; do not summarize raw transcripts or hidden reasoning into now/done lines",
@@ -7259,6 +8055,49 @@ def _claim_scope_key(claim: Mapping[str, Any]) -> str:
     return f"{scope_kind}:{scope_id}" if scope_kind and scope_id else ""
 
 
+def _active_same_scope_claim_index(
+    claims: Sequence[Any],
+    target_claim: Mapping[str, Any],
+    *,
+    now: datetime,
+) -> int | None:
+    target_key = _claim_scope_key(target_claim)
+    if not target_key:
+        return None
+    for index, claim in enumerate(claims):
+        if not isinstance(claim, Mapping):
+            continue
+        if not _is_claim_active(claim, now=now):
+            continue
+        if _claim_scope_key(claim) == target_key:
+            return index
+    return None
+
+
+def _extend_claim_record(
+    claim: Mapping[str, Any],
+    *,
+    leased_until: str,
+    note: str | None,
+    require_exclusive: bool,
+) -> tuple[Dict[str, Any], bool]:
+    updated = dict(claim)
+    changed = False
+    incoming_lease = _parse_iso_datetime(leased_until)
+    current_lease = _parse_iso_datetime(updated.get("leased_until"))
+    if incoming_lease is not None and (current_lease is None or incoming_lease > current_lease):
+        updated["leased_until"] = leased_until
+        changed = True
+    note_token = str(note or "").strip()
+    if note_token and note_token != str(updated.get("note") or "").strip():
+        updated["note"] = note_token
+        changed = True
+    if require_exclusive and not bool(updated.get("require_exclusive")):
+        updated["require_exclusive"] = True
+        changed = True
+    return updated, changed
+
+
 def _path_scope_overlaps(left: str, right: str) -> bool:
     left_path = PurePosixPath(left)
     right_path = PurePosixPath(right)
@@ -7665,6 +8504,33 @@ def _apply_claim_scope_requests_to_status(
             )
             continue
 
+        existing_index = _active_same_scope_claim_index(claims, target_claim, now=now)
+        if existing_index is not None:
+            updated_claim, changed = _extend_claim_record(
+                dict(claims[existing_index]),
+                leased_until=leased_until,
+                note=note,
+                require_exclusive=require_exclusive,
+            )
+            claims[existing_index] = updated_claim
+            claimed_result_indexes.append(len(results))
+            base_status = "extended" if changed else "already_claimed"
+            results.append(
+                {
+                    "schema": "work_ledger_claim_result_v1",
+                    "status": base_status if not collisions else f"{base_status}_with_collision",
+                    "session_id": token,
+                    "scope_kind": target_claim["scope_kind"],
+                    "scope_id": target_claim["scope_id"],
+                    "td_id": target_claim["td_id"],
+                    "path": target_claim["path"],
+                    "work_item_id": target_claim["work_item_id"],
+                    "claim": _compact_claim(updated_claim),
+                    "collisions": collisions,
+                }
+            )
+            continue
+
         claim_record = {
             "claim_id": mint_claim_id(),
             "scope_kind": target_claim["scope_kind"],
@@ -7802,6 +8668,48 @@ def claim_work_scope(
                 "collisions": collisions,
             }
 
+        claims = list(session.get("claims") or [])
+        existing_index = _active_same_scope_claim_index(claims, target_claim, now=now)
+        if existing_index is not None:
+            updated_claim, changed = _extend_claim_record(
+                dict(claims[existing_index]),
+                leased_until=(now + lease).isoformat(),
+                note=note,
+                require_exclusive=require_exclusive,
+            )
+            claims[existing_index] = updated_claim
+            session["claims"] = claims
+            if scope_kind_token == CLAIM_SCOPE_THREAD:
+                touched = list(session.get("touched_td_ids") or [])
+                if scope_token not in touched:
+                    touched.append(scope_token)
+                session["touched_td_ids"] = touched
+            if scope_kind_token == CLAIM_SCOPE_WORK_ITEM:
+                touched_work_items = list(session.get("touched_work_item_ids") or [])
+                if scope_token not in touched_work_items:
+                    touched_work_items.append(scope_token)
+                session["touched_work_item_ids"] = touched_work_items
+            session["touched_work"] = True
+            session["has_activity"] = True
+            session["last_activity_at"] = work_ledger.utc_now()
+            sessions[token] = session
+            status["sessions"] = sessions
+            saved = _write_runtime_status(repo_root, status)
+            base_status = "extended" if changed else "already_claimed"
+            return {
+                "schema": "work_ledger_claim_result_v1",
+                "status": base_status if not collisions else f"{base_status}_with_collision",
+                "session_id": token,
+                "scope_kind": scope_kind_token,
+                "scope_id": scope_token,
+                "td_id": scope_token if scope_kind_token == CLAIM_SCOPE_THREAD else "",
+                "path": scope_token if scope_kind_token == CLAIM_SCOPE_PATH else "",
+                "work_item_id": scope_token if scope_kind_token == CLAIM_SCOPE_WORK_ITEM else "",
+                "claim": _compact_claim(updated_claim),
+                "collisions": collisions,
+                "generated_at": saved.get("generated_at"),
+            }
+
         claim_record = {
             "claim_id": mint_claim_id(),
             "scope_kind": scope_kind_token,
@@ -7817,7 +8725,6 @@ def claim_work_scope(
             "release_reason": None,
             "require_exclusive": bool(require_exclusive),
         }
-        claims = list(session.get("claims") or [])
         claims.append(claim_record)
         session["claims"] = claims
         if scope_kind_token == CLAIM_SCOPE_THREAD:

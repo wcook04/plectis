@@ -476,6 +476,10 @@ def perform_remote_full_paths_landing(
                 "path. Use patch mode in a Git-authorized lane for hunk-only ownership, "
                 f"or pass --allow-multi-hunk-full-paths after verifying ownership: {multi_hunk_paths}"
             )
+        task_ledger_projection_guard = _assert_task_ledger_private_index_consistency(
+            temp_repo,
+            changed,
+        )
 
         mutation_guard = _work_ledger_mutation_guard(
             repo_root,
@@ -533,6 +537,7 @@ def perform_remote_full_paths_landing(
         "tree": tree_sha,
         "dry_run": False,
         "work_ledger_mutation_guard": mutation_guard,
+        "task_ledger_projection_guard": task_ledger_projection_guard,
         "remote_name": remote_name,
         "target_ref": target_ref,
         "remote_sha_before_push": remote_before_push,
@@ -654,6 +659,95 @@ def _private_index_hunk_counts(
         if current_path and line.startswith("@@ "):
             counts[current_path] = counts.get(current_path, 0) + 1
     return counts
+
+
+def _index_blob_text(
+    repo_root: Path,
+    rel: str,
+    *,
+    env: dict[str, str] | None = None,
+) -> str | None:
+    res = _git(["show", f":{rel}"], cwd=repo_root, env=env, check=False)
+    if res.returncode != 0:
+        return None
+    return res.stdout
+
+
+def _task_ledger_event_log_count(text: str) -> int:
+    return sum(1 for line in text.splitlines() if line.strip())
+
+
+def _task_ledger_projection_event_count(text: str) -> int:
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            "scoped-commit: Task Ledger projection guard could not parse "
+            "state/task_ledger/ledger.json from the private index"
+        ) from exc
+    count = payload.get("event_count")
+    if not isinstance(count, int):
+        raise ValueError(
+            "scoped-commit: Task Ledger projection guard requires integer "
+            "state/task_ledger/ledger.json::event_count"
+        )
+    return count
+
+
+def _assert_task_ledger_private_index_consistency(
+    repo_root: Path,
+    changed_paths: list[str],
+    *,
+    env: dict[str, str] | None = None,
+) -> dict[str, object]:
+    relevant = [
+        path for path in changed_paths
+        if path == "state/task_ledger/events.jsonl"
+        or path == "state/task_ledger/ledger.json"
+        or path == "state/task_ledger/sign_offs.json"
+        or path.startswith("state/task_ledger/views/")
+    ]
+    if not relevant:
+        return {
+            "schema": "scoped_commit_task_ledger_projection_guard_v0",
+            "status": "not_applicable",
+        }
+
+    events_text = _index_blob_text(
+        repo_root,
+        "state/task_ledger/events.jsonl",
+        env=env,
+    )
+    ledger_text = _index_blob_text(
+        repo_root,
+        "state/task_ledger/ledger.json",
+        env=env,
+    )
+    if events_text is None or ledger_text is None:
+        raise ValueError(
+            "scoped-commit: Task Ledger projection guard requires both "
+            "state/task_ledger/events.jsonl and state/task_ledger/ledger.json "
+            "in the staged private index"
+        )
+
+    authority_event_count = _task_ledger_event_log_count(events_text)
+    projection_event_count = _task_ledger_projection_event_count(ledger_text)
+    receipt = {
+        "schema": "scoped_commit_task_ledger_projection_guard_v0",
+        "status": "clean",
+        "authority_event_count": authority_event_count,
+        "projection_event_count": projection_event_count,
+        "checked_path_count": len(relevant),
+    }
+    if authority_event_count != projection_event_count:
+        raise ValueError(
+            "scoped-commit: Task Ledger event_count mismatch in private index; "
+            f"authority_event_count={authority_event_count}; "
+            f"projection_event_count={projection_event_count}; "
+            "rerun `./repo-python tools/meta/factory/task_ledger_apply.py rebuild` "
+            "after the last Task Ledger append, then rerun the scoped commit"
+        )
+    return receipt
 
 
 def _diff_git_target_path(line: str, path_set: set[str]) -> str | None:
@@ -1001,6 +1095,11 @@ def perform_scoped_commit(
                 )
 
         mode_label = "full-paths" if patch_path is None else "patch"
+        task_ledger_projection_guard = _assert_task_ledger_private_index_consistency(
+            repo_root,
+            changed,
+            env=env,
+        )
 
         mutation_guard = (
             {
@@ -1030,6 +1129,7 @@ def perform_scoped_commit(
                 "tree": None,
                 "dry_run": True,
                 "work_ledger_mutation_guard": mutation_guard,
+                "task_ledger_projection_guard": task_ledger_projection_guard,
             }
 
         tree_sha = _git(["write-tree"], cwd=repo_root, env=env).stdout.strip()
@@ -1103,6 +1203,7 @@ def perform_scoped_commit(
         "tree": tree_sha,
         "dry_run": False,
         "work_ledger_mutation_guard": mutation_guard,
+        "task_ledger_projection_guard": task_ledger_projection_guard,
         "refresh_count": refreshed,
         "skipped_refresh_paths": skipped_refresh_paths,
     }

@@ -2925,14 +2925,52 @@ def _receipt_request_from_action(
         "closeout_state": action.get("closeout_state") or "landed",
     }
     receipt = {key: value for key, value in receipt.items() if value not in (None, "", [], {})}
+    attempt = _mapping(status.get("attempt_binding"))
+    owned_paths = _strings(attempt.get("owned_paths") or action.get("owned_paths") or [])
     work_refs = _strings(
         list(action.get("work_ledger_session_ids") or [])
         + list(action.get("read_receipt_ids") or [])
         + list(action.get("work_ledger_event_ids") or [])
         + [work_ledger_session_id, read_receipt_id]
     )
+    evidence_refs = _strings(
+        [
+            f"commit:{commit_hash}" if commit_hash else "",
+            f"transaction:{transaction_id}" if transaction_id else "",
+            f"work_ledger_session:{work_ledger_session_id}" if work_ledger_session_id else "",
+            f"read_receipt:{read_receipt_id}" if read_receipt_id else "",
+            *work_refs,
+            *validation_refs,
+            *projection_refs,
+        ]
+    )
+    closeout_assurance = {
+        "claim": (
+            "Work Landing recorded a controller-owned execution receipt for "
+            f"scoped commit {commit_hash} against transaction {transaction_id}."
+        ),
+        "evidence_refs": evidence_refs,
+        "corrective_action_strength": "strong",
+        "counterexample_checks": _strings(
+            [
+                "execution_receipt_reconcile_state accepted the receipt identity before intake enqueue",
+                "Task Ledger receipt idempotency key binds subject, transaction, and commit hash",
+                "scoped commit hash is carried in execution_receipt and commit_refs",
+                "Work Ledger session and read receipt refs are carried when available",
+            ]
+        ),
+        "owner_surface": "work_landing_controller_v0",
+        "owner_surfaces_changed": owned_paths,
+        "residuals": [],
+    }
+    closeout_assurance = {
+        key: value
+        for key, value in closeout_assurance.items()
+        if key == "residuals" or value not in (None, "", [], {})
+    }
     payload: dict[str, Any] = {
         "execution_receipt": receipt,
+        "closeout_assurance": closeout_assurance,
         "execution": {
             key: value
             for key, value in {

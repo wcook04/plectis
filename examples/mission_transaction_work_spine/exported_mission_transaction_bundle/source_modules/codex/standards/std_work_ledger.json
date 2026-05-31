@@ -204,6 +204,7 @@
       "session-status overview must include heartbeat_participation with effective active session count, explicit current-pass count, projected_unknown count, participation ratio, first-contact ordering evidence, source/freshness counts, and the no-transcript-summarization policy.",
       "First-contact cards must prioritize explicit live manual_cli/hook current_pass_line heartbeats over source=projected_unknown imports before applying compact output limits.",
       "Sessions without an explicit heartbeat must project source=projected_unknown and current_pass_line=null rather than mining raw transcripts.",
+      "Imported external-observed sessions with no active claims, touched work/work ids, open todos, writes, live explicit heartbeat, ledger append/exemption, or observed mutation paths are passive observations: keep them visible as active sessions but exclude them from effective_active_sessions, heartbeat participation, mission-focus pressure, and multiple-active-session watch signals.",
       "Orphaned or expired heartbeat rows must remain visible but demoted through freshness_state so stale sessions cannot masquerade as live current work.",
       "Heartbeat updates are runtime coordination state, not durable task truth and not a replacement for Work Ledger progress/closeout appends."
     ],
@@ -215,7 +216,7 @@
         "before_validation",
         "closeout"
       ],
-      "rule": "Participating sessions that can write should publish explicit public now/done pass lines at meaningful pass boundaries. Imported or read-only sessions may truthfully remain source=projected_unknown; the failure mode is participating writable sessions staying unknown or explicit heartbeats being hidden behind unknown imports."
+      "rule": "Participating sessions that can write should publish explicit public now/done pass lines at meaningful pass boundaries. Effective active means claim-bearing, touched-work, write-observed, or explicitly heartbeating coordination participants, not every imported host observation. Imported or read-only sessions may truthfully remain source=projected_unknown; the failure mode is participating writable sessions staying unknown or explicit heartbeats being hidden behind unknown imports."
     }
   },
   "external_session_observation_contract": {
@@ -225,6 +226,7 @@
     "rules": [
       "The importer opens Codex SQLite read-only and never writes into ~/.codex.",
       "Imported sessions set external_observed=true, preserve external metadata, and carry no read_receipt_id; they make runtime coordination visible but do not bypass receipt-gated ledger writes.",
+      "Imported sessions without active claims, touched work/work ids, open todos, writes, live explicit heartbeat, ledger append/exemption, or observed mutation paths are passive host observations; they remain visible in active_sessions but do not create write-active coordination pressure.",
       "session-import-host-surfaces imports both Codex threads and Claude IDE lock observations; Claude lock imports strip secrets such as authToken and preserve only coordination metadata (pid, workspace folders, IDE name, transport, todo counts).",
       "When rollout_path is available, the importer tails the Codex rollout read-only and records a bounded codex_rollout_activity_summary_v1 in external_metadata.rollout_activity with recent tool names, command lines, referenced repo paths, and definite apply_patch mutation paths.",
       "The full rollout_activity object stays on the per-session runtime row; compact cohort_overview rows must carry only a bounded digest so --overview remains usable during multi-agent bursts.",
@@ -379,6 +381,36 @@
       "admission-check does not make kernel or phase state execution authority",
       "admission-check does not grant durable proof status to external/signoff work without an explicit subject override plus valid claims"
     ]
+  },
+  "claim_card_first_contract": {
+    "schema": "work_ledger_claim_card_first_contract_v0",
+    "purpose": "Make compact active claim cards the first evidence surface for trace-summary, experience-friction, and landing-preflight claim contention so agents do not mine raw transcripts or improvise around active owners.",
+    "first_read_command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 30 --cards-only",
+    "applies_when": [
+      "trace_improvement_surface or session-diagnostics rows identify experience_friction, ledger_claim_contention, or work_ledger_claim_collision",
+      "session-preflight, mission_transaction_preflight, scoped_commit, or mutation-check reports active claim pressure",
+      "an agent needs to decide whether a claim is its own session, a live peer, a stale/orphaned session, or only advisory observed-path overlap"
+    ],
+    "rules": [
+      "Read the cards-only claim surface before opening full session rows, rollout traces, or raw transcripts.",
+      "Use active claim cards as the first evidence for session_id, actor, phase, scope_kind, scope_id/path/td_id, lease freshness, release/expiry state, and collision status.",
+      "session-claims --refresh and --session-summary must derive effective_active_sessions from the same predicate as cohort_overview, including passive external-observed demotion, so claim cards and overview cards do not report conflicting concurrency pressure.",
+      "Claim summary grouping must recognize canonical scope_kind values path, td_id, and work_item_id; legacy aliases may remain supported but must not turn work-item or td claims into other_claim_count.",
+      "If a landing or mutation preflight returns a sessionless_claim_identity_hint or candidate --session-id, rerun the check bound to that session id before treating the claim as an external blocker or switching to broad/full-path review.",
+      "Treat heartbeat gaps on other live sessions as read-only authority boundaries: use the session-status drilldown or read_only_alternative_command to classify the owner, and do not heartbeat, finalize, release, or bypass another session's claims.",
+      "Open --full claim rows, session-status --full, rollout activity, or host transcripts only when cards and the session-bound preflight cannot decide ownership, scope overlap, or lease freshness.",
+      "When claim contention blocks the primary mutation lane, route through blocked_primary_ambition_preservation rather than making a smaller unrelated hygiene edit."
+    ],
+    "receipt_fields": [
+      "claim_cards_command",
+      "selected_claim_session_id",
+      "heartbeat_authority_boundary_classification",
+      "session_bound_preflight_command",
+      "claim_classification",
+      "raw_body_opened_reason"
+    ],
+    "raw_body_policy": "Raw transcripts and full session bodies are diagnostic escape hatches. They are not the first-contact repair surface for claim contention when compact claim cards can classify the blocker.",
+    "mutation_policy_ref": "same_session_mutation_ordering"
   },
   "claim_contract": {
     "purpose": "Forward-looking lease on a td_* or repo-relative path for multi-agent coordination BEFORE mutation, complementing the post-hoc touched_td_ids signal. Claims are runtime-only coordination state, never persisted to the append-only JSONL substrate.",

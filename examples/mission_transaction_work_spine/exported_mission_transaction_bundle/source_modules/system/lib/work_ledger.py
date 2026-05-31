@@ -950,6 +950,59 @@ def write_family_projections(
     return results
 
 
+def write_family_projection_targets(
+    repo_root: Path,
+    *,
+    family_id: str,
+    phase_ids: Iterable[str],
+    compare_existing: bool = True,
+) -> List[Dict[str, Any]]:
+    normalized_family = _normalize_family_id(family_id)
+    target_phases = sorted(
+        {
+            _normalize_phase_id(phase_id)
+            for phase_id in phase_ids
+            if str(phase_id or "").strip()
+        }
+    )
+    if not target_phases:
+        return []
+
+    events = load_events(repo_root, family_id=normalized_family)
+    generated_at = utc_now()
+    family_projection = build_projection(
+        events,
+        phase_id=None,
+        family_id=normalized_family,
+        generated_at=generated_at,
+    )
+    results: List[Dict[str, Any]] = []
+    for bucket_phase in target_phases:
+        target = ledger_paths(repo_root, phase_id=bucket_phase, family_id=normalized_family)
+        index_path = Path(target["index_path"])
+        existing = _safe_read_json(index_path) if compare_existing else {}
+        projection = {**family_projection, "phase_id": bucket_phase}
+        fresh_existing = (
+            bool(compare_existing) and bool(existing)
+            and not _projection_has_legacy_volatile_fields(existing)
+            and _projection_compare_payload(existing) == _projection_compare_payload(projection)
+        )
+        if fresh_existing:
+            projection["generated_at"] = existing.get("generated_at")
+        else:
+            atomic_write_json(index_path, projection)
+        results.append(
+            {
+                "phase_id": bucket_phase,
+                "index_path": str(index_path.relative_to(repo_root)),
+                "counts": projection.get("counts"),
+                "targeted": True,
+                "compare_existing": bool(compare_existing),
+            }
+        )
+    return results
+
+
 def _projection_events_from_payload(payload: Mapping[str, Any]) -> Optional[List[Dict[str, Any]]]:
     threads = payload.get("threads")
     if not isinstance(threads, Mapping):
@@ -1009,10 +1062,13 @@ def _deferred_family_projection_rows(
     family_id: str,
     updated_phase_id: str,
     buckets: List[str],
+    reason: str = "append_only_projection_mode",
+    target_only_commands: bool = False,
 ) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     normalized_family = _normalize_family_id(family_id)
     normalized_updated_phase = _normalize_phase_id(updated_phase_id)
+    target_only_suffix = " --target-only" if target_only_commands else ""
     for bucket_phase in sorted(set(buckets)):
         if bucket_phase == normalized_updated_phase:
             continue
@@ -1023,14 +1079,16 @@ def _deferred_family_projection_rows(
                 "phase_id": bucket_phase,
                 "index_path": str(index_path.relative_to(repo_root)),
                 "status": "deferred",
-                "reason": "append_only_projection_mode",
+                "reason": reason,
                 "freshness_check_command": (
                     "./repo-python tools/meta/factory/work_ledger.py project "
                     f"--phase-id {bucket_phase} --family-id {normalized_family} --check"
+                    f"{target_only_suffix}"
                 ),
                 "refresh_command": (
                     "./repo-python tools/meta/factory/work_ledger.py project "
                     f"--phase-id {bucket_phase} --family-id {normalized_family}"
+                    f"{target_only_suffix}"
                 ),
             }
         )
@@ -1518,25 +1576,49 @@ def project_phase(
     *,
     phase_id: str | None = None,
     family_id: str | None = None,
+    target_only: bool = False,
 ) -> Dict[str, Any]:
     context = resolve_phase_context(repo_root, phase_id=phase_id, family_id=family_id)
-    results = write_family_projections(
-        repo_root,
-        family_id=context["family_id"],
-        include_phase_id=context["phase_id"],
-    )
+    if target_only:
+        results = [
+            write_phase_projection(
+                repo_root,
+                phase_id=context["phase_id"],
+                family_id=context["family_id"],
+                reason="target_only_projection_rebuild",
+            )
+        ]
+        deferred_results = _deferred_family_projection_rows(
+            repo_root,
+            family_id=context["family_id"],
+            updated_phase_id=context["phase_id"],
+            buckets=_family_phase_buckets(repo_root, context["family_id"]),
+            reason="target_only_projection_mode",
+            target_only_commands=True,
+        )
+    else:
+        results = write_family_projections(
+            repo_root,
+            family_id=context["family_id"],
+            include_phase_id=context["phase_id"],
+        )
+        deferred_results = []
     projection = load_projection(
         repo_root,
         phase_id=context["phase_id"],
         family_id=context["family_id"],
     )
-    return {
+    payload = {
         "ok": True,
         "phase_id": context["phase_id"],
         "family_id": context["family_id"],
+        "target_only": target_only,
         "projection": projection,
         "projection_results": results,
     }
+    if deferred_results:
+        payload["deferred_projection_results"] = deferred_results
+    return payload
 
 
 def _normalize_projection_for_compare(value: Any) -> Any:
@@ -1604,7 +1686,7 @@ def _projection_fanout_diagnostic(
     projection_results: List[Dict[str, Any]],
 ) -> Optional[Dict[str, Any]]:
     stale_rows = [row for row in projection_results if not bool(row.get("fresh"))]
-    if len(stale_rows) < 2:
+    if not stale_rows:
         return None
     fresh_count = len(projection_results) - len(stale_rows)
     normalized_family = _normalize_family_id(family_id)
@@ -1627,8 +1709,8 @@ def _projection_fanout_diagnostic(
         "source_authority_paths": source_paths,
         "root_cause": "family_wide_source_authority_reused_by_phase_indexes",
         "why": (
-            "One Work Ledger append can update the touched phase index while leaving "
-            "older indexes stale because the family projection reads the family-wide "
+            "One Work Ledger append can update the touched phase index while one or "
+            "more older indexes stay stale because the family projection reads the family-wide "
             "event log across phase buckets."
         ),
         "repair_command": "./repo-python tools/meta/factory/work_ledger.py project --all",
@@ -1661,30 +1743,54 @@ def check_project_phase(
     *,
     phase_id: str | None = None,
     family_id: str | None = None,
+    target_only: bool = False,
 ) -> Dict[str, Any]:
     context = resolve_phase_context(repo_root, phase_id=phase_id, family_id=family_id)
     selected_phase_id = context["phase_id"]
-    results = check_family_projections(
-        repo_root,
-        family_id=context["family_id"],
-        include_phase_id=selected_phase_id,
-    )
+    if target_only:
+        normalized_family = _normalize_family_id(context["family_id"])
+        events = load_events(repo_root, family_id=normalized_family)
+        results = [
+            _projection_freshness_row(
+                repo_root,
+                phase_id=selected_phase_id,
+                family_id=normalized_family,
+                events=events,
+            )
+        ]
+    else:
+        results = check_family_projections(
+            repo_root,
+            family_id=context["family_id"],
+            include_phase_id=selected_phase_id,
+        )
     selected_phase_row = next(
         (row for row in results if str(row.get("phase_id")) == selected_phase_id),
         None,
     )
     selected_phase_fresh = bool(selected_phase_row and selected_phase_row.get("fresh"))
-    family_projection_fresh = all(row.get("fresh") for row in results)
+    family_projection_fresh = all(row.get("fresh") for row in results) if not target_only else None
     payload = {
         "ok": selected_phase_fresh,
         "mode": "check",
         "check_scope": "selected_phase",
         "phase_id": selected_phase_id,
         "family_id": context["family_id"],
+        "target_only": target_only,
         "selected_phase_fresh": selected_phase_fresh,
         "family_projection_fresh": family_projection_fresh,
         "projection_results": results,
     }
+    if target_only:
+        payload["deferred_projection_results"] = _deferred_family_projection_rows(
+            repo_root,
+            family_id=context["family_id"],
+            updated_phase_id=selected_phase_id,
+            buckets=_family_phase_buckets(repo_root, context["family_id"]),
+            reason="target_only_projection_mode",
+            target_only_commands=True,
+        )
+        return payload
     diagnostic = _projection_fanout_diagnostic(
         repo_root,
         family_id=context["family_id"],

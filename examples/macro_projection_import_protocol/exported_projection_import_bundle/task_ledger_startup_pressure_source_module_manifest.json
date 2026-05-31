@@ -33,9 +33,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 999106,
+      "byte_count": 1056662,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 21568,
+      "line_count": 22816,
       "material_class": "public_macro_tool_body",
       "module_id": "task_ledger_navigation_command_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
       "source_ref": "system/lib/kernel/commands/navigate.py",
       "source_role": "Kernel navigation command group carrying pulse, phase, context, option-surface, and first-contact command dispatch that consumes Task Ledger and Work Ledger control packets.",
-      "source_sha256": "d8004347dd03381219211e11ede91d10ad72b36a297224add78fde582f625dd8",
+      "source_sha256": "9d7f761d8d6c9dfdf3e14f30c98afb24748844adc1f072d89330a2b8b0c0c12c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
-      "target_sha256": "d8004347dd03381219211e11ede91d10ad72b36a297224add78fde582f625dd8"
+      "target_sha256": "9d7f761d8d6c9dfdf3e14f30c98afb24748844adc1f072d89330a2b8b0c0c12c"
     },
     {
       "anchor_count": 5,
