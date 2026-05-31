@@ -5129,7 +5129,7 @@ def projection_bundle_cached_card(
             "input_ref": display_input,
             "out_ref": str(out_dir),
             "cache_status": "missing_cached_receipt",
-            "cached_receipt_ref": _display(receipt_path, public_root=public_root),
+            "cached_receipt_ref": str(receipt_path),
             "cached_receipt_bytes": 0,
             "run_required": (
                 "microcosm macro-projection-import-protocol "
@@ -5196,7 +5196,7 @@ def projection_bundle_cached_card(
         "input_ref": display_input,
         "out_ref": str(out_dir),
         "cache_status": "stale_cached_receipt" if stale else "cached_receipt_read",
-        "cached_receipt_ref": _display(receipt_path, public_root=public_root),
+        "cached_receipt_ref": str(receipt_path),
         "cached_receipt_bytes": receipt_stat.st_size,
         "cache_freshness": {
             "status": "stale" if stale else "current",

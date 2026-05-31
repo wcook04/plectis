@@ -3891,7 +3891,6 @@ def _compact_project_state_write_proof(
     return {
         "schema_version": "microcosm_status_card_state_write_proof_ref_v1",
         "status": state_write_proof.get("status"),
-        "status_scope": state_write_proof.get("status_scope"),
         "state_dir": state_write_proof.get("state_dir"),
         "state_dir_exists": state_write_proof.get("state_dir_exists"),
         "state_file_count": state_write_proof.get("state_file_count"),
@@ -3912,12 +3911,7 @@ def _compact_project_state_write_proof(
         "status_card_writes_microcosm_state": state_write_proof.get(
             "status_card_writes_microcosm_state"
         ),
-        "source_files_mutated": state_write_proof.get("source_files_mutated"),
         "safe_to_show": state_write_proof.get("safe_to_show", {}),
-        "reader_action": (
-            "Verify this status-card state-write lens before drilling into "
-            "observe or the full observatory model."
-        ),
     }
 
 
@@ -4360,15 +4354,6 @@ def _status_card_front_door_status(
                     "defect_preview": body_floor_defect_preview
                     if body_floor_defect_preview is not None
                     else body_floor.get("defect_preview", []),
-                    "defect_preview_scope": "material_target_codes_body",
-                    "defect_preview_limit": body_floor.get(
-                        "defect_preview_limit",
-                        STATUS_CARD_DEFECT_PREVIEW_LIMIT,
-                    ),
-                    "full_status_ref": body_floor.get(
-                        "full_status_ref",
-                        "microcosm status::macro_body_import_floor",
-                    ),
                     "full_defects_ref": body_floor.get(
                         "full_defects_ref",
                         "microcosm status::macro_body_import_floor.defects",

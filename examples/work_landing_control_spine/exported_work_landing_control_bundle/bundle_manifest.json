@@ -30,8 +30,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 187,
-      "expected_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "expected_line_count": 190,
+      "expected_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/control/work_landing.py",
       "required_anchors": [
@@ -46,8 +46,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 3553,
-      "expected_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "expected_line_count": 3770,
+      "expected_sha256": "efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
       "material_class": "public_macro_tool_body",
       "path": "source_modules/system/lib/work_landing_status.py",
       "required_anchors": [
@@ -124,7 +124,7 @@
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
       "expected_line_count": 95,
-      "expected_sha256": "8b035f2876a7268d9efcac5cbe1b2f0bf3e423fd0088c5f1638bcf4f80940e20",
+      "expected_sha256": "161acddd72f6b92943a12838e87681852f113bd880857f3d84e99580ffb3fdf2",
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
       "required_anchors": [],

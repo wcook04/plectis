@@ -20,8 +20,8 @@ ROUTE_READINESS = (
     REPO_ROOT / "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
 )
 BRIDGE_MANIFEST = (
-    REPO_ROOT
-    / "state/microcosm_portfolio/reconstruction/fixture_manifests/"
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/"
     "bridge_phase_continuity_runtime.fixture_manifest.json"
 )
 OBSERVE_RUNTIME_MANIFEST = (

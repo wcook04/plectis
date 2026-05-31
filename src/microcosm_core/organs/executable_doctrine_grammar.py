@@ -516,7 +516,14 @@ def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
-    return [public_relative_path(path, display_root=public_root) for path in paths.values()]
+    return [_receipt_ref(path, public_root=public_root) for path in paths.values()]
+
+
+def _receipt_ref(path: Path, *, public_root: Path) -> str:
+    if "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        return Path(*path.parts[receipts_index:]).as_posix()
+    return public_relative_path(path, display_root=public_root)
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
@@ -653,10 +660,7 @@ def _write_standards_bundle_receipt(
     target.mkdir(parents=True, exist_ok=True)
     public_root = Path(public_root).resolve(strict=False)
     path = target / STANDARDS_BUNDLE_RESULT_NAME
-    receipt_path = public_relative_path(path, display_root=public_root)
-    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
-        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
-        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    receipt_path = _receipt_ref(path, public_root=public_root)
     payload = _common_receipt(
         validation_result,
         schema_version="executable_doctrine_grammar_exported_standards_bundle_validation_v1",
@@ -1260,10 +1264,7 @@ def _write_metabolism_bundle_receipt(
         target = Path.cwd() / target
     target.mkdir(parents=True, exist_ok=True)
     path = target / METABOLISM_BUNDLE_RESULT_NAME
-    receipt_path = public_relative_path(path, display_root=public_root)
-    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
-        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
-        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    receipt_path = _receipt_ref(path, public_root=public_root)
     payload = _common_receipt(
         validation_result,
         schema_version="executable_doctrine_grammar_metabolism_bundle_validation_v1",

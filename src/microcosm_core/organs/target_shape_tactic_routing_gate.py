@@ -887,7 +887,14 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
-    return [_display(path, public_root=public_root) for path in paths.values()]
+    return [_receipt_ref(path, public_root=public_root) for path in paths.values()]
+
+
+def _receipt_ref(path: Path, *, public_root: Path) -> str:
+    if "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        return Path(*path.parts[receipts_index:]).as_posix()
+    return _display(path, public_root=public_root)
 
 
 def _build_result(
@@ -1162,10 +1169,7 @@ def run_routing_bundle(
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
-    receipt_ref = _display(receipt_path, public_root=public_root)
-    if Path(receipt_ref).is_absolute() and "receipts" in receipt_path.parts:
-        receipts_index = len(receipt_path.parts) - 1 - list(reversed(receipt_path.parts)).index("receipts")
-        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
+    receipt_ref = _receipt_ref(receipt_path, public_root=public_root)
     receipt = _common_receipt(
         result,
         schema_version="target_shape_tactic_routing_exported_bundle_receipt_v1",
