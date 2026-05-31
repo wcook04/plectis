@@ -4,8 +4,10 @@ import argparse
 import errno
 import importlib
 import json
+import os
 import shlex
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 from microcosm_core import __version__
@@ -37,6 +39,43 @@ class _LazyModule:
         setattr(self._load(), name, value)
 
 
+class _LazyPath:
+    def __init__(self, path_loader) -> None:
+        object.__setattr__(self, "_path_loader", path_loader)
+        object.__setattr__(self, "_path", None)
+
+    def _load(self) -> Path:
+        path = object.__getattribute__(self, "_path")
+        if path is None:
+            path = Path(object.__getattribute__(self, "_path_loader")())
+            object.__setattr__(self, "_path", path)
+        return path
+
+    def __fspath__(self) -> str:
+        return str(self._load())
+
+    def __truediv__(self, other):
+        return self._load() / other
+
+    def __getattr__(self, name: str):
+        return getattr(self._load(), name)
+
+    def __str__(self) -> str:
+        return str(self._load())
+
+    def __repr__(self) -> str:
+        return repr(self._load())
+
+    def __eq__(self, other: object) -> bool:
+        try:
+            return self._load() == Path(other)  # type: ignore[arg-type]
+        except TypeError:
+            return False
+
+    def __hash__(self) -> int:
+        return hash(self._load())
+
+
 TEXT_READER_CHOICES = (
     "all",
     "public_github_visitor",
@@ -59,6 +98,9 @@ runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
 resource_root = _LazyModule("microcosm_core.resource_root")
 finance_eval_spine = _LazyModule("microcosm_core.macro_tools.finance_eval_spine")
+organ_surface_contract = _LazyModule(
+    "microcosm_core.projections.organ_surface_contract"
+)
 work_landing_control_spine = _LazyModule(
     "microcosm_core.macro_tools.work_landing_control_spine"
 )
@@ -173,6 +215,9 @@ spatial_world_model_counterfactual_simulation_replay = _LazyModule(
 cognitive_operator_registry = _LazyModule(
     "microcosm_core.organs.cognitive_operator_registry"
 )
+routing_anti_patterns_registry = _LazyModule(
+    "microcosm_core.organs.routing_anti_patterns_registry"
+)
 standards_meta_diagnostics = _LazyModule(
     "microcosm_core.organs.standards_meta_diagnostics"
 )
@@ -236,6 +281,22 @@ def _runtime_project_arg(project: str | None) -> str | None:
     return str(path.resolve(strict=False))
 
 
+def _runtime_root_for_project_arg(project: str | None) -> Path | None:
+    return _public_root_for_project(project)
+
+
+def _cli_project_command_ref(project: str | None) -> str | None:
+    if project is None:
+        return None
+    text = str(project).strip()
+    if not text:
+        return "<project>"
+    path = Path(text)
+    if text.startswith("~") or path.is_absolute() or ".." in path.parts:
+        return "<project>"
+    return text
+
+
 def _replace_project_placeholder(value, project_ref: str):
     if isinstance(value, str):
         return value.replace("<project>", project_ref)
@@ -258,7 +319,7 @@ def _status_card_project_ref(payload: dict) -> str:
     return str(project_ref or "<project>")
 
 
-MICROCOSM_ROOT = resource_root.microcosm_root()
+MICROCOSM_ROOT = _LazyPath(lambda: resource_root.microcosm_root())
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 PROOF_LAB_BUNDLE_REF = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 PROOF_LAB_ROUTE_REF = f"{PROOF_LAB_BUNDLE_REF}/proof_lab_route.json"
@@ -266,16 +327,14 @@ PROOF_LAB_RECEIPT_REF = (
     "receipts/first_wave/verifier_lab_kernel/"
     "exported_verifier_lab_kernel_bundle_validation_result.json"
 )
-DEFAULT_PROOF_LAB_INPUT = (
-    MICROCOSM_ROOT / PROOF_LAB_BUNDLE_REF
-)
+DEFAULT_PROOF_LAB_INPUT = _LazyPath(lambda: MICROCOSM_ROOT / PROOF_LAB_BUNDLE_REF)
 DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 PROOF_LAB_INPUT_PLACEHOLDER = "<proof-lab-input>"
 PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 OBSERVATORY_SERVE_COMMAND = (
     "microcosm serve <project> --host 127.0.0.1 --port 8765"
 )
-OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 6
+OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 7
 OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
     f"{OBSERVATORY_SERVE_COMMAND} "
     f"--max-requests {OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT}"
@@ -302,6 +361,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
   microcosm status --card <project> read the compressed project/runtime status lens
+  microcosm status-card <project> alias for the compact status lens
   microcosm spine --card          read the compact runtime spine lens
   microcosm run --card examples/runtime_shell/demo_project replay the public runtime demo
   microcosm authority --card      read the compact authority ceiling lens
@@ -310,6 +370,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --card      read the cached verifier-lab receipt card
   microcosm proof-lab --out /tmp/microcosm-proof-lab
+  microcosm observe --card <project> read compact route/work/event/evidence refs
   microcosm observe <project>     inspect route/work/event/evidence chain
   microcosm serve <project>       open the local observatory
   microcosm compile --card <project> read cached .microcosm state; stale cache exits 1
@@ -318,6 +379,18 @@ FIRST_SCREEN_HELP = """First-screen route:
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 Receipts are evidence drilldowns after the behavior route is visible.
+"""
+
+STATUS_CARD_HELP = """Reads the compact project/runtime status lens.
+
+Equivalent command:
+  microcosm status --card <project>
+
+Next command:
+  microcosm tour --card <project>
+
+Boundaries: local-first only; no provider calls, source mutation, release,
+hosting, proof-correctness, or credential-equivalent live-access authority.
 """
 
 PUBLIC_LENS_COMMAND_HELP = (
@@ -349,6 +422,8 @@ PUBLIC_LENS_COMMAND_HELP = (
     ("intake", "show runtime projection intake board"),
     ("reveal", "show public reveal walkthrough board"),
 )
+PUBLIC_LENS_COMMANDS = frozenset(command for command, _ in PUBLIC_LENS_COMMAND_HELP)
+PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset({"intake", "workingness"})
 
 PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-binding": "validate exported pattern/source-route bundles",
@@ -402,6 +477,7 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-assimilation-step": "validate pattern assimilation bundle",
     "voice-to-doctrine-self-improvement-loop": "run voice-to-doctrine bundle",
     "cognitive-operator-registry": "run cognitive-operator-registry bundle",
+    "routing-anti-patterns-registry": "run routing anti-patterns registry bundle",
 }
 
 
@@ -422,17 +498,48 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 
 
 def _add_public_lens_parsers(subparsers) -> None:
+    compact_card_help = {
+        "spine": "emit the compact first-screen spine lens",
+        "workingness": "emit the compact first-screen workingness lens",
+        "intake": "emit the compact first-screen intake lens",
+        "projection-import-map": "emit the compact public projection import map lens",
+        "import-projector": "emit the compact public import-projector contract lens",
+    }
     for command, help_text in PUBLIC_LENS_COMMAND_HELP:
         parser = subparsers.add_parser(command, help=help_text)
-        if command in {"spine", "workingness", "intake"}:
-            parser.add_argument(
-                "--card",
-                action="store_true",
-                help=f"emit the compact first-screen {command} lens",
-            )
+        parser.add_argument(
+            "--card",
+            action="store_true",
+            help=compact_card_help.get(
+                command,
+                "accepted as a public lens alias; this command already emits JSON",
+            ),
+        )
+        parser.add_argument(
+            "project",
+            nargs="?",
+            help=(
+                "accepted for first-screen parity; this public lens remains "
+                "Microcosm-rooted"
+            ),
+        )
 
 
-ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset({"pattern-route-readiness"})
+ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset(
+    {
+        "pattern-route-readiness",
+        "finance-eval-spine",
+        "executable-doctrine-grammar",
+        "formal-math-readiness-gate",
+        "standards-meta-diagnostics",
+        "cold-reader-route-map",
+        "macro-projection-import-protocol",
+        "agent-route-observability-runtime",
+        "bridge-phase-continuity-runtime",
+        "voice-to-doctrine-self-improvement-loop",
+        "routing-anti-patterns-registry",
+    }
+)
 
 
 def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
@@ -555,6 +662,16 @@ def _proof_lab_cache_action_hint(cache_status: object) -> dict:
     return {
         "status": "not_needed",
     }
+
+
+def _proof_lab_fresh_receipt_required(cache_status: object) -> bool:
+    return cache_status in {"stale_cached_receipt", "missing_cached_receipt"}
+
+
+def _proof_lab_status_scope(cache_status: object) -> str:
+    if _proof_lab_fresh_receipt_required(cache_status):
+        return "route_presence_not_cache_freshness"
+    return "route_presence_and_cache_freshness"
 
 
 def _emit_hello(project: str, reader: str) -> int:
@@ -711,13 +828,29 @@ def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
     return f"microcosm proof-lab --card --input {display_input} --out {display_out}"
 
 
-def _proof_lab_input_files(input_path: str) -> list[Path]:
+def _iter_proof_lab_input_files(input_path: str) -> Iterator[Path]:
     input_ref = Path(input_path)
     if not input_ref.exists():
-        return []
+        return
     if input_ref.is_file():
-        return [input_ref]
-    return sorted(path for path in input_ref.rglob("*") if path.is_file())
+        yield input_ref
+        return
+    pending = [input_ref]
+    while pending:
+        current = pending.pop()
+        child_dirs: list[Path] = []
+        with os.scandir(current) as entries:
+            for entry in entries:
+                entry_path = Path(entry.path)
+                if entry.is_dir(follow_symlinks=False):
+                    child_dirs.append(entry_path)
+                elif entry.is_file():
+                    yield entry_path
+        pending.extend(reversed(sorted(child_dirs)))
+
+
+def _proof_lab_input_files(input_path: str) -> list[Path]:
+    return sorted(_iter_proof_lab_input_files(input_path))
 
 
 def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
@@ -735,29 +868,29 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
             "input_refs_exported": False,
         }
 
-    input_files = _proof_lab_input_files(input_path)
     if (
-        input_files
-        and input_ref.resolve(strict=False)
+        input_ref.resolve(strict=False)
         == (
             resource_root.installed_microcosm_root() / PROOF_LAB_BUNDLE_REF
         ).resolve(strict=False)
     ):
-        return {
-            "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-            "status": "current",
-            "input_status": "packaged_public_data",
-            "receipt_mtime_ns": receipt_mtime_ns,
-            "tracked_input_count": len(input_files),
-            "stale_input_count": 0,
-            "latest_input_mtime_ns": None,
-            "input_refs_exported": False,
-        }
+        tracked_input_count = sum(1 for _ in _iter_proof_lab_input_files(input_path))
+        if tracked_input_count:
+            return {
+                "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+                "status": "current",
+                "input_status": "packaged_public_data",
+                "receipt_mtime_ns": receipt_mtime_ns,
+                "tracked_input_count": tracked_input_count,
+                "stale_input_count": 0,
+                "latest_input_mtime_ns": None,
+                "input_refs_exported": False,
+            }
 
     latest_input_mtime_ns: int | None = None
     stale_input_count = 0
     tracked_input_count = 0
-    for input_file in input_files:
+    for input_file in _iter_proof_lab_input_files(input_path):
         input_mtime_ns = input_file.stat().st_mtime_ns
         latest_input_mtime_ns = (
             input_mtime_ns
@@ -977,6 +1110,10 @@ def _proof_lab_first_screen_card(
         "alias_endpoints": ["/verifier-lab-kernel"],
         "source_lens_endpoint": "/proof-loop-depth",
         "cache_status": cache_status,
+        "status_scope": _proof_lab_status_scope(cache_action_status),
+        "fresh_receipt_required": _proof_lab_fresh_receipt_required(
+            cache_action_status
+        ),
         "cache_action": _proof_lab_cache_action_hint(cache_action_status),
         "cached_receipt_ref": _cached_receipt_ref_for_card(result, out_dir),
         "cached_receipt_bytes": result.get("cached_receipt_bytes"),
@@ -1057,6 +1194,7 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
     safe_to_show = proof_lab.get("safe_to_show")
     if not isinstance(safe_to_show, dict):
         safe_to_show = {}
+    cache_status = proof_lab.get("cache_status")
     return {
         "schema_version": "microcosm_status_card_proof_lab_ref_v1",
         "status": proof_lab.get("status"),
@@ -1068,10 +1206,12 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
         or proof_lab.get("proof_lab_route_component_count"),
         "proof_bodies_exported": safe_to_show.get("proof_bodies_exported", False),
         "proof_correctness_claim": safe_to_show.get("proof_correctness_claim", False),
-        "cache_status": proof_lab.get("cache_status"),
+        "cache_status": cache_status,
+        "status_scope": _proof_lab_status_scope(cache_status),
+        "fresh_receipt_required": _proof_lab_fresh_receipt_required(cache_status),
         "cache_action": proof_lab.get("cache_action")
         if isinstance(proof_lab.get("cache_action"), dict)
-        else _proof_lab_cache_action_hint(proof_lab.get("cache_status")),
+        else _proof_lab_cache_action_hint(cache_status),
     }
 
 
@@ -1166,7 +1306,7 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
-        "project_observe_command": f"microcosm observe {project_ref}",
+        "project_observe_command": f"microcosm observe --card {project_ref}",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
@@ -1284,6 +1424,7 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                     "endpoint",
                     "workingness_map_ref",
                     "source_open_body_material_count",
+                    "source_body_count_kind",
                     "missing_standard_count",
                     "missing_failure_modes_count",
                 ],
@@ -1386,6 +1527,8 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "proof_bodies_exported",
                 "proof_correctness_claim",
                 "cache_status",
+                "status_scope",
+                "fresh_receipt_required",
                 "cache_action",
             ],
         )
@@ -1402,6 +1545,8 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "route_component_count",
                 "proof_lab_route_component_count",
                 "cache_status",
+                "status_scope",
+                "fresh_receipt_required",
                 "cache_action",
             ],
         )
@@ -1410,7 +1555,12 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    fast_path_status = _first_screen_fast_path(argv)
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    if raw_argv == ["--version"]:
+        print(f"microcosm {__version__}")
+        return 0
+
+    fast_path_status = _first_screen_fast_path(raw_argv)
     if fast_path_status is not None:
         return fast_path_status
 
@@ -1429,13 +1579,25 @@ def main(argv: list[str] | None = None) -> int:
         version=f"%(prog)s {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="<command>")
-    init_parser = subparsers.add_parser("init")
+    init_parser = subparsers.add_parser(
+        "init",
+        help="create project-local .microcosm state",
+    )
     init_parser.add_argument("project")
-    index_parser = subparsers.add_parser("index")
+    index_parser = subparsers.add_parser(
+        "index",
+        help="classify project files into public repo roles",
+    )
     index_parser.add_argument("project")
-    catalog_parser = subparsers.add_parser("catalog")
+    catalog_parser = subparsers.add_parser(
+        "catalog",
+        help="emit the project file-role catalog",
+    )
     catalog_parser.add_argument("project")
-    architecture_parser = subparsers.add_parser("architecture")
+    architecture_parser = subparsers.add_parser(
+        "architecture",
+        help="show project architecture-kernel primitives",
+    )
     architecture_parser.add_argument("project")
     compile_parser = subparsers.add_parser(
         "compile",
@@ -1478,6 +1640,19 @@ def main(argv: list[str] | None = None) -> int:
         help="emit the compact first-screen status lens",
     )
     status_parser.add_argument("project", nargs="?")
+    status_card_parser = subparsers.add_parser(
+        "status-card",
+        help="alias for status --card",
+        description="Alias for the compact first-screen project/runtime status lens.",
+        epilog=STATUS_CARD_HELP,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    status_card_parser.add_argument(
+        "project",
+        nargs="?",
+        metavar="project",
+        help="project path with .microcosm state; omit for runtime-only status",
+    )
     proof_lab_parser = subparsers.add_parser(
         "proof-lab",
         help="run the first-screen verifier proof lab",
@@ -1497,6 +1672,14 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_PROOF_LAB_OUT,
         help="directory for proof-lab receipts",
     )
+    proof_lab_parser.add_argument(
+        "project",
+        nargs="?",
+        help=(
+            "accepted for first-screen parity; proof-lab input/output flags "
+            "remain the authority for this route"
+        ),
+    )
     spine_parser = subparsers.add_parser(
         "spine",
         help="show accepted public runtime spine",
@@ -1505,6 +1688,14 @@ def main(argv: list[str] | None = None) -> int:
         "--card",
         action="store_true",
         help="emit the compact first-screen runtime spine lens",
+    )
+    spine_parser.add_argument(
+        "project",
+        nargs="?",
+        help=(
+            "accepted for first-screen parity; the spine card remains a "
+            "Microcosm-rooted runtime lens"
+        ),
     )
     tour_parser = subparsers.add_parser(
         "tour",
@@ -1567,6 +1758,14 @@ def main(argv: list[str] | None = None) -> int:
         "--card",
         action="store_true",
         help="emit the compact first-screen authority lens",
+    )
+    authority_parser.add_argument(
+        "project",
+        nargs="?",
+        help=(
+            "accepted for first-screen parity; the authority card remains a "
+            "Microcosm authority lens"
+        ),
     )
     _add_public_lens_parsers(subparsers)
     run_parser = subparsers.add_parser(
@@ -1637,6 +1836,11 @@ def main(argv: list[str] | None = None) -> int:
         "observe",
         help="inspect compact route/work/event/evidence chain",
     )
+    observe_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit compact observe card instead of full event rows",
+    )
     observe_parser.add_argument("project")
     evidence_parser = subparsers.add_parser(
         "evidence",
@@ -1687,6 +1891,17 @@ def main(argv: list[str] | None = None) -> int:
 
     public_entry_parser = subparsers.add_parser("public-entry-docs")
     _add_root_out(public_entry_parser)
+    organ_surface_parser = subparsers.add_parser(
+        "organ-surface-contract",
+        help="audit accepted organ surface wiring",
+    )
+    organ_surface_parser.add_argument("--root", default=str(MICROCOSM_ROOT))
+    organ_surface_parser.add_argument("--out")
+    organ_surface_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit compact counts instead of full per-organ rows",
+    )
     density_parser = subparsers.add_parser("research-kernel-density")
     _add_root_out(density_parser)
     density_parser.add_argument("--project")
@@ -2065,6 +2280,13 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(cognitive_operator_parser)
     cognitive_operator_parser.add_argument("--acceptance-out")
 
+    routing_anti_patterns_parser = _add_bundle_parser(
+        subparsers, "routing-anti-patterns-registry"
+    )
+    routing_anti_patterns_parser.add_argument("action", choices=["run", "run-bundle"])
+    _add_input_out(routing_anti_patterns_parser)
+    routing_anti_patterns_parser.add_argument("--acceptance-out")
+
     standards_meta_parser = _add_bundle_parser(subparsers, "standards-meta-diagnostics")
     standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
     _add_input_out(standards_meta_parser)
@@ -2094,6 +2316,7 @@ def main(argv: list[str] | None = None) -> int:
             "validate-observability-bundle",
             "validate-computer-use-bundle",
             "validate-session-attribution-bundle",
+            "validate-harness-configuration-bundle",
             "validate-multi-agent-fanin-bundle",
             "validate-bridge-dispatch-yield-resume-bundle",
             "validate-controller-heartbeat-bundle",
@@ -2106,8 +2329,16 @@ def main(argv: list[str] | None = None) -> int:
     bridge_continuity_parser = _add_bundle_parser(
         subparsers, "bridge-phase-continuity-runtime"
     )
+    bridge_continuity_parser.usage = (
+        "%(prog)s run --input INPUT --out OUT [--card]"
+    )
     bridge_continuity_parser.add_argument("action", choices=["run"])
     _add_input_out(bridge_continuity_parser)
+    bridge_continuity_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact bridge continuity card",
+    )
 
     assimilation_parser = _add_bundle_parser(subparsers, "pattern-assimilation-step")
     assimilation_parser.add_argument("action", nargs="?", choices=["run", "validate-assimilation-bundle"], default="run")
@@ -2144,19 +2375,21 @@ def main(argv: list[str] | None = None) -> int:
         return project_substrate.main(["graph", args.project])
     if args.command == "explain":
         return project_substrate.main(["explain", args.project, args.route_id])
-    if args.command == "status":
+    if args.command in {"status", "status-card"}:
         runtime_project = _runtime_project_arg(args.project)
         command_args = ["status"]
-        if args.card:
+        card_requested = args.command == "status-card" or args.card
+        if card_requested:
             project_public_root = _public_root_for_project(args.project)
             shell = (
                 runtime_shell.RuntimeShell(root=project_public_root)
                 if project_public_root is not None
                 else runtime_shell.RuntimeShell()
             )
+            project_ref = _cli_project_command_ref(args.project)
             payload = shell.status_card(
                 args.project or runtime_project,
-                project_ref="<project>" if args.project else None,
+                project_ref=project_ref,
             )
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
@@ -2217,7 +2450,10 @@ def main(argv: list[str] | None = None) -> int:
         command_args = ["spine"]
         if args.card:
             command_args.append("--card")
-        return runtime_shell.main(command_args)
+        return runtime_shell.main(
+            command_args,
+            root=_runtime_root_for_project_arg(args.project),
+        )
     if args.command == "tour":
         command_args = ["tour"]
         if args.card:
@@ -2238,67 +2474,18 @@ def main(argv: list[str] | None = None) -> int:
         command_args = ["authority"]
         if args.card:
             command_args.append("--card")
-        return runtime_shell.main(command_args)
-    if args.command == "workingness":
-        command_args = ["workingness"]
-        if args.card:
+        return runtime_shell.main(
+            command_args,
+            root=_runtime_root_for_project_arg(args.project),
+        )
+    if args.command in PUBLIC_LENS_COMMANDS:
+        command_args = [args.command]
+        if args.command in PUBLIC_LENS_CARD_AWARE_COMMANDS and args.card:
             command_args.append("--card")
-        return runtime_shell.main(command_args)
-    if args.command == "prediction-lens":
-        return runtime_shell.main(["prediction-lens"])
-    if args.command == "market-boundary":
-        return runtime_shell.main(["market-boundary"])
-    if args.command == "corpus-lens":
-        return runtime_shell.main(["corpus-lens"])
-    if args.command == "trace-lens":
-        return runtime_shell.main(["trace-lens"])
-    if args.command == "repair-loop":
-        return runtime_shell.main(["repair-loop"])
-    if args.command == "evidence-cells":
-        return runtime_shell.main(["evidence-cells"])
-    if args.command == "proof-loop-depth":
-        return runtime_shell.main(["proof-loop-depth"])
-    if args.command == "verifier-lab-execution-spine-lens":
-        return runtime_shell.main(["verifier-lab-execution-spine-lens"])
-    if args.command == "landing-replay":
-        return runtime_shell.main(["landing-replay"])
-    if args.command == "view-quality":
-        return runtime_shell.main(["view-quality"])
-    if args.command == "projection-safety":
-        return runtime_shell.main(["projection-safety"])
-    if args.command == "drift-control":
-        return runtime_shell.main(["drift-control"])
-    if args.command == "spatial-simulation":
-        return runtime_shell.main(["spatial-simulation"])
-    if args.command == "circuit-attribution":
-        return runtime_shell.main(["circuit-attribution"])
-    if args.command == "route-cleanup":
-        return runtime_shell.main(["route-cleanup"])
-    if args.command == "projection-import-map":
-        return runtime_shell.main(["projection-import-map"])
-    if args.command == "import-projector":
-        return runtime_shell.main(["import-projector"])
-    if args.command == "option-surface-lens":
-        return runtime_shell.main(["option-surface-lens"])
-    if args.command == "stripping-guard":
-        return runtime_shell.main(["stripping-guard"])
-    if args.command == "standards-control":
-        return runtime_shell.main(["standards-control"])
-    if args.command == "hook-coverage":
-        return runtime_shell.main(["hook-coverage"])
-    if args.command == "replay-gauntlet":
-        return runtime_shell.main(["replay-gauntlet"])
-    if args.command == "benchmark-lab":
-        return runtime_shell.main(["benchmark-lab"])
-    if args.command == "legibility-scorecard":
-        return runtime_shell.main(["legibility-scorecard"])
-    if args.command == "intake":
-        command_args = ["intake"]
-        if args.card:
-            command_args.append("--card")
-        return runtime_shell.main(command_args)
-    if args.command == "reveal":
-        return runtime_shell.main(["reveal"])
+        return runtime_shell.main(
+            command_args,
+            root=_runtime_root_for_project_arg(args.project),
+        )
     if args.command == "run":
         command_args = ["run"]
         if args.card:
@@ -2325,7 +2512,7 @@ def main(argv: list[str] | None = None) -> int:
                     "address already in use. Choose a free port, for example "
                     f"`microcosm serve {args.project or '<project>'} "
                     f"--host {args.host} --port {args.port + 1} --max-requests "
-                    f"{args.max_requests or 6}`."
+                    f"{args.max_requests or 7}`."
                 ),
                 file=sys.stderr,
             )
@@ -2357,7 +2544,10 @@ def main(argv: list[str] | None = None) -> int:
                 work_args.extend(["--work-id", args.work_id])
             return project_substrate.main(work_args)
     if args.command == "observe":
-        return project_substrate.main(["observe", args.project])
+        observe_args = ["observe", args.project]
+        if args.card:
+            observe_args = ["observe", "--card", args.project]
+        return project_substrate.main(observe_args)
     if args.command == "evidence":
         if args.evidence_command == "list":
             evidence_limit = None if args.limit == 0 else args.limit
@@ -2411,6 +2601,13 @@ def main(argv: list[str] | None = None) -> int:
         return secret_exclusion_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "public-entry-docs":
         return public_entry_docs.main(["--root", args.root, "--out", args.out])
+    if args.command == "organ-surface-contract":
+        contract_args = ["--root", args.root]
+        if args.out:
+            contract_args.extend(["--out", args.out])
+        if args.card:
+            contract_args.append("--card")
+        return organ_surface_contract.main(contract_args)
     if args.command == "research-kernel-density":
         density_args = ["--root", args.root, "--out", args.out]
         if args.project:
@@ -2736,6 +2933,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             cognitive_operator_args.extend(["--acceptance-out", args.acceptance_out])
         return cognitive_operator_registry.main(cognitive_operator_args)
+    if args.command == "routing-anti-patterns-registry":
+        routing_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            routing_args.extend(["--acceptance-out", args.acceptance_out])
+        return routing_anti_patterns_registry.main(routing_args)
     if args.command == "standards-meta-diagnostics":
         standards_meta_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":
@@ -2758,9 +2960,10 @@ def main(argv: list[str] | None = None) -> int:
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "bridge-phase-continuity-runtime":
-        return bridge_phase_continuity_runtime.main(
-            [args.action, "--input", args.input, "--out", args.out]
-        )
+        bridge_continuity_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.card:
+            bridge_continuity_args.append("--card")
+        return bridge_phase_continuity_runtime.main(bridge_continuity_args)
     if args.command == "voice-to-doctrine-self-improvement-loop":
         voice_to_doctrine_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

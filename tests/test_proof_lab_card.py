@@ -177,6 +177,41 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
     assert str(MICROCOSM_ROOT) not in output
 
 
+def test_cli_proof_lab_cache_freshness_streams_bundle_inputs_without_rglob(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_dir = tmp_path / "verifier-bundle"
+    nested = input_dir / "nested"
+    nested.mkdir(parents=True)
+    first = input_dir / "proof_lab_route.json"
+    second = nested / "bundle_manifest.json"
+    first.write_text("{}", encoding="utf-8")
+    second.write_text("{}", encoding="utf-8")
+    receipt = tmp_path / "cached_proof_lab_receipt.json"
+    receipt.write_text("{}", encoding="utf-8")
+    latest_input_mtime_ns = max(
+        first.stat().st_mtime_ns,
+        second.stat().st_mtime_ns,
+    )
+    os.utime(
+        receipt,
+        ns=(latest_input_mtime_ns + 1_000_000, latest_input_mtime_ns + 1_000_000),
+    )
+
+    def guarded_rglob(self: Path, *_args: object, **_kwargs: object) -> object:
+        raise AssertionError("CLI proof-lab cache freshness should stream without rglob")
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    freshness = cli._proof_lab_cache_freshness(str(input_dir), receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 2
+    assert freshness["stale_input_count"] == 0
+
+
 def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> None:
     private_tmp_out = "/private/tmp/microcosm-proof-lab"
     host_private_out = "/private/var/folders/wn/example/microcosm-proof-lab"
