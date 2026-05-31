@@ -64,6 +64,42 @@ def _walk_keys(payload: object) -> list[str]:
     return []
 
 
+def test_bridge_phase_continuity_jsonl_reader_streams(
+    tmp_path: Path, monkeypatch
+) -> None:
+    rows_path = tmp_path / "heartbeat_rows.jsonl"
+    rows_path.write_text(
+        '{"heartbeat_id": "hb_1"}\n'
+        "\n"
+        "not-json\n"
+        "[1]\n"
+        '{"heartbeat_id": "hb_2"}\n',
+        encoding="utf-8",
+    )
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self == rows_path:
+            raise AssertionError("bridge continuity JSONL reader should stream input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+    findings: list[dict[str, Any]] = []
+
+    rows = bridge_runtime._read_required_jsonl(
+        rows_path,
+        subject="heartbeat_rows",
+        findings=findings,
+    )
+
+    assert rows == [{"heartbeat_id": "hb_1"}, {"heartbeat_id": "hb_2"}]
+    assert [finding["line"] for finding in findings] == [3, 4]
+    assert {finding["error_code"] for finding in findings} == {
+        "BRIDGE_CONTINUITY_INPUT_INVALID_JSONL",
+        "BRIDGE_CONTINUITY_INPUT_JSONL_ROW_NOT_OBJECT",
+    }
+
+
 def test_bridge_phase_continuity_runner_consumes_observe_apply_fixture(tmp_path: Path) -> None:
     out_dir = tmp_path / "bridge_phase_continuity_runtime"
     result = bridge_runtime.run(FIXTURE_INPUT, out_dir, command="pytest bridge continuity")

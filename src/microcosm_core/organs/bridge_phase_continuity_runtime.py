@@ -193,7 +193,37 @@ def _read_required_jsonl(
         return []
     rows: list[dict[str, Any]] = []
     try:
-        lines = path.read_text(encoding="utf-8").splitlines()
+        with path.open("r", encoding="utf-8") as fh:
+            for line_no, line in enumerate(fh, start=1):
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                try:
+                    row = json.loads(stripped)
+                except ValueError as exc:
+                    findings.append(
+                        {
+                            "error_code": "BRIDGE_CONTINUITY_INPUT_INVALID_JSONL",
+                            "subject": subject,
+                            "path": path.as_posix(),
+                            "line": line_no,
+                            "message": str(exc),
+                            "body_redacted": True,
+                        }
+                    )
+                    continue
+                if not isinstance(row, dict):
+                    findings.append(
+                        {
+                            "error_code": "BRIDGE_CONTINUITY_INPUT_JSONL_ROW_NOT_OBJECT",
+                            "subject": subject,
+                            "path": path.as_posix(),
+                            "line": line_no,
+                            "body_redacted": True,
+                        }
+                    )
+                    continue
+                rows.append(row)
     except OSError as exc:
         findings.append(
             {
@@ -205,36 +235,6 @@ def _read_required_jsonl(
             }
         )
         return []
-    for line_no, line in enumerate(lines, start=1):
-        stripped = line.strip()
-        if not stripped:
-            continue
-        try:
-            row = json.loads(stripped)
-        except ValueError as exc:
-            findings.append(
-                {
-                    "error_code": "BRIDGE_CONTINUITY_INPUT_INVALID_JSONL",
-                    "subject": subject,
-                    "path": path.as_posix(),
-                    "line": line_no,
-                    "message": str(exc),
-                    "body_redacted": True,
-                }
-            )
-            continue
-        if not isinstance(row, dict):
-            findings.append(
-                {
-                    "error_code": "BRIDGE_CONTINUITY_INPUT_JSONL_ROW_NOT_OBJECT",
-                    "subject": subject,
-                    "path": path.as_posix(),
-                    "line": line_no,
-                    "body_redacted": True,
-                }
-            )
-            continue
-        rows.append(row)
     return rows
 
 
