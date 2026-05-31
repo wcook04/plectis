@@ -9,6 +9,7 @@ import microcosm_core.organs.standards_meta_diagnostics as standards_meta_diagno
 from microcosm_core.organs.standards_meta_diagnostics import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _sha256,
     main,
     run,
     run_diagnostics_bundle,
@@ -189,6 +190,25 @@ def test_standards_meta_diagnostics_bundle_card_reuses_fresh_receipt(
     )
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
     assert cached_card["source_open_body_imports"] == first_card["source_open_body_imports"]
+
+
+def test_standards_meta_diagnostics_sha256_streams_source_modules(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    payload = b"standards meta diagnostics body\n" * 4096
+    source.write_bytes(payload)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == source:
+            raise AssertionError("source modules should be hashed without read_bytes")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert _sha256(source) == hashlib.sha256(payload).hexdigest()
 
 
 def test_standards_meta_diagnostics_source_modules_are_exact_macro_body_imports() -> None:
