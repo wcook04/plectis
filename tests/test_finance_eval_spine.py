@@ -3,8 +3,10 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
+from typing import Any
 
 from microcosm_core import cli
+import microcosm_core.macro_tools.finance_eval_spine as finance_eval_spine
 from microcosm_core.macro_tools.finance_eval_spine import (
     BUNDLE_RESULT_NAME,
     REQUIRED_MODULES,
@@ -34,6 +36,30 @@ def _walk_keys(payload: object) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_finance_eval_line_count_streams_source_module_input(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    empty_source = tmp_path / "empty_source.py"
+    missing_source = tmp_path / "missing_source.py"
+    source.write_text("one\n\ntwo", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
+    guarded_paths = {source, empty_source}
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in guarded_paths:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert finance_eval_spine._line_count(source) == 3
+    assert finance_eval_spine._line_count(empty_source) == 1
+    assert finance_eval_spine._line_count(missing_source) is None
 
 
 def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> None:
