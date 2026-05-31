@@ -3,10 +3,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -79,6 +81,7 @@ FORBIDDEN_MANIFEST_KEYS = (
 FORBIDDEN_IMPORT_PREFIXES = ("Mathlib", "Aesop", "Batteries")
 DECLARATION_RE = re.compile(r"^\s*(?:theorem|lemma|def)\s+([A-Za-z0-9_'.]+)", re.M)
 IMPORT_RE = re.compile(r"^\s*import\s+(.+?)\s*$", re.M)
+HASH_CHUNK_SIZE = 1024 * 1024
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -162,10 +165,20 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         paths.append(source_module_manifest)
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
-        paths.extend(sorted(project_dir.rglob("*.lean")))
+        paths.extend(sorted(_iter_lean_project_files(project_dir)))
     if include_negative:
         paths.extend(input_dir / name for name in NEGATIVE_INPUT_NAMES)
     return paths
+
+
+def _iter_lean_project_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_lean_project_files(child)
+            elif entry.is_file(follow_symlinks=False) and child.suffix == ".lean":
+                yield child
 
 
 def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
@@ -231,7 +244,9 @@ def _fresh_bundle_receipt(
 
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    digest.update(path.read_bytes())
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
     return digest.hexdigest()
 
 

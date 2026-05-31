@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -36,6 +37,129 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_formal_math_lean_proof_witness_input_scan_streams_project_without_path_rglob(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    input_dir = tmp_path / "input"
+    project_dir = input_dir / "lake_project"
+    nested = project_dir / "MicrocosmProofWitness"
+    nested.mkdir(parents=True)
+    (input_dir / "witness_manifest.json").write_text("{}", encoding="utf-8")
+    (project_dir / "lakefile.lean").write_text(
+        "import MicrocosmProofWitness.Basic\n",
+        encoding="utf-8",
+    )
+    (nested / "Basic.lean").write_text(
+        "theorem t : True := by trivial\n",
+        encoding="utf-8",
+    )
+    (nested / "notes.md").write_text("public notes\n", encoding="utf-8")
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == project_dir:
+            raise AssertionError("Lean project scan should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    assert [
+        path.relative_to(input_dir).as_posix()
+        for path in witness_module._input_paths(input_dir, include_negative=False)
+    ] == [
+        "witness_manifest.json",
+        "lake_project/lakefile.lean",
+        "lake_project/MicrocosmProofWitness/Basic.lean",
+        "lake_project/lakefile.lean",
+    ]
+
+
+def test_formal_math_lean_proof_witness_project_scan_recurses_before_root_sibling(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "lake_project"
+    nested_opened = {"value": False}
+
+    class FakeEntry:
+        def __init__(self, name: str, *, is_dir: bool = False, is_file: bool = False) -> None:
+            self.name = name
+            self._is_dir = is_dir
+            self._is_file = is_file
+
+        def is_dir(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_dir
+
+        def is_file(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_file
+
+    class FakeScandir:
+        def __init__(self, path: Path, entries: list[FakeEntry]) -> None:
+            self.path = path
+            self.entries = entries
+
+        def __enter__(self) -> "FakeScandir":
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def __iter__(self) -> Any:
+            for index, entry in enumerate(self.entries):
+                if self.path == project_dir and index == 1 and not nested_opened["value"]:
+                    raise AssertionError("Lean project scan should recurse before root siblings")
+                yield entry
+
+    def fake_scandir(path: Path) -> FakeScandir:
+        path = Path(path)
+        if path == project_dir:
+            return FakeScandir(
+                path,
+                [
+                    FakeEntry("MicrocosmProofWitness", is_dir=True),
+                    FakeEntry("lakefile.lean", is_file=True),
+                ],
+            )
+        if path == project_dir / "MicrocosmProofWitness":
+            nested_opened["value"] = True
+            return FakeScandir(path, [FakeEntry("Basic.lean", is_file=True)])
+        raise AssertionError(f"unexpected scandir path: {path}")
+
+    class FakeOs:
+        scandir = staticmethod(fake_scandir)
+
+    monkeypatch.setattr(witness_module, "os", FakeOs)
+
+    refs = [
+        path.relative_to(project_dir).as_posix()
+        for path in witness_module._iter_lean_project_files(project_dir)
+    ]
+
+    assert refs == ["MicrocosmProofWitness/Basic.lean", "lakefile.lean"]
+
+
+def test_formal_math_lean_proof_witness_sha256_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source_file = tmp_path / "large_witness.lean"
+    body = (
+        b"theorem microcosm_streaming_witness : True := by trivial\n"
+        * (witness_module.HASH_CHUNK_SIZE // 32)
+    )
+    source_file.write_bytes(body)
+    expected = hashlib.sha256(body).hexdigest()
+
+    def fail_read_bytes(self: Path) -> bytes:
+        raise AssertionError("_sha256 should stream bytes instead of materializing")
+
+    monkeypatch.setattr(Path, "read_bytes", fail_read_bytes)
+
+    assert witness_module._sha256(source_file) == expected
+    assert witness_module._sha256_file(source_file) == f"sha256:{expected}"
 
 
 def test_formal_math_lean_proof_witness_builds_and_observes_negative_cases(
