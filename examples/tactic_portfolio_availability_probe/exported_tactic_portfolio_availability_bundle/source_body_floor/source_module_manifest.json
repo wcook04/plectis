@@ -1,0 +1,60 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "exact public Microcosm organ source body copied under source_body_floor; generated state/runs Lean artifacts remain runnable evidence only and cannot count as real substrate bodies",
+  "manifest_id": "tactic_portfolio_availability_probe_public_source_body_floor_manifest",
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 61167,
+      "line_count": 1486,
+      "material_class": "public_microcosm_organ_source_body",
+      "module_id": "tactic_portfolio_availability_probe_public_organ_source_body_import",
+      "path": "source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+      "required_anchors": [
+        "ORGAN_ID = \"tactic_portfolio_availability_probe\"",
+        "def run"
+      ],
+      "sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
+      "sha256_match": true,
+      "source_byte_count": 61167,
+      "source_import_class": "copied_non_secret_public_substrate_body",
+      "source_line_count": 1486,
+      "source_ref": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+      "source_role": "Public Microcosm formal/prover organ logic used to validate public-safe readiness evidence.",
+      "source_sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
+      "source_to_target_relation": "exact_copy",
+      "target_byte_count": 61167,
+      "target_line_count": 1486,
+      "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_body_floor/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
+      "target_sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
+      "validation_refs": [
+        "tests/test_substrate_substitution_ledger.py::test_state_run_generated_lean_sources_do_not_count_as_real_substrate"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "account/session state",
+    "cookies",
+    "browser/HUD live-access",
+    "recipient-send state",
+    "credential-equivalent material",
+    "private proof bodies",
+    "oracle-needed premise ids"
+  ],
+  "organ_id": "tactic_portfolio_availability_probe",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no proof bodies",
+    "no oracle-needed premise ids"
+  ],
+  "source_import_class": "copied_non_secret_public_substrate_body",
+  "source_open_payload_boundary": "source-open everything except keys, credentials, account/session state, cookies, provider payload bodies, browser/HUD live-access, recipient-send state, credential-equivalent material, proof bodies, oracle-needed premise ids, and host-local absolute paths"
+}

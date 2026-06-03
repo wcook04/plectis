@@ -139,6 +139,70 @@ def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["commit_landed_claim_authorized_without_head_advance"] is False
 
 
+def test_durable_agent_work_landing_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/durable_agent_work_landing_replay",
+        public_root / "examples/durable_agent_work_landing_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/durable_agent_work_landing_replay/"
+        "exported_work_landing_replay_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_work_landing_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "durable_agent_work_landing_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_imports"]["status"] == "blocked"
+    assert "WORK_LANDING_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_durable_agent_work_landing_rejects_source_module_body_text_in_receipt(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/durable_agent_work_landing_replay",
+        public_root / "examples/durable_agent_work_landing_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/durable_agent_work_landing_replay/"
+        "exported_work_landing_replay_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["body_text_in_receipt"] = True
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_work_landing_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "durable_agent_work_landing_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_imports"]["status"] == "blocked"
+    assert "WORK_LANDING_SOURCE_MODULE_BODY_BOUNDARY_INVALID" in result["error_codes"]
+
+
 def test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_floor() -> None:
     result = validate_source_module_imports(BUNDLE_INPUT, public_root=MICROCOSM_ROOT)
 
@@ -158,6 +222,7 @@ def test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_
         assert target_path.read_bytes() == source_path.read_bytes()
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
         assert row["source_to_target_relation"] == "exact_copy"
 
 

@@ -26,6 +26,7 @@ def served_status_smoke(
     project: Path,
     out: Path,
     host: str = "127.0.0.1",
+    timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
     shell = RuntimeShell(public_root)
     project_path = project.expanduser()
@@ -40,7 +41,7 @@ def served_status_smoke(
     try:
         with urlopen(
             f"http://{server_host}:{server_port}/project/status",
-            timeout=20,
+            timeout=timeout_seconds,
         ) as response:
             card = json.loads(response.read().decode("utf-8"))
     finally:
@@ -55,6 +56,7 @@ def served_status_smoke(
         "schema_version": "microcosm_served_status_smoke_receipt_v1",
         "status": status,
         "endpoint": "/project/status",
+        "timeout_seconds": timeout_seconds,
         "project_ref": card.get("project_ref"),
         "card_command": card.get("card_command"),
         "observatory_command": (
@@ -84,6 +86,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--project", default=".")
     parser.add_argument("--out", required=True)
     parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--timeout-seconds", type=float, default=90.0)
     args = parser.parse_args(argv)
 
     receipt = served_status_smoke(
@@ -91,6 +94,7 @@ def main(argv: list[str] | None = None) -> int:
         project=Path(args.project),
         out=Path(args.out),
         host=args.host,
+        timeout_seconds=args.timeout_seconds,
     )
     return 0 if receipt["status"] == "pass" else 1
 

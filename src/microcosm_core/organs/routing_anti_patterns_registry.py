@@ -82,6 +82,7 @@ NEGATIVE_INPUT_NAMES = (
     "duplicate_id.json",
     "missing_text.json",
     "authority_overclaim.json",
+    "source_authority_masquerade.json",
     "private_source_leakage.json",
 )
 NEGATIVE_INPUT_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
@@ -90,6 +91,9 @@ EXPECTED_NEGATIVE_CASES = {
     "duplicate_id": ["ROUTING_ANTI_PATTERN_DUPLICATE_ID"],
     "missing_text": ["ROUTING_ANTI_PATTERN_TEXT_REQUIRED"],
     "authority_overclaim": ["ROUTING_ANTI_PATTERN_AUTHORITY_OVERCLAIM"],
+    "source_authority_masquerade": [
+        "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN"
+    ],
     "private_source_leakage": ["ROUTING_ANTI_PATTERN_PRIVATE_SOURCE_FORBIDDEN"],
 }
 
@@ -114,6 +118,23 @@ FORBIDDEN_PRIVATE_KEYS = (
     "raw_seed_body",
     "provider_payload_body",
     "secret_value",
+)
+AUTHORITY_ROLE_KEYS = (
+    "authority_role",
+    "surface_role",
+    "source_role",
+    "route_role",
+)
+FORBIDDEN_AUTHORITY_ROLES = frozenset(
+    {
+        "source_authority",
+        "route_authority",
+        "route_policy_authority",
+        "route_source_authority",
+        "routing_source_authority",
+        "control_plane_authority",
+        "canonical_authority",
+    }
 )
 
 AUTHORITY_CEILING = {
@@ -423,6 +444,22 @@ def _payload_findings(
                 subject_id=",".join(sorted(overclaims)),
                 subject_kind="authority_ceiling",
             )
+        forbidden_roles = [
+            field
+            for field in AUTHORITY_ROLE_KEYS
+            if str(row.get(field) or "").strip().lower()
+            in FORBIDDEN_AUTHORITY_ROLES
+        ]
+        if forbidden_roles:
+            _record(
+                findings,
+                observed,
+                "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN",
+                "Routing anti-pattern rows can project public anti-patterns but cannot declare source, route, control-plane, or canonical authority.",
+                case_id=case_id,
+                subject_id=",".join(sorted(forbidden_roles)),
+                subject_kind="source_authority_masquerade",
+            )
         private_fields = [field for field in FORBIDDEN_PRIVATE_KEYS if row.get(field)]
         if private_fields:
             _record(
@@ -589,16 +626,15 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        digest_values = {
+            name: str(row.get(name) or "")
+            for name in ("sha256", "source_sha256", "target_sha256")
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in digest_values.values()):
             findings.append(
                 _finding(
                     "ROUTING_ANTI_PATTERN_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Source module digest declarations must match the copied target body.",
+                    "All source module digest declarations must match the copied target body.",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -820,6 +856,7 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "copied_macro_body_source_modules_required_for_exported_bundle": True,
             "private_source_bodies_forbidden": True,
             "authority_overclaims_rejected": True,
+            "source_authority_masquerade_rejected": True,
             "body_in_receipt": False,
             "real_runtime_receipt": result["real_runtime_receipt"],
             "synthetic_receipt_standin_allowed": False,

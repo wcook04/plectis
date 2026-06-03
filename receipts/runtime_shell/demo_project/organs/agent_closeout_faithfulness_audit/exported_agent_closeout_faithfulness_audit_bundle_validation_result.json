@@ -1,0 +1,171 @@
+{
+  "anti_claim": "Closeout faithfulness audit verifies that a referenced public fixture commit object, ledger row, or pytest span exists and records whether a span passed only when pass status is explicitly checked. It does not prove arbitrary live commits landed, close Task Ledger work, mutate Git, run providers, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_fixture_closeout_evidence_existence_and_pytest_span_witness_only",
+    "cap_closed_without_fixture_ledger_row_authorized": false,
+    "commit_landed_without_head_match_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "pytest_pass_claim_without_exit_zero_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T15:22:42+00:00",
+  "error_codes": [
+    "CLOSEOUT_FAKE_CAP_CLAIM",
+    "CLOSEOUT_FAKE_COMMIT_CLAIM",
+    "CLOSEOUT_FAKE_TEST_CLAIM",
+    "CLOSEOUT_PYTEST_PASS_STATUS_NOT_CHECKED"
+  ],
+  "exercise": {
+    "claim_ceiling": "verified means evidence object exists or span ran; pass requires explicit exit-zero status check",
+    "claim_count": 3,
+    "external_witness": {
+      "body_in_receipt": false,
+      "git_subprocess_count": 6,
+      "head_verified_by_subprocess": true,
+      "pytest_subprocess_count": 1
+    },
+    "pytest_pass_status_checked_count": 1,
+    "pytest_span_ran_count": 1,
+    "spans": [
+      {
+        "body_in_receipt": false,
+        "claim_id": "claim_pytest_span_passed",
+        "nodeid": "tests/test_closeout_fixture.py::test_public_fixture_addition",
+        "pass_status_checked": true,
+        "passed": true,
+        "pytest_runner": "python",
+        "returncode": 0,
+        "span_ran": true,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "bea5a77cc68582c0c66ca0fc860c9b8f449e679bec8d6a9178605ee7b7dc69a3"
+      }
+    ],
+    "status": "pass",
+    "verified_claim_count": 3
+  },
+  "expected_negative_cases": [
+    "fake_cap_claim",
+    "fake_commit_claim",
+    "fake_test_claim",
+    "unchecked_pass_claim"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.agent_closeout_faithfulness_audit",
+  "input_count": 3,
+  "input_mode": "exported_agent_closeout_faithfulness_audit_bundle",
+  "input_ref": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "fake_cap_claim",
+    "fake_commit_claim",
+    "fake_test_claim",
+    "unchecked_pass_claim"
+  ],
+  "organ_id": "agent_closeout_faithfulness_audit",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json",
+    "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json"
+  ],
+  "schema_version": "agent_closeout_faithfulness_audit_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
+    "module_count": 1,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1703,
+        "expected_sha256": "d2d3f2fab36189b9dd46401618b410f95c4bfdfe1a00d7d1b82b27f2093c30e4",
+        "line_count": 1703,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/agent_experience_diagnostics.py",
+        "required_anchor_count": 2,
+        "sha256": "d2d3f2fab36189b9dd46401618b410f95c4bfdfe1a00d7d1b82b27f2093c30e4",
+        "source_exists": true,
+        "source_ref": "system/lib/agent_experience_diagnostics.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_modules/system/lib/agent_experience_diagnostics.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 2,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
+      "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_modules/system/lib/agent_experience_diagnostics.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_closeout_faithfulness_audit"
+}

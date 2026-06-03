@@ -3,7 +3,7 @@
   "body_in_receipt": false,
   "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_research_replication_bundle",
   "manifest_id": "research_replication_pattern_provenance_source_module_manifest",
-  "module_count": 3,
+  "module_count": 4,
   "modules": [
     {
       "body_copied": true,
@@ -60,6 +60,30 @@
       "source_ref": "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:research_replication_rubric_artifact_replay_compound",
       "source_to_target_relation": "source_faithful_json_slice",
       "target_ref": "microcosm-substrate/examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
+      "validation_refs": [
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 57026,
+      "credential_exposure_risk": "low",
+      "line_count": 1433,
+      "material_class": "public_python_source_body",
+      "module_id": "research_replication_replay_control_plane_source_body_import",
+      "path": "source_modules/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+      "source_sha256": "f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_modules/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+      "target_sha256": "f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
       "validation_refs": [
         "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
         "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"

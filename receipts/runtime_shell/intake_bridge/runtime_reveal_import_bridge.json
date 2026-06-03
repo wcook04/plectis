@@ -19,10 +19,12 @@
     {
       "action_required": false,
       "authority_ceiling": {
-        "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+        "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
+        "copied_public_probe_bodies_allowed": true,
         "formal_proof_authority": false,
         "lean_lake_execution_authorized": false,
         "mathlib_presence_claim_authorized": false,
+        "private_theorem_proof_bodies_allowed": false,
         "proof_bodies_allowed": false,
         "provider_calls_authorized": false,
         "status": "pass"
@@ -392,6 +394,10 @@
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/family_loss_matrix.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/loss_differentials.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/model_selection_stats.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/spa_statistics.py",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
         "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
         "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
@@ -2845,7 +2851,7 @@
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
   "consumed_cell_count": 80,
-  "created_at": "2026-05-30T21:25:54+00:00",
+  "created_at": "2026-06-01T06:16:58+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",

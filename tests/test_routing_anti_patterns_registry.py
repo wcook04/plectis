@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -66,6 +67,9 @@ def test_routing_anti_patterns_registry_observes_negative_cases(
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
+    assert result["observed_negative_cases"]["source_authority_masquerade"] == [
+        "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN"
+    ]
     assert result["anti_pattern_count"] == _fixture_anti_pattern_count()
     assert "kernel_before_grep" in result["covered_anti_pattern_ids"]
     assert "bridge_before_scope" in result["covered_anti_pattern_ids"]
@@ -119,6 +123,90 @@ def test_routing_anti_patterns_registry_bundle_validates_runtime_shape(
     assert source_imports["body_text_in_receipt"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
+
+
+def test_routing_anti_patterns_registry_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    example_root = public_root / "examples/routing_anti_patterns_registry"
+    shutil.copytree(EXPORTED_BUNDLE.parent, example_root)
+    bundle = example_root / "exported_routing_anti_patterns_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    bad_digest = "0" * 64
+    manifest["modules"][0]["sha256"] = bad_digest
+    manifest["modules"][0]["source_sha256"] = bad_digest
+    manifest["modules"][0]["target_sha256"] = bad_digest
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    result = run_routing_anti_patterns_bundle(
+        bundle,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "ROUTING_ANTI_PATTERN_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_routing_anti_patterns_registry_rejects_partial_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    example_root = public_root / "examples/routing_anti_patterns_registry"
+    shutil.copytree(EXPORTED_BUNDLE.parent, example_root)
+    bundle = example_root / "exported_routing_anti_patterns_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    result = run_routing_anti_patterns_bundle(
+        bundle,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "ROUTING_ANTI_PATTERN_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_routing_anti_patterns_registry_rejects_partial_target_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    example_root = public_root / "examples/routing_anti_patterns_registry"
+    shutil.copytree(EXPORTED_BUNDLE.parent, example_root)
+    bundle = example_root / "exported_routing_anti_patterns_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    result = run_routing_anti_patterns_bundle(
+        bundle,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "ROUTING_ANTI_PATTERN_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_routing_anti_patterns_registry_bundle_card_reuses_fresh_receipt(

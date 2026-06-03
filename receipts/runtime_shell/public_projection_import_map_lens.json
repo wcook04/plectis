@@ -14,7 +14,7 @@
     "synthetic_public_projection_read_model_only": true
   },
   "command": "microcosm projection-import-map",
-  "created_at": "2026-05-30T03:12:40+00:00",
+  "created_at": "2026-06-01T17:24:59+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
@@ -301,6 +301,9 @@
     "public_surface_count": 7,
     "release_authorized": false,
     "row_count": 8,
+    "source_body_handoff_public_safe_body_material_count": 568,
+    "source_body_handoff_status": "pass",
+    "source_body_handoff_verified_source_module_family_count": 119,
     "stage_count": 6,
     "validation_ref_count": 16
   },
@@ -371,6 +374,51 @@
     "agent_reliability_replay_gauntlet",
     "formal_math_verifier_trace_repair_loop_compound"
   ],
+  "source_body_import_floor_handoff": {
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_status": false,
+    "direct_source_module_manifest_count": 59,
+    "direct_source_module_manifest_material_count": 313,
+    "full_status_ref": "microcosm status::macro_body_import_floor",
+    "latest_verified_source_module_family_ids": [
+      "exported_standards_meta_diagnostics_bundle",
+      "exported_tactic_portfolio_availability_bundle",
+      "exported_symbol_classifier_bundle",
+      "exported_verifier_lab_execution_spine_bundle",
+      "exported_verifier_lab_kernel_bundle"
+    ],
+    "projection_map_role": "aggregate_handoff_not_body_text",
+    "public_safe_body_material_count": 568,
+    "public_safe_body_material_counts_by_class": {
+      "public_macro_frontend_body": 24,
+      "public_macro_packet_compiler_body": 2,
+      "public_macro_packet_compiler_test_body": 1,
+      "public_macro_pattern_body": 39,
+      "public_macro_proof_body": 9,
+      "public_macro_receipt_body": 69,
+      "public_macro_tool_body": 417,
+      "public_standard_body": 7
+    },
+    "reader_action": "Use this handoff to move from projection rows to the current source-open body floor without printing copied source text.",
+    "schema_version": "microcosm_projection_import_map_source_body_floor_handoff_v1",
+    "source_body_lens_ref": "microcosm status::macro_body_import_floor.source_body_import_lens",
+    "source_module_family_spotlights": [
+      {
+        "family_count": 10,
+        "module_count": 21,
+        "notable_family_ids": [
+          "exported_agent_observability_store_bundle",
+          "exported_agent_trace_route_repair_bundle",
+          "exported_route_compliance_audit_bundle"
+        ],
+        "spotlight_id": "agent_route_observability_runtime"
+      }
+    ],
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "source_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+    "status": "pass",
+    "verified_source_module_family_count": 119
+  },
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "unsafe_payload_bodies_in_receipt": false

@@ -1,0 +1,1223 @@
+{
+  "anti_claim": "Batch 10 validates copied non-secret macro source bodies and source-faithful public ports for mutation governance, observe/apply compilation, public artifact review, release-blocker triage, publication path-contract checks, receipt staleness, no-lookahead finance horizons, session-wave execution, claim-conflict wait-tax detection, role-aware block propagation, table shaping, annex grouping, recent-change coalescing, and a blocked Batch-9 lane-width binding repair. It is not release approval, publication authority, live Work Ledger truth, neutral benchmark evidence, source mutation permission, or investment advice.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch10_governance_compilers_capsule_not_live_authority_or_release_approval",
+    "full_secret_detection_claim": false,
+    "market_advice": false,
+    "model_dispatch": false,
+    "neutral_benchmark_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "work_ledger_authority": false
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T15:22:35+00:00",
+  "error_codes": [
+    "BATCH10_ANNEX_EMPTY_FACETS_NO_FAKE_COUNTS",
+    "BATCH10_CLAIM_PARENT_CHILD_OVERLAP_REPORTED",
+    "BATCH10_DAG_QUALITY_ERROR_NOT_OVERBLOCKED",
+    "BATCH10_FINANCE_INVALID_HORIZON_REJECTED",
+    "BATCH10_LANE_WIDTH_BINDING_DEFERRED_TO_BATCH9",
+    "BATCH10_MUTATION_STATUS_INTENT_BLOCKS_WRITES",
+    "BATCH10_OBSERVE_APPLY_MALFORMED_ARTIFACT_REFUSED",
+    "BATCH10_PUBLICATION_HARD_EXCLUDE_REJECTED",
+    "BATCH10_RECEIPT_REUSE_STABLE_INPUT_CHANGED",
+    "BATCH10_RECENT_EMPTY_SUMMARY_BUCKETED",
+    "BATCH10_RELEASE_TOGGLE_NO_GO_FAIL_CLOSED",
+    "BATCH10_REVIEWER_MISSING_BOUNDARY_DETECTED",
+    "BATCH10_SESSION_FAILED_DEPENDENCY_SKIPS_CHILD",
+    "BATCH10_TABLE_MISSING_VALUES_SORT_LAST"
+  ],
+  "exercise": {
+    "blocked_binding_repair_count": 1,
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 13,
+    "error_codes": [],
+    "input_manifest_schema": "batch10_governance_compilers_capsule_probe_manifest.json",
+    "integrity_matrix": [
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Controlled latest-message gate only; not real operator authority.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "mutation_governance_intent_gate",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "mutation_status_intent_blocks_writes",
+            "computed": true,
+            "computed_path": "negative_intent.prohibit_file_writes",
+            "computed_value": true,
+            "expected": true,
+            "fixture_error_code": "BATCH10_MUTATION_STATUS_INTENT_BLOCKS_WRITES",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "latest_user_message": "diagnose the attached transcript and pattern ledger seed",
+              "requested_route": "public_microcosm_evolution_seed"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/lib/mutation_governance.py",
+            "source_to_target_relation": "exact_copy"
+          },
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/control/mutation_governance.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Observe artifact to apply-plan IR only; not patch authorization.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "observe_apply_plan_compiler",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "observe_apply_malformed_artifact_refused",
+            "computed": true,
+            "computed_path": "malformed_refused",
+            "computed_value": true,
+            "expected": true,
+            "fixture_error_code": "BATCH10_OBSERVE_APPLY_MALFORMED_ARTIFACT_REFUSED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "artifact": "{\"operations\": \"bad\"}"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/apply/observe_compiler.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Adversarial public artifact review only; not release approval.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "flagship_reviewer_persona_gauntlet_adjudicator",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "reviewer_missing_boundary_detected",
+            "computed": true,
+            "computed_path": "missing_boundary_status",
+            "computed_value": "warn",
+            "expected": "warn",
+            "fixture_error_code": "BATCH10_REVIEWER_MISSING_BOUNDARY_DETECTED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "boundary_doc_exists": false
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Release-blocker triage only; not publication approval.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "release_public_toggle_blocker_closure_triage",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "release_toggle_no_go_fail_closed",
+            "computed": true,
+            "computed_path": "operator_review_ready",
+            "computed_value": false,
+            "expected": false,
+            "fixture_error_code": "BATCH10_RELEASE_TOGGLE_NO_GO_FAIL_CLOSED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "blocking_conditions": 1,
+              "public_toggle_status": "no_go"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Path-selector contract only; not full secret detection.",
+        "classification": "source_faithful_refactor_read_verified_only",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "publication_manifest_selector_contract_verifier",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "publication_hard_exclude_rejected",
+            "computed": true,
+            "computed_path": "hard_exclude_rejected",
+            "computed_value": true,
+            "expected": true,
+            "fixture_error_code": "BATCH10_PUBLICATION_HARD_EXCLUDE_REJECTED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "hard_exclude": "private/",
+              "included_path": "private/raw_seed.md"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": false,
+            "body_in_receipt": false,
+            "digest_status": "source_digest_recorded_target_is_public_refactor",
+            "rewrite_recipe": "Port selector-list, hard-exclude, glob/path matching, grep-blocklist, check-row, and contract-error semantics into the public organ while excluding a literal private home-path example from the copied body.",
+            "source_ref": "tools/meta/dissemination/check_publication_manifest_contract.py",
+            "source_sha256": "404760a4202800c4d0a5f0cd95efba3d86831d2b5ca07adba0bf8514d0d642ec",
+            "source_to_target_relation": "source_faithful_public_refactor_private_path_literal_removed"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Receipt reuse decision over declared fingerprints only.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "constitution_workspace_receipt_reuse_decider",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "receipt_reuse_stable_input_changed",
+            "computed": true,
+            "computed_path": "stable_changed_count",
+            "computed_value": 1,
+            "expected": 1,
+            "fixture_error_code": "BATCH10_RECEIPT_REUSE_STABLE_INPUT_CHANGED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "current_sha256_16": "2222",
+              "prior_sha256_16": "1111"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Temporal horizon contract only; not forecast correctness or market advice.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "finance_no_lookahead_temporal_contract",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "finance_invalid_horizon_rejected",
+            "computed": true,
+            "computed_path": "invalid_horizon_rejected",
+            "computed_value": true,
+            "expected": true,
+            "fixture_error_code": "BATCH10_FINANCE_INVALID_HORIZON_REJECTED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "horizon_policy": "not-a-date"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/core/engine.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Synthetic dependency-ready wave only; no provider dispatch.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "session_dependency_wave_executor",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "session_failed_dependency_skips_child",
+            "computed": true,
+            "computed_path": "node_states.C",
+            "computed_value": "skipped",
+            "expected": "skipped",
+            "fixture_error_code": "BATCH10_SESSION_FAILED_DEPENDENCY_SKIPS_CHILD",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "B": "failure",
+              "depends_on": [
+                "B"
+              ],
+              "node": "C"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/apply/session_core.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Controlled claim snapshots only; not live Work Ledger truth or eviction authority.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "claim_conflict_wait_tax_detector",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "claim_parent_child_overlap_reported",
+            "computed": true,
+            "computed_path": "conflict_count",
+            "computed_value": 1,
+            "expected": 1,
+            "fixture_error_code": "BATCH10_CLAIM_PARENT_CHILD_OVERLAP_REPORTED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "claim_path": "microcosm-substrate/src/microcosm_core/organs/x.py",
+              "scope": "microcosm-substrate/src"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/lib/action_quote.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Controlled group DAG propagation only; not plan-quality proof.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "role_aware_dag_block_propagation",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "dag_quality_error_not_overblocked",
+            "computed": true,
+            "computed_path": "quality_error_softened",
+            "computed_value": true,
+            "expected": true,
+            "fixture_error_code": "BATCH10_DAG_QUALITY_ERROR_NOT_OVERBLOCKED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "downstream_role": "probe",
+              "upstream_status": "quality_error"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "tools/meta/apply/run_observe_plan.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Deterministic table shaping over controlled rows only.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "generic_table_shaping_sort_filter_paginate_kernel",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "table_missing_values_sort_last",
+            "computed": true,
+            "computed_path": "price_sort_order",
+            "computed_value": [
+              "C",
+              "A",
+              "B"
+            ],
+            "expected": [
+              "C",
+              "A",
+              "B"
+            ],
+            "fixture_error_code": "BATCH10_TABLE_MISSING_VALUES_SORT_LAST",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "missing_value_ticker": "B",
+              "sort_column": "price"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/server/ui/src/components/views/DataView.tsx",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Faceted aggregation over controlled annex rows only.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "annex_source_kind_group_ranker",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "annex_empty_facets_no_fake_counts",
+            "computed": true,
+            "computed_path": "empty_facet_counts",
+            "computed_value": [],
+            "expected": [],
+            "fixture_error_code": "BATCH10_ANNEX_EMPTY_FACETS_NO_FAKE_COUNTS",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "domains": [],
+              "problem_spaces": []
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/server/ui/src/pages/Annexes.utils.ts",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Recent-change coalescing over controlled rows only.",
+        "classification": "exact_macro_body_copied_but_port_exercises_refactor",
+        "current_action": "keep",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "recent_change_fingerprint_coalescer",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "recent_empty_summary_bucketed",
+            "computed": true,
+            "computed_path": "group_keys",
+            "computed_value": [
+              "missing review packet",
+              "empty",
+              "distinct"
+            ],
+            "expected": "empty",
+            "fixture_error_code": "BATCH10_RECENT_EMPTY_SUMMARY_BUCKETED",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "summary": ""
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "pass",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "source_ref": "system/server/ui/src/pages/HomeStation.tsx",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Binding repair only; not a fresh Batch-10 body import.",
+        "classification": "under_bound_binding_repair",
+        "current_action": "block",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "weighted_lane_width_apportionment_binding_repair",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "lane_width_binding_deferred_to_batch9",
+            "computed": true,
+            "computed_path": "disposition",
+            "computed_value": "under_bound_repair_deferred_to_batch9_claim",
+            "expected": "under_bound_repair_deferred_to_batch9_claim",
+            "fixture_error_code": "BATCH10_LANE_WIDTH_BINDING_DEFERRED_TO_BATCH9",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "input_shape": {
+              "batch10_action": "defer",
+              "source_target": "Batch-9 RootNavigator.tsx"
+            },
+            "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix",
+        "positive_computed_output": "blocked",
+        "positive_input_shape": "controlled_public_input_constructed_by_capsule_evaluator",
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": false,
+            "body_in_receipt": false,
+            "digest_status": "external_binding_required",
+            "source_ref": "system/server/ui/src/pages/RootNavigator.tsx",
+            "source_to_target_relation": "not_batch10_body_import"
+          }
+        ],
+        "status": "blocked"
+      }
+    ],
+    "integrity_summary": {
+      "body_in_receipt": false,
+      "computed_negative_case_count": 14,
+      "fixture_verdict_echo_risk_count": 0,
+      "mechanism_count": 14,
+      "source_faithful_refactor_count": 1,
+      "under_bound_binding_repair_count": 1
+    },
+    "mechanism_count": 14,
+    "mechanism_ids": [
+      "mutation_governance_intent_gate",
+      "observe_apply_plan_compiler",
+      "flagship_reviewer_persona_gauntlet_adjudicator",
+      "release_public_toggle_blocker_closure_triage",
+      "publication_manifest_selector_contract_verifier",
+      "constitution_workspace_receipt_reuse_decider",
+      "finance_no_lookahead_temporal_contract",
+      "session_dependency_wave_executor",
+      "claim_conflict_wait_tax_detector",
+      "role_aware_dag_block_propagation",
+      "generic_table_shaping_sort_filter_paginate_kernel",
+      "annex_source_kind_group_ranker",
+      "recent_change_fingerprint_coalescer",
+      "weighted_lane_width_apportionment_binding_repair"
+    ],
+    "mechanisms": [
+      {
+        "claim_ceiling": "Controlled latest-message gate only; not real operator authority.",
+        "ledger_budget": {
+          "status": "blocked",
+          "violations": [
+            "max_new_rows_exceeded"
+          ]
+        },
+        "mechanism_id": "mutation_governance_intent_gate",
+        "negative_intent": {
+          "latest_intent": "diagnose_system_from_transcript",
+          "prohibit_file_writes": true,
+          "repo_patch_allowed": false,
+          "route_requests_pattern_ledger_mutation": true,
+          "status": "blocked"
+        },
+        "positive_intent": {
+          "latest_intent": "implement_system_patches",
+          "prohibit_file_writes": false,
+          "repo_patch_allowed": true,
+          "route_requests_pattern_ledger_mutation": false,
+          "status": "clear"
+        },
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Observe artifact to apply-plan IR only; not patch authorization.",
+        "malformed_refused": true,
+        "mechanism_id": "observe_apply_plan_compiler",
+        "operation_count": 2,
+        "status": "pass",
+        "strategy_ladder": [
+          "prefer_artifact",
+          "synthesis_or_evaluation_artifact",
+          "aggregated_probes",
+          "fallback"
+        ]
+      },
+      {
+        "claim_ceiling": "Adversarial public artifact review only; not release approval.",
+        "complete_status": "pass",
+        "mechanism_id": "flagship_reviewer_persona_gauntlet_adjudicator",
+        "missing_boundary_status": "warn",
+        "persona_count": 6,
+        "status": "pass"
+      },
+      {
+        "authority_blocker_count": 1,
+        "claim_ceiling": "Release-blocker triage only; not publication approval.",
+        "mechanism_id": "release_public_toggle_blocker_closure_triage",
+        "operational_blocker_count": 1,
+        "operator_review_ready": false,
+        "status": "pass",
+        "switch_blocker_count": 1
+      },
+      {
+        "claim_ceiling": "Path-selector contract only; not full secret detection.",
+        "error_count": 1,
+        "hard_exclude_rejected": true,
+        "mechanism_id": "publication_manifest_selector_contract_verifier",
+        "selector_count": 1,
+        "source_to_target_relation": "source_faithful_public_refactor_private_path_literal_removed",
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Receipt reuse decision over declared fingerprints only.",
+        "live_state_only_safe_to_reuse": true,
+        "mechanism_id": "constitution_workspace_receipt_reuse_decider",
+        "required_action_if_changed": "refresh_stable_substrate",
+        "stable_changed_count": 1,
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Temporal horizon contract only; not forecast correctness or market advice.",
+        "invalid_horizon_rejected": true,
+        "mechanism_id": "finance_no_lookahead_temporal_contract",
+        "status": "pass",
+        "weekend_roll_forward_label": "Next US Market Close (Mon Jun 01, 4:00 PM ET)"
+      },
+      {
+        "claim_ceiling": "Synthetic dependency-ready wave only; no provider dispatch.",
+        "mechanism_id": "session_dependency_wave_executor",
+        "node_states": {
+          "A": "success",
+          "B": "failure",
+          "C": "skipped",
+          "D": "aborted"
+        },
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Controlled claim snapshots only; not live Work Ledger truth or eviction authority.",
+        "conflict_count": 1,
+        "mechanism_id": "claim_conflict_wait_tax_detector",
+        "status": "pass",
+        "wait_tax": {
+          "actionability": "advisory_only_stale_source",
+          "status": "stale_match"
+        }
+      },
+      {
+        "claim_ceiling": "Controlled group DAG propagation only; not plan-quality proof.",
+        "mechanism_id": "role_aware_dag_block_propagation",
+        "newly_blocked_count": 1,
+        "quality_error_softened": true,
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Deterministic table shaping over controlled rows only.",
+        "mechanism_id": "generic_table_shaping_sort_filter_paginate_kernel",
+        "page_count": 2,
+        "price_sort_order": [
+          "C",
+          "A",
+          "B"
+        ],
+        "sector_sort_order": [
+          "B",
+          "A",
+          "C"
+        ],
+        "status": "pass"
+      },
+      {
+        "claim_ceiling": "Faceted aggregation over controlled annex rows only.",
+        "empty_facet_counts": [],
+        "mechanism_id": "annex_source_kind_group_ranker",
+        "source_kind_order": [
+          "git_repo",
+          "document",
+          "unknown"
+        ],
+        "status": "pass",
+        "top_domain": [
+          "runtime",
+          2
+        ]
+      },
+      {
+        "claim_ceiling": "Recent-change coalescing over controlled rows only.",
+        "first_count": 2,
+        "group_keys": [
+          "missing review packet",
+          "empty",
+          "distinct"
+        ],
+        "mechanism_id": "recent_change_fingerprint_coalescer",
+        "status": "pass"
+      },
+      {
+        "batch9_body_present": true,
+        "claim_ceiling": "Binding repair only; not a fresh Batch-10 body import.",
+        "disposition": "under_bound_repair_deferred_to_batch9_claim",
+        "mechanism_id": "weighted_lane_width_apportionment_binding_repair",
+        "reentry_condition": "Batch-9 shared Microcosm claim releases, then bind solver exercise under existing RootNavigator source body.",
+        "sample_widths": {
+          "downstream": 295,
+          "focus": 394,
+          "source": 218
+        },
+        "status": "blocked"
+      }
+    ],
+    "passed_mechanism_count": 13,
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "annex_empty_facets_no_fake_counts",
+    "claim_parent_child_overlap_reported",
+    "dag_quality_error_not_overblocked",
+    "finance_invalid_horizon_rejected",
+    "lane_width_binding_deferred_to_batch9",
+    "mutation_status_intent_blocks_writes",
+    "observe_apply_malformed_artifact_refused",
+    "publication_hard_exclude_rejected",
+    "receipt_reuse_stable_input_changed",
+    "recent_empty_summary_bucketed",
+    "release_toggle_no_go_fail_closed",
+    "reviewer_missing_boundary_detected",
+    "session_failed_dependency_skips_child",
+    "table_missing_values_sort_last"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch10_governance_compilers_capsule",
+  "input_count": 1,
+  "input_mode": "exported_batch10_governance_compilers_capsule_bundle",
+  "input_ref": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "annex_empty_facets_no_fake_counts",
+    "claim_parent_child_overlap_reported",
+    "dag_quality_error_not_overblocked",
+    "finance_invalid_horizon_rejected",
+    "lane_width_binding_deferred_to_batch9",
+    "mutation_status_intent_blocks_writes",
+    "observe_apply_malformed_artifact_refused",
+    "publication_hard_exclude_rejected",
+    "receipt_reuse_stable_input_changed",
+    "recent_empty_summary_bucketed",
+    "release_toggle_no_go_fail_closed",
+    "reviewer_missing_boundary_detected",
+    "session_failed_dependency_skips_child",
+    "table_missing_values_sort_last"
+  ],
+  "organ_id": "batch10_governance_compilers_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_board.json",
+    "receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json"
+  ],
+  "schema_version": "batch10_governance_compilers_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 15,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
+    "module_count": 13,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 676,
+        "expected_sha256": "b28e26ff3bd9aff894e8ab68a23d5a8d4abbd17d177cabdb12441f3f3e5646de",
+        "line_count": 676,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/mutation_governance.py",
+        "required_anchor_count": 4,
+        "sha256": "b28e26ff3bd9aff894e8ab68a23d5a8d4abbd17d177cabdb12441f3f3e5646de",
+        "source_exists": true,
+        "source_ref": "system/lib/mutation_governance.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 185,
+        "expected_sha256": "c267cccc00e5a5c9c669f72c58fabc16a6452038d7b7ab414d54b91705e272c1",
+        "line_count": 185,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/control/mutation_governance.py",
+        "required_anchor_count": 3,
+        "sha256": "c267cccc00e5a5c9c669f72c58fabc16a6452038d7b7ab414d54b91705e272c1",
+        "source_exists": true,
+        "source_ref": "tools/meta/control/mutation_governance.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/control/mutation_governance.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1130,
+        "expected_sha256": "01e75f63c84eb102f9ff3d2072d8bb3c713736cc82fe135d83e4e6f9fcc59e0f",
+        "line_count": 1130,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
+        "required_anchor_count": 4,
+        "sha256": "01e75f63c84eb102f9ff3d2072d8bb3c713736cc82fe135d83e4e6f9fcc59e0f",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 894,
+        "expected_sha256": "ba9055593d8af5fa441aba2a78359bbf96ddd69e6083df05bf59117c67813cc9",
+        "line_count": 894,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py",
+        "required_anchor_count": 4,
+        "sha256": "ba9055593d8af5fa441aba2a78359bbf96ddd69e6083df05bf59117c67813cc9",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1376,
+        "expected_sha256": "ebbaca69a3086b770869d55c3e419bbb65e6e91fb1961bdda3da86b3ad4d8d2a",
+        "line_count": 1376,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/apply/observe_compiler.py",
+        "required_anchor_count": 4,
+        "sha256": "ebbaca69a3086b770869d55c3e419bbb65e6e91fb1961bdda3da86b3ad4d8d2a",
+        "source_exists": true,
+        "source_ref": "tools/meta/apply/observe_compiler.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 384,
+        "expected_sha256": "95db8735081e9d9dbd3ad2e775c803709d0aa9eee7c6e979716ff3ec93f04594",
+        "line_count": 384,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/apply/session_core.py",
+        "required_anchor_count": 4,
+        "sha256": "95db8735081e9d9dbd3ad2e775c803709d0aa9eee7c6e979716ff3ec93f04594",
+        "source_exists": true,
+        "source_ref": "tools/meta/apply/session_core.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/session_core.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 7470,
+        "expected_sha256": "fda5a0261fb4176a6bba1c68cff856ac1dcdfa0760af850caac1257cd2ee1ad9",
+        "line_count": 7470,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/apply/run_observe_plan.py",
+        "required_anchor_count": 4,
+        "sha256": "fda5a0261fb4176a6bba1c68cff856ac1dcdfa0760af850caac1257cd2ee1ad9",
+        "source_exists": true,
+        "source_ref": "tools/meta/apply/run_observe_plan.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/run_observe_plan.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 8061,
+        "expected_sha256": "b8a4db217aa39edd2da31420235c9161ba3178934ca742f0b028893fd90fb063",
+        "line_count": 8061,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+        "required_anchor_count": 4,
+        "sha256": "b8a4db217aa39edd2da31420235c9161ba3178934ca742f0b028893fd90fb063",
+        "source_exists": true,
+        "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 3107,
+        "expected_sha256": "fea834950195503f1ff7a79ee4ca4593d410445bfc39d9d7c94f3d3924af828c",
+        "line_count": 3107,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/core/engine.py",
+        "required_anchor_count": 4,
+        "sha256": "fea834950195503f1ff7a79ee4ca4593d410445bfc39d9d7c94f3d3924af828c",
+        "source_exists": true,
+        "source_ref": "system/core/engine.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 5466,
+        "expected_sha256": "95a4cb74581b2590de8e207212ca70e8b6bff485435ac931949479e78779948f",
+        "line_count": 5466,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/action_quote.py",
+        "required_anchor_count": 4,
+        "sha256": "95a4cb74581b2590de8e207212ca70e8b6bff485435ac931949479e78779948f",
+        "source_exists": true,
+        "source_ref": "system/lib/action_quote.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1384,
+        "expected_sha256": "1923da0e610bb0ee341dd4f9b66adc6725151d657b44a781d49d770d6e599f90",
+        "line_count": 1384,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/views/DataView.tsx",
+        "required_anchor_count": 4,
+        "sha256": "1923da0e610bb0ee341dd4f9b66adc6725151d657b44a781d49d770d6e599f90",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/views/DataView.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/components/views/DataView.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 108,
+        "expected_sha256": "e4947d2729654bc69ed3ef93e27f53e1329af2bc4c8b887f08a3efd236db8f1a",
+        "line_count": 108,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/pages/Annexes.utils.ts",
+        "required_anchor_count": 4,
+        "sha256": "e4947d2729654bc69ed3ef93e27f53e1329af2bc4c8b887f08a3efd236db8f1a",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/pages/Annexes.utils.ts",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/Annexes.utils.ts"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2335,
+        "expected_sha256": "13566e74986ba1013e479ef83d4c9ab9bbf9b52de9842de3fa93cc62aeb5721b",
+        "line_count": 2335,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/pages/HomeStation.tsx",
+        "required_anchor_count": 4,
+        "sha256": "13566e74986ba1013e479ef83d4c9ab9bbf9b52de9842de3fa93cc62aeb5721b",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/pages/HomeStation.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/HomeStation.tsx"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 11,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/mutation_governance.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/control/mutation_governance.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/build_public_microcosm_flagship_reviewer_gauntlet.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/observe_compiler.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/session_core.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/tools/meta/apply/run_observe_plan.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/core/engine.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/lib/action_quote.py",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/components/views/DataView.tsx",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/Annexes.utils.ts",
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_modules/system/server/ui/src/pages/HomeStation.tsx"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch10_governance_compilers_capsule"
+}

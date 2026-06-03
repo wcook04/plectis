@@ -316,11 +316,15 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
-        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
             findings.append(
                 _finding(
                     "WORK_LANDING_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
-                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    "Source module rows must set body_copied=true, body_in_receipt=false, and body_text_in_receipt=false.",
                     case_id="source_module_manifest",
                     subject_id=subject,
                     subject_kind="source_module",
@@ -395,6 +399,7 @@ def validate_source_module_imports(
                 "line_count": row.get("line_count"),
                 "source_to_target_relation": relation,
                 "body_in_receipt": False,
+                "body_text_in_receipt": False,
             }
         )
 
