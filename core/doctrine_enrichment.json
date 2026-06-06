@@ -525,7 +525,7 @@
           },
           {
             "sym": "\\mathrm{obligations}(d)",
-            "meaning": "the receipt obligations the artifact must carry"
+            "meaning": "the result-record obligations the artifact must carry"
           },
           {
             "sym": "\\mathrm{anticlaim}(d)",
@@ -1151,7 +1151,7 @@
       "one_line": "A doctrine surface earns authority only by passing an executable grammar and carrying receipt obligations and anti-claims; prose alone stays a projection that orients but cannot rule.",
       "deep": "P-12 is the discipline that decides when a piece of doctrine is allowed to govern rather than merely describe. A standard, a route contract, or a doctrine record earns authority only when an executable grammar accepts it and it carries the required fields, result-record obligations, and anti-claims; well-written prose can orient a reader but cannot become the thing other components are checked against. This is the claim-and-evidence model pointed inward at the system's own laws: an authority-bearing surface is treated as a claim that has to clear an admissibility floor, so a confident paragraph sits at the bottom of that order until a grammar membership check and its obligations admit it. P-12 only operationalizes specific obligations of its grounding axiom; passing the grammar establishes that a surface is well-formed enough to carry authority, not that what it asserts is true or that the doctrine it belongs to is complete.",
       "formal": {
-        "latex": "\\mathrm{auth}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{receipts}(d) \\;\\wedge\\; \\mathrm{anticlaims}(d) \\quad \\mathrm{else}\\ \\mathrm{auth}(d) \\sqsubseteq \\mathrm{proj}",
+        "latex": "\\mathrm{auth}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{records}(d) \\;\\wedge\\; \\mathrm{anticlaims}(d) \\quad \\mathrm{else}\\ \\mathrm{auth}(d) \\sqsubseteq \\mathrm{proj}",
         "reads": "A doctrine surface may carry authority only when an executable grammar accepts it and it carries result-record obligations and anti-claims; otherwise its standing is bounded at projection, which orients but does not rule.",
         "symbols": [
           {
@@ -1167,7 +1167,7 @@
             "meaning": "the language of the executable grammar that must accept it"
           },
           {
-            "sym": "\\mathrm{receipts}(d)",
+            "sym": "\\mathrm{records}(d)",
             "meaning": "the result-record obligations the surface declares"
           },
           {
@@ -1268,7 +1268,7 @@
           },
           {
             "sym": "\\mathrm{prov}(v)",
-            "meaning": "v's provenance class and claim ceiling"
+            "meaning": "v's provenance class and scope limit"
           },
           {
             "sym": "\\mathrm{drift}",
@@ -1712,7 +1712,7 @@
           },
           {
             "sym": "p",
-            "meaning": "a part of the composite (an obligation, component, or organ)"
+            "meaning": "a part of the composite (an obligation or component)"
           },
           {
             "sym": "\\bot",
