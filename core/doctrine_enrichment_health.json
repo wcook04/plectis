@@ -1,0 +1,64 @@
+{
+  "authority_boundary": "Coverage projection over reader enrichment. Presence, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "enriched_objects": 49,
+  "incomplete": [],
+  "kinds": {
+    "anti_principle": {
+      "enriched": 17,
+      "field_present_counts": {
+        "counterexample": 17,
+        "deep": 17,
+        "does_not_prove": 17,
+        "enforced_in": 17,
+        "example": 17,
+        "formal": 17,
+        "governs": 17,
+        "refuses": 17,
+        "requires": 17
+      },
+      "partial_records": [],
+      "total": 17,
+      "unenriched_ids": []
+    },
+    "axiom": {
+      "enriched": 12,
+      "field_present_counts": {
+        "counterexample": 12,
+        "deep": 12,
+        "does_not_prove": 12,
+        "enforced_in": 12,
+        "example": 12,
+        "formal": 12,
+        "governs": 12,
+        "refuses": 12,
+        "requires": 12
+      },
+      "partial_records": [],
+      "total": 12,
+      "unenriched_ids": []
+    },
+    "principle": {
+      "enriched": 20,
+      "field_present_counts": {
+        "counterexample": 20,
+        "deep": 20,
+        "does_not_prove": 20,
+        "enforced_in": 20,
+        "example": 20,
+        "formal": 20,
+        "governs": 20,
+        "refuses": 20,
+        "requires": 20
+      },
+      "partial_records": [],
+      "total": 20,
+      "unenriched_ids": []
+    }
+  },
+  "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
+  "schema_version": "microcosm_doctrine_enrichment_health_v1",
+  "source_of_record": "core/doctrine_enrichment.json",
+  "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
+  "status": "complete",
+  "total_objects": 49
+}

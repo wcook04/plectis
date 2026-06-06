@@ -1,0 +1,2414 @@
+{
+  "schema_version": "microcosm_doctrine_enrichment_v1",
+  "authority_boundary": "Hand-authored reader enrichment for the public doctrine cards (deep reading, formal statement, worked example, counterexample, enforcement routes, does-not-prove bound). This file is reader content, NOT support evidence: the axiom support-cover validator does not read it, examples here never compute support, and a generated page may expose this content but never raise the authority of the source it explains. Source of record for the formal_clause itself remains core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause, not a competing source.",
+  "consumed_by": "tools/meta/dissemination/build_microcosm_public_site.py (doctrine_cards renderer)",
+  "latex_grammar_note": "latex fields render at build time through a bounded LaTeX->HTML engine (no CDN, no client JS). Use the supported macro set; write function and operator names with \\mathrm{...} or \\mathsf{...}; avoid environments, \\not, and underscores inside \\mathrm{...}. Anything outside the grammar degrades to the raw source as code with a recorded render gap.",
+  "records": [
+    {
+      "id": "AX-1",
+      "kind": "axiom",
+      "one_line": "A claim is admissible only with a basis, a certificate, and a checker that recomputes and accepts it; a bare assertion is bottom evidence.",
+      "deep": "Microcosm starts from the position that an output is worth nothing until it can be reconstructed. A claim over some basis is admissible only if it arrives with a derivation certificate and a checker that recomputes the verdict and accepts it, and the strength the claim may carry is capped at the strength of that check. A confident sentence, a repeated fixture label, or a model's own answer sits at the bottom of the evidence order until something independent rederives it. This is the floor the rest of the doctrine stands on: it is what lets the system treat \"a model said so\" and \"a record is labelled passed\" as zero evidence rather than weak evidence.",
+      "formal": {
+        "latex": "\\mathrm{adm}(\\varphi, B) \\iff \\exists\\, c, K.\\ K(B, c, \\varphi) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsubseteq \\mathrm{strength}(K(B, c, \\varphi))",
+        "reads": "A claim over a basis is admissible exactly when some certificate and checker accept it, and the claim's strength is bounded above by the strength of that check.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim"
+          },
+          {
+            "sym": "B",
+            "meaning": "the basis it is computed from"
+          },
+          {
+            "sym": "c",
+            "meaning": "a derivation certificate"
+          },
+          {
+            "sym": "K",
+            "meaning": "a checker that recomputes the verdict"
+          },
+          {
+            "sym": "\\sqsubseteq",
+            "meaning": "no stronger than"
+          }
+        ]
+      },
+      "governs": "When an output is allowed to count as true at all.",
+      "requires": "A basis, a derivation certificate, and a checker that recomputes the verdict and accepts it.",
+      "refuses": "An asserted label treated as truth.",
+      "example": {
+        "text": "A replay reads a fixture that declares a monitor caught scheming, recomputes the verdict from the underlying trace, and rejects the run when the declared verdict does not derive from the lower-level evidence.",
+        "refs": [
+          "agent_sabotage_scheming_monitor_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A page prints \"passed\" because a result record's title says so, with nothing recomputing the verdict from the evidence beneath it."
+      },
+      "enforced_in": [
+        "agent_sabotage_scheming_monitor_replay",
+        "belief_state_process_reward_replay"
+      ],
+      "does_not_prove": "One checker catching one class of label echo does not prove a claim true in general. It bounds the claim; it does not bless it."
+    },
+    {
+      "id": "AX-2",
+      "kind": "axiom",
+      "one_line": "Concentrate trust in one small checker over certificates; the producer that emits a certificate is never the thing that decides it.",
+      "deep": "AX-2 says where the trust lives, not just that a check happened. The thing allowed to decide a claim is a small, separately maintained checker K that reads a certificate; the producer that emitted the certificate, however large, fast, or capable, is outside the trusted base and gets no vote on its own output. This is the architecture that makes AX-1's floor cheap to believe: shrinking the decider to a small K means the part you have to audit stays small even as the producers around it grow, so a clever or broken producer cannot quietly widen what counts as accepted. The bite is that confidence does not transfer from producer to verdict; an answer is trusted to the extent a small checker rederived it, and the strength of any claim is capped by the scope of that checker rather than the reputation of whatever generated the certificate.",
+      "formal": {
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; K \\notin \\mathrm{producer}(c) \\;\\wedge\\; |K| \\sqsubseteq \\mathrm{small}",
+        "reads": "A claim is trusted only when some certificate is accepted by a checker K that is separate from whatever produced the certificate and is small enough to audit.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim seeking trust"
+          },
+          {
+            "sym": "c",
+            "meaning": "a certificate a producer emits"
+          },
+          {
+            "sym": "K",
+            "meaning": "the small checker that decides"
+          },
+          {
+            "sym": "\\mathrm{producer}(c)",
+            "meaning": "the component that generated c, kept outside the trusted base"
+          },
+          {
+            "sym": "|K| \\sqsubseteq \\mathrm{small}",
+            "meaning": "the checker is bounded small enough to audit"
+          }
+        ]
+      },
+      "governs": "Where trust is concentrated when a claim is decided: in the small checker, not the producer.",
+      "requires": "A small checker that decides over a certificate, kept separate from the producer that emitted it.",
+      "refuses": "Producer trust replacing checker trust.",
+      "example": {
+        "text": "The certificate kernel lab keeps the part that emits certificates separate from a small checker that decides them, and a companion Lean witness compiles a tiny example through a real verifier whose kernel rejects an invalid proof body rather than trusting that the producer meant well.",
+        "refs": [
+          "certificate_kernel_execution_lab",
+          "formal_math_lean_proof_witness"
+        ]
+      },
+      "counterexample": {
+        "text": "A generator's own confidence is taken as the verdict, so a large producer effectively certifies itself and the small checking step is skipped because the output looked authoritative."
+      },
+      "enforced_in": [
+        "certificate_kernel_execution_lab",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_kernel"
+      ],
+      "does_not_prove": "A small checker accepting one certificate proves only that this certificate passed this checker; it does not establish the producer is correct in general, that the checker covers every claim the producer can make, or that the kernel is itself bug-free. The scope of the check is the ceiling, and this reader illustration carries no support weight on its own."
+    },
+    {
+      "id": "AX-3",
+      "kind": "axiom",
+      "one_line": "Authority over an effect is derived at the moment of acting from dereferenced tokens, policy, proof, and world-state; holding a standing credential is not itself authority.",
+      "deep": "Microcosm refuses to treat a credential as the thing that grants power. Authority for a subject to cause an effect is computed at the point of action from the tokens actually dereferenced, the governing policy, the proof references, and the current world-state, so that ambient identity, a long-lived key, or simply having a tool reachable confers nothing on its own. This is the claim and evidence model applied to action rather than to assertion: just as a label is bottom evidence until something recomputes it, a credential is bottom authority until a derivation over policy and proof admits the specific effect. It bites hardest at the confused-deputy boundary, where a component holds broad standing power and is steered into exercising it on someone else's behalf; here the bound on what may happen has to be derived per effect from declared scope and approval, not inherited from whatever the holder could in principle do.",
+      "formal": {
+        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tok}), \\mathrm{policy}, \\mathrm{proof}, \\mathrm{world}\\big) = \\mathsf{grant}",
+        "reads": "A subject is authorized for an effect exactly when a derivation over the dereferenced tokens, policy, proof, and world-state grants it; merely holding a credential does not by itself imply that authorization.",
+        "symbols": [
+          {
+            "sym": "u",
+            "meaning": "the subject requesting an effect"
+          },
+          {
+            "sym": "e",
+            "meaning": "the effect to be authorized"
+          },
+          {
+            "sym": "\\mathrm{deref}(\\mathrm{tok})",
+            "meaning": "the tokens actually dereferenced, not merely presented"
+          },
+          {
+            "sym": "\\mathrm{proof}",
+            "meaning": "the policy, proof references, and world-state the authorizer derives over"
+          },
+          {
+            "sym": "\\mathrm{holds}(u, \\mathrm{cred})",
+            "meaning": "the subject possesses a standing credential"
+          },
+          {
+            "sym": "\\mathsf{grant}",
+            "meaning": "the authorizer's derived decision to permit the effect"
+          }
+        ]
+      },
+      "governs": "Whether a subject may cause a given effect, decided per effect at the point of action.",
+      "requires": "A derivation over dereferenced tokens, policy, proof references, and world-state, plus declared scope, approval, and side-effect records bounding any tool effect.",
+      "refuses": "A standing credential treated as authority.",
+      "example": {
+        "text": "The governed-mutation authorizer dereferences proof, policy, and rollback evidence for each requested change and refuses the mutation when authorization does not derive from that evidence, so a standing credential alone cannot drive the effect.",
+        "refs": [
+          "proof_derived_governed_mutation_authorization"
+        ]
+      },
+      "counterexample": {
+        "text": "A tool call is allowed to write because the caller holds a broad token and the tool is reachable, with no derivation bounding the effect to a declared scope and approval."
+      },
+      "enforced_in": [
+        "proof_derived_governed_mutation_authorization",
+        "mcp_tool_authority_replay"
+      ],
+      "does_not_prove": "Two authorizers deriving authority for their own effect classes does not prove that every effect in the system is so governed, and these witnesses are inputs to a separately computed support verdict, never support themselves. This reading illustrates the rule and establishes no authority the source does not already carry."
+    },
+    {
+      "id": "AX-4",
+      "kind": "axiom",
+      "one_line": "A derived artifact's identity is the digest of its declared content basis; equal basis may be reused, basis drift forces recompute, and a missing basis is bottom.",
+      "deep": "AX-4 fixes what a cached or reused result is allowed to mean. A derived artifact is a function of a declared content basis, and its identity is the digest of that basis, so two results are the same only when the inputs they were computed from are the same, not when they happen to share a name or a path. Equal basis licenses reuse or coalescing; any drift in the basis forces a recompute or a refusal; and a basis that cannot be resolved is bottom rather than an optimistic hit. This is the same admissibility floor as AX-1 pushed down to the build and cache layer: reusing an output because its name matches, while the inputs underneath have changed, is the label-echo failure dressed as a performance optimization, and it is what lets a stale projection or a poisoned cache pass for fresh.",
+      "formal": {
+        "latex": "a = f(B) \\;\\wedge\\; \\mathrm{id}(a) = H(B) \\;\\wedge\\; \\big(\\mathrm{reuse}(a) \\Rightarrow H(B') = H(B)\\big) \\;\\wedge\\; \\big(H(B') \\neq H(B) \\Rightarrow \\mathrm{recompute}\\big) \\;\\wedge\\; \\big(B = \\emptyset \\Rightarrow \\bot\\big)",
+        "reads": "A derived artifact is a function of its basis and is identified by the digest of that basis; reuse is allowed only when the current basis digest equals the stored one, a changed digest forces a recompute, and a missing basis is bottom.",
+        "symbols": [
+          {
+            "sym": "a",
+            "meaning": "a derived artifact"
+          },
+          {
+            "sym": "B",
+            "meaning": "its declared content basis (the inputs it is computed from)"
+          },
+          {
+            "sym": "H(B)",
+            "meaning": "the digest that serves as the artifact's identity"
+          },
+          {
+            "sym": "B'",
+            "meaning": "the current basis at reuse time"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "bottom: a missing basis is treated as no result, not a hit"
+          }
+        ]
+      },
+      "governs": "When a cached or reused result is allowed to stand in for a fresh derivation.",
+      "requires": "A declared content basis, an identity that is the digest of that basis, and a digest comparison that gates reuse against recompute.",
+      "refuses": "Caching by name across drift.",
+      "example": {
+        "text": "The source-import protocol brings non-secret material in by manifest and digest, and refuses to reuse an imported copy when the source digest no longer matches, so a changed input cannot pass as an unchanged result.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A pipeline serves a cached output because the requested name matches a prior run, while the inputs that produced it have since changed underneath the key."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "durable_agent_work_landing_replay"
+      ],
+      "does_not_prove": "Refusing a digest mismatch at the named import and work-landing surfaces does not prove that every reuse path in the system is basis-keyed. One required part of this axiom, a stable freshness-basis mismatch code for work landing, is recorded as open unfinished coverage rather than claimed, and admission of this axiom as a root law is independent of whether it is witnessed, strong, or complete."
+    },
+    {
+      "id": "AX-5",
+      "kind": "axiom",
+      "one_line": "A composite is only as trusted as its weakest part, missing evidence defaults to blocked rather than passing, and a later stage may lower authority but never raise it without a fresh derivation.",
+      "deep": "AX-5 fixes the default and the direction of trust so that absence and silence cannot be read as permission. The status of a composite is the meet of its parts, so one blocked or unknown component pulls the whole down and no amount of green elsewhere lifts it back up; a missing witness defaults to blocked, not to a silent pass. The monotone half forbids the quiet upgrade: a downstream stage may demote authority freely, but raising it requires a new derivation under AX-1, never a stage that simply asserts a higher status than the evidence it received. This is the axiom that makes the gap the safe state, which is why a release step that finds private-adjacent content or overclaiming language stops rather than shipping, and why an uncovered obligation reads as blocked instead of as quietly satisfied.",
+      "formal": {
+        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; \\big(\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot\\big) \\;\\wedge\\; \\big(\\mathrm{status}'(c) \\sqsupset \\mathrm{status}(c) \\Rightarrow \\exists\\, d.\\ \\mathrm{derives}(d, \\mathrm{status}'(c))\\big)",
+        "reads": "A composite's status is the meet of its parts' statuses; a part with no evidence is blocked; and a later status may exceed the earlier one only if some new derivation establishes it.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{status}(c)",
+            "meaning": "the trust status of a composite c"
+          },
+          {
+            "sym": "\\bigsqcap",
+            "meaning": "meet: the weakest of the parts"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "blocked, the fail-closed bottom"
+          },
+          {
+            "sym": "\\mathrm{status}'(c)",
+            "meaning": "the status assigned by a later stage"
+          },
+          {
+            "sym": "\\sqsupset",
+            "meaning": "claims a higher status than"
+          },
+          {
+            "sym": "d",
+            "meaning": "a new derivation that would license the raise"
+          }
+        ]
+      },
+      "governs": "The default status of missing evidence and the direction trust is allowed to move across stages.",
+      "requires": "Taking the meet of part statuses, defaulting an unwitnessed part to blocked, and a fresh derivation before any stage raises authority.",
+      "refuses": "A silent default pass.",
+      "example": {
+        "text": "The release wording gate runs over the system's own public copy and stops the export when it finds overclaiming language, so a later packaging stage cannot raise the claim above what the evidence beneath it supports.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A status board marks a composite green because no part reported a failure, treating the absence of a recorded check as if it were a passing one."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "proof_diagnostic_evidence_spine",
+        "self_ignorance_coverage_ledger"
+      ],
+      "does_not_prove": "Defaulting to blocked and refusing silent upgrades does not prove any composite actually correct or complete; it fixes the safe direction of trust, and an obligation with no admissible witness stays blocked rather than becoming true by default."
+    },
+    {
+      "id": "AX-6",
+      "kind": "axiom",
+      "one_line": "Not proving a claim is not proving its negation; an absence becomes a negative only inside a declared finite domain whose coverage is complete, and otherwise stays unknown.",
+      "deep": "Microcosm refuses the cheap move of reading a blank as a no. Failing to prove a claim does not license proving its negation; the most an unproven claim earns is unknown, and unknown is a distinct verdict from refuted. The one case where absence does become a negative is narrow: the domain has to be explicitly declared finite and its coverage has to be complete, so that \"nothing found\" is backed by \"everything was looked at.\" This is what keeps the system from converting gaps in its own map into false confidence: a missing relation, an unmapped region, or a fact with no cited evidence reads as open and computable, not as settled, and the limit is recorded rather than papered over.",
+      "formal": {
+        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\wedge\\; \\mathrm{closed}(D) \\;\\wedge\\; \\mathrm{covered}(D) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi); \\quad \\mathrm{else}\\ \\mathrm{unknown}",
+        "reads": "If a claim is unproven, its negation may be concluded only when the domain is a declared finite one and coverage over that domain is complete; in every other case the verdict is unknown, never refuted.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim under consideration"
+          },
+          {
+            "sym": "\\neg\\,\\mathrm{proven}(\\varphi)",
+            "meaning": "the claim has not been proven"
+          },
+          {
+            "sym": "\\mathrm{closed}(D)",
+            "meaning": "the domain D is explicitly declared finite (closed-world)"
+          },
+          {
+            "sym": "\\mathrm{covered}(D)",
+            "meaning": "coverage over D is complete, so nothing in it was left unexamined"
+          },
+          {
+            "sym": "\\mathrm{unknown}",
+            "meaning": "the open-world verdict, distinct from refuted"
+          }
+        ]
+      },
+      "governs": "Whether an absence of evidence is allowed to count as a negative result, and inside what scope.",
+      "requires": "An explicitly declared finite domain with complete coverage before any closed-world conclusion; outside it, an unproven claim yields unknown rather than its negation.",
+      "refuses": "Absence of evidence treated as evidence of absence.",
+      "example": {
+        "text": "The self-ignorance coverage ledger tracks the gap between what has been declared in scope and what has actually been materialized, and forbids the inference that an unmapped region is empty; the open space stays a recorded, computable gap rather than a quiet claim of completeness.",
+        "refs": [
+          "self_ignorance_coverage_ledger"
+        ]
+      },
+      "counterexample": {
+        "text": "A status surface reports a property as clean because a scan returned no findings, without ever declaring the finite domain the scan covered, so silence over an unbounded space is read as a guarantee."
+      },
+      "enforced_in": [
+        "self_ignorance_coverage_ledger",
+        "doctrine_fact_claim_audit"
+      ],
+      "does_not_prove": "Tracking a declared-versus-materialized gap does not exhaust the space of unknown unknowns or prove the unmapped region empty. The open-world unknown it preserves is a coverage state, not a support verdict, and it never certifies that what was not found does not exist."
+    },
+    {
+      "id": "AX-7",
+      "kind": "axiom",
+      "one_line": "A partial computation returns a real answer only under its declared precondition; outside it, it returns a typed refusal carrying a reason and evidence, never a silent number or NaN.",
+      "deep": "AX-7 refuses the most common way numerical code lies: producing a plausible-looking value where its preconditions do not actually hold. Microcosm requires a partial computation g to be totalized into a Result, so it returns Ok(y) only when a declared precondition Pre(x) is met, and otherwise returns a Refusal that names the reason and carries the evidence behind it. The refusal is the load-bearing half, because a number with no precondition check and no failure path is indistinguishable from a number that happens to be wrong; a NaN, an out-of-range horizon, or a missing dependency must surface as a typed object the caller can route, not leak downstream as a figure that reads as a result. This connects directly to the evidence model: a refusal with a reason is admissible information, whereas a silent number is a claim with no basis beneath it, so AX-7 is what lets the upstream admissibility floor see a gap instead of inheriting a fabricated value.",
+      "formal": {
+        "latex": "\\forall\\, x.\\ \\mathrm{Pre}(x) \\Rightarrow g(x) = \\mathrm{Ok}(y) \\;\\wedge\\; \\neg\\,\\mathrm{Pre}(x) \\Rightarrow g(x) = \\mathrm{Refusal}(r, e)",
+        "reads": "For every input, when the declared precondition holds the partial computation returns Ok carrying a value, and when it does not hold the computation returns a Refusal carrying a reason and its evidence.",
+        "symbols": [
+          {
+            "sym": "g",
+            "meaning": "a partial computation, totalized into a Result"
+          },
+          {
+            "sym": "\\mathrm{Pre}(x)",
+            "meaning": "the declared precondition on input x"
+          },
+          {
+            "sym": "\\mathrm{Ok}(y)",
+            "meaning": "a successful result carrying value y"
+          },
+          {
+            "sym": "\\mathrm{Refusal}(r, e)",
+            "meaning": "a typed refusal carrying a reason r and evidence e"
+          }
+        ]
+      },
+      "governs": "What a partial computation is allowed to return when its precondition does not hold.",
+      "requires": "A declared precondition for the Ok path and a typed Refusal carrying a reason and evidence on every other path, including missing dependencies and undefined values.",
+      "refuses": "An inadmissible number or silent NaN returned where no precondition was checked.",
+      "example": {
+        "text": "The finance forecast evaluation spine returns a typed refusal naming the reason when a forecast horizon is at or above the sample size, or when the statistics dependency needed for a t-distribution is unavailable, instead of returning a number computed outside its domain.",
+        "refs": [
+          "finance_forecast_evaluation_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A statistics routine divides by a sample size that is too small and returns the resulting NaN as if it were a score, and a downstream page prints it as a real forecast number."
+      },
+      "enforced_in": [
+        "finance_forecast_evaluation_spine",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "does_not_prove": "Returning typed refusals at these named computations does not prove that every partial path in the system is totalized. It covers the declared preconditions and dependency gaps that are actually checked; uncovered partial functions remain a gap rather than a guaranteed refusal."
+    },
+    {
+      "id": "AX-8",
+      "kind": "axiom",
+      "one_line": "Provenance labels and ceilings travel with a value across every boundary; untrusted material reaches a privileged sink only through a declared transform.",
+      "deep": "Trust is not a property of where a value ends up, it is a property of where it came from and what was done to it on the way. Every value carries a provenance class and a ceiling, and those travel with it across every boundary it crosses. Untrusted material, a prompt, a provider payload, or private-adjacent source, may reach a privileged or public sink only through a declared transform whose output the sink's policy admits. The endpoint cannot certify its own cleanliness: the label has to have been carried, not stamped on at the door. This is why a clean-looking final step is not enough, and why the system tracks how far a value may travel rather than just what it currently looks like.",
+      "formal": {
+        "latex": "(x \\to s) \\;\\Rightarrow\\; \\mathrm{label}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\vee\\; \\big(s = T(x) \\;\\wedge\\; \\mathrm{declared}(T)\\big)",
+        "reads": "For any flow from x into a sink s, either x's label already sits within the sink's policy, or s is the output of a declared transform T applied to x.",
+        "symbols": [
+          {
+            "sym": "x",
+            "meaning": "a value entering a flow"
+          },
+          {
+            "sym": "s",
+            "meaning": "a sink (a public or privileged output)"
+          },
+          {
+            "sym": "\\mathrm{label}(x)",
+            "meaning": "x's provenance class and ceiling"
+          },
+          {
+            "sym": "\\mathrm{policy}(s)",
+            "meaning": "what the sink is allowed to admit"
+          },
+          {
+            "sym": "T",
+            "meaning": "a declared sanitising transform"
+          }
+        ]
+      },
+      "governs": "How material and its trust label move across boundaries.",
+      "requires": "A provenance class and ceiling carried with the value, and a declared transform before untrusted material reaches a privileged sink.",
+      "refuses": "An endpoint asserting a clean label without that label having propagated.",
+      "example": {
+        "text": "The prompt-injection replay carries the information-flow policy with the data, so untrusted instructions arriving at a tool call are caught at the boundary instead of trusted because they reached a trusted endpoint.",
+        "refs": [
+          "indirect_prompt_injection_information_flow_policy_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A public page prints a value lifted from a private-adjacent source because the final copy step looked clean, with no provenance carried across the copy."
+      },
+      "enforced_in": [
+        "indirect_prompt_injection_information_flow_policy_replay",
+        "macro_projection_import_protocol"
+      ],
+      "does_not_prove": "Catching labelled flows at named endpoints does not prove non-interference across the whole graph. General propagation is bounded by what is actually traced, and the registry records that debt rather than hiding it."
+    },
+    {
+      "id": "AX-9",
+      "kind": "axiom",
+      "one_line": "An effect may count as landed only with a compensator or a declared irreversible boundary; multi-step effects land as a saga under compare-and-swap and single-writer constraints.",
+      "deep": "Microcosm treats a write as inadmissible until there is a way back from it or an explicit declaration that there is not. An effect counts as landed only if it carries a compensator that can reverse it or a declared irreversible boundary that marks the point of no return, and a multi-step effect lands as a saga whose every step compares against the head it expected and finds a single writer holding the path. The failure this refuses is the half-completed write: a sequence that succeeds partway, hits a moved head or a second writer, and leaves the world in a state nobody declared and nobody can undo. This ties back to the admissibility floor, because a landing that cannot be recomputed against its expected parent or rolled back is an effect asserting its own success with no check behind it, which is exactly the bare assertion the evidence order puts at the bottom.",
+      "formal": {
+        "latex": "\\mathrm{land}(e) \\;\\Rightarrow\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\big(\\mathrm{multi}(e) \\Rightarrow \\mathrm{parent}(e) = \\mathrm{head} \\wedge \\mathrm{writers}(\\mathrm{path}(e)) \\leq 1\\big)",
+        "reads": "An effect may land only if it declares a compensator or an irreversible boundary, and if it is multi-step, only when its expected parent still matches the head and at most one writer holds its path.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{land}(e)",
+            "meaning": "the effect e is treated as landed"
+          },
+          {
+            "sym": "\\mathrm{comp}(e)",
+            "meaning": "a declared compensator that can reverse e"
+          },
+          {
+            "sym": "\\mathrm{irrev}(e)",
+            "meaning": "a declared irreversible boundary for e"
+          },
+          {
+            "sym": "\\mathrm{parent}(e) = \\mathrm{head}",
+            "meaning": "the compare-and-swap expected-parent check still holds"
+          },
+          {
+            "sym": "\\mathrm{writers}(\\mathrm{path}(e)) \\leq 1",
+            "meaning": "the single-writer constraint on e's path"
+          }
+        ]
+      },
+      "governs": "When a mutation is allowed to count as landed.",
+      "requires": "A declared compensator or an irreversible boundary, and for multi-step effects a compare-and-swap expected-parent check plus a single-writer constraint on the path.",
+      "refuses": "A blind irreversible write.",
+      "example": {
+        "text": "The mission transaction work spine lands a multi-step effect only when its expected parent still matches the head, so a run whose head advanced underneath it fails with a parent-mismatch rather than overwriting the newer state.",
+        "refs": [
+          "mission_transaction_work_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A step writes to a shared path and is treated as landed because the call returned, with no expected-parent check and no single-writer constraint, so two concurrent writers interleave and the final state matches neither."
+      },
+      "enforced_in": [
+        "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "concurrency_mission_control"
+      ],
+      "does_not_prove": "Blocking parent-mismatch and same-path conflict on these named paths does not prove every effect in the system is compensable or every concurrent write is serialized. The legacy strong label is not a computed support verdict, and the routing registry still records that mapping these negative cases to a full rejection of the blind irreversible write remains unverified."
+    },
+    {
+      "id": "AX-10",
+      "kind": "axiom",
+      "one_line": "A claim about live state is a cached read, valid only while it carries when it was taken, what it was read from, and how to recompute it.",
+      "deep": "A number that describes a moving system stops being true the moment the system moves, so Microcosm treats every claim over live state as a cached read rather than a fact. To be admissible such a claim has to carry four things: the value, the time it was taken, the basis it was read from, and the rule for recomputing it; a bare value with none of these is a frozen snapshot wearing the costume of a current reading. This is where the evidence model meets time: the admissibility floor decides whether a claim counts at all, and this axiom adds that a live claim's strength decays with its own staleness unless its declared basis still holds. It bites hardest on the things that look most authoritative, the running counts and dashboard totals, because those are exactly the values a reader assumes are fresh.",
+      "formal": {
+        "latex": "\\mathrm{adm}(\\varphi) \\iff \\varphi = \\langle v, t, B, \\rho \\rangle \\;\\wedge\\; \\big(\\mathrm{holds}(B, t) \\;\\vee\\; \\varphi = \\rho(B)\\big)",
+        "reads": "A live-state claim is admissible only when it carries a value, an as-of time, a basis, and a rederive rule, and either its declared basis still holds at that time or the claim has been recomputed by that rule.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim over live state"
+          },
+          {
+            "sym": "v",
+            "meaning": "the value asserted"
+          },
+          {
+            "sym": "t",
+            "meaning": "the as-of time the value was taken"
+          },
+          {
+            "sym": "B",
+            "meaning": "the basis the value was read from"
+          },
+          {
+            "sym": "\\rho",
+            "meaning": "the rule that recomputes the value from the basis"
+          },
+          {
+            "sym": "\\mathrm{holds}(B, t)",
+            "meaning": "the declared basis is still valid as of t"
+          }
+        ]
+      },
+      "governs": "When a value read from live state is still allowed to be stated as current.",
+      "requires": "A value carrying its as-of time, its basis, and a rederive rule, with invalidation or recomputation once that basis no longer holds.",
+      "refuses": "A frozen live count stated without a refresh basis.",
+      "example": {
+        "text": "The fact-claim audit flags a volatile numeric claim that carries no freshness binding as a stable blocking code, so a live count cannot be published as if it were still current without declaring when it was taken and how to recompute it.",
+        "refs": [
+          "doctrine_fact_claim_audit"
+        ]
+      },
+      "counterexample": {
+        "text": "A page prints a running total once and leaves it on display for weeks, with no as-of time and no rule to recompute it, so a stale snapshot reads as a live figure."
+      },
+      "enforced_in": [
+        "doctrine_fact_claim_audit",
+        "batch10_live_source_drift_capsule"
+      ],
+      "does_not_prove": "Blocking unbound volatile numbers does not make any specific number current or correct, and it does not establish that staleness is caught everywhere. The freshness component of this axiom's own ceiling stays an ordered unknown until a source-owned refresh contract exists, so this object names the obligation rather than certifying that it is met."
+    },
+    {
+      "id": "AX-11",
+      "kind": "axiom",
+      "one_line": "A doctrine artifact may claim authority only when an executable grammar accepts its shape and it carries receipt obligations and an anti-claim; prose alone is a projection.",
+      "deep": "AX-11 turns the doctrine itself into something the system can execute rather than merely read. A standard, contract, or rule may carry authority only when an executable grammar accepts its form and it arrives with its receipt obligations and its own anti-claim attached; a clause that is only well written sits at the level of a projection, not a law. This is what stops a confident standard from governing by rhetoric: the gate decides on the artifact's checkable shape, not its prose, so the same admissibility discipline AX-1 imposes on claims is imposed on the documents that define how claims are judged. The bite is the second negative case as much as the first: passing the grammar admits the artifact's shape and never certifies that the doctrine it expresses is complete, so a grammar pass that is read as coverage is rejected, not rewarded.",
+      "formal": {
+        "latex": "\\mathrm{authority}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{obligations}(d) \\neq \\emptyset \\;\\wedge\\; \\mathrm{anticlaim}(d) \\quad \\mathrm{else}\\ d \\in \\mathrm{Proj}",
+        "reads": "A doctrine artifact carries authority only when an executable grammar accepts it and it presents receipt obligations and an anti-claim; otherwise it is held as a projection.",
+        "symbols": [
+          {
+            "sym": "d",
+            "meaning": "a doctrine artifact (standard, contract, rule)"
+          },
+          {
+            "sym": "L(G)",
+            "meaning": "the language an executable grammar G accepts"
+          },
+          {
+            "sym": "\\mathrm{obligations}(d)",
+            "meaning": "the receipt obligations the artifact must carry"
+          },
+          {
+            "sym": "\\mathrm{anticlaim}(d)",
+            "meaning": "the artifact's declared statement of what it does not prove"
+          },
+          {
+            "sym": "\\mathrm{Proj}",
+            "meaning": "the projection tier, below authority"
+          }
+        ]
+      },
+      "governs": "Whether a doctrine artifact may govern, or is only a readable projection of one.",
+      "requires": "Acceptance by an executable grammar plus carried receipt obligations and a declared anti-claim, not well-formed prose.",
+      "refuses": "Prose claiming executable authority.",
+      "example": {
+        "text": "The executable doctrine grammar component accepts a standard only when its shape parses and its receipt obligations and anti-claim are present, and rejects a prose standard that asserts authority without that executable form.",
+        "refs": [
+          "executable_doctrine_grammar"
+        ]
+      },
+      "counterexample": {
+        "text": "A persuasive standard written in prose is treated as binding because it reads authoritatively, with no grammar accepting its shape and no anti-claim or receipt obligations carried."
+      },
+      "enforced_in": [
+        "executable_doctrine_grammar",
+        "standards_meta_diagnostics"
+      ],
+      "does_not_prove": "A grammar accepting an artifact's shape does not prove the doctrine it expresses is complete or correct; admitting the form is not certifying the coverage, and this reader page is itself a projection that cannot raise the authority of the source it explains."
+    },
+    {
+      "id": "AX-12",
+      "kind": "axiom",
+      "one_line": "Every claim Microcosm makes about itself passes the same admissibility floor it imposes on everything else; the meta-layer gets no exemption.",
+      "deep": "A system that exempts its own claims from its own floor is just asserting with extra steps. Microcosm removes the exemption: every claim it makes about itself, in a generated page, a validator, a result record, or a coverage projection, has to pass the same admissibility relation it imposes on any external claim. The support evaluator is itself subject to the support floor; this very page is a projection held below the source it describes and cannot raise that source's authority. Removing the escape hatch is what lets the system state its own limits without that statement quietly becoming a new unchecked claim.",
+      "formal": {
+        "latex": "\\forall\\, a \\in \\mathcal{M}.\\ \\forall\\, \\varphi \\in \\mathrm{claims}(a).\\ \\mathrm{adm}(\\varphi) = \\mathrm{adm}_{\\mathrm{ext}}(\\varphi)",
+        "reads": "For every Microcosm artifact and every claim it carries, the claim is admitted under the same relation as an external claim.",
+        "symbols": [
+          {
+            "sym": "\\mathcal{M}",
+            "meaning": "the Microcosm artifacts, including its own pages and validators"
+          },
+          {
+            "sym": "a",
+            "meaning": "any such artifact"
+          },
+          {
+            "sym": "\\mathrm{claims}(a)",
+            "meaning": "the claims the artifact carries"
+          },
+          {
+            "sym": "\\mathrm{adm}",
+            "meaning": "the admissibility floor from AX-1"
+          }
+        ]
+      },
+      "governs": "Whether the system's own outputs get a discount.",
+      "requires": "That meta artifacts, pages, validators, records, and projections, meet the same evidence and refusal floor as everything else.",
+      "refuses": "A meta-artifact exemption.",
+      "example": {
+        "text": "The release wording gate runs the same claim-language floor over Microcosm's own public copy that it imposes on any other shard, blocking overclaiming language in the system's own pages.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A system publishes a self-assessment of \"verified and complete\" that would never pass the evidence floor it applies to the work it audits."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "executable_doctrine_grammar"
+      ],
+      "does_not_prove": "Applying the floor to its own artifacts does not make the system complete or correct. It only removes the special pleading; the limits remain, stated rather than hidden."
+    },
+    {
+      "id": "P-1",
+      "kind": "principle",
+      "one_line": "Recompute a verdict from lower-level evidence instead of repeating a label, and keep a negative fixture where the cheap lie would slip through.",
+      "deep": "P-1 is AX-1 turned into a habit a builder repeats before anything is allowed to mean something. Do not trust a fixture's own verdict, a route status, a count, or a public copy line as proof; recompute it from the evidence underneath and keep a negative fixture that fails when the cheap lie is tried. The negative fixture is the load-bearing half: a check that only ever sees the happy path proves nothing, because it never had the chance to reject. This is the principle that makes \"green\" mean recomputed rather than reported.",
+      "formal": {
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\varphi = K(B) \\;\\wedge\\; K(B_{\\mathrm{neg}}) = \\mathsf{reject}",
+        "reads": "Trust a verdict only if a checker recomputes it from the basis and also rejects the negative fixture built to fool it.",
+        "symbols": [
+          {
+            "sym": "K(B)",
+            "meaning": "the verdict recomputed from the basis"
+          },
+          {
+            "sym": "B_{\\mathrm{neg}}",
+            "meaning": "a negative fixture where the lie should fail"
+          },
+          {
+            "sym": "\\mathsf{reject}",
+            "meaning": "the checker's refusal on that fixture"
+          }
+        ]
+      },
+      "governs": "The claim boundary, before a result is allowed to mean anything.",
+      "requires": "Recomputation from lower-level evidence plus a negative fixture that the checker rejects.",
+      "refuses": "Echoing a declared verdict, label, or count as if repetition made it true.",
+      "example": {
+        "text": "The benchmark-integrity replay recomputes a score from the run rather than trusting the reported number, and keeps gaming attempts as negative cases that must be caught.",
+        "refs": [
+          "agent_benchmark_integrity_anti_gaming_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A summary repeats a component's self-reported \"passed\" into a status board without ever recomputing it or keeping a case that would fail."
+      },
+      "enforced_in": [
+        "agent_sabotage_scheming_monitor_replay",
+        "agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "does_not_prove": "Recomputing one verdict from evidence does not make the principle a witness for AX-1; it operationalises specific obligations and inherits no authority beyond them."
+    },
+    {
+      "id": "P-2",
+      "kind": "principle",
+      "one_line": "A claim may be no stronger than what its named checker actually decides; a checker that settles a local contract cannot license prose that projects global authority.",
+      "deep": "P-2 is the strength half of the admissibility floor: AX-1 caps a claim at the strength of the check that accepts it, and AX-5 makes that ceiling the meet of the parts, so the strongest honest claim equals the weakest component the checker actually settles. Its bite is distinct from \"recompute, do not echo\": even a genuinely recomputed verdict overclaims if the prose around it reaches past what the checker decided, for example a validator that confirms a record's shape being read as proof of the property the record names. The cover calculus enforces this by computing each claim ceiling from the specific grounding obligations, never from whole-axiom labels and never by hand-stamping; support for the principle is bounded by the covers of the obligations beneath it. This is the rule that keeps a local-contract checker, a registry, or a single witness route from being narrated into a system-wide guarantee.",
+      "formal": {
+        "latex": "\\mathrm{strength}(\\varphi) \\sqsubseteq \\bigsqcap_{i} \\mathrm{strength}(K_{i}(B)) \\quad \\mathrm{where}\\ \\{K_{i}\\} = \\mathrm{decided}(\\varphi)",
+        "reads": "A claim's strength is bounded above by the meet of the strengths of exactly the checks that actually decide it; the ceiling is the weakest deciding component, not the most impressive one.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim being made"
+          },
+          {
+            "sym": "K_{i}",
+            "meaning": "a checker, validator, registry, or witness route that decides part of the claim"
+          },
+          {
+            "sym": "B",
+            "meaning": "the basis the checks run over"
+          },
+          {
+            "sym": "\\bigsqcap",
+            "meaning": "meet: the weakest of the deciding components"
+          },
+          {
+            "sym": "\\mathrm{decided}(\\varphi)",
+            "meaning": "the set of checks that actually settle the claim, excluding ones it merely names"
+          }
+        ]
+      },
+      "governs": "The strength boundary, where a claim is sized to the check that accepts it.",
+      "requires": "Capping a claim at the meet of what its named checker, validator, registry, or witness route actually computes, with the ceiling derived from the grounding obligations rather than asserted.",
+      "refuses": "Letting a checker that decides only a local contract license prose that projects global or system-wide authority.",
+      "example": {
+        "text": "The formal-math readiness gate computes a readiness boundary and holds its claim to that boundary, reporting how far the available evidence reaches rather than narrating a local check into a proof of readiness.",
+        "refs": [
+          "formal_math_readiness_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A component validates that a result record has the expected fields, and a summary page reads that shape check as evidence the underlying property holds across the whole system."
+      },
+      "enforced_in": [
+        "formal_math_readiness_gate",
+        "batch12_release_claim_language_gate",
+        "agent_route_observability_runtime"
+      ],
+      "does_not_prove": "Holding a claim to its checker's strength does not raise that checker, and the principle is not a witness for AX-1 or AX-5; it operationalises specific grounding obligations and inherits no support beyond the covers computed for them. The worked example illustrates the rule for a reader and never counts as support that the principle is obligation-backed or complete."
+    },
+    {
+      "id": "P-3",
+      "kind": "principle",
+      "one_line": "Put trust in a small checker that rereads a certificate and decides, and keep the large producer outside that authority boundary.",
+      "deep": "P-3 is AX-2 turned into a building habit: the thing you trust should be small enough to read and rerun, while the thing that did the work may be as large and opaque as it likes. A big model, search, or pipeline emits a certificate; a small verifier, parser, harness, compiler route, or registry contract rereads that certificate and decides, and only the checker sits inside the trusted boundary. This connects directly to the claim and evidence model: a claim's strength is capped at the strength of the check that admits it, so shrinking the checker shrinks what you have to believe to believe the verdict. The load-bearing move is keeping the producer outside the boundary; once the thing being judged also gets to decide, the check has collapsed into the same narrative confidence it was meant to replace.",
+      "formal": {
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, K, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; \\mathrm{tcb}(\\varphi) = K \\;\\wedge\\; \\mathrm{producer} \\notin K",
+        "reads": "Trust a verdict only when a small checker rereads a certificate and accepts, the trusted base is that checker alone, and the producer that emitted the certificate is not inside it.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim being trusted"
+          },
+          {
+            "sym": "K",
+            "meaning": "the small checker that decides"
+          },
+          {
+            "sym": "c",
+            "meaning": "the certificate the producer emits"
+          },
+          {
+            "sym": "\\mathrm{tcb}(\\varphi)",
+            "meaning": "the trusted base the claim rests on"
+          },
+          {
+            "sym": "\\notin",
+            "meaning": "is kept outside"
+          }
+        ]
+      },
+      "governs": "Where trust is concentrated, between the large producer and the small thing that decides.",
+      "requires": "A small checker that rereads a certificate and accepts, with the producer kept outside the trusted boundary.",
+      "refuses": "Trusting a large producer's own confidence in place of a small, inspectable, rerunnable check.",
+      "example": {
+        "text": "The certificate kernel lab keeps producers separate from the checker: a producer emits certificate material and a small kernel rereads and decides, so the authority lives in the part you can inspect and rerun rather than in the producer.",
+        "refs": [
+          "certificate_kernel_execution_lab"
+        ]
+      },
+      "counterexample": {
+        "text": "A large model is trusted because it sounds sure of its answer, with no small separate checker rereading anything, so the producer is also the judge."
+      },
+      "enforced_in": [
+        "certificate_kernel_execution_lab",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_kernel"
+      ],
+      "does_not_prove": "Concentrating trust in a small checker does not make the principle a witness for AX-2, and a small checker is not automatically a correct or complete one. It operationalises specific obligations and inherits no authority beyond them; admission, support, and this reader illustration stay independent."
+    },
+    {
+      "id": "P-4",
+      "kind": "principle",
+      "one_line": "Authority to mutate is derived from dereferenced proof, policy, and current world state; a credential, role name, or trusted-session phrasing authorizes nothing on its own.",
+      "deep": "P-4 is the authority leg of the claim model, the way P-1 is the evidence leg: before an effect lands, recompute whether it is authorized rather than reading authority off who is asking. Authorization for a subject and an effect comes from dereferenced proof references, the governing policy, rollback or result-record evidence, and current world state; standing credentials, an admin role name, or trusted-session phrasing are ambient identity, which carries no authority by itself. This is the confused-deputy failure stated as a rule: a component holding a powerful capability must still derive permission for each effect, and tool authority is bounded by declared identity, scope, approval, and side-effect records, not by the tool merely being available. It bites because possession reads as permission almost everywhere, so a pipeline that trusts a present credential passes its own path while granting reach nothing actually authorized.",
+      "formal": {
+        "latex": "\\mathrm{auth}(u, e) \\iff \\mathrm{auth}(u, e) = F\\big(\\mathrm{deref}(\\mathrm{tokens}), \\mathrm{policy}, \\mathrm{proofs}, \\mathrm{world}\\big) \\;\\wedge\\; \\neg\\,\\mathrm{from}(\\mathrm{auth}, \\mathrm{identity})",
+        "reads": "A subject is authorized for an effect only when that authorization is computed from dereferenced tokens, policy, proof references, and current world state, and never from ambient identity alone.",
+        "symbols": [
+          {
+            "sym": "u",
+            "meaning": "a subject requesting an effect"
+          },
+          {
+            "sym": "e",
+            "meaning": "the effect or mutation it wants to land"
+          },
+          {
+            "sym": "\\mathrm{deref}(\\mathrm{tokens})",
+            "meaning": "the capabilities the presented tokens actually dereference to"
+          },
+          {
+            "sym": "F",
+            "meaning": "the function deriving authorization from policy, proofs, and world state"
+          },
+          {
+            "sym": "\\mathrm{identity}",
+            "meaning": "ambient credentials or role name, insufficient on their own"
+          }
+        ]
+      },
+      "governs": "The authority boundary, before any effect or mutation is allowed to land.",
+      "requires": "Deriving authorization from dereferenced proof, policy, and world state, with tool effects bounded by declared identity, scope, approval, and side-effect records.",
+      "refuses": "Treating a standing credential, role name, admin phrasing, trusted session, or tool availability as authority on its own.",
+      "example": {
+        "text": "The tool-authority replay binds each tool effect to a declared scope and approval and rejects an overbroad scope or an unapproved side effect, so reach is derived from declared authority rather than from the tool being callable.",
+        "refs": [
+          "mcp_tool_authority_replay",
+          "proof_derived_governed_mutation_authorization"
+        ]
+      },
+      "counterexample": {
+        "text": "A mutation is allowed because the caller holds a valid admin credential, with nothing dereferencing that credential to the specific effect or checking it against policy and current state."
+      },
+      "enforced_in": [
+        "proof_derived_governed_mutation_authorization",
+        "mcp_tool_authority_replay",
+        "tool_server_pressure_inventory"
+      ],
+      "does_not_prove": "Deriving authorization in these components does not make P-4 a witness for AX-3 or raise that axiom's support ceiling; it operationalises the specific obligations that authorization is derived, that standing credentials are insufficient, and that tool effects require declared scope, and inherits no authority beyond them. The worked example is reader illustration and computes no support."
+    },
+    {
+      "id": "P-5",
+      "kind": "principle",
+      "one_line": "A reused result is valid only if it carries the digest of the exact content it was computed from; drift in that content forces a recompute, and a name match alone licenses nothing.",
+      "deep": "P-5 turns content-addressed determinism into a habit a builder repeats before reusing any prior work. A stored result record, a coalesced command run, an imported source copy, or a resumed work-landing attempt may be reused only if it carries the digest of the exact content it was derived from; equal content basis permits reuse, and drift in the source bytes, the dirty scoped files, the parent commit, or the fixture input forces a recompute or a refusal. The bite is that a name, a path, or a label is a cheap stand-in for a basis: cache by name and you serve a stale answer the moment the content moves underneath the name. This connects straight to the claim and evidence model, because a reused verdict inherits its scope limit from the basis it was actually checked over, and reuse across drift silently widens that scope to content nothing ever verified.",
+      "formal": {
+        "latex": "\\mathrm{reuse}(a, B') \\;\\Rightarrow\\; \\mathrm{id}(a) = H(B') \\;\\wedge\\; B' \\neq \\emptyset \\quad \\mathrm{else}\\ \\mathsf{recompute}",
+        "reads": "A prior result may be reused for an incoming basis only when the result's stored content id equals the digest of that basis and the basis is non-empty; otherwise recompute.",
+        "symbols": [
+          {
+            "sym": "a",
+            "meaning": "a prior result eligible for reuse"
+          },
+          {
+            "sym": "B'",
+            "meaning": "the content basis of the incoming request"
+          },
+          {
+            "sym": "H(B')",
+            "meaning": "the digest over that content basis"
+          },
+          {
+            "sym": "\\mathrm{id}(a)",
+            "meaning": "the content id the result was stored under"
+          },
+          {
+            "sym": "\\emptyset",
+            "meaning": "a missing basis, which is bottom and licenses no reuse"
+          }
+        ]
+      },
+      "governs": "The reuse boundary, where a prior result is about to be served instead of recomputed.",
+      "requires": "A declared content basis carried as a digest with the result, equal-basis reuse only, and a recompute or refusal the moment the source digest, scoped files, parent commit, or fixture input drifts.",
+      "refuses": "Serving a cached result keyed on a name, path, or label after the content behind it has drifted.",
+      "example": {
+        "text": "The source-import protocol brings non-secret material in by manifest and digest, so when the source bytes drift the imported copy is recomputed rather than reused under the same name.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A resumed work-landing attempt reuses an earlier result because the task name matches, even though the parent commit and scoped files have changed underneath it."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "durable_agent_work_landing_replay"
+      ],
+      "does_not_prove": "Carrying a content basis on the reuse paths shown here does not prove reuse is sound everywhere; one freshness-basis mismatch remains a declared open gap, and this card and its example are reader illustration that compute no support for the principle or its grounding axiom."
+    },
+    {
+      "id": "P-6",
+      "kind": "principle",
+      "one_line": "A composite is only as trusted as its weakest part; missing evidence defaults to blocked, and a later stage can lower status but never raise it without a new derivation.",
+      "deep": "P-6 is AX-5 turned into the default a builder relies on when evidence is absent rather than negative. The status of a composite is the meet of its parts, so a single missing policy file, source digest, secret scan, negative case, or result self-scan pulls the whole verdict down to blocked instead of leaving a gap that silently reads as pass. The bite is in the asymmetry: a later stage may lower a status freely, but it cannot raise one without a fresh derivation, which is exactly why a downstream view can explain why something passed yet can never upgrade a source truth that was blocked underneath it. This is the principle that makes silence cost something, and it is what lets the claim and evidence model treat an unscanned or unproven input as the bottom of the order rather than a weak yes.",
+      "formal": {
+        "latex": "\\mathrm{status}(c) = \\bigsqcap_{p \\in \\mathrm{parts}(c)} \\mathrm{status}(p) \\;\\wedge\\; (\\mathrm{evidence}(p) = \\emptyset \\Rightarrow \\mathrm{status}(p) = \\bot) \\;\\wedge\\; (\\mathrm{status}' \\sqsupset \\mathrm{status} \\Rightarrow \\mathrm{derivation})",
+        "reads": "A composite's status is the meet of its parts' statuses; a part with no evidence sits at blocked; and a later status may exceed an earlier one only when a new derivation justifies the rise.",
+        "symbols": [
+          {
+            "sym": "c",
+            "meaning": "a composite whose status is being computed"
+          },
+          {
+            "sym": "\\mathrm{parts}(c)",
+            "meaning": "the parts the composite is built from"
+          },
+          {
+            "sym": "\\bigsqcap",
+            "meaning": "meet: the weakest of the part statuses"
+          },
+          {
+            "sym": "\\emptyset",
+            "meaning": "no admissible evidence for that part"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "blocked, the bottom of the status order"
+          },
+          {
+            "sym": "\\sqsupset",
+            "meaning": "claims a higher status than"
+          }
+        ]
+      },
+      "governs": "The status boundary, where a composite verdict is assembled from parts and absence is tempted to read as pass.",
+      "requires": "Taking the composite status as the meet of its parts, defaulting any part with no evidence to blocked, and demanding a new derivation before any later stage raises a status.",
+      "refuses": "A silent default pass: letting missing evidence, an absent scan, or a downstream view lift a blocked part to green without a fresh derivation.",
+      "example": {
+        "text": "The formal-math readiness gate computes its verdict as the meet of its inputs, so when the corpus or a required check is absent it reports blocked rather than ready, and a later projection cannot lift that boundary to passing.",
+        "refs": [
+          "formal_math_readiness_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A status board shows a component as green because no scan reported a problem, treating an absent check as a pass and letting a downstream summary stand in for evidence that was never produced."
+      },
+      "enforced_in": [
+        "formal_math_readiness_gate",
+        "batch10_cold_eval_honesty_capsule",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "does_not_prove": "Failing closed on missing evidence does not prove any part is correct or that the composite is complete; it only fixes the default so absence lands at blocked rather than passing, and the example here illustrates that default without computing support for the principle or its grounding axiom."
+    },
+    {
+      "id": "P-7",
+      "kind": "principle",
+      "one_line": "A coverage report names declared domains and the gaps it actually found; it may not call the unmapped space safe, complete, exhausted, or irrelevant.",
+      "deep": "P-7 is AX-6 open-world epistemics turned into a reporting discipline. A coverage report may draw a closed-world conclusion only inside a declared finite domain; outside that boundary an item is unknown, and unknown is held distinct from proven-absent, so a silence in the records is never read as a fact about the world. This bites because the cheap move is to let blank space mean clear: a tidy report with no findings reads as everything is fine, when all it established is that nothing was checked there. It connects to the claim and evidence model directly, since a completeness statement is itself a claim that has to cite its declared loci and evidence rather than assert exhaustiveness, which is why unknown sits as its own coverage tag and is never collapsed into the bottom of the evidence order.",
+      "formal": {
+        "latex": "\\mathrm{covers}(r, d) \\;\\Rightarrow\\; \\mathrm{declared}(d) \\;\\wedge\\; \\forall\\, x \\notin d.\\ \\mathrm{status}(r, x) = \\mathrm{unknown} \\;\\wedge\\; \\mathrm{unknown} \\neq \\bot",
+        "reads": "If a report concludes coverage over a domain, that domain must be declared and finite; for anything outside it the report's status is unknown, and unknown is not the same as proven-absent.",
+        "symbols": [
+          {
+            "sym": "r",
+            "meaning": "a coverage report"
+          },
+          {
+            "sym": "d",
+            "meaning": "the declared finite domain it covers"
+          },
+          {
+            "sym": "x",
+            "meaning": "an item, possibly outside the declared domain"
+          },
+          {
+            "sym": "\\mathrm{status}(r, x)",
+            "meaning": "what the report says about x"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "the bottom of the evidence order, i.e. proven-absent or false"
+          }
+        ]
+      },
+      "governs": "The coverage-and-completeness boundary, where a report is tempted to read its own silence as a clean result.",
+      "requires": "Naming the declared finite domain and the gaps actually found, and marking everything outside that domain unknown rather than safe, complete, or exhausted.",
+      "refuses": "Converting absence of a finding into a claim that the unmapped space is safe, complete, exhausted, or irrelevant.",
+      "example": {
+        "text": "The self-ignorance coverage ledger records what was checked, names the gaps it found as open items, and keeps a case that fails when missing coverage is read as a clean result, so a blank region cannot be reported as cleared.",
+        "refs": [
+          "self_ignorance_coverage_ledger"
+        ]
+      },
+      "counterexample": {
+        "text": "A report scans a handful of components, finds nothing, and prints the whole area as clear, treating untouched space as evidence that nothing is wrong there."
+      },
+      "enforced_in": [
+        "self_ignorance_coverage_ledger",
+        "doctrine_fact_claim_audit"
+      ],
+      "does_not_prove": "Marking the unmapped space unknown does not begin to map it. The gap stays open and the report stays bounded to its declared domain; this principle inherits no authority beyond the specific obligations it operationalises, and the example illustrates the rule without counting as support for it."
+    },
+    {
+      "id": "P-8",
+      "kind": "principle",
+      "one_line": "When a precondition fails or a dependency is missing, return a typed refusal carrying its reason and evidence, never a silent number that keeps the path green.",
+      "deep": "P-8 is AX-7's typed-partiality law made into the habit a builder applies at every computation that can fail. A function whose precondition does not hold, or whose library or corpus is absent, must totalize into a refusal that names why and cites the evidence, instead of returning a meaningless statistic, a proof verdict, a safety judgement, or a public-readiness status just to avoid a red path. This bites because the cheapest way to look finished is to emit a number anyway: a forecast computed past its sample size, a confidence interval with no distribution behind it, a readiness flag asserted while the dependency is missing. It connects to the claim and evidence model because a refusal is the honest evidence value when the basis is not admissible; a fabricated green output is a claim with no checker under it, which is exactly the bottom-of-the-order assertion the rest of the doctrine refuses.",
+      "formal": {
+        "latex": "\\mathrm{run}(g, x) = \\mathsf{Ok}(y) \\;\\Rightarrow\\; \\mathrm{Pre}(g, x) \\;\\wedge\\; \\neg\\,\\mathrm{Pre}(g, x) \\Rightarrow \\mathrm{run}(g, x) = \\mathsf{Refusal}(r, \\epsilon)",
+        "reads": "A partial computation may return an Ok result only when its precondition holds; when the precondition fails it must return a typed refusal carrying a reason and its evidence, not a value.",
+        "symbols": [
+          {
+            "sym": "g",
+            "meaning": "a partial computation that can fail"
+          },
+          {
+            "sym": "\\mathrm{Pre}(g, x)",
+            "meaning": "the declared precondition for running g on input x"
+          },
+          {
+            "sym": "\\mathsf{Ok}(y)",
+            "meaning": "an admissible result value"
+          },
+          {
+            "sym": "\\mathsf{Refusal}(r, \\epsilon)",
+            "meaning": "a typed refusal carrying reason r and evidence \\epsilon"
+          },
+          {
+            "sym": "\\neg",
+            "meaning": "the precondition does not hold"
+          }
+        ]
+      },
+      "governs": "The result boundary, where a computation that cannot proceed is tempted to return a number anyway.",
+      "requires": "Returning an Ok result only under a declared precondition, and a refusal carrying a reason and evidence when the precondition fails or a dependency is absent.",
+      "refuses": "Emitting a meaningless statistic, proof authority, safety verdict, or readiness status to keep a green path when the basis does not admit one.",
+      "example": {
+        "text": "The finance forecast evaluation spine returns a typed refusal when a forecast horizon reaches or exceeds the sample size or when the statistics dependency is unavailable, rather than reporting a loss differential the data cannot support.",
+        "refs": [
+          "finance_forecast_evaluation_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A readiness gate reports a corpus as available and prints a green status while the underlying library is missing, turning an absent dependency into a silent overclaim."
+      },
+      "enforced_in": [
+        "finance_forecast_evaluation_spine",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "does_not_prove": "Returning a typed refusal in these cases does not make P-8 a witness for AX-7 or prove refusal-correctness across every partial computation. It operationalises the specific grounding obligations and inherits no authority beyond the bounded cases that actually refuse."
+    },
+    {
+      "id": "P-9",
+      "kind": "principle",
+      "one_line": "A value crossing any boundary must carry its provenance class and scope limit; if a crossing is only declared or labelled at the endpoint, say so rather than treating it as propagated.",
+      "deep": "P-9 is AX-8 turned into the discipline a builder runs at every boundary a value actually crosses: imported source, a fixture, a result record, public copy, a provider payload shape, or material adjacent to a private root. Each crossing must carry a provenance class and a scope limit with the value, because trust is a property of where something came from and what was done to it, not of where it lands. The honesty half is load-bearing and is what separates this from AX-8 stated abstractly: when a flow is only declared, or only labelled clean at the endpoint instead of having the label carried across, the principle requires you to record that gap rather than read the endpoint label as proof. This is the rule that lets a clean-looking final copy step still be treated as unverified, and it is why the system tracks how far a value may travel rather than only what it currently looks like.",
+      "formal": {
+        "latex": "(x \\to s) \\;\\Rightarrow\\; \\big(\\mathrm{prov}(x) \\sqsubseteq \\mathrm{policy}(s) \\;\\wedge\\; \\mathrm{ceil}(x)\\ \\mathrm{carried}\\big) \\;\\vee\\; \\mathrm{declared}(x \\to s)",
+        "reads": "For any value x crossing into a sink s, either x's provenance sits within the sink's policy and its scope limit is carried across, or the crossing is explicitly recorded as only declared.",
+        "symbols": [
+          {
+            "sym": "x",
+            "meaning": "a value crossing a boundary"
+          },
+          {
+            "sym": "s",
+            "meaning": "a sink (a public or privileged destination)"
+          },
+          {
+            "sym": "\\mathrm{prov}(x)",
+            "meaning": "the provenance class carried with x"
+          },
+          {
+            "sym": "\\mathrm{policy}(s)",
+            "meaning": "what the sink is allowed to admit"
+          },
+          {
+            "sym": "\\mathrm{ceil}(x)",
+            "meaning": "the scope limit carried with x"
+          },
+          {
+            "sym": "\\mathrm{declared}(x \\to s)",
+            "meaning": "the crossing is recorded as only declared, not propagated"
+          }
+        ]
+      },
+      "governs": "Every boundary a value crosses, from imported source through to a public or privileged sink.",
+      "requires": "A provenance class and scope limit carried with the value across the crossing, and an explicit record when a flow is only declared or endpoint-labelled.",
+      "refuses": "Reading a clean endpoint label as proof when the label was stamped at the door rather than carried across the boundary.",
+      "example": {
+        "text": "The prompt-injection replay carries the information-flow policy with the data, so untrusted instructions arriving at a tool call are caught at the boundary instead of being trusted for having reached a trusted endpoint.",
+        "refs": [
+          "indirect_prompt_injection_information_flow_policy_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A public page prints a value lifted from a private-adjacent source because the final copy step looked clean, with no provenance carried across the copy."
+      },
+      "enforced_in": [
+        "indirect_prompt_injection_information_flow_policy_replay",
+        "macro_projection_import_protocol"
+      ],
+      "does_not_prove": "P-9 guides these flows only through source-derived edges; it is not a witness and does not raise the support ceiling of its grounding axiom. Catching labelled flows at named boundaries does not prove non-interference across the whole graph: general propagation is bounded by what is actually traced, and that debt is recorded rather than hidden."
+    },
+    {
+      "id": "P-10",
+      "kind": "principle",
+      "one_line": "A write, release, or import counts as landed only after a durable ordered record, a compensator or declared irreversible boundary, a compare-and-swap on the expected parent, and a single-writer hold on its path.",
+      "deep": "P-10 is AX-9 turned into the discipline a builder runs before any effect is allowed to be real. A write, a release step, a claim release, a source import, or a rollback-shaped operation is not landed because it ran; it is landed only when ordered transaction evidence exists for it, when it carries a compensator or a declared irreversible boundary, when a compare-and-swap confirms the parent it expected has not moved, and when a single writer holds its path. This connects to the claim and evidence model because a landed effect is itself a claim about the world, and an effect with no compensation and no concurrency guard is a confident assertion that nobody can recompute or undo. It bites hardest in the gap between two steps: the moment a lock releases before the durable record is written, or two writers race the same path on a stale parent, is exactly where an unrecoverable, unauthorised, or doubled effect slips through.",
+      "formal": {
+        "latex": "\\mathrm{landed}(e) \\;\\Rightarrow\\; \\mathrm{durable}(e) \\;\\wedge\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\mathrm{cas}(\\mathrm{parent}(e)) \\;\\wedge\\; |\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1",
+        "reads": "An effect may be treated as landed only if a durable ordered record exists for it, it carries a compensator or a declared irreversible boundary, a compare-and-swap confirms its expected parent is unchanged, and at most one writer holds its path.",
+        "symbols": [
+          {
+            "sym": "e",
+            "meaning": "an effect: a write, release, import, or rollback-shaped operation"
+          },
+          {
+            "sym": "\\mathrm{durable}(e)",
+            "meaning": "an ordered durable record of the effect exists"
+          },
+          {
+            "sym": "\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)",
+            "meaning": "the effect carries a compensator or a declared irreversible boundary"
+          },
+          {
+            "sym": "\\mathrm{cas}(\\mathrm{parent}(e))",
+            "meaning": "a compare-and-swap confirms the expected parent did not move"
+          },
+          {
+            "sym": "|\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1",
+            "meaning": "at most one writer holds the effect's path"
+          }
+        ]
+      },
+      "governs": "The effect boundary, where an operation is about to be treated as landed and irreversible.",
+      "requires": "An ordered durable record, a compensator or declared irreversible boundary, a compare-and-swap on the expected parent, and a single-writer hold on the path before the effect counts as landed.",
+      "refuses": "Treating an operation as landed with the lock released before the durable record, a stale parent, or a second writer on the same path.",
+      "example": {
+        "text": "The mission transaction work spine lands a multi-step effect only after the durable record is written, recomputes once the lock releases, and blocks a stale parent or a same-path conflict, so a half-applied write cannot be reported as complete.",
+        "refs": [
+          "mission_transaction_work_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A release step reports success after acquiring a lock but before the durable record is written, so a crash in the gap leaves an effect that looks landed with nothing to recompute or compensate it."
+      },
+      "enforced_in": [
+        "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "concurrency_mission_control"
+      ],
+      "does_not_prove": "Ordering one transaction and guarding one path does not prove the whole system is crash-safe or serialisable. P-10 operationalises specific AX-9 obligations on the effects it covers; it is not a witness for the axiom and inherits no authority beyond those obligations, and a passing guard on a named path says nothing about effects it never mediated."
+    },
+    {
+      "id": "P-11",
+      "kind": "principle",
+      "one_line": "A live count, current state, or readiness signal may stand in durable prose only if it carries when it was read and a route that recomputes it; otherwise demote it to a dated snapshot.",
+      "deep": "P-11 is AX-10 turned into a writing discipline: a number about live state is a cached read, not a standing fact, and a cached read is only as trustworthy as its invalidation contract. So counts, \"current\" states, route totals, CI floors, and readiness signals are admissible in durable prose only when they carry the time they were read, the basis they came from, and a route that re-derives them; if any of those is missing, the honest form is a dated snapshot or no claim at all. This connects to the claim and evidence model because an unbound live value is the temporal version of an echoed label: it keeps asserting yesterday's reading as today's truth with nothing recomputing it. The route is the load-bearing half; without it a confident number silently drifts away from the basis it was supposed to track.",
+      "formal": {
+        "latex": "\\mathrm{durable}(v) \\;\\Rightarrow\\; \\exists\\, t, B, \\rho.\\ v = \\rho(B) \\;\\wedge\\; \\mathrm{asof}(v) = t \\quad \\mathrm{else}\\ \\mathrm{demote}(v)",
+        "reads": "A volatile value may stand in durable prose only if it carries a read time and a route that recomputes it from its basis; otherwise it is demoted to a dated snapshot or dropped.",
+        "symbols": [
+          {
+            "sym": "v",
+            "meaning": "a volatile value such as a count, current state, or readiness signal"
+          },
+          {
+            "sym": "t",
+            "meaning": "the time the value was read, carried as its as-of stamp"
+          },
+          {
+            "sym": "B",
+            "meaning": "the basis the value was read from"
+          },
+          {
+            "sym": "\\rho",
+            "meaning": "the route that re-derives the value from the basis"
+          },
+          {
+            "sym": "\\mathrm{demote}",
+            "meaning": "mark as a dated snapshot or keep out of durable prose"
+          }
+        ]
+      },
+      "governs": "The temporal boundary, where a live reading is tempted to harden into a standing fact.",
+      "requires": "A read time, a basis, and a recompute route carried with any live count or readiness signal, or demotion to a dated snapshot when one is missing.",
+      "refuses": "A frozen live count or \"current\" state asserted in durable prose with no read time and no route to re-derive it.",
+      "example": {
+        "text": "The doctrine fact-claim audit checks that public fact rows state the expected count, point at the live code they were read from, and only cite facts present in the fixture graph, so a volatile number without a recompute basis is blocked rather than printed as standing truth.",
+        "refs": [
+          "doctrine_fact_claim_audit"
+        ]
+      },
+      "counterexample": {
+        "text": "A page states \"47 components\" as a flat fact, with no read time and no route to recount, so the number keeps asserting itself unchanged after the underlying set has grown."
+      },
+      "enforced_in": [
+        "doctrine_fact_claim_audit",
+        "self_ignorance_coverage_ledger"
+      ],
+      "does_not_prove": "Binding a number to a refresh route does not make the principle a witness for AX-10, and it does not prove the cited value is currently fresh; it operationalises specific freshness obligations and gives the reader a way to recompute, leaving the live reading to be re-derived rather than trusted."
+    },
+    {
+      "id": "P-12",
+      "kind": "principle",
+      "one_line": "A doctrine surface earns authority only by passing an executable grammar and carrying receipt obligations and anti-claims; prose alone stays a projection that orients but cannot rule.",
+      "deep": "P-12 is the discipline that decides when a piece of doctrine is allowed to govern rather than merely describe. A standard, a route contract, or a doctrine record earns authority only when an executable grammar accepts it and it carries the required fields, result-record obligations, and anti-claims; well-written prose can orient a reader but cannot become the thing other components are checked against. This is the claim-and-evidence model pointed inward at the system's own laws: an authority-bearing surface is treated as a claim that has to clear an admissibility floor, so a confident paragraph sits at the bottom of that order until a grammar membership check and its obligations admit it. P-12 only operationalizes specific obligations of its grounding axiom; passing the grammar establishes that a surface is well-formed enough to carry authority, not that what it asserts is true or that the doctrine it belongs to is complete.",
+      "formal": {
+        "latex": "\\mathrm{auth}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{receipts}(d) \\;\\wedge\\; \\mathrm{anticlaims}(d) \\quad \\mathrm{else}\\ \\mathrm{auth}(d) \\sqsubseteq \\mathrm{proj}",
+        "reads": "A doctrine surface may carry authority only when an executable grammar accepts it and it carries result-record obligations and anti-claims; otherwise its standing is bounded at projection, which orients but does not rule.",
+        "symbols": [
+          {
+            "sym": "d",
+            "meaning": "a doctrine surface (standard, route contract, record)"
+          },
+          {
+            "sym": "\\mathrm{auth}(d)",
+            "meaning": "the authority the surface is allowed to carry"
+          },
+          {
+            "sym": "L(G)",
+            "meaning": "the language of the executable grammar that must accept it"
+          },
+          {
+            "sym": "\\mathrm{receipts}(d)",
+            "meaning": "the result-record obligations the surface declares"
+          },
+          {
+            "sym": "\\mathrm{anticlaims}(d)",
+            "meaning": "the stated bounds on what it does not establish"
+          },
+          {
+            "sym": "\\mathrm{proj}",
+            "meaning": "projection standing: orients a reader, does not govern"
+          }
+        ]
+      },
+      "governs": "When a doctrine surface is allowed to govern other components rather than only describe them.",
+      "requires": "Grammar membership plus declared required fields, result-record obligations, and anti-claims before a surface carries authority.",
+      "refuses": "Letting unstructured prose acquire governing authority without passing the executable contract.",
+      "example": {
+        "text": "The executable doctrine grammar admits a standard as authority-bearing only when it parses under the grammar and carries its required fields, result-record obligations, and anti-claims, so a doctrine surface that is only prose is held at projection instead of being allowed to govern.",
+        "refs": [
+          "executable_doctrine_grammar"
+        ]
+      },
+      "counterexample": {
+        "text": "A persuasive markdown standard is treated as the rule other components must satisfy, even though nothing parses it against a grammar and it carries no result-record obligations or anti-claims."
+      },
+      "enforced_in": [
+        "executable_doctrine_grammar",
+        "standards_meta_diagnostics",
+        "batch12_release_claim_language_gate"
+      ],
+      "does_not_prove": "Passing the grammar does not make a doctrine surface true, strong, or its doctrine complete, and it does not make this principle a witness for its grounding axiom; it admits the surface as well-formed authority and inherits no support beyond the specific obligations it operationalizes."
+    },
+    {
+      "id": "P-13",
+      "kind": "principle",
+      "one_line": "Hold the system's own meta artifacts to the same evidence, anti-claim, and refusal floor they impose on everything else; the meta-layer gets no discount.",
+      "deep": "P-13 is AX-12 turned into a build habit: the standards, paper modules, ledgers, routes, generated views, and release wording the system produces about itself must clear the same floor those same artifacts impose on any other shard. It bites because self-referential copy is where overclaiming is easiest to smuggle in; a page describing the system is still a claim, and a confident self-assessment that would never survive the evidence floor it applies elsewhere is exactly the special pleading this principle removes. It connects straight to the claim and evidence model: a meta artifact's wording is admissible only under the same recompute-or-demote check as external work, and the wording gate that polices other shards is pointed back at the system's own release copy. Removing the exemption is what lets the system state its own limits in public without that statement quietly becoming a new unchecked claim.",
+      "formal": {
+        "latex": "\\forall\\, a \\in \\mathcal{M}.\\ \\forall\\, \\varphi \\in \\mathrm{claims}(a).\\ \\mathrm{floor}(\\varphi) = \\mathrm{floor}_{\\mathrm{ext}}(\\varphi)",
+        "reads": "For every meta artifact the system produces about itself and every claim it carries, the claim must clear the same evidence and refusal floor as an external claim.",
+        "symbols": [
+          {
+            "sym": "\\mathcal{M}",
+            "meaning": "the system's meta artifacts: its own standards, pages, ledgers, routes, and release wording"
+          },
+          {
+            "sym": "a",
+            "meaning": "any such meta artifact"
+          },
+          {
+            "sym": "\\mathrm{claims}(a)",
+            "meaning": "the claims that artifact carries"
+          },
+          {
+            "sym": "\\mathrm{floor}",
+            "meaning": "the evidence, anti-claim, and refusal floor from AX-12"
+          },
+          {
+            "sym": "\\mathrm{floor}_{\\mathrm{ext}}",
+            "meaning": "the same floor applied to an external claim"
+          }
+        ]
+      },
+      "governs": "The meta boundary, where the system makes claims about itself and is tempted to discount them.",
+      "requires": "Holding standards, paper modules, ledgers, routes, generated views, and release wording to the same evidence, anti-claim, and refusal floor imposed on any other shard.",
+      "refuses": "A meta-artifact exemption, where the system's own copy gets a lighter floor than the work it audits.",
+      "example": {
+        "text": "The release wording gate runs the same claim-language floor over the system's own public copy that it imposes on any other shard, so overclaiming language in a self-description is blocked at release rather than waved through.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "The system publishes a self-assessment calling its own work verified and complete, in wording that would never clear the evidence floor it applies to the shards it audits."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "executable_doctrine_grammar",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "does_not_prove": "Applying the floor to the system's own artifacts does not make the system complete, correct, or release-ready, and it does not make this principle a witness for AX-12. It operationalises specific AX-12 obligations and inherits no authority beyond them; the limits remain, stated rather than hidden."
+    },
+    {
+      "id": "P-14",
+      "kind": "principle",
+      "one_line": "A reusable value is fully routed only when it carries both its content basis (which bytes or rows it came from) and its provenance (where it may flow and how strongly it may be claimed); either half alone leaves it underspecified.",
+      "deep": "P-14 joins the two halves the system tracks about any value that travels or gets reused: its content basis, the exact bytes or rows it was computed from, and its provenance, the trust class and ceiling that say where it may flow and how strongly it may be claimed. Carrying only the basis lets a value be cached and rederived correctly but says nothing about whether it is safe to expose; carrying only provenance labels its trust but loses the digest that detects when the underlying source drifts. The principle is that a shard missing either side is not fully routed, because reuse, freshness, and disclosure are three questions the system answers together rather than one at a time. It sits where caching meets information flow: a reused result record, a source import, or a work-landing attempt has to declare what it was built from and what it is allowed to become before anything downstream may trust it.",
+      "formal": {
+        "latex": "\\mathrm{routed}(v) \\iff \\mathrm{basis}(v) \\neq \\emptyset \\;\\wedge\\; \\mathrm{prov}(v) \\neq \\emptyset \\;\\wedge\\; \\big(\\mathrm{drift}(\\mathrm{basis}(v)) \\Rightarrow \\mathrm{recompute}(v)\\big)",
+        "reads": "A value is fully routed only when it carries a declared content basis and a provenance class with ceiling, and a change in that basis forces it to be recomputed rather than reused.",
+        "symbols": [
+          {
+            "sym": "v",
+            "meaning": "a reusable or travelling value (result record, import, work-landing)"
+          },
+          {
+            "sym": "\\mathrm{basis}(v)",
+            "meaning": "the declared bytes or rows v was computed from, as a digest"
+          },
+          {
+            "sym": "\\mathrm{prov}(v)",
+            "meaning": "v's provenance class and claim ceiling"
+          },
+          {
+            "sym": "\\mathrm{drift}",
+            "meaning": "the basis digest no longer matches its source"
+          },
+          {
+            "sym": "\\emptyset",
+            "meaning": "absent: the half was never declared"
+          }
+        ]
+      },
+      "governs": "The boundary where a value is reused or crosses a flow, between what it was built from and where it may go.",
+      "requires": "Both a declared content basis whose drift forces recompute and a provenance class with ceiling carried across every boundary, on the same value.",
+      "refuses": "A shard that declares only its basis or only its provenance and is then treated as fully routed.",
+      "example": {
+        "text": "The source-import protocol brings non-secret material in by manifest and digest, so the imported copy carries the content basis that detects source drift and the provenance label that bounds where it may flow, both on the same value before anything downstream reuses it.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A reused result record carries a clean provenance label but no content digest, so it keeps being trusted after the source it was built from has changed underneath it."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "durable_agent_work_landing_replay",
+        "indirect_prompt_injection_information_flow_policy_replay"
+      ],
+      "does_not_prove": "Carrying both halves on the cases it governs does not witness the axioms it grounds, AX-4 and AX-8, or make either one strong. The principle operationalises specific obligations from those axioms and inherits no authority beyond them; the worked example is reader illustration and computes no support."
+    },
+    {
+      "id": "P-15",
+      "kind": "principle",
+      "one_line": "A generated view may expose a source truth but never upgrade it; recompute from source or demote when the basis no longer supports the projection.",
+      "deep": "P-15 is what stops the website you are reading from becoming an authority in its own right. A generated doc, a card, a route map, or a paper module may expose a source truth, but it can never raise that truth's strength. A projection's ceiling is bounded by the meet of its source's support, freshness, provenance, and grammar validity, so the moment any of those slips, the projection has to recompute from source or demote. This is the principle that lets the system publish freely without the act of publishing inflating what was published. It is also why this page repeatedly tells you what it cannot prove: the page is downstream of its source and inherits that source's limits.",
+      "formal": {
+        "latex": "\\mathrm{ceil}(\\mathrm{proj}) \\sqsubseteq \\mathrm{support}(\\mathrm{src}) \\sqcap \\mathrm{fresh}(\\mathrm{src}) \\sqcap \\mathrm{prov}(\\mathrm{src}) \\sqcap \\mathrm{grammar}(\\mathrm{src})",
+        "reads": "A projection's ceiling is at most the meet of its source's support, freshness, provenance, and grammar validity.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{proj}",
+            "meaning": "a generated view (doc, card, projection)"
+          },
+          {
+            "sym": "\\mathrm{src}",
+            "meaning": "the source it draws from"
+          },
+          {
+            "sym": "\\sqcap",
+            "meaning": "meet: the weakest of the components"
+          },
+          {
+            "sym": "\\mathrm{ceil}",
+            "meaning": "the strongest claim the projection may carry"
+          }
+        ]
+      },
+      "governs": "The source-and-projection boundary, between a truth and the views drawn from it.",
+      "requires": "Holding a projection at or below its source's support, freshness, provenance, and grammar, and recomputing or demoting when any slips.",
+      "refuses": "A generated page, card, or summary that claims more authority than the source it summarises.",
+      "example": {
+        "text": "The source-import protocol brings non-secret material in by manifest and digest and never lets the imported copy outrank the original it was projected from.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A polished summary page is cited as the authority for a number, even after the source it was generated from has drifted underneath it."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "world_model_projection_drift_control_room"
+      ],
+      "does_not_prove": "Keeping a projection below its source does not make the source correct. It only prevents the projection from inventing authority the source never had."
+    },
+    {
+      "id": "P-16",
+      "kind": "principle",
+      "one_line": "A write is authorized only as a bundle bound to this transaction: derived permission, declared scope, the parent state it expected, a compensator or boundary, and landing evidence, never standing identity.",
+      "deep": "P-16 turns AX-3 and AX-9 into a single rule about what makes a mutation legitimate. Authority to change something is not who holds a credential or which tool happens to be reachable; it is a bundle attached to one transaction, derived permission from policy and proof and current world state, a declared write scope the effect must fall inside, the parent state the write expected to find, a compensator or a declared irreversible boundary, and the evidence that the change actually landed. The rule bites because the cheap path is the opposite of all five: act because you can touch the file, on whatever the head is now, with no scope and no way to undo. It connects to the claim and evidence model directly, since each part of the bundle is a check that has to recompute rather than a credential that gets waved through, and the same admissibility floor applies to a write request that applies to any other claim.",
+      "governs": "The authorization boundary, where a write is about to be allowed against a file or record.",
+      "requires": "Binding the write to this transaction as derived permission, declared scope, expected parent state, a compensator or boundary, and landing evidence together.",
+      "refuses": "Treating reach or a standing credential as authority, or writing on whatever the current state is without an expected parent, scope, or way to compensate.",
+      "enforced_in": [
+        "proof_derived_governed_mutation_authorization",
+        "mission_transaction_work_spine",
+        "mcp_tool_authority_replay"
+      ],
+      "does_not_prove": "Binding one write to its transaction scope does not make P-16 a witness for AX-3 or AX-9, and the example does not establish that every write path in the system carries the full bundle; it operationalises specific grounding obligations and inherits no authority beyond them.",
+      "formal": {
+        "latex": "\\mathrm{auth}(m, t) \\iff \\mathrm{derived}(m) \\;\\wedge\\; \\mathrm{effect}(m) \\in \\mathrm{scope}(t) \\;\\wedge\\; \\mathrm{parent}_{\\mathrm{obs}}(t) = \\mathrm{parent}_{\\mathrm{exp}}(m) \\;\\wedge\\; \\mathrm{comp}(m) \\;\\wedge\\; \\mathrm{landed}(m, t)",
+        "reads": "A mutation m is authorized within transaction t exactly when its permission is derived rather than possessed, its effect falls inside the declared scope, the observed parent state equals the parent the write expected, a compensator or declared boundary is present, and landing evidence exists for this transaction.",
+        "symbols": [
+          {
+            "sym": "m",
+            "meaning": "a proposed mutation (write effect)"
+          },
+          {
+            "sym": "t",
+            "meaning": "the transaction the write is bound to"
+          },
+          {
+            "sym": "\\mathrm{derived}(m)",
+            "meaning": "permission derived from policy, proof, and world state, not a standing credential"
+          },
+          {
+            "sym": "\\mathrm{scope}(t)",
+            "meaning": "the declared write scope of the transaction"
+          },
+          {
+            "sym": "\\mathrm{parent}_{\\mathrm{exp}}(m)",
+            "meaning": "the parent state the write expected (compare-and-swap base)"
+          },
+          {
+            "sym": "\\mathrm{comp}(m)",
+            "meaning": "a declared compensator or irreversible boundary"
+          },
+          {
+            "sym": "\\mathrm{landed}(m, t)",
+            "meaning": "evidence that the effect actually landed for this transaction"
+          }
+        ]
+      },
+      "example": {
+        "text": "The proof-derived mutation authorization component admits a change only when the authority is derived from policy and proof references for that effect, and rejects a write that leans on a standing credential, so permission is computed per transaction rather than possessed.",
+        "refs": [
+          "proof_derived_governed_mutation_authorization"
+        ]
+      },
+      "counterexample": {
+        "text": "A write is allowed because the agent already holds a token and the file is reachable, landed against whatever the head is now, with no declared scope and no compensator."
+      }
+    },
+    {
+      "id": "P-17",
+      "kind": "principle",
+      "one_line": "A lattice edge in a repeated registry is admitted only against the unique source row, target id, and builder route that consume it; a projection, count delta, or repeated key is no basis.",
+      "deep": "P-17 governs the write side of the lattice: the moment an edge is added to or removed from a registry whose rows look alike, the mutation has to point at the one source row, target id, and builder route that will actually consume it. It bites because repeated registries are exactly where a builder is tempted to act on the cheap signal instead of the basis: a generated count went up, a nearby key has the same shape, a projection already shows the edge, so the edge must be real. P-17 composes three obligations to close that gap; the row's content basis must be declared and recomputed when it drifts, the mutation must declare its effect boundary and check the parent state it claims to write under a single owner, and the resulting edge must be admissible under the grammar with result records rather than asserted in prose. It connects to the claim and authority model directly: an edge is a claim about a relationship, so it inherits the floor that a claim is admissible only against a recomputed basis, and a generated view of the registry can expose that basis but never stand in for it.",
+      "formal": {
+        "latex": "\\mathrm{mutate}(e) \\;\\Rightarrow\\; \\exists!\\, r.\\ \\mathrm{row}(e) = r \\;\\wedge\\; \\mathrm{declared}(\\mathrm{basis}(r)) \\;\\wedge\\; \\mathrm{parent}(e) = \\mathrm{cas}(r) \\;\\wedge\\; \\mathrm{grammar}(e)",
+        "reads": "An edge mutation is admitted only when exactly one source row carries it, that row's content basis is declared, the mutation writes against the row's current parent state, and the resulting edge is grammar-admissible.",
+        "symbols": [
+          {
+            "sym": "e",
+            "meaning": "a lattice edge being added or removed"
+          },
+          {
+            "sym": "\\exists!\\, r",
+            "meaning": "exactly one source row"
+          },
+          {
+            "sym": "\\mathrm{basis}(r)",
+            "meaning": "the row's declared content basis (AX-4)"
+          },
+          {
+            "sym": "\\mathrm{cas}(r)",
+            "meaning": "the row's current parent state the writer checks against (AX-9)"
+          },
+          {
+            "sym": "\\mathrm{grammar}(e)",
+            "meaning": "the edge is admissible under the executable grammar (AX-11)"
+          }
+        ]
+      },
+      "governs": "The mutation boundary, where an edge enters or leaves a registry of look-alike rows.",
+      "requires": "A unique source row with a declared content basis, a mutation scoped to that row's parent state under a single writer, and grammar admissibility for the resulting edge.",
+      "refuses": "Anchoring an edge to a generated projection, a count delta, or a nearby repeated key instead of the row that owns it.",
+      "example": {
+        "text": "The source-import protocol brings each relation in against a named manifest row and digest and writes it under a declared boundary, so an edge lands only where a current source row carries it rather than where a count or a similar key suggests it.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A builder adds a lattice edge because the generated registry now reports one more neighbour, treating the count delta as the basis rather than finding the source row that would justify the edge."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "mission_transaction_work_spine",
+        "concurrency_mission_control"
+      ],
+      "does_not_prove": "Anchoring a mutation to its source row does not make the edge itself correct, nor does it make this principle a witness for AX-4, AX-9, or AX-11; it operationalises specific obligations of those axioms and inherits no authority beyond them. The example illustrates the rule for a reader and never counts as support that the obligations are covered."
+    },
+    {
+      "id": "P-18",
+      "kind": "principle",
+      "one_line": "A staged law, standard, component, or view becomes active authority only when its owner boundary, source row, generated parity, validation record, and status change all land in one governed transaction; partial admission stays pressure.",
+      "deep": "P-18 is the rule that stops a half-finished change from being treated as done. A staged law, standard, component, or generated view is not active authority until its owner boundary, its source row, its generated parity, its validation record, and its status change have all landed inside the same governed transaction, or until an explicit blocked record holds the frontier open instead. The hard case is the one builders trip over: a view generated from a source that another live owner is still holding dirty is still outside fan-in, because the basis under it can move before it lands, so the honest move is to request handoff, wait for the owner to land, or write the blocked record rather than treat the view as current. This connects the claim, evidence, and authority model at the moment of admission: derived authority must arrive as one compare-and-swap, single-writer transaction (AX-3, AX-9), carry its grammar and records (AX-11), and the system holds its own staged doctrine to the same gate (AX-12), so any component admitted before the others is residual pressure, not authority.",
+      "formal": {
+        "latex": "\\mathrm{active}(x) \\iff \\bigsqcap_{c \\in \\mathrm{req}(x)} \\mathrm{landed}(c, \\tau) = \\top \\;\\wedge\\; \\mathrm{single}(\\tau) \\quad \\mathrm{else}\\ x \\in R \\;\\vee\\; \\mathrm{blocked}(x)",
+        "reads": "A staged item is active only when every required component (owner boundary, source row, parity, validation record, status change) has landed in one single-writer transaction; otherwise it stays in the residual-pressure set, or a blocked record holds the frontier.",
+        "symbols": [
+          {
+            "sym": "x",
+            "meaning": "a staged law, standard, component, or view"
+          },
+          {
+            "sym": "\\mathrm{req}(x)",
+            "meaning": "the required components: owner boundary, source row, parity, validation record, status change"
+          },
+          {
+            "sym": "\\tau",
+            "meaning": "one governed transaction"
+          },
+          {
+            "sym": "\\mathrm{single}(\\tau)",
+            "meaning": "the transaction has a single writer and compare-and-swap parent"
+          },
+          {
+            "sym": "\\bigsqcap",
+            "meaning": "meet: all components must have landed"
+          },
+          {
+            "sym": "R",
+            "meaning": "typed residual pressure, not yet active"
+          },
+          {
+            "sym": "\\mathrm{blocked}(x)",
+            "meaning": "an explicit blocked record preserving the frontier"
+          }
+        ]
+      },
+      "governs": "The activation boundary, where a staged change is tempted to count as authority before all of it has landed.",
+      "requires": "Owner boundary, source row, generated parity, validation record, and status change all landing in one single-writer governed transaction, or an explicit blocked record that holds the frontier.",
+      "refuses": "Treating a partially admitted change, or a view built on a source another owner still holds dirty, as active authority.",
+      "example": {
+        "text": "The mission transaction spine lands a multi-step change as one saga with a compare-and-swap parent and a single-writer constraint, so a staged item counts as active only after the whole transaction commits rather than at the first partial step.",
+        "refs": [
+          "mission_transaction_work_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A generated card is treated as live the moment it renders, while the source it was built from is still held dirty by another owner and has not landed, so the basis under the card can still move."
+      },
+      "enforced_in": [
+        "mission_transaction_work_spine",
+        "concurrency_mission_control",
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "does_not_prove": "Requiring the components to fan in before activation does not prove the staged change correct, complete, or safe; it only fixes when the change is allowed to count as authority. This object and its example are reader illustration and never compute support for the axioms that ground the principle."
+    },
+    {
+      "id": "P-19",
+      "kind": "principle",
+      "one_line": "A missing relation is typed pressure, not an edge; it becomes an edge only when the current source row names it and the target resolves.",
+      "deep": "P-19 is the discipline that keeps the system's own map honest as it grows. A missing neighbour in the lattice is a typed residual pressure, not a fact: before anyone wires it, classify the declared domain, the source row, the target resolution, the fillability, the evidence floor, and the anti-claim. A candidate route, a basename match, a singleton guess, or a stale projection row is still pressure; it becomes an edge only when a current source row names the relation and the target resolves under the builder. The same floor runs in both directions between the doctrine and the system it governs: a law constrains the system through source-derived edges, and the system can refine a law only through source-owned obligations, witnesses, negative cases, and unfinished-coverage rows. Neither direction is support proof, and neither is permission to launder pressure into an edge or to whiten a health card.",
+      "formal": {
+        "latex": "e \\in E \\iff \\mathrm{source}(e) \\;\\wedge\\; \\mathrm{resolves}(\\tau(e)) \\quad \\mathrm{else}\\ e \\in R",
+        "reads": "An edge e is admitted only when a current source row names it and its target resolves under the builder; otherwise e stays in the residual-pressure set R.",
+        "symbols": [
+          {
+            "sym": "e",
+            "meaning": "a candidate relation"
+          },
+          {
+            "sym": "E",
+            "meaning": "admitted edges"
+          },
+          {
+            "sym": "\\tau(e)",
+            "meaning": "the target the relation points at"
+          },
+          {
+            "sym": "R",
+            "meaning": "typed residual pressure, not yet an edge"
+          }
+        ]
+      },
+      "governs": "The time-and-coverage boundary, where the map is tempted to fill a gap it cannot yet justify.",
+      "requires": "Classifying a missing neighbour as typed pressure with a declared domain, source row, target resolution, and evidence floor before any wiring.",
+      "refuses": "Promoting a guess, a basename match, or a generated hint into an edge, in either direction between doctrine and the system.",
+      "example": {
+        "text": "The drift control room reports where a projection has wandered from its source as a typed pressure to re-derive, rather than quietly rewriting the edge to make the card look complete.",
+        "refs": [
+          "world_model_projection_drift_control_room"
+        ]
+      },
+      "counterexample": {
+        "text": "A builder adds a lattice edge because two ids share a basename, turning a naming coincidence into a claimed relationship."
+      },
+      "enforced_in": [
+        "world_model_projection_drift_control_room",
+        "self_ignorance_coverage_ledger"
+      ],
+      "does_not_prove": "Classifying a residual does not resolve it. The gap stays open and computable until a source row names the relation; the classification just stops it from being faked."
+    },
+    {
+      "id": "P-20",
+      "kind": "principle",
+      "one_line": "A record's existence as JSON, markdown, or public copy is not its authority; it earns authority only once it carries its result records, evidence refs, omissions, anti-claims, and scope limits.",
+      "deep": "P-20 is the discipline that stops a doctrine record from being trusted just because it exists on disk. A record being present as JSON, a markdown projection, a routing edge, or a line of public copy says nothing about whether it may be read back as current authority; authority is conferred only once the binding set is attached and recomputed: the validator result records, the evidence refs, the declared omissions, the anti-claims, and the scope limit the record may carry. This is the admissibility floor from AX-1 applied to the system's own doctrine, and AX-12 is why there is no shortcut: a doctrine record is one of the system's own claims, so it passes the same gate it imposes on any external claim, with no meta-layer exemption. The body and the projections inherit nothing from sitting next to a confident heading; until the result records are bound, the record is a projection held below its source, which is exactly why the page you are reading keeps stating what it cannot yet treat as authoritative.",
+      "formal": {
+        "latex": "\\mathrm{auth}(r) \\;\\Rightarrow\\; \\mathrm{bound}(r, \\mathrm{rec}) \\;\\wedge\\; \\mathrm{bound}(r, \\mathrm{evid}) \\;\\wedge\\; \\mathrm{bound}(r, \\mathrm{omit}) \\;\\wedge\\; \\mathrm{bound}(r, \\mathrm{anti}) \\;\\wedge\\; \\mathrm{bound}(r, \\mathrm{ceil})",
+        "reads": "A doctrine record may be read as current authority only when it carries its bound result records, evidence refs, declared omissions, anti-claims, and scope limit; missing any of these, it stays a projection below its source.",
+        "symbols": [
+          {
+            "sym": "r",
+            "meaning": "a doctrine record (its JSON, markdown, routing edge, or public copy)"
+          },
+          {
+            "sym": "\\mathrm{auth}(r)",
+            "meaning": "treating the record as current authority"
+          },
+          {
+            "sym": "\\mathrm{rec}",
+            "meaning": "the validator result records bound on the record"
+          },
+          {
+            "sym": "\\mathrm{evid}",
+            "meaning": "evidence refs and declared omissions"
+          },
+          {
+            "sym": "\\mathrm{ceil}",
+            "meaning": "the scope limit the record may carry"
+          }
+        ]
+      },
+      "governs": "The record-and-authority boundary, between a doctrine record existing and being read back as current authority.",
+      "requires": "Binding the validator result records, evidence refs, omissions, anti-claims, and scope limit on a record before any of its projections is treated as current authority.",
+      "refuses": "Reading a record's JSON, markdown, routing edge, or public copy as authoritative on the strength of its existence, before the result records are bound.",
+      "example": {
+        "text": "The release wording gate runs the same claim-language floor over the system's own doctrine copy that it imposes on any other shard, so a record's public line cannot carry authority its bound checks do not support.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A generated doctrine card is cited as the current authority for a rule because the JSON exists and the heading reads confidently, with no validator result records, omissions, or scope limit bound behind it."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "executable_doctrine_grammar",
+        "doctrine_fact_claim_audit"
+      ],
+      "does_not_prove": "Binding result records to a doctrine record does not make the record correct, witnessed, or complete; it only stops the record from carrying authority its bound checks do not support. The example illustrates the rule and never counts as support for it."
+    },
+    {
+      "id": "AP-1",
+      "kind": "anti_principle",
+      "one_line": "Echoing a fixture verdict, registry label, or model answer as truth instead of recomputing it from lower-level evidence.",
+      "deep": "AP-1 is the failure AX-1 exists to refuse: taking a declared verdict at face value because it is written down. It is tempting because echoing is cheap and usually looks right, so a pipeline that repeats labels passes its own tests while proving nothing. The repair is not subtle: recompute the verdict from the evidence underneath and keep a negative fixture that fails when the echo is wrong. If you cannot recompute it, the honest output is a lower claim, not a confident repeat.",
+      "formal": {
+        "latex": "\\mathrm{emit}(v) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(B) = v",
+        "reads": "Emitting a value v as a verdict while no checker recomputes v from the basis.",
+        "symbols": [
+          {
+            "sym": "v",
+            "meaning": "a declared label or verdict"
+          },
+          {
+            "sym": "K",
+            "meaning": "a checker that would recompute it"
+          },
+          {
+            "sym": "B",
+            "meaning": "the basis it should derive from"
+          }
+        ]
+      },
+      "governs": "The claim boundary, where a label is mistaken for a derivation.",
+      "requires": "Catching the echo: a recomputed verdict and a negative fixture that fails.",
+      "refuses": "Repeating a fixture verdict, registry label, markdown claim, or model answer as if repetition were proof.",
+      "example": {
+        "text": "A monitor replay deliberately feeds a mislabelled trace and confirms the recomputed verdict rejects it, so a wrong label cannot pass by being repeated.",
+        "refs": [
+          "agent_sabotage_scheming_monitor_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A dashboard shows a component as healthy because its own record said so, with no independent recomputation behind the green."
+      },
+      "enforced_in": [
+        "agent_sabotage_scheming_monitor_replay",
+        "agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "does_not_prove": "Guarding against label echo is a floor under AX-1 and AX-12, not a positive proof that any specific claim is true."
+    },
+    {
+      "id": "AP-2",
+      "kind": "anti_principle",
+      "one_line": "Trusting a producer, persona, route, credential, or prior success instead of a checker, proof, policy, or dereferenced capability.",
+      "deep": "AP-2 is the failure that AX-2 and AX-3 exist to refuse: granting trust because of who produced a claim or what badge they hold, rather than because something recomputed the claim or derived the authority. It bites because identity is cheap to read and usually correlates with correctness, so a system that trusts a known producer, a passing route, or a standing credential looks fine right up until that producer is wrong or compromised, at which point nothing was actually checking. The repair splits trust from production: a small checker decides the claim over its certificate, and authority for an effect is derived from dereferenced tokens, policy, and proof references against current world state, never from ambient identity or a prior green run. This is the human-pressure analogue of the label echo in AP-1; here the unchecked thing is a source of authority rather than a written verdict.",
+      "formal": {
+        "latex": "\\mathrm{trust}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(c) = \\mathsf{accept} \\;\\vee\\; \\mathrm{grant}(s, e) \\;\\wedge\\; \\neg\\,\\mathrm{deref}(\\mathrm{auth}(s, e))",
+        "reads": "Trusting a claim while no small checker accepts its certificate, or granting a subject an effect while authority for it was never derived by dereference from tokens, policy, and proof against world state.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim trusted on the basis of its producer"
+          },
+          {
+            "sym": "K",
+            "meaning": "a small checker that would decide the certificate"
+          },
+          {
+            "sym": "c",
+            "meaning": "the certificate the checker should decide"
+          },
+          {
+            "sym": "\\mathrm{grant}(s, e)",
+            "meaning": "granting subject s the effect e"
+          },
+          {
+            "sym": "\\mathrm{deref}(\\mathrm{auth}(s, e))",
+            "meaning": "authority derived by dereference from tokens, policy, and proof against world state"
+          }
+        ]
+      },
+      "governs": "The trust-and-authority boundary, where a producer's identity or a standing credential is mistaken for a check or a derived right.",
+      "requires": "A small checker that decides the certificate, and authority for an effect derived by dereference from tokens, policy, and proof references against current world state.",
+      "refuses": "Trusting a producer, persona, route, credential, or prior success in place of a checker, proof, policy, or dereferenced capability.",
+      "example": {
+        "text": "The tool-authority replay derives whether a call is permitted from the dereferenced capability and policy rather than from the caller's standing identity, so a known caller with no derived authority is refused.",
+        "refs": [
+          "mcp_tool_authority_replay",
+          "proof_derived_governed_mutation_authorization"
+        ]
+      },
+      "counterexample": {
+        "text": "A mutation is allowed because the caller holds a long-lived credential and the same route passed last time, with nothing dereferencing current authority or recomputing the claim behind it."
+      },
+      "enforced_in": [
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization",
+        "certificate_kernel_execution_lab"
+      ],
+      "does_not_prove": "Refusing producer trust at these witnesses is a floor under AX-2 and AX-3, not positive proof that any granted authority or accepted claim is correct. The example is reader illustration and computes no support; catching identity-based trust in named places does not establish that authority is correctly derived everywhere."
+    },
+    {
+      "id": "AP-3",
+      "kind": "anti_principle",
+      "one_line": "Reading a count, a handle, a passing validator, or an evidence-class name as product maturity, release readiness, or whole-system correctness.",
+      "deep": "AP-3 is the roll-up fallacy the system polices in its own progress reporting: treating a number that summarises many parts as a verdict on the whole. A count of passing checks, a list of registered handles, a green validator, or a strong evidence-class label is a projection over an eight-component ceiling vector, and a high reading on one component can hide an uncovered provenance, freshness, or coverage component underneath it. This bites because it inverts how a composite is supposed to score: the honest status of a whole is the meet of its parts, where any part with no admissible witness sits at blocked, so a flattering average or a raw tally quietly reads a fail-open default as a pass. The repair is the count-theater rule: more passing cases raise standing only by covering a previously uncovered required obligation, lifting a sub-maximal ceiling component, or adding a missing negative case; redundant cases under the same basis are inert, and a rank stays a display of the ceiling, never the authority itself.",
+      "formal": {
+        "latex": "\\mathrm{report}(n) \\;\\wedge\\; n = |\\{\\,\\mathrm{pass}\\,\\}| \\;\\wedge\\; \\exists\\, p.\\ \\mathrm{status}(p) = \\bot \\;\\wedge\\; \\mathrm{status}(\\mathrm{whole}) \\sqsupset \\bigsqcap_{p} \\mathrm{status}(p)",
+        "reads": "Reporting a tally of passing parts as the standing of the whole while some part has no admissible witness, so the claimed status rises above the meet of the parts that an uncovered part should pin to the bottom.",
+        "symbols": [
+          {
+            "sym": "n",
+            "meaning": "a count, tally, or rank reported as maturity"
+          },
+          {
+            "sym": "p",
+            "meaning": "a part of the composite (an obligation, component, or organ)"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "blocked: a part with no admissible witness"
+          },
+          {
+            "sym": "\\bigsqcap_{p} \\mathrm{status}(p)",
+            "meaning": "the meet over parts, the weakest part's status"
+          },
+          {
+            "sym": "\\sqsupset",
+            "meaning": "claims a higher standing than"
+          }
+        ]
+      },
+      "governs": "The progress-and-readiness boundary, where a summary number is tempted to stand in for the standing of the whole.",
+      "requires": "Scoring a composite as the meet of its parts, defaulting an unwitnessed part to blocked, and raising standing only by covering an uncovered obligation, lifting a sub-maximal component, or adding a missing negative case.",
+      "refuses": "Treating counts, handles, passing validators, or evidence-class names as product maturity, release readiness, or whole-system correctness.",
+      "example": {
+        "text": "The coverage ledger projects how many declared parts are actually materialised and keeps a case that forbids reading an absent entry as covered, so a coverage tally is exposed as a bounded count rather than a completeness claim.",
+        "refs": [
+          "self_ignorance_coverage_ledger"
+        ]
+      },
+      "counterexample": {
+        "text": "A progress page reports that ninety checks pass and calls the system release-ready, with several required parts carrying no witness at all and the unwitnessed gaps averaged away instead of pinning the whole to blocked."
+      },
+      "enforced_in": [
+        "self_ignorance_coverage_ledger",
+        "batch12_release_claim_language_gate"
+      ],
+      "does_not_prove": "Refusing rank-as-score does not raise the standing of any part or make the composite correct. It only keeps the number honest as a projection of the ceiling; the parts beneath it carry exactly the support they were already shown to have, and an uncovered part stays blocked rather than counted."
+    },
+    {
+      "id": "AP-4",
+      "kind": "anti_principle",
+      "one_line": "Reusing a cached result keyed on a name, path, route, label, or producer after the content it was derived from has changed underneath.",
+      "deep": "AP-4 is the failure the determinism and freshness floors exist to refuse: trusting a stable handle as if it still stood for stable content. It is tempting because the handle does not visibly change when the basis drifts, so a name lookup, a route, or a producer keeps returning yesterday's answer and the pipeline looks fast and consistent while quietly serving a stale value. This connects to the claim and evidence model directly: a cached result is a claim over a basis, and if its basis has moved, the certificate that once admitted it no longer holds, so the value has dropped to bottom evidence even though the label reads unchanged. The repair is content-addressed identity: derive the cache key from a digest of the basis, reuse only when that digest matches, and on drift recompute or refuse rather than serve the old value by its handle.",
+      "formal": {
+        "latex": "\\mathrm{reuse}(a) \\;\\wedge\\; \\mathrm{key}(a) = \\mathrm{handle} \\;\\wedge\\; H(B_{\\mathrm{now}}) \\neq H(B_{\\mathrm{cached}})",
+        "reads": "Reusing a cached result by a stable handle when the digest of its basis now differs from the digest it was cached under.",
+        "symbols": [
+          {
+            "sym": "a",
+            "meaning": "a cached result being reused"
+          },
+          {
+            "sym": "\\mathrm{handle}",
+            "meaning": "a name, path, route, label, or producer used as the key"
+          },
+          {
+            "sym": "H(B)",
+            "meaning": "a digest of the content basis B"
+          },
+          {
+            "sym": "B_{\\mathrm{now}}",
+            "meaning": "the current basis"
+          },
+          {
+            "sym": "B_{\\mathrm{cached}}",
+            "meaning": "the basis the result was derived from"
+          }
+        ]
+      },
+      "governs": "The reuse boundary, where a stable handle is mistaken for stable content.",
+      "requires": "Keying reuse on a digest of the basis and recomputing or refusing when that digest drifts.",
+      "refuses": "Serving a cached result by name, path, route, label, or producer after its basis content has changed.",
+      "example": {
+        "text": "The source-import protocol keys imported material on a content digest and refuses to reuse a copy when the source digest no longer matches, so a drifted source cannot be served by its old path.",
+        "refs": [
+          "macro_projection_import_protocol",
+          "durable_agent_work_landing_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A view keeps serving a number by its route because the route is unchanged, long after the source it was computed from has been edited underneath it."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "durable_agent_work_landing_replay",
+        "doctrine_fact_claim_audit"
+      ],
+      "does_not_prove": "Catching one stale-by-handle reuse at one digest boundary does not prove every cache in the system tracks its basis. This object and its example are reader illustration; they never count as support or proof that freshness holds across the graph, and the source records the freshness component as an open gap rather than a closed one."
+    },
+    {
+      "id": "AP-5",
+      "kind": "anti_principle",
+      "one_line": "Reading a missing witness as a settled negative outside a declared finite domain, so absence of proof is reported as proof of absence.",
+      "deep": "AP-5 is the failure AX-6 exists to refuse: turning a gap in evidence into a positive verdict of nothing-there. A required obligation with no admissible witness is an open coverage gap, not a refutation; it can be closed as a negative only inside a declared finite domain where every case is enumerable. This bites because it is the comfortable direction to round: a quiet absence reads as reassurance, and a coverage map that prints absent as clear looks finished when it has only stopped looking. It connects to the claim and evidence model through a distinction the system holds by construction: a missing witness is unknown, which is held separate from a value at the bottom of the evidence order, and unknown is kept distinct from a fail-closed block where an in-domain obligation has no admissible witness; collapsing any of these into proven-absent launders an open gap into a certified claim it cannot support.",
+      "formal": {
+        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi) \\quad \\mathrm{outside}\\ \\mathrm{declared\\,finite}\\ D",
+        "reads": "Concluding the negation of a claim from the mere absence of its proof, when the reasoning is not confined to a declared finite domain where coverage can be closed.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim whose proof is missing"
+          },
+          {
+            "sym": "\\mathrm{proven}(\\varphi)",
+            "meaning": "an admissible derivation exists for the claim"
+          },
+          {
+            "sym": "\\neg\\varphi",
+            "meaning": "the negation asserted from that absence"
+          },
+          {
+            "sym": "D",
+            "meaning": "a declared finite domain where closed-world coverage is valid"
+          }
+        ]
+      },
+      "governs": "The coverage boundary, where a missing witness is tempted into a settled negative.",
+      "requires": "Holding an uncovered obligation as an open gap, and closing it as a negative only inside a declared finite domain.",
+      "refuses": "Treating absence of evidence as evidence of absence outside a declared closed domain.",
+      "example": {
+        "text": "The coverage ledger records what the system has not established as an open gap with a declared scope, and keeps a case that fails if a blank is read as a clean negative, so an unexamined area cannot be reported as proven-absent.",
+        "refs": [
+          "self_ignorance_coverage_ledger"
+        ]
+      },
+      "counterexample": {
+        "text": "A coverage map shows an area as clear because no failing case was found there, with no declared finite domain behind the closure, so an unsearched region is printed as a settled negative."
+      },
+      "enforced_in": [
+        "self_ignorance_coverage_ledger",
+        "doctrine_fact_claim_audit"
+      ],
+      "does_not_prove": "Holding a gap open as unknown does not establish the missing claim either way; it keeps the absence from becoming a false negative, and it grants no support, completeness, or coverage beyond the declared finite domain it names."
+    },
+    {
+      "id": "AP-6",
+      "kind": "anti_principle",
+      "one_line": "Emitting a number or conclusion when the precondition fails or a dependency is missing, instead of a typed refusal that carries its reason and evidence.",
+      "deep": "AP-6 is the failure AX-7 exists to refuse: when a computation's precondition does not hold, or a library it needs is absent, the code returns a number anyway instead of a typed refusal that names why it could not answer. It is tempting because a refusal reads as a red path and a number keeps the pipeline green, so a finance statistic computed past its valid sample size, or a silent NaN, slides downstream wearing the same shape as a real result. In the claim model that emitted number is a bare assertion with no admissible basis: it sits at the bottom of the evidence order, but unlike an honest gap it hides as a value later steps will trust. The repair is to totalize the partial function, return Ok only under a declared precondition and otherwise a refusal carrying a reason and the evidence for it, so the absence of an answer becomes a checkable typed object rather than a fabricated one.",
+      "formal": {
+        "latex": "\\neg\\,\\mathrm{Pre}(x) \\;\\wedge\\; \\mathrm{emit}(g(x)) = y \\;\\wedge\\; y \\neq \\mathrm{Refusal}(r, e)",
+        "reads": "The precondition fails, yet the computation emits a value y instead of a refusal carrying a reason and its evidence.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{Pre}(x)",
+            "meaning": "the declared precondition the computation needs to hold"
+          },
+          {
+            "sym": "g(x)",
+            "meaning": "the partial computation on input x"
+          },
+          {
+            "sym": "y",
+            "meaning": "an emitted number or conclusion"
+          },
+          {
+            "sym": "\\mathrm{Refusal}(r, e)",
+            "meaning": "a typed refusal carrying a reason r and evidence e"
+          }
+        ]
+      },
+      "governs": "The boundary where a partial computation must either answer under its precondition or refuse.",
+      "requires": "Catching the inadmissible value: a totalized result that returns Ok only under a declared precondition and otherwise a refusal carrying a reason and evidence.",
+      "refuses": "Emitting a meaningless statistic, a silent NaN, or an out-of-domain conclusion just to keep a green path.",
+      "example": {
+        "text": "The finance forecast evaluation component returns a typed refusal when a forecast horizon reaches or exceeds the sample size, or when the statistics dependency it needs is unavailable, rather than reporting a number computed outside its valid range.",
+        "refs": [
+          "finance_forecast_evaluation_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A statistics routine returns a coefficient computed past its valid sample size, and a downstream summary reports it as a normal result because it arrived as a number and not as a refusal."
+      },
+      "enforced_in": [
+        "finance_forecast_evaluation_spine",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "does_not_prove": "Refusing one inadmissible emission at a named site does not prove a computation total or its in-domain numbers correct. It keeps the absence of an answer honest; the value it does return is still only as strong as the basis and check beneath it, and this record and its example never count as support for that."
+    },
+    {
+      "id": "AP-7",
+      "kind": "anti_principle",
+      "one_line": "Letting untrusted, private, provider, prompt, or raw-voice material reach a public or privileged sink without a carried provenance label and a declared sanitizing transform.",
+      "deep": "AP-7 is the failure AX-8 exists to refuse: a value crosses into a public or privileged sink carrying trust it never earned. It bites because the final step usually looks clean, so a pipeline that copies a private-adjacent body, a provider payload, a prompt instruction, or raw operator voice into a published page passes its own checks while leaking, since nothing recomputed where the value came from or what was done to it on the way. The repair follows the boundary model directly: a provenance class and ceiling must travel with the value, and untrusted material may reach the sink only through a declared transform whose output the sink's policy admits, never a clean label stamped on at the door. This is the membrane that lets the system publish from private-adjacent source at all, because the act of crossing is gated by carried provenance rather than by how the endpoint happens to look.",
+      "formal": {
+        "latex": "(x \\to s) \\;\\wedge\\; \\mathrm{label}(x) \\sqsupset \\mathrm{policy}(s) \\;\\wedge\\; \\neg\\,\\exists\\, T.\\ \\big(s = T(x) \\;\\wedge\\; \\mathrm{declared}(T)\\big)",
+        "reads": "A flow carries x into a sink s while x's label sits above what the sink may admit and no declared transform produced s from x.",
+        "symbols": [
+          {
+            "sym": "x",
+            "meaning": "an untrusted, private, provider, prompt, or raw-voice value entering a flow"
+          },
+          {
+            "sym": "s",
+            "meaning": "a public or privileged sink"
+          },
+          {
+            "sym": "\\mathrm{label}(x)",
+            "meaning": "x's carried provenance class and ceiling"
+          },
+          {
+            "sym": "\\mathrm{policy}(s)",
+            "meaning": "what the sink is allowed to admit"
+          },
+          {
+            "sym": "\\sqsupset",
+            "meaning": "sits above the ceiling the sink admits"
+          },
+          {
+            "sym": "T",
+            "meaning": "a declared sanitizing transform that was not applied"
+          }
+        ]
+      },
+      "governs": "The boundary where material and its trust label cross into a public or privileged sink.",
+      "requires": "Carrying a provenance class and ceiling with the value, and routing untrusted material through a declared transform the sink's policy admits before it crosses.",
+      "refuses": "Untrusted, private, provider, prompt, credential, or raw-voice material reaching a privileged or public sink on a clean-looking final step, with no provenance carried and no declared transform applied.",
+      "example": {
+        "text": "The prompt-injection replay carries an information-flow policy with the data, so an untrusted instruction arriving at a tool call is caught at the boundary instead of trusted for having reached a trusted endpoint.",
+        "refs": [
+          "indirect_prompt_injection_information_flow_policy_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A public page prints a value lifted from a private-adjacent source because the final copy step looked clean, with no provenance carried across the copy and no sanitizing transform between the source and the page."
+      },
+      "enforced_in": [
+        "indirect_prompt_injection_information_flow_policy_replay",
+        "macro_projection_import_protocol"
+      ],
+      "does_not_prove": "Guarding the membrane at named endpoints is a floor under AX-8, not a positive proof of non-interference across the whole graph; endpoint catches are not general propagation, and the example illustrates the boundary rather than computing any support for it."
+    },
+    {
+      "id": "AP-8",
+      "kind": "anti_principle",
+      "one_line": "Performing an irreversible mutation with no compensator, no rollback record, no compare-and-swap guard, and no declared irreversible boundary.",
+      "deep": "AP-8 is the failure AX-9 exists to refuse: writing a real effect into the world while assuming it can always be taken back, when nothing was put in place to take it back. It bites because the happy path looks identical whether or not a guard exists; the gap only appears when two writers race, a parent state has already moved, or a step half-lands and there is no recorded way to undo it. The repair is to make every effect declare its own reversibility up front: a compensator or an explicitly named irreversible boundary, multi-step effects landing under compare-and-swap against an expected parent, and same-path writes held to a single writer. This connects to the evidence model through provenance and freshness rather than through a label: a write is only safe to treat as landed when the state it assumed is still the state it is acting on, and a record of how to reverse it travels with the effect rather than being assumed after the fact.",
+      "formal": {
+        "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e) \\;\\wedge\\; \\neg\\,\\mathrm{irreversible\\text{-}boundary}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
+        "reads": "Landing an effect e while no compensator reverses it, no irreversible boundary is declared for it, and no compare-and-swap guards it against the parent state having moved.",
+        "symbols": [
+          {
+            "sym": "e",
+            "meaning": "an effect being written to the world"
+          },
+          {
+            "sym": "c",
+            "meaning": "a compensator that would reverse the effect"
+          },
+          {
+            "sym": "\\mathrm{irreversible\\text{-}boundary}(e)",
+            "meaning": "an explicit declaration that the effect cannot be undone"
+          },
+          {
+            "sym": "\\mathrm{cas}(e, \\mathrm{parent})",
+            "meaning": "a compare-and-swap guard checking the parent state has not advanced"
+          }
+        ]
+      },
+      "governs": "The effect boundary, where a mutation is treated as safely landed.",
+      "requires": "Catching the blind write: a compensator or a declared irreversible boundary, compare-and-swap against the expected parent for multi-step effects, and a single writer per path.",
+      "refuses": "Writing an irreversible effect with no compensator, no rollback record, no compare-and-swap or world-version guard, and no declared irreversible boundary.",
+      "example": {
+        "text": "The work-landing replay refuses to advance when the expected parent has moved under it and when the head was not advanced as recorded, so a multi-step effect cannot land blindly over a state that has already changed.",
+        "refs": [
+          "durable_agent_work_landing_replay",
+          "mission_transaction_work_spine"
+        ]
+      },
+      "counterexample": {
+        "text": "A step writes directly over a shared path on the assumption the prior state still holds, with no compare-and-swap and no way to reverse it, so a concurrent write is silently overwritten."
+      },
+      "enforced_in": [
+        "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "concurrency_mission_control"
+      ],
+      "does_not_prove": "Guarding the named landing paths against blind writes does not prove every effect in the system is reversible or race-free. It holds the specific obligations AX-9 names, compensator-or-boundary, compare-and-swap, single-writer, over the surfaces that bind them, and the example illustrates that floor rather than counting as support for it."
+    },
+    {
+      "id": "AP-9",
+      "kind": "anti_principle",
+      "one_line": "Freezing a count, a \"current\" state, or any live value into durable prose with no recorded time, basis, or way to re-derive it.",
+      "deep": "AP-9 is the failure AX-10 exists to refuse: writing a live value into prose as if it were a fixed fact. A count, a \"current\" total, a readiness signal, or a route tally is a cached read of moving state, so the moment it lands in text without an as-of time, a named basis, and a way to recompute it, the page starts asserting something it can no longer check. It is tempting because the number is true at the instant it is written, and the freshness contract feels like clutter next to a clean figure. The bite is that the value drifts while the prose does not, and a stale figure reads exactly like a live one; under the claim and evidence model the figure has quietly become a bare assertion, admissible only at the bottom of the evidence order because nothing can rederive it. The honest forms are the ones P-11 names: carry the freshness fields, keep the value out of durable prose, or mark it explicitly as a dated snapshot.",
+      "formal": {
+        "latex": "\\mathrm{durable}(\\varphi) \\;\\wedge\\; \\mathrm{live}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, \\langle a, b, r \\rangle.\\ \\mathrm{carries}(\\varphi, a, b, r)",
+        "reads": "A live-state value is frozen into durable prose while no as-of time, basis, and rederive route travel with it.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a value written into durable text"
+          },
+          {
+            "sym": "\\mathrm{live}(\\varphi)",
+            "meaning": "the value is a read of moving state (a count, a current total, a readiness signal)"
+          },
+          {
+            "sym": "a",
+            "meaning": "the as-of time the read was taken"
+          },
+          {
+            "sym": "b",
+            "meaning": "the basis the value was computed from"
+          },
+          {
+            "sym": "r",
+            "meaning": "the route that recomputes it"
+          }
+        ]
+      },
+      "governs": "The time-and-freshness boundary, where a moving value is written down as if it were fixed.",
+      "requires": "Catching the freeze: a live value must carry an as-of time, a basis, and a rederive route, stay out of durable prose, or be marked a dated snapshot.",
+      "refuses": "Freezing a count, a \"current\" state, or a live total into prose with no as-of, basis, or way to re-derive it.",
+      "example": {
+        "text": "The fact-claim audit treats a volatile count written without a freshness contract as a blocking condition rather than a fact, so a frozen live number is caught instead of trusted because it once was true.",
+        "refs": [
+          "doctrine_fact_claim_audit"
+        ]
+      },
+      "counterexample": {
+        "text": "A page states \"the system has 77 components\" as a flat fact; the figure was right when typed, but nothing records when it was read or how to recompute it, and it keeps reading as current long after it drifts."
+      },
+      "enforced_in": [
+        "doctrine_fact_claim_audit",
+        "batch10_live_source_drift_capsule"
+      ],
+      "does_not_prove": "Blocking unbound live values does not prove a freshness contract is in place everywhere, nor that any carried as-of value is current. It is a floor under AX-10 and P-11; it catches the frozen figure, it does not certify that the figures still bound to a basis are fresh."
+    },
+    {
+      "id": "AP-10",
+      "kind": "anti_principle",
+      "one_line": "Granting executable authority to prose doctrine that is not accepted by the grammar and carries no result-record obligation or scope limit.",
+      "deep": "AP-10 is the failure AX-11 exists to refuse: letting a sentence govern because it sounds authoritative. A standard, a policy line, or a doctrine page may bind behaviour only when an executable grammar accepts it and it carries result-record obligations and a stated scope limit; prose on its own is a readable view, not a rule. It is tempting because writing a confident paragraph is cheap and reads like governance, so a system accumulates prose that nothing can recompute and mistakes that pile for an enforced contract. The repair is to make the artifact pass the grammar and attach what evidence it must produce and what it does not establish, otherwise holding it at the strength of a projection rather than an authority.",
+      "formal": {
+        "latex": "\\mathrm{authority}(d) \\;\\wedge\\; \\big(d \\notin L(G) \\;\\vee\\; \\neg\\,\\mathrm{obligations}(d) \\;\\vee\\; \\neg\\,\\mathrm{antiClaim}(d)\\big) \\;\\Rightarrow\\; \\mathsf{reject}",
+        "reads": "If an artifact is granted governing authority while it is not accepted by the doctrine grammar, or carries no result-record obligations, or carries no scope limit, reject the authority and treat the prose as a projection.",
+        "symbols": [
+          {
+            "sym": "d",
+            "meaning": "a doctrine artifact (standard, policy, page) claiming to govern"
+          },
+          {
+            "sym": "\\mathrm{authority}(d)",
+            "meaning": "d is treated as a binding rule, not a readable view"
+          },
+          {
+            "sym": "L(G)",
+            "meaning": "the language of artifacts the executable doctrine grammar accepts"
+          },
+          {
+            "sym": "\\mathrm{obligations}(d)",
+            "meaning": "d declares the result records it must produce"
+          },
+          {
+            "sym": "\\mathrm{antiClaim}(d)",
+            "meaning": "d states its scope limit, what it does not establish"
+          }
+        ]
+      },
+      "governs": "The boundary between doctrine that governs and prose that only reads as if it does.",
+      "requires": "Refusing authority to any doctrine that is not accepted by the grammar or lacks declared result-record obligations and a stated scope limit, holding it as a projection instead.",
+      "refuses": "Granting executable authority to prose doctrine without grammar membership, result-record obligations, and a scope limit.",
+      "example": {
+        "text": "The executable doctrine grammar accepts a standard as authority only when it parses in the grammar and carries its obligation and scope-limit fields, and keeps a negative case where a prose-only standard that overclaims completeness is rejected rather than admitted.",
+        "refs": [
+          "executable_doctrine_grammar"
+        ]
+      },
+      "counterexample": {
+        "text": "A confidently worded policy paragraph is cited as the binding rule for a behaviour, although nothing parses or checks it and it never says what it does not cover."
+      },
+      "enforced_in": [
+        "executable_doctrine_grammar",
+        "standards_meta_diagnostics"
+      ],
+      "does_not_prove": "Rejecting prose-as-authority is a floor under AX-11, not a positive proof that any admitted standard is correct or complete. It keeps unparsed prose from governing; a standard that does pass the grammar is still only as strong as the obligations it actually carries, and this example illustrates the rule without counting as support for it."
+    },
+    {
+      "id": "AP-11",
+      "kind": "anti_principle",
+      "one_line": "Exempting the system's own pages, validators, result records, or generated projections from the same evidence floor it imposes on everything else.",
+      "deep": "AP-11 is the escape hatch AX-12 exists to close: a self-claim that gets a discount because the system is talking about itself. It is tempting because the floor is demanding and the meta-layer feels trusted, so a generated page, a validator's own verdict, a result record, or a coverage projection slips through asserting \"verified and complete\" without passing the admissibility relation it imposes on external work. It bites hardest at the support evaluator, which must itself meet the support floor it computes, and at this very page, which is held below the source it describes and cannot raise that source's authority. The honest move is to route every self-claim through the same gate, so the system can state its own limits without that statement quietly becoming a new unchecked claim.",
+      "formal": {
+        "latex": "\\exists\\, a \\in \\mathcal{M}.\\ \\exists\\, \\varphi \\in \\mathrm{claims}(a).\\ \\mathsf{accept}(\\varphi) \\;\\wedge\\; \\neg\\,\\mathrm{adm}_{\\mathrm{ext}}(\\varphi)",
+        "reads": "Some claim carried by one of the system's own artifacts is accepted even though it would not be admitted under the same relation an external claim must pass.",
+        "symbols": [
+          {
+            "sym": "\\mathcal{M}",
+            "meaning": "the system's own artifacts: its pages, validators, records, and projections"
+          },
+          {
+            "sym": "a",
+            "meaning": "any such artifact"
+          },
+          {
+            "sym": "\\mathrm{claims}(a)",
+            "meaning": "the claims the artifact carries about the system"
+          },
+          {
+            "sym": "\\mathsf{accept}",
+            "meaning": "the claim is let through"
+          },
+          {
+            "sym": "\\mathrm{adm}_{\\mathrm{ext}}",
+            "meaning": "the admissibility floor applied to an external claim"
+          }
+        ]
+      },
+      "governs": "The reflexive boundary, where a claim the system makes about itself is tempted to skip its own gate.",
+      "requires": "Routing every self-claim, in a page, validator, result record, or projection, through the same admissibility and refusal floor imposed on external claims.",
+      "refuses": "A self-assessment of verified, complete, or release-ready that would never pass the floor the system applies to the work it audits.",
+      "example": {
+        "text": "The release wording gate runs the same claim-language floor over the system's own public copy that it imposes on any other source, so overclaiming language in the system's own pages is blocked rather than waved through as a trusted self-statement.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A generated page reports the system as verified and complete because its own coverage projection said so, with nothing recomputing that self-claim against the floor the system imposes on external work."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "executable_doctrine_grammar"
+      ],
+      "does_not_prove": "Refusing the meta exemption does not make the system witnessed, complete, or correct. Admission, support, and this refusal are independent; closing the escape hatch only removes the special pleading, and the worked example illustrates the rule without counting as support for any claim that the system actually meets its own floor everywhere."
+    },
+    {
+      "id": "AP-12",
+      "kind": "anti_principle",
+      "one_line": "Standing a real claim on a synthetic fixture when public-safe real material was available, so a fabricated input carries weight the real basis never granted.",
+      "deep": "AP-12 is the failure AX-1, AX-4, and AX-8 jointly refuse: substituting a synthetic fixture for available public-safe real material and then letting a real claim ride on it. A synthetic stand-in has no derivation from anything real (so AX-1's checker has nothing to recompute), it is not the content hash of any real basis (so AX-4 cannot tell when it has drifted from the thing it stands for), and it carries no real provenance (so AX-8's label is fabricated at the door rather than propagated). It is tempting because a synthetic fixture is convenient and looks identical to a real one on the page, and the system itself admits synthetic fixtures for shape and negative cases; the line AP-12 polices is narrower, when real public-safe material exists, a synthetic substitute must not silently inherit a real basis's strength.",
+      "formal": {
+        "latex": "\\exists\\, \\varphi.\\ \\mathrm{basis}(\\varphi) = B_{\\mathrm{syn}} \\;\\wedge\\; \\mathrm{avail}(B_{\\mathrm{real}}) \\;\\wedge\\; B_{\\mathrm{syn}} \\neq H(B_{\\mathrm{real}}) \\;\\wedge\\; \\mathrm{strength}(\\varphi) \\sqsupset \\bot",
+        "reads": "A claim is grounded on a synthetic basis while a public-safe real basis was available, the synthetic stand-in is not the content hash of that real basis, and the claim is still allowed to carry more than bottom strength.",
+        "symbols": [
+          {
+            "sym": "\\varphi",
+            "meaning": "a claim that carries real weight"
+          },
+          {
+            "sym": "B_{\\mathrm{syn}}",
+            "meaning": "the synthetic fixture it is grounded on"
+          },
+          {
+            "sym": "B_{\\mathrm{real}}",
+            "meaning": "the public-safe real material that was available"
+          },
+          {
+            "sym": "H(B_{\\mathrm{real}})",
+            "meaning": "the content hash of that real basis"
+          },
+          {
+            "sym": "\\bot",
+            "meaning": "bottom: the strength a fabricated input may carry"
+          }
+        ]
+      },
+      "governs": "The basis boundary, where a claim is grounded on a real or a fabricated input.",
+      "requires": "Grounding a load-bearing claim on available public-safe real material, or holding the claim at bottom and labelling the input synthetic when only a fixture stands in.",
+      "refuses": "Substituting a synthetic fixture for available public-safe real material and letting the claim inherit a strength the real basis never granted.",
+      "example": {
+        "text": "The source-import protocol brings public-safe real material in by manifest and digest so a real claim is grounded on content-addressed real input, rather than a synthetic stand-in fabricated in its place.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A readiness claim is grounded on a synthetic corpus fixture and reported as real coverage, even though the actual public-safe corpus was available to read."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "does_not_prove": "Refusing synthetic substitution does not make the real basis correct, complete, or strong, and it does not forbid synthetic fixtures where they are declared as such. It only stops a fabricated input from carrying a real basis's weight; this example is reader illustration and never counts as support for the rule."
+    },
+    {
+      "id": "AP-13",
+      "kind": "anti_principle",
+      "one_line": "Treating a generated result record as if it were hand-authored source, severing it from the basis that produced it.",
+      "deep": "AP-13 is the lineage confusion that AX-4 and AX-11 exist to refuse: mistaking a generated result record for the hand-authored source it was derived from. A generated record is a function of a basis, so its identity is the hash of that basis, and its authority can never exceed the basis it recomputes from; the moment it is read as source, it is cut loose from that basis, so drift no longer forces a recompute and a hand-edit to the record becomes an orphan with nothing underneath it. It is tempting because a generated record often looks authored, carries a confident verdict, and is the artifact already on disk, so the cheaper move is to cite it or edit it in place rather than fix the source and regenerate. The repair is to keep the kinds apart by construction: source is hand-authored and content-addresses its outputs, a generated record stays below its basis and is rebuilt from it, and a parity check refuses the record whenever it has drifted from the source it claims to project.",
+      "formal": {
+        "latex": "\\mathrm{generated}(r) \\;\\wedge\\; r = f(B) \\;\\wedge\\; \\big(\\mathrm{treat\\_as\\_source}(r) \\;\\vee\\; \\mathrm{id}(r) \\neq H(B)\\big) \\;\\Rightarrow\\; \\mathsf{reject}",
+        "reads": "If a generated record r is a function of a basis B, then treating r as hand-authored source, or letting its identity come apart from the hash of that basis, is rejected.",
+        "symbols": [
+          {
+            "sym": "r",
+            "meaning": "a generated result record"
+          },
+          {
+            "sym": "f(B)",
+            "meaning": "the derivation that produces r from a basis B"
+          },
+          {
+            "sym": "H(B)",
+            "meaning": "the content-addressed identity of that basis"
+          },
+          {
+            "sym": "\\mathrm{id}(r)",
+            "meaning": "the identity the record is bound to"
+          },
+          {
+            "sym": "\\mathsf{reject}",
+            "meaning": "the refusal the anti-principle requires"
+          }
+        ]
+      },
+      "governs": "The boundary between a generated record and the hand-authored source it derives from.",
+      "requires": "Keeping a generated record bound to its basis by hash and rebuilt from source, so it is recomputed rather than edited or cited as origin.",
+      "refuses": "Treating a generated result record as hand-authored source.",
+      "example": {
+        "text": "The source-import protocol brings non-secret material in by manifest and content digest, so each imported copy stays bound to the original it was derived from and a basis change forces a recompute rather than letting the copy stand in as source.",
+        "refs": [
+          "macro_projection_import_protocol"
+        ]
+      },
+      "counterexample": {
+        "text": "A generated result record is edited directly and then cited as the origin for a verdict, while the source it was built from is left behind and no longer matches it."
+      },
+      "enforced_in": [
+        "macro_projection_import_protocol",
+        "durable_agent_work_landing_replay",
+        "standards_meta_diagnostics"
+      ],
+      "does_not_prove": "Keeping generated records bound to their basis does not make either the record or the source correct, and this example illustrates the rule without supporting it. Refusing the inversion only preserves lineage; it does not establish that the basis it points back to is itself true or complete."
+    },
+    {
+      "id": "AP-14",
+      "kind": "anti_principle",
+      "one_line": "Letting public documentation imply hosted release, provider-call authority, source mutation, financial advice, product readiness, affiliation, or whole private-system release the system never actually holds.",
+      "deep": "AP-14 is the inflation the release floor exists to refuse: a public page quietly granting itself a release-grade authority it cannot back. The danger is that all seven implied authorities (a hosted service, the right to call a provider, permission to mutate the source, financial advice, product readiness, a claimed affiliation, or release of the whole private system) are stated for free in prose, while the thing that would actually hold each one is absent. It bites across three floors at once: AX-5, because an in-scope claim with no admissible witness must fail closed rather than read as granted; AX-8, because a release-grade implication is private-adjacent material that may reach a public sink only through a declared transform, not by being asserted at the page; and AX-12, because the system's own copy is held to the same evidence floor it imposes on any other work. The repair is to state only the authority a witness backs, and to demote the public claim to its bounded scope the moment the witness is missing.",
+      "formal": {
+        "latex": "\\mathrm{implies}(d, \\alpha) \\;\\wedge\\; \\alpha \\in \\Lambda \\;\\wedge\\; \\neg\\,\\exists\\, w.\\ \\mathrm{witness}(w, \\alpha) \\;\\Rightarrow\\; \\mathsf{reject}(d)",
+        "reads": "If a public document implies one of the seven release-grade authorities while no admissible witness actually holds that authority, the document is rejected.",
+        "symbols": [
+          {
+            "sym": "d",
+            "meaning": "a public document or page"
+          },
+          {
+            "sym": "\\alpha",
+            "meaning": "an implied release-grade authority"
+          },
+          {
+            "sym": "\\Lambda",
+            "meaning": "the seven forbidden authorities: hosting, provider call, source mutation, advice, readiness, affiliation, whole-system release"
+          },
+          {
+            "sym": "\\mathrm{witness}(w, \\alpha)",
+            "meaning": "an admissible witness that actually holds the authority"
+          }
+        ]
+      },
+      "governs": "The boundary between what a public page implies and what authority the system actually holds.",
+      "requires": "Stating only the authority an admissible witness backs, and demoting the public claim to its bounded scope when the witness is absent.",
+      "refuses": "Letting public copy imply hosted release, provider-call authority, source mutation, financial advice, product readiness, affiliation, or whole private-system release that nothing holds.",
+      "example": {
+        "text": "The release wording gate scans the system's own public copy for release-grade language and blocks a line that would imply hosting, readiness, or whole-system release the system does not hold, so the claim is demoted to its bounded scope rather than published.",
+        "refs": [
+          "batch12_release_claim_language_gate"
+        ]
+      },
+      "counterexample": {
+        "text": "A landing page reads as a ready, hosted product backed by an affiliated provider, when the system is a public reconstruction that hosts nothing, calls no provider, and makes no claim of affiliation."
+      },
+      "enforced_in": [
+        "batch12_release_claim_language_gate",
+        "public_reveal_walkthrough",
+        "cold_reader_route_map"
+      ],
+      "does_not_prove": "Blocking inflated release language does not establish that any specific authority is in fact held; it only refuses the unbacked implication. The example is reader illustration and never counts as support that the system is hosted, released, affiliated, or product-ready."
+    },
+    {
+      "id": "AP-15",
+      "kind": "anti_principle",
+      "one_line": "Borrowing field vocabulary like proof, verifier, or world model when the public mechanism only validates the shape of a record.",
+      "deep": "AP-15 is the overclaim the system polices in its own packaging. It is mechanism theater: using heavy field words, proof, verifier, information flow, world model, benchmark integrity, when the public mechanism behind them only checks that a record has the right shape. It is tempting because the vocabulary impresses, and the gap between \"checks a schema\" and \"proves a property\" is invisible to a casual reader. The repair is to name what the mechanism actually computes, hold the claim to that, and reserve the strong words for the few places that earn them, such as a real verifier run.",
+      "formal": {
+        "latex": "\\mathrm{name} \\in \\{\\mathrm{proof}, \\mathrm{verifier}, \\ldots\\} \\;\\wedge\\; \\mathrm{checks}(\\mathrm{shape}) \\;\\wedge\\; \\neg\\,\\mathrm{checks}(\\mathrm{claim})",
+        "reads": "Using a strong field name while the mechanism checks only the shape of a record and not the claim that name implies.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{name}",
+            "meaning": "the borrowed field word"
+          },
+          {
+            "sym": "\\mathrm{shape}",
+            "meaning": "the form of a record, which the mechanism does check"
+          },
+          {
+            "sym": "\\mathrm{claim}",
+            "meaning": "the property the word implies, which it does not"
+          }
+        ]
+      },
+      "governs": "The boundary between what a mechanism is named and what it actually decides.",
+      "requires": "Naming the real computation and holding the claim to it, with strong words reserved for mechanisms that earn them.",
+      "refuses": "Dressing a shape check in proof, verifier, or world-model language.",
+      "example": {
+        "text": "The Lean witness compiles a tiny public example through a real verifier and caps its own claim at that bounded scope, rather than calling a schema check a proof.",
+        "refs": [
+          "formal_math_lean_proof_witness"
+        ]
+      },
+      "counterexample": {
+        "text": "A record-shape linter is described as a \"world-model verifier\", implying it reasons about the world when it only validates a fixture's fields."
+      },
+      "enforced_in": [
+        "formal_math_lean_proof_witness",
+        "certificate_kernel_execution_lab"
+      ],
+      "does_not_prove": "Refusing mechanism theater does not upgrade the mechanism. It keeps the words honest; the underlying check is still only as strong as what it computes."
+    },
+    {
+      "id": "AP-16",
+      "kind": "anti_principle",
+      "one_line": "Displaying a declared, inferred, or generated downstream target as an observed runtime effect, with nothing witnessing that the effect actually reached the receiver.",
+      "deep": "AP-16 is the failure AX-8 exists to refuse, applied to effects rather than labels: presenting the intended receiver of an action as if it were the witnessed result. A pipeline declares that a value reached a sink, that a write landed in memory, or that a route was taken, and the page renders that declared target as an observed runtime effect, when nothing carried the effect relation across the steps between source and receiver. It is tempting because the downstream target is usually known in advance, so showing it costs nothing and almost always looks right, while the gap between an intended reach and a witnessed one is invisible to a reader. The repair is the same shape AX-8 imposes on provenance: the effect relation has to be carried and observed at the receiver, not asserted from the sending side, and absent that witness the honest display is a declared target marked as unobserved, held below the strength a real observation would carry.",
+      "formal": {
+        "latex": "\\mathrm{shows}(\\mathrm{effect}(s, r)) \\;\\wedge\\; \\neg\\,\\exists\\, w.\\ \\mathrm{witness}(w, s \\to r)",
+        "reads": "Displaying an effect of a source s on a downstream receiver r as observed, while no witness establishes the effect relation from s to r.",
+        "symbols": [
+          {
+            "sym": "s",
+            "meaning": "the source asserting it had a downstream effect"
+          },
+          {
+            "sym": "r",
+            "meaning": "the receiver: the declared, inferred, or generated downstream target"
+          },
+          {
+            "sym": "\\mathrm{effect}(s, r)",
+            "meaning": "the claim that s actually reached or changed r at runtime"
+          },
+          {
+            "sym": "w",
+            "meaning": "a witness of the effect relation, traced across the steps from s to r"
+          },
+          {
+            "sym": "s \\to r",
+            "meaning": "the effect relation, the flow from source to receiver that must be observed"
+          }
+        ]
+      },
+      "governs": "The receiver boundary, where an intended or generated downstream target is tempted to display as a witnessed runtime effect.",
+      "requires": "Catching the inflation: a witness of the effect relation observed at the receiver, or the target shown as declared and unobserved rather than as an effect.",
+      "refuses": "Rendering a declared, inferred, or generated downstream target as an observed effect with no evidence that the effect relation held.",
+      "example": {
+        "text": "The work-landing replay confirms an agent action actually persisted at its destination before showing it as landed, so a declared target cannot display as a completed effect by intention alone.",
+        "refs": [
+          "durable_agent_work_landing_replay"
+        ]
+      },
+      "counterexample": {
+        "text": "A status surface shows a memory write as applied at the receiver because the sending step was issued, with nothing observing that the write actually landed there."
+      },
+      "enforced_in": [
+        "durable_agent_work_landing_replay",
+        "agent_route_observability_runtime"
+      ],
+      "does_not_prove": "Catching one inflated receiver display is a floor under AX-8 and AX-12, not a positive proof that any effect was achieved. Observing the relation at named receivers does not establish that every declared effect downstream held; the unobserved targets stay marked, not blessed."
+    },
+    {
+      "id": "AP-17",
+      "kind": "anti_principle",
+      "one_line": "Letting a generated page, card, or summary override the executable contract it was supposed to summarise.",
+      "deep": "AP-17 is the inversion P-15 exists to prevent: a projection quietly becoming the authority. It happens when a markdown page, a generated card, an atlas row, or a compact summary is cited as the source of truth, overriding the executable contract it was generated from. It is tempting because the projection is the readable thing, so people reach for it, and over time the source it came from is forgotten. The repair is to keep the projection below its source by construction: recompute from the contract, and demote the projection the moment its basis drifts.",
+      "formal": {
+        "latex": "\\mathrm{auth}(\\mathrm{proj}) \\sqsupset \\mathrm{auth}(\\mathrm{src}) \\;\\Rightarrow\\; \\mathsf{reject}",
+        "reads": "If a projection's authority would exceed its source's, reject it: a generated view can expose source authority but never raise it.",
+        "symbols": [
+          {
+            "sym": "\\mathrm{proj}",
+            "meaning": "a generated page, card, or summary"
+          },
+          {
+            "sym": "\\mathrm{src}",
+            "meaning": "the executable contract it summarises"
+          },
+          {
+            "sym": "\\sqsupset",
+            "meaning": "claims more authority than"
+          }
+        ]
+      },
+      "governs": "The source-and-projection boundary, where a summary is tempted to outrank its origin.",
+      "requires": "Recomputing the projection from its contract and demoting it when its basis drifts.",
+      "refuses": "Treating a markdown page, generated card, or compact summary as the source it merely describes.",
+      "example": {
+        "text": "The doctrine projection builder regenerates the readable instances from the routing and markdown sources and checks parity, so the generated copy can never become the authority.",
+        "refs": [
+          "world_model_projection_drift_control_room"
+        ]
+      },
+      "counterexample": {
+        "text": "An edit is made to a generated reference page and treated as canonical, while the contract it was built from is left behind and contradicts it."
+      },
+      "enforced_in": [
+        "world_model_projection_drift_control_room",
+        "macro_projection_import_protocol"
+      ],
+      "does_not_prove": "Refusing projection-as-source does not validate the source. It only keeps authority pointed at the executable contract rather than its readable shadow."
+    }
+  ]
+}
